@@ -7,7 +7,7 @@ Het (Marvel-) prototype kan [hier](https://marvelapp.com/prototype/69ch17i) teru
 De opdrachten die de tester moet uitvoeren zijn:
 
 1. Voeg 'Peer evaluatie 1' toe als taak voor het vak Software Engineering Lab 1.
-2. Start een studiesessie die 3u30 duurt.
+2. Start een studeersessie voor de taak die je net toegevoegd hebt die 3u30 duurt.
 3. Zoek op wanneer je gemiddeld het meeste studeert.
 4. Geef een like op de post van Lukas Barragan Torres in de feed.
 5. Maak een nieuwe studeersessie aan op donderdag 13 april om 3u30. Nodig Tibo de Peuter uit voor deze sessie.
