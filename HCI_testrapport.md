@@ -15,7 +15,9 @@ De opdrachten die de tester moet uitvoeren zijn:
 
 Vragen die we graag nog aan onze testers zouden stellen: 
 
-- [ ] ...
+- [ ] Wat vind je van de keuze voor de naam van de app?
+- [ ] Is er functionaliteit die volgens jou overbodig is?
+- [ ] Is er functionaliteit die je van dit soort app zou verwachten, maar die ontbreekt?
 
 ## Resultaten
 
