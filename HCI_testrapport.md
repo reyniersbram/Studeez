@@ -22,4 +22,38 @@ Vragen die we graag nog aan onze testers zouden stellen:
 
 ## Resultaten
 
+### Test 1:
+
+- Statistieken moeilijk te vinden
+- Verwarring door grote knop die veranderd
+- Genoeg, en geen overbodige functionaliteit 👍
+
+### Test 2:
+
+- Statistieken moeilijk te vinden
+- Verwarring grote knop, menuutje dat opent zou beter zijn
+- Genoeg, en geen overbodige functionaliteit 👍
+
+
+### Test 3:
+- Geen datums in sessie
+- Statistieken moeilijk te vinden
+- Verwarring grote knop
+
+### Test 4:
+
+- *Subject* hernoemen naar *Tasks*
+- Grote knop eventueel menuutje
+
+### Test Prof.:
+- Knop om nieuw account te maken ontbreekt
+- Statistieken als home-screen
+- Geen consistentie voor grote knop
+- Geen checkboxes voor vakken
+- Progressbar voor vak
+- Layout statistieken niet zo goed
+- Ranking toevoegen
+- Andere manier van feedback, likes zijn heel mainstreamm
+- Eventueel optie om muziek te luisteren tijdens studeren
+
 ## Conclusies
