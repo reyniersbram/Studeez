@@ -58,3 +58,23 @@ Vragen die we graag nog aan onze testers zouden stellen:
 - Sessions scherm en lijst van vakken/taken vrij saai
 
 ## Conclusies
+
+- Functionaliteit die we aanbieden is zeker voldoende. Hier moet niks aan veranderd worden. Gewooon design wat herzien.
+- Home screen herwerken, hier ook statistieken in zetten.
+- Grote plus-knop een menuutje laten tonen om verschillende dingen toe te voegen.
+
+### Home Screen
+
+> zelf eerst wat brainstormen
+
+### Sessions
+
+Per session een kaartje met naam en tijdstip. Voor meer details en bewerken er op klikken.
+
+### Login
+
+*Sign Up* button.
+
+### Subjects/Tasks
+
+Checkbox bij vakken weg.
