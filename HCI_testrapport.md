@@ -55,5 +55,6 @@ Vragen die we graag nog aan onze testers zouden stellen:
 - Ranking toevoegen
 - Andere manier van feedback, likes zijn heel mainstreamm
 - Eventueel optie om muziek te luisteren tijdens studeren
+- Sessions scherm en lijst van vakken/taken vrij saai
 
 ## Conclusies
