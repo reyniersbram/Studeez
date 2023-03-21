@@ -69,6 +69,11 @@ Vragen die we graag nog aan onze testers zouden stellen:
 
 ### Sessions
 
+
+### Friends
+
+Inbox tray naast de zoek knop in de friends tab (gebruikt om inkomende vriendschapsverzoeken te accepteren of af te wijzen)
+
 Per session een kaartje met naam en tijdstip. Voor meer details en bewerken er op klikken.
 
 ### Login
