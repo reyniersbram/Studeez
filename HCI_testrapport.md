@@ -83,7 +83,7 @@ Checkbox bij vakken weg.
 
 ## Resutaten Ronde 2
 
-Op basis van de feedback van ronde 1, werden de nodige aanpassingen doorgevoerd, met als resultaat een [prototype-v2, deze keer ontworpen in Adobe XD](https://xd.adobe.com/view/62db77ec-b7a3-4650-9da1-7b56c3d8cdfc-3788/).
+Op basis van de feedback van ronde 1, werden de nodige aanpassingen doorgevoerd, met als resultaat een [prototype v2, deze keer ontworpen in Adobe XD](https://xd.adobe.com/view/62db77ec-b7a3-4650-9da1-7b56c3d8cdfc-3788/).
 
 ### Test 1
 
@@ -109,3 +109,7 @@ die duidelijk werden tijdens deze twee tests:
 Enkele vragen kwamen naar boven:
 
 - Is het mogelijk om tijdens een studiesessie met vrienden afzonderlijk jullie eigen timers te gebruiken? Of wordt dit centraal geregeld, of is dit zonder timer?
+
+### Conclusie
+
+Momtenteel is de finale versie van het prototype [v3](https://xd.adobe.com/view/26ef6bad-2cfd-478f-944c-142a82bf8da9-73bc/)
