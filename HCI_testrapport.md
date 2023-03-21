@@ -78,3 +78,34 @@ Per session een kaartje met naam en tijdstip. Voor meer details en bewerken er o
 ### Subjects/Tasks
 
 Checkbox bij vakken weg.
+
+---
+
+## Resutaten Ronde 2
+
+Op basis van de feedback van ronde 1, werden de nodige aanpassingen doorgevoerd, met als resultaat een [prototype-v2, deze keer ontworpen in Adobe XD](https://xd.adobe.com/view/62db77ec-b7a3-4650-9da1-7b56c3d8cdfc-3788/).
+
+### Test 1
+
+- De inbox voor uitnodigingen is onduidelijk en verborgen, het icoon spreekt niet voor zich.
+
+### Test 2
+
+- Statistieken knop in klein voorbeeldkaartje is niet duidelijk dat het zou doorklikken, het lijkt eerder op een titel van dat kaartje.
+- De mogelijkheid om zonder een timer te studeren ontbreekt.
+- De mogelijkheid om een sessie te pauzeren ontbreekt.
+
+### Verdere aanpassingen
+
+die duidelijk werden tijdens deze twee tests: 
+
+- Zoeken in vrienden zoekt enkel in bestaande vrienden of ook naar mensen waar je nog niet mee bevriend bent?
+- Profiel dat niet van jezelf is onbtreekt.
+- View voor een sessie die bezig is, met een aantal vrienden, ontbreekt.
+- 42 minuten (klein foutje in prototype - dit heeft niets te maken met functionaliteit) moet nog weggehaald worden.
+- Idle = online?
+- Mogelijkheid om een taak/vak/sessie te verwijderen ontbreekt.
+
+Enkele vragen kwamen naar boven:
+
+- Is het mogelijk om tijdens een studiesessie met vrienden afzonderlijk jullie eigen timers te gebruiken? Of wordt dit centraal geregeld, of is dit zonder timer?
