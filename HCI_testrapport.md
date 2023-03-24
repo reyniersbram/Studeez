@@ -72,7 +72,7 @@ Onze bedenkingen hierbij:
 - **Login**: *Sign Up* button ontbreekt.
 - **Subjects/Tasks**: Checkbox bij vakken moet weggewerkt worden en vervangen worden door bijvoorbeeld een gekleurd bolletje.
 
-**Geupdated [prototype (v2), deze keer ontworpen in Adobe XD](https://xd.adobe.com/view/62db77ec-b7a3-4650-9da1-7b56c3d8cdfc-3788/)**
+**Geüpdatet [prototype (v2), deze keer ontworpen in Adobe XD](https://xd.adobe.com/view/62db77ec-b7a3-4650-9da1-7b56c3d8cdfc-3788/)**
 
 ## Resultaten Ronde 2
 
@@ -105,7 +105,7 @@ Enkele vragen kwamen naar boven bij het team:
 
 **A:** Iedere gebruiker kiest zelf zijn eigen timer tijdens een sessie.
 
-**Geupdated [prototype v3](https://xd.adobe.com/view/26ef6bad-2cfd-478f-944c-142a82bf8da9-73bc/)**
+**Geüpdatet [prototype v3](https://xd.adobe.com/view/26ef6bad-2cfd-478f-944c-142a82bf8da9-73bc/)**
 
 ## Verdere aanpassingen
 
