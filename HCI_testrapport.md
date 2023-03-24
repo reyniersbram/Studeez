@@ -74,7 +74,7 @@ Onze bedenkingen hierbij:
 
 **Geupdated [prototype (v2), deze keer ontworpen in Adobe XD](https://xd.adobe.com/view/62db77ec-b7a3-4650-9da1-7b56c3d8cdfc-3788/)**
 
-## Resutalten Ronde 2
+## Resultaten Ronde 2
 
 Naar aanleiding van de aanpassingen in prototype v2 werd de test opnieuw uitgevoerd. Met veel dank aan alle ouders in de wereld.
 
