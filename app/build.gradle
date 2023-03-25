@@ -5,6 +5,9 @@ plugins {
     // Hilt
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+
+    // Protobuf
+    id 'com.google.protobuf' version '0.8.17'
 }
 
 android {
@@ -71,9 +74,32 @@ dependencies {
     // Hilt
     implementation 'com.google.dagger:hilt-android:2.44'
     kapt 'com.google.dagger:hilt-compiler:2.44'
+
+    // Proto DataStore
+    implementation 'androidx.datastore:datastore:1.0.0'
+    implementation 'com.google.protobuf:protobuf-javalite:3.18.0'
 }
 
 // Allow references to generate code
 kapt {
     correctErrorTypes true
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.21.7'
+    }
+
+    // Generates the java Protobuf-lite code for the Protobufs in this project. See
+    // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
+    // for more information
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
+    }
 }
