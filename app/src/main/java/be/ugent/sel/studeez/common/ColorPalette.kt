@@ -1,6 +1,8 @@
 package be.ugent.sel.studeez.common
 
 import androidx.compose.material.Colors
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.graphics.ColorUtils
@@ -10,6 +12,7 @@ import androidx.core.graphics.ColorUtils
 // Use colours by calling (for example)
 // ColorPalette.HIGH_EMPHASIS.onPrimary
 
+// TODO Delete this class as we are now using ui.theme.Theme
 class ColorPalette {
     companion object {
         // Use High emphasis colours if the thing is important.
