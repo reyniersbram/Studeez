@@ -6,6 +6,10 @@ buildscript {
         espressoVersion = '3.4.0'
         kotlinVersion = '1.6.10'
     }
+
+    dependencies {
+        classpath 'com.google.gms:google-services:4.3.15'
+    }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id 'com.android.application' version '7.4.2' apply false
@@ -15,3 +19,4 @@ plugins {
     // Hilt
     id 'com.google.dagger.hilt.android' version '2.44' apply false
 }
+

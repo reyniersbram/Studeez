@@ -8,6 +8,9 @@ plugins {
 
     // Protobuf
     id 'com.google.protobuf' version '0.8.17'
+
+    // Firebase
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -108,13 +111,13 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     //Firebase
-//    implementation platform('com.google.firebase:firebase-bom:30.4.1')
-//    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-//    implementation 'com.google.firebase:firebase-analytics-ktx'
-//    implementation 'com.google.firebase:firebase-auth-ktx'
-//    implementation 'com.google.firebase:firebase-firestore-ktx'
-//    implementation 'com.google.firebase:firebase-perf-ktx'
-//    implementation 'com.google.firebase:firebase-config-ktx'
+    implementation platform('com.google.firebase:firebase-bom:31.3.0')
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-perf-ktx'
+    implementation 'com.google.firebase:firebase-config-ktx'
 
 }
 
