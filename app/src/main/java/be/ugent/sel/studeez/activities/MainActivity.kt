@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez
+package be.ugent.sel.studeez.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
