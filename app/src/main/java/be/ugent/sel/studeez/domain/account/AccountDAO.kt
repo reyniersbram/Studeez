@@ -19,7 +19,7 @@ package be.ugent.sel.studeez.domain.account
 import be.ugent.sel.studeez.data.local.models.User
 import kotlinx.coroutines.flow.Flow
 
-interface AccountService {
+interface AccountDAO {
     val currentUserId: String
     val hasUser: Boolean
 
