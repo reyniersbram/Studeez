@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "692936961909",
-    "project_id": "studeez-1cff2",
-    "storage_bucket": "studeez-1cff2.appspot.com"
+    "project_number": "604222599611",
+    "project_id": "studeez-5f8d1",
+    "storage_bucket": "studeez-5f8d1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:692936961909:android:28a567b1634fc3bdf3ed3c",
+        "mobilesdk_app_id": "1:604222599611:android:1e6fe76fce9862b610949e",
         "android_client_info": {
           "package_name": "be.ugent.sel.studeez"
         }
       },
       "oauth_client": [
         {
-          "client_id": "692936961909-vdbv9g03mt55uqes4prtbipr6vg8b48j.apps.googleusercontent.com",
+          "client_id": "604222599611-1s7ojfmep7u0kohismntl9a5vffflgjd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCbbg5F_rTrnwUHLDgCWSx4KCECozkvgVE"
+          "current_key": "AIzaSyAzSB7P73KPOXFw2kjA1Hm0_mOwxVS5xhE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "692936961909-vdbv9g03mt55uqes4prtbipr6vg8b48j.apps.googleusercontent.com",
+              "client_id": "604222599611-1s7ojfmep7u0kohismntl9a5vffflgjd.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
