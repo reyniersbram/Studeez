@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- This is the color of the statusBar (the bar with the clock and the notifications),
+        which we cannot set using Jetpack Compose -->
     <style name="Theme.Studeez" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:statusBarColor">@color/blue_120</item>
     </style>
 </resources>
