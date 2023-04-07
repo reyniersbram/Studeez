@@ -14,9 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-package be.ugent.sel.studeez.domain.account
+package be.ugent.sel.studeez.domain.implementation
 
 import be.ugent.sel.studeez.data.local.models.User
+import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.trace
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
