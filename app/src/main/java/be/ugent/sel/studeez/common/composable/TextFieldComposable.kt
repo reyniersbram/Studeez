@@ -36,7 +36,11 @@ fun BasicField(
 }
 
 @Composable
-fun EmailField(value: String, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
+fun EmailField(
+    value: String,
+    onNewValue: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     OutlinedTextField(
         singleLine = true,
         modifier = modifier,
@@ -48,7 +52,11 @@ fun EmailField(value: String, onNewValue: (String) -> Unit, modifier: Modifier =
 }
 
 @Composable
-fun PasswordField(value: String, onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
+fun PasswordField(
+    value: String,
+    onNewValue: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     PasswordField(value, AppText.password, onNewValue, modifier)
 }
 
