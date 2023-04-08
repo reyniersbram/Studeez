@@ -47,7 +47,7 @@ class FirebaseAccountDAO @Inject constructor(
             awaitClose { auth.removeAuthStateListener(listener) }
         }
 
-    override suspend fun authenticate(email: String, password: String) {
+    override suspend fun signInWithEmailAndPassword(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).await()
     }
 
@@ -55,31 +55,15 @@ class FirebaseAccountDAO @Inject constructor(
         auth.sendPasswordResetEmail(email).await()
     }
 
-    override suspend fun createAnonymousAccount() {
-        auth.signInAnonymously().await()
+    override suspend fun signUpWithEmailAndPassword(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password).await()
     }
-
-    override suspend fun linkAccount(email: String, password: String): Unit =
-        trace(LINK_ACCOUNT_TRACE) {
-            val credential = EmailAuthProvider.getCredential(email, password)
-            auth.currentUser!!.linkWithCredential(credential).await()
-        }
 
     override suspend fun deleteAccount() {
         auth.currentUser!!.delete().await()
     }
 
     override suspend fun signOut() {
-        if (auth.currentUser!!.isAnonymous) {
-            auth.currentUser!!.delete()
-        }
         auth.signOut()
-
-        // Sign the user back in anonymously.
-        createAnonymousAccount()
-    }
-
-    companion object {
-        private const val LINK_ACCOUNT_TRACE = "linkAccount"
     }
 }
