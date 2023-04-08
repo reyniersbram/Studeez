@@ -25,12 +25,7 @@ fun BasicButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit) {
 @Composable
 fun DialogConfirmButton(@StringRes text: Int, action: () -> Unit) {
     Button(
-        onClick = action,
-        colors =
-        ButtonDefaults.buttonColors(
-            backgroundColor = MaterialTheme.colors.primary,
-            contentColor = MaterialTheme.colors.onPrimary
-        )
+        onClick = action
     ) {
         Text(text = stringResource(text))
     }
