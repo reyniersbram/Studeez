@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class DatabaseModule {
-    @Binds abstract fun provideAccountService(impl: FirebaseAccountDAO): AccountDAO
+    @Binds abstract fun provideAccountDAO(impl: FirebaseAccountDAO): AccountDAO
 
     @Binds abstract fun provideLogService(impl: LogServiceImpl): LogService
 
