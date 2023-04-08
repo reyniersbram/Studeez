@@ -3,6 +3,7 @@ package be.ugent.sel.studeez.screens.splash
 import androidx.compose.runtime.mutableStateOf
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
+import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,9 +19,10 @@ class SplashViewModel @Inject constructor(
 
         showError.value = false
         if (accountDAO.hasUser) {
-            // openAndPopUp( <homeScreen>, SPLASH_SCREEN)
+            // TODO this should go to the home page
+            openAndPopUp(StudeezDestinations.SIGN_UP_SCREEN, StudeezDestinations.SPLASH_SCREEN)
         } else{
-            // openAndPopUp(<login>, SPLASH_SCREEN)
+            openAndPopUp(StudeezDestinations.SIGN_UP_SCREEN, StudeezDestinations.SPLASH_SCREEN)
         }
     }
 }
