@@ -82,4 +82,8 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     composable(StudeezDestinations.LOGIN_SCREEN) {
         LoginScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
     }
+
+    composable(StudeezDestinations.SIGN_UP_SCREEN) {
+        SignUpScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
+    }
 }
