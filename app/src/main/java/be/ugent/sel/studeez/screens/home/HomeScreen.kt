@@ -17,6 +17,7 @@ fun HomeScreen(
 ) {
 
     PrimaryScreenToolbar(title = resources().getString(R.string.home)) {
+        // "Start session" button
         BasicButton(R.string.start_session, Modifier.basicButton()) {
             viewModel.onStartSessionClick(openAndPopUp)
         }
