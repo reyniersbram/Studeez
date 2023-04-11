@@ -41,7 +41,7 @@ fun PrimaryScreenToolbar(
 // Does not contain floatingActionButton and bottom bar, used in all the other screens
 fun SecondaryScreenToolbar(
     title: String,
-    content: (PaddingValues) -> Unit
+    content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
         // Everything at the top of the screen
