@@ -1,6 +1,7 @@
 package be.ugent.sel.studeez
 
 import android.content.res.Resources
+import androidx.compose.material.DrawerState
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Stable
 import androidx.navigation.NavHostController
@@ -13,11 +14,14 @@ import kotlinx.coroutines.launch
 @Stable
 class StudeezAppstate(
     val scaffoldState: ScaffoldState,
+    val drawerState: DrawerState,
     val navController: NavHostController,
     private val snackbarManager: SnackbarManager,
     private val resources: Resources,
     coroutineScope: CoroutineScope
 ) {
+    val coroutineScope: CoroutineScope = coroutineScope
+
     init {
         coroutineScope.launch {
             snackbarManager.snackbarMessages.filterNotNull().collect { snackbarMessage ->
@@ -47,5 +51,9 @@ class StudeezAppstate(
             launchSingleTop = true
             popUpTo(0) { inclusive = true }
         }
+    }
+
+    fun openDrawer() {
+        coroutineScope.launch { drawerState.open() }
     }
 }

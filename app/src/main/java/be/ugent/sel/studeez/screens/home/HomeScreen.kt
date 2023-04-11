@@ -6,18 +6,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.PrimaryScreenToolbar
-import be.ugent.sel.studeez.common.composable.SecondaryScreenToolbar
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.resources
 
 @Composable
 fun HomeScreen(
     openAndPopUp: (String, String) -> Unit,
+    openDrawer: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
-    PrimaryScreenToolbar(title = resources().getString(R.string.home)) {
-        // "Start session" button
+    PrimaryScreenToolbar(
+        title = resources().getString(R.string.home),
+        openDrawer = { openDrawer() }
+    ) {
         BasicButton(R.string.start_session, Modifier.basicButton()) {
             viewModel.onStartSessionClick(openAndPopUp)
         }

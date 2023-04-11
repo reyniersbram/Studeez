@@ -3,6 +3,7 @@ package be.ugent.sel.studeez.common.composable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -14,6 +15,7 @@ import be.ugent.sel.studeez.ui.theme.StudeezTheme
 // Contains floatingActionButton and bottom bar, used in the main four screens.
 fun PrimaryScreenToolbar(
     title: String,
+    openDrawer: () -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
@@ -21,7 +23,7 @@ fun PrimaryScreenToolbar(
         topBar = { TopAppBar(
             title = { Text(text = title) },
             navigationIcon = {
-                IconButton(onClick = { /* TODO open sidemenu */ }) {
+                IconButton(onClick = { openDrawer() }) {
                     Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
                 }
             }
@@ -48,8 +50,8 @@ fun SecondaryScreenToolbar(
         topBar = { TopAppBar(
             title = { Text(text = title) },
             navigationIcon = {
-                IconButton(onClick = { /* TODO open sidemenu */ }) {
-                    Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+                IconButton(onClick = { /* TODO Go back */ }) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Go back")
                 }
             }
         ) },
@@ -64,14 +66,13 @@ fun PrimaryScreenToolbarPreview() {
     StudeezTheme { PrimaryScreenToolbar(
         "Preview screen",
         {}
-    ) }
+    ) {} }
 }
 
 @Preview
 @Composable
 fun SecondaryScreenToolbarPreview() {
     StudeezTheme { SecondaryScreenToolbar(
-        "Preview screen",
-        {}
-    )}
+        "Preview screen"
+    ) {} }
 }

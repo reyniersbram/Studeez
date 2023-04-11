@@ -16,6 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import be.ugent.sel.studeez.common.composable.Drawer
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.home.HomeScreen
@@ -31,24 +32,29 @@ fun StudeezApp() {
         Surface(color = MaterialTheme.colors.background) {
             val appState = rememberAppState()
 
-            Scaffold(
-                snackbarHost = {
-                    SnackbarHost(
-                        hostState = it,
-                        modifier = Modifier.padding(8.dp),
-                        snackbar = { snackbarData ->
-                            Snackbar(snackbarData, contentColor = MaterialTheme.colors.onPrimary)
-                        }
-                    )
-                },
-                scaffoldState = appState.scaffoldState
-            ) { innerPaddingModifier ->
-                NavHost(
-                    navController = appState.navController,
-                    startDestination = StudeezDestinations.SPLASH_SCREEN,
-                    modifier = Modifier.padding(innerPaddingModifier)
-                ) {
-                    studeezGraph(appState)
+            ModalDrawer(
+                drawerContent = { Drawer() },
+                drawerState = appState.drawerState
+            ) {
+                Scaffold(
+                    snackbarHost = {
+                        SnackbarHost(
+                            hostState = it,
+                            modifier = Modifier.padding(8.dp),
+                            snackbar = { snackbarData ->
+                                Snackbar(snackbarData, contentColor = MaterialTheme.colors.onPrimary)
+                            }
+                        )
+                    },
+                    scaffoldState = appState.scaffoldState
+                ) { innerPaddingModifier ->
+                    NavHost(
+                        navController = appState.navController,
+                        startDestination = StudeezDestinations.SPLASH_SCREEN,
+                        modifier = Modifier.padding(innerPaddingModifier)
+                    ) {
+                        studeezGraph(appState)
+                    }
                 }
             }
         }
@@ -58,13 +64,14 @@ fun StudeezApp() {
 @Composable
 fun rememberAppState(
     scaffoldState: ScaffoldState = rememberScaffoldState(),
+    drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
     navController: NavHostController = rememberNavController(),
     snackbarManager: SnackbarManager = SnackbarManager,
     resources: Resources = resources(),
     coroutineScope: CoroutineScope = rememberCoroutineScope()
 ) =
     remember(scaffoldState, navController, snackbarManager, resources, coroutineScope) {
-        StudeezAppstate(scaffoldState, navController, snackbarManager, resources, coroutineScope)
+        StudeezAppstate(scaffoldState, drawerState, navController, snackbarManager, resources, coroutineScope)
     }
 
 @Composable
@@ -89,6 +96,9 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     }
 
     composable(StudeezDestinations.HOME_SCREEN) {
-        HomeScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
+        HomeScreen(
+            openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) },
+            openDrawer = { appState.openDrawer() }
+        )
     }
 }
