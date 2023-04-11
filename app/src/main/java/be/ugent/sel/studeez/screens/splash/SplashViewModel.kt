@@ -19,8 +19,7 @@ class SplashViewModel @Inject constructor(
 
         showError.value = false
         if (accountDAO.hasUser) {
-            // TODO this should go to the home page
-            openAndPopUp(StudeezDestinations.SIGN_UP_SCREEN, StudeezDestinations.SPLASH_SCREEN)
+            openAndPopUp(StudeezDestinations.HOME_SCREEN, StudeezDestinations.SPLASH_SCREEN)
         } else{
             openAndPopUp(StudeezDestinations.SIGN_UP_SCREEN, StudeezDestinations.SPLASH_SCREEN)
         }
