@@ -14,7 +14,7 @@ import be.ugent.sel.studeez.ui.theme.StudeezTheme
 // Contains floatingActionButton and bottom bar, used in the main four screens.
 fun PrimaryScreenToolbar(
     title: String,
-    content: (PaddingValues) -> Unit
+    content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
         // Everything at the top of the screen

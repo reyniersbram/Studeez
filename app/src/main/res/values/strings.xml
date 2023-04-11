@@ -23,4 +23,8 @@
     <string name="recovery_email_sent">Check your inbox for the recovery email.</string>
     <string name="empty_password_error">Password cannot be empty.</string>
 
+    <!-- HomeScreen -->
+    <string name="home">Home</string>
+    <string name="start_session">Start session</string>
+
 </resources>
