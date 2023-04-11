@@ -27,4 +27,16 @@
     <string name="home">Home</string>
     <string name="start_session">Start session</string>
 
+    <!-- Drawer / SideMenu -->
+    <string name="log_out">Log out</string>
+
+    <!-- Timers -->
+    <string name="timers">Timers</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+
+    <!-- About -->
+    <string name="about">About Studeez</string>
+
 </resources>
