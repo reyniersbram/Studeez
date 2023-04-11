@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.sign_in
+package be.ugent.sel.studeez.screens.log_in
 
 import androidx.compose.runtime.mutableStateOf
 import be.ugent.sel.studeez.common.ext.isValidEmail

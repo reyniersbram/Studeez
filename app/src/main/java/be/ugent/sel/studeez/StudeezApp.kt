@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.home.HomeScreen
-import be.ugent.sel.studeez.screens.sign_in.LoginScreen
+import be.ugent.sel.studeez.screens.log_in.LoginScreen
 import be.ugent.sel.studeez.screens.sign_up.SignUpScreen
 import be.ugent.sel.studeez.screens.splash.SplashScreen
 import be.ugent.sel.studeez.ui.theme.StudeezTheme

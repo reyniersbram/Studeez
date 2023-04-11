@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.sign_in
+package be.ugent.sel.studeez.screens.log_in
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
