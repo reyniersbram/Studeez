@@ -6,6 +6,7 @@ import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.navigation.StudeezDestinations
+import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.LOGIN_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SIGN_UP_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
@@ -47,7 +48,7 @@ class LoginViewModel @Inject constructor(
 
         launchCatching {
             accountDAO.signInWithEmailAndPassword(email, password)
-            openAndPopUp(SIGN_UP_SCREEN, LOGIN_SCREEN) // Is not reached when error occurs.
+            openAndPopUp(HOME_SCREEN, LOGIN_SCREEN) // Is not reached when error occurs.
         }
     }
 
