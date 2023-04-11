@@ -9,6 +9,6 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(logService: LogService) : StudeezViewModel(logService) {
 
     fun onStartSessionClick(openAndPopUp: (String, String) -> Unit) {
-        //openAndPopUp(StudeezDestinations.xxx, StudeezDestinations.HOME_SCREEN)
+        // openAndPopUp(StudeezDestinations.xxx, StudeezDestinations.HOME_SCREEN)
     }
 }
