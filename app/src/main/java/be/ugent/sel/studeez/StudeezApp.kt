@@ -33,7 +33,7 @@ fun StudeezApp() {
             val appState = rememberAppState()
 
             ModalDrawer(
-                drawerContent = { Drawer() },
+                drawerContent = { Drawer({ route, popUp -> appState.navigateAndPopUp(route, popUp) }) },
                 drawerState = appState.drawerState
             ) {
                 Scaffold(

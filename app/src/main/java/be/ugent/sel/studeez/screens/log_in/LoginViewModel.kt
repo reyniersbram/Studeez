@@ -5,7 +5,6 @@ import be.ugent.sel.studeez.common.ext.isValidEmail
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
-import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.LOGIN_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SIGN_UP_SCREEN

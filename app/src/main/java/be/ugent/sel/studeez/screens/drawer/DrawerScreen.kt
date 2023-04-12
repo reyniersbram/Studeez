@@ -14,13 +14,18 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.resources
+import be.ugent.sel.studeez.screens.drawer.DrawerViewModel
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
 
 @Composable
-fun Drawer() {
+fun Drawer(
+    openAndPopup: (String, String) -> Unit,
+    viewModel: DrawerViewModel = hiltViewModel()
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         LoggedInUserCard()
 
@@ -48,7 +53,7 @@ fun Drawer() {
             icon = Icons.Default.AccountBox, // TODO Fix icon
             text = resources().getString(R.string.log_out)
         ) {
-            // TODO Log out
+            viewModel.onLogoutClick(openAndPopup)
         }
 
         DrawerEntry(
@@ -102,7 +107,7 @@ fun LoggedInUserCard() {
 @Composable
 fun DrawerPreview() {
     StudeezTheme {
-        Drawer()
+        Drawer({ a, b -> {}})
     }
 }
 
