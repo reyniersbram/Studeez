@@ -16,7 +16,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import be.ugent.sel.studeez.screens.drawer.Drawer
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.home.HomeScreen
