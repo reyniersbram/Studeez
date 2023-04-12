@@ -29,6 +29,8 @@
 
     <!-- Drawer / SideMenu -->
     <string name="log_out">Log out</string>
+    <string name="profile_picture_description">Profile Picture</string>
+    <string name="user_description">Studeez user</string>
 
     <!-- Timers -->
     <string name="timers">Timers</string>

@@ -1,8 +1,9 @@
 package be.ugent.sel.studeez.common.composable
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -10,8 +11,9 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
@@ -20,11 +22,9 @@ import be.ugent.sel.studeez.ui.theme.StudeezTheme
 @Composable
 fun Drawer() {
     Column(modifier = Modifier.fillMaxSize()) {
+        LoggedInUserCard()
 
-        // TODO Currently logged in user
-        // TODO What kind of user
-
-        // TODO Divider
+        Divider()
 
         DrawerEntry(
             icon = Icons.Default.Home,
@@ -81,10 +81,35 @@ fun DrawerEntry(
     }
 }
 
+@Composable
+fun LoggedInUserCard() {
+    Column() {
+        // TODO Profile picture of current user
+        Image(
+            painter = painterResource(id = R.drawable.ic_launcher_background),
+            contentDescription = stringResource(R.string.profile_picture_description)
+        )
+
+        // TODO Username
+        Text(text = "Username todo")
+
+        // TODO Description of user (normal user or something else?)
+        Text(text = stringResource(id = R.string.user_description))
+    }
+}
+
 @Preview
 @Composable
 fun DrawerPreview() {
     StudeezTheme {
         Drawer()
+    }
+}
+
+@Preview
+@Composable
+fun LoggedInUserCardPreview() {
+    StudeezTheme {
+        LoggedInUserCard()
     }
 }
