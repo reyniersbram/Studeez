@@ -13,6 +13,8 @@ class DrawerViewModel @Inject constructor(
     private val accountDAO: AccountDAO,
     logService: LogService
 ): StudeezViewModel(logService) {
+    val currentUser: String = accountDAO.currentUserId
+
     fun onLogoutClick(openAndPopup: (String, String) -> Unit) {
         launchCatching {
             accountDAO.signOut()

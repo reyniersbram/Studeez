@@ -12,13 +12,12 @@ import be.ugent.sel.studeez.resources
 @Composable
 fun HomeScreen(
     openAndPopUp: (String, String) -> Unit,
-    openDrawer: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
     PrimaryScreenToolbar(
         title = resources().getString(R.string.home),
-        openDrawer = { openDrawer() }
+        openAndPopUp = openAndPopUp
     ) {
         BasicButton(R.string.start_session, Modifier.basicButton()) {
             viewModel.onStartSessionClick(openAndPopUp)

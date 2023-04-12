@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.common.composable
+package be.ugent.sel.studeez.screens.drawer
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -7,17 +7,19 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.resources
-import be.ugent.sel.studeez.screens.drawer.DrawerViewModel
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
 
@@ -27,7 +29,7 @@ fun Drawer(
     viewModel: DrawerViewModel = hiltViewModel()
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        LoggedInUserCard()
+        LoggedInUserCard(viewModel.currentUser)
 
         Divider()
 
@@ -38,7 +40,7 @@ fun Drawer(
             // TODO Go to home
         }
         DrawerEntry(
-            icon = Icons.Default.LocationOn, // TODO Fix icon
+            icon = ImageVector.vectorResource(id = R.drawable.ic_timer),
             text = resources().getString(R.string.timers)
         ) {
             // TODO Go to timers
@@ -50,14 +52,14 @@ fun Drawer(
             // TODO Go to settings
         }
         DrawerEntry(
-            icon = Icons.Default.AccountBox, // TODO Fix icon
+            icon = ImageVector.vectorResource(id = R.drawable.ic_logout),
             text = resources().getString(R.string.log_out)
         ) {
             viewModel.onLogoutClick(openAndPopup)
         }
 
         DrawerEntry(
-            icon = Icons.Default.Info,
+            icon = Icons.Outlined.Info,
             text = resources().getString(R.string.about)
         ) {
             // TODO Go to about
@@ -87,7 +89,9 @@ fun DrawerEntry(
 }
 
 @Composable
-fun LoggedInUserCard() {
+fun LoggedInUserCard(
+    username: String
+) {
     Column() {
         // TODO Profile picture of current user
         Image(
@@ -95,8 +99,7 @@ fun LoggedInUserCard() {
             contentDescription = stringResource(R.string.profile_picture_description)
         )
 
-        // TODO Username
-        Text(text = "Username todo")
+        Text(text = username)
 
         // TODO Description of user (normal user or something else?)
         Text(text = stringResource(id = R.string.user_description))
@@ -115,6 +118,6 @@ fun DrawerPreview() {
 @Composable
 fun LoggedInUserCardPreview() {
     StudeezTheme {
-        LoggedInUserCard()
+        LoggedInUserCard("John Doe")
     }
 }
