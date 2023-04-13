@@ -1,6 +1,7 @@
 <resources>
     <!-- Common -->
     <string name="app_name">Studeez</string>
+    <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="repeat_password">Repeat password</string>
@@ -16,6 +17,7 @@
     <string name="password_error">Your password should have at least six characters and include one digit, one lower case letter and one upper case letter.</string>
     <string name="password_match_error">Passwords do not match.</string>
     <string name="already_user">Already have an account? Log in.</string>
+
 
     <!-- LoginScreen -->
     <string name="not_already_user">Don\'t have an account yet? Sign up.</string>
