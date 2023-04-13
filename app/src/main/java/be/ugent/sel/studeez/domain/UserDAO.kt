@@ -8,7 +8,7 @@ interface UserDAO {
 
     suspend fun save(newUsername: String)
 
-//    suspend fun update(task: Task)
-//    suspend fun delete(taskId: String)
-//    suspend fun deleteAllForUser(userId: String)
+//    suspend fun updateTask(task: Task)
+//    suspend fun deleteTask(taskId: String)
+//    suspend fun deleteAllTasksOfUser(userId: String)
 }
