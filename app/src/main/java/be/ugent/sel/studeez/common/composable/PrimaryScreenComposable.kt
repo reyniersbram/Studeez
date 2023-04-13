@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.templates.primary_screen
+package be.ugent.sel.studeez.common.composable
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.*
@@ -8,17 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
-import be.ugent.sel.studeez.common.composable.CollapsedAddButton
-import be.ugent.sel.studeez.common.composable.Drawer
-import be.ugent.sel.studeez.common.composable.NavigationBar
-import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun PrimaryScreen(
+fun PrimaryScreenTemplate(
     title: String,
     onLogoutClick: () -> Unit,
     content: @Composable (PaddingValues) -> Unit
@@ -62,7 +58,7 @@ fun PrimaryScreen(
 @Composable
 fun PrimaryScreenPreview() {
     StudeezTheme {
-        PrimaryScreen(
+        PrimaryScreenTemplate(
             "Preview screen",
             {}
         ) {}

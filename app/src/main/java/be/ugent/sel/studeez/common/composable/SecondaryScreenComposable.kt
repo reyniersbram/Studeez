@@ -14,7 +14,7 @@ import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
 @Composable
 // Does not contain floatingActionButton and bottom bar, used in all the other screens
-fun SecondaryScreenToolbar(
+fun SecondaryScreenTemplate(
     title: String,
     popUp: () -> Unit,
     content: @Composable (PaddingValues) -> Unit
@@ -40,7 +40,7 @@ fun SecondaryScreenToolbar(
 @Preview
 @Composable
 fun SecondaryScreenToolbarPreview() {
-    StudeezTheme { SecondaryScreenToolbar(
+    StudeezTheme { SecondaryScreenTemplate(
         "Preview screen",
         {}
     ) {} }
