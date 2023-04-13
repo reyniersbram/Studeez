@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class PrimaryScreenViewModel @Inject constructor(
+class DrawerViewModel @Inject constructor(
     private val accountDAO: AccountDAO,
     logService: LogService
 ) : StudeezViewModel(logService) {
@@ -18,5 +18,21 @@ class PrimaryScreenViewModel @Inject constructor(
             accountDAO.signOut()
             openAndPopup(StudeezDestinations.LOGIN_SCREEN, StudeezDestinations.HOME_SCREEN)
         }
+    }
+
+    fun onHomeButtonClick(openAndPopup: (String, String) -> Unit) {
+        // TODO
+    }
+
+    fun onTimersClick(openAndPopup: (String, String) -> Unit) {
+        // TODO
+    }
+
+    fun onSettingsClick(openAndPopup: (String, String) -> Unit) {
+        // TODO
+    }
+
+    fun onAboutClick(openAndPopup: (String, String) -> Unit) {
+        // TODO
     }
 }
