@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -36,9 +38,30 @@ fun SignUpScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            EmailField(uiState.email, viewModel::onEmailChange, fieldModifier)
-            PasswordField(uiState.password, viewModel::onPasswordChange, fieldModifier)
-            RepeatPasswordField(uiState.repeatPassword, viewModel::onRepeatPasswordChange, fieldModifier)
+
+            UsernameField(
+                uiState.username,
+                viewModel::onUsernameChange,
+                fieldModifier
+            )
+
+            EmailField(
+                uiState.email,
+                viewModel::onEmailChange,
+                fieldModifier
+            )
+
+            PasswordField(
+                uiState.password,
+                viewModel::onPasswordChange,
+                fieldModifier
+            )
+
+            RepeatPasswordField(
+                uiState.repeatPassword,
+                viewModel::onRepeatPasswordChange,
+                fieldModifier
+            )
 
             BasicButton(AppText.create_account, Modifier.basicButton()) {
                 viewModel.onSignUpClick(openAndPopUp)
