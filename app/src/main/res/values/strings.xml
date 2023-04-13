@@ -8,6 +8,8 @@
     <string name="email_error">Please insert a valid email.</string>
     <string name="cancel">Cancel</string>
     <string name="try_again">Try again</string>
+    <string name="go_back">Go back</string>
+    <string name="menu">Menu</string>
 
     <!-- SignUpScreen -->
     <string name="create_account">Create account</string>
@@ -26,5 +28,19 @@
     <!-- HomeScreen -->
     <string name="home">Home</string>
     <string name="start_session">Start session</string>
+
+    <!-- Drawer / SideMenu -->
+    <string name="log_out">Log out</string>
+    <string name="profile_picture_description">Profile Picture</string>
+    <string name="user_description">Normal user</string>
+
+    <!-- Timers -->
+    <string name="timers">Timers</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+
+    <!-- About -->
+    <string name="about">About Studeez</string>
 
 </resources>

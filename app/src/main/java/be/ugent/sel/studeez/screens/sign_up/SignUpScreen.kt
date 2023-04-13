@@ -27,7 +27,7 @@ fun SignUpScreen(
     val uiState by viewModel.uiState
     val fieldModifier = Modifier.fieldModifier()
 
-    SecondaryScreenToolbar(title = resources().getString(AppText.create_account)) {
+    SecondaryScreenTemplate(title = resources().getString(AppText.create_account), {}) {
         Column(
             modifier = modifier
                 .fillMaxWidth()

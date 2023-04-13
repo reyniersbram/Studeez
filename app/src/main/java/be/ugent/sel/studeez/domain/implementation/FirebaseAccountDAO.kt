@@ -18,8 +18,6 @@ package be.ugent.sel.studeez.domain.implementation
 
 import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.domain.AccountDAO
-import be.ugent.sel.studeez.domain.trace
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

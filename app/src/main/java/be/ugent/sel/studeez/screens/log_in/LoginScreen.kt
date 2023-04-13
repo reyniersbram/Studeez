@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.sign_in
+package be.ugent.sel.studeez.screens.log_in
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,7 +26,8 @@ fun LoginScreen(
 ) {
     val uiState by viewModel.uiState
 
-    SecondaryScreenToolbar(title = resources().getString(AppText.sign_in)) {
+    // TODO Make this a separate kind of screen?
+    SecondaryScreenTemplate(title = resources().getString(AppText.sign_in), {}) {
         Column(
             modifier = modifier
                 .fillMaxWidth()
