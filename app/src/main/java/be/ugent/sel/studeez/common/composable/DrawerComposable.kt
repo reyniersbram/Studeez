@@ -1,9 +1,7 @@
 package be.ugent.sel.studeez.common.composable
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -13,25 +11,19 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
+import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
 
 @Composable
 fun Drawer(
-    currentUser: String,
     onLogoutClick: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        LoggedInUserCard(currentUser)
-
-        Divider()
-
         DrawerEntry(
             icon = Icons.Default.Home,
             text = resources().getString(R.string.home)
@@ -87,39 +79,12 @@ fun DrawerEntry(
     }
 }
 
-@Composable
-fun LoggedInUserCard(
-    username: String
-) {
-    Column() {
-        // TODO Profile picture of current user
-        Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
-            contentDescription = stringResource(R.string.profile_picture_description)
-        )
-
-        Text(text = username)
-
-        // TODO Description of user (normal user or something else?)
-        Text(text = stringResource(id = R.string.user_description))
-    }
-}
-
 @Preview
 @Composable
 fun DrawerPreview() {
     StudeezTheme {
         Drawer(
-            "John Doe",
             {}
         )
-    }
-}
-
-@Preview
-@Composable
-fun LoggedInUserCardPreview() {
-    StudeezTheme {
-        LoggedInUserCard("John Doe")
     }
 }
