@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import be.ugent.sel.studeez.R.string as AppText
 import be.ugent.sel.studeez.R.drawable as AppIcon
@@ -32,6 +33,22 @@ fun BasicField(
         value = value,
         onValueChange = { onNewValue(it) },
         placeholder = { Text(stringResource(text)) }
+    )
+}
+
+@Composable
+fun UsernameField(
+    value: String,
+    onNewValue: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    OutlinedTextField(
+        singleLine = true,
+        modifier = modifier,
+        value = value,
+        onValueChange = { onNewValue(it) },
+        placeholder = { Text(stringResource(AppText.username)) },
+        leadingIcon = { Icon(imageVector = Icons.Default.Person, contentDescription = "Username") }
     )
 }
 

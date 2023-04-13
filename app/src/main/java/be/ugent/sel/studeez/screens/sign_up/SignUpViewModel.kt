@@ -7,26 +7,37 @@ import be.ugent.sel.studeez.common.ext.passwordMatches
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
+import be.ugent.sel.studeez.domain.UserDAO
+import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.LOGIN_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SIGN_UP_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.take
 import be.ugent.sel.studeez.R.string as AppText
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val accountService: AccountDAO,
+    private val accountDAO: AccountDAO,
+    private val userDAO: UserDAO,
     logService: LogService
     ) : StudeezViewModel(logService) {
     var uiState = mutableStateOf(SignUpUiState())
         private set
 
+    private val username
+        get() = uiState.value.username
     private val email
         get() = uiState.value.email
     private val password
         get() = uiState.value.password
 
+    fun onUsernameChange(newValue: String) {
+        uiState.value = uiState.value.copy(username = newValue)
+    }
     fun onEmailChange(newValue: String) {
         uiState.value = uiState.value.copy(email = newValue)
     }
@@ -56,8 +67,10 @@ class SignUpViewModel @Inject constructor(
         }
 
         launchCatching {
-            accountService.signUpWithEmailAndPassword(email, password)
-            openAndPopUp(LOGIN_SCREEN, SIGN_UP_SCREEN)
+            accountDAO.signUpWithEmailAndPassword(email, password)
+            accountDAO.signInWithEmailAndPassword(email, password)
+            userDAO.save(username)
+            openAndPopUp(HOME_SCREEN, SIGN_UP_SCREEN)
         }
     }
 
