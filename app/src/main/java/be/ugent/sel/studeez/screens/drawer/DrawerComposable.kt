@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.common.composable
+package be.ugent.sel.studeez.screens.drawer
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,16 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.resources
-import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
 
 @Composable
 fun Drawer(
-    onLogoutClick: () -> Unit
+    openAndPopUp: (String, String) -> Unit,
+    viewModel: DrawerViewModel = hiltViewModel()
 ) {
+
     Column(modifier = Modifier.fillMaxSize()) {
         DrawerEntry(
             icon = Icons.Default.Home,
@@ -33,26 +34,26 @@ fun Drawer(
             icon = ImageVector.vectorResource(id = R.drawable.ic_timer),
             text = resources().getString(R.string.timers)
         ) {
-            // TODO Go to timers
+            viewModel.onTimersClick(openAndPopUp)
         }
         DrawerEntry(
             icon = Icons.Default.Settings,
             text = resources().getString(R.string.settings)
         ) {
-            // TODO Go to settings
+            viewModel.onSettingsClick(openAndPopUp)
         }
         DrawerEntry(
             icon = ImageVector.vectorResource(id = R.drawable.ic_logout),
             text = resources().getString(R.string.log_out)
         ) {
-            onLogoutClick()
+            viewModel.onLogoutClick(openAndPopUp)
         }
 
         DrawerEntry(
             icon = Icons.Outlined.Info,
             text = resources().getString(R.string.about)
         ) {
-            // TODO Go to about
+            viewModel.onAboutClick(openAndPopUp)
         }
     }
 }
@@ -78,12 +79,12 @@ fun DrawerEntry(
     }
 }
 
-@Preview
-@Composable
-fun DrawerPreview() {
-    StudeezTheme {
-        Drawer(
-            {}
-        )
-    }
-}
+//@Preview
+//@Composable
+//fun DrawerPreview() {
+//    StudeezTheme {
+//        Drawer(
+//            {}
+//        )
+//    }
+//}
