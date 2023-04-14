@@ -76,21 +76,23 @@ fun resources(): Resources {
 
 fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
 
+    val openAndPopUp: (String, String) -> Unit = {
+            route, popUp -> appState.navigateAndPopUp(route, popUp)
+    }
+
     composable(StudeezDestinations.SPLASH_SCREEN) {
-        SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
+        SplashScreen(openAndPopUp)
     }
 
     composable(StudeezDestinations.LOGIN_SCREEN) {
-        LoginScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
+        LoginScreen(openAndPopUp)
     }
 
     composable(StudeezDestinations.SIGN_UP_SCREEN) {
-        SignUpScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
+        SignUpScreen(openAndPopUp)
     }
 
     composable(StudeezDestinations.HOME_SCREEN) {
-        HomeScreen(
-            openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) }
-        )
+        HomeScreen(openAndPopUp)
     }
 }

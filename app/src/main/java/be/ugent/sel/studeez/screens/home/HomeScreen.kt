@@ -16,7 +16,7 @@ fun HomeScreen(
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
-        onLogoutClick = { viewModel.onLogoutClick(openAndPopUp) }
+        openAndPopUp = openAndPopUp
     ) {
         BasicButton(R.string.start_session, Modifier.basicButton()) {
             viewModel.onStartSessionClick(openAndPopUp)
