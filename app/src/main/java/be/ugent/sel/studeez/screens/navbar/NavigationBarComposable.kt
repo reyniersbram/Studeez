@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
+
 @Composable
 fun NavigationBar(
     popUpAndOpen: (String, String) -> Unit,
@@ -60,8 +61,13 @@ fun NavigationBar(
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun NavigationBarPreview() {
-//    StudeezTheme { NavigationBar() }
-//}
+@Preview(showBackground = true)
+@Composable
+fun NavigationBarPreview() {
+    StudeezTheme {
+        NavigationBar(
+            { _, _ -> {} },
+            hiltViewModel()
+        )
+    }
+}
