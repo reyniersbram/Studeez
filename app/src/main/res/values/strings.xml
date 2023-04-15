@@ -38,6 +38,7 @@
 
     <!-- Profile -->
     <string name="profile">Profile</string>
+    <string name="no_username">Unknown username</string>
 
     <!-- Drawer / SideMenu -->
     <string name="log_out">Log out</string>

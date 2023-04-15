@@ -21,7 +21,7 @@ import be.ugent.sel.studeez.common.ext.basicButton
 import kotlinx.coroutines.delay
 import be.ugent.sel.studeez.R.string as AppText
 
-private const val SPLASH_TIMEOUT = 1000L
+private const val SPLASH_TIMEOUT = 500L
 
 @Composable
 fun SplashScreen(
