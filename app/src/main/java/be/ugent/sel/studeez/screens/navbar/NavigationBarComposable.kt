@@ -20,7 +20,7 @@ import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
 fun NavigationBar(
-    popUpAndOpen: (String, String) -> Unit,
+    open: (String) -> Unit,
     viewModel: NavigationBarViewModel = hiltViewModel()
 ) {
     // TODO Pass functions and new screens.
@@ -33,14 +33,14 @@ fun NavigationBar(
             icon = { Icon(imageVector = Icons.Default.List, resources().getString(AppText.home)) },
             label = { Text(text = resources().getString(AppText.home)) },
             selected = false, // TODO
-            onClick = { viewModel.onHomeClick(popUpAndOpen) }
+            onClick = { viewModel.onHomeClick(open) }
         )
 
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.Check, resources().getString(AppText.tasks)) },
             label = { Text(text = resources().getString(AppText.tasks)) },
             selected = false, // TODO
-            onClick = { viewModel.onTasksClick(popUpAndOpen) }
+            onClick = { viewModel.onTasksClick(open) }
         )
 
         // Hack to space the entries in the navigation bar, make space for fab
@@ -50,14 +50,14 @@ fun NavigationBar(
             icon = { Icon(imageVector = Icons.Outlined.DateRange, resources().getString(AppText.sessions)) },
             label = { Text(text = resources().getString(AppText.sessions)) },
             selected = false, // TODO
-            onClick = { viewModel.onSessionsClick(popUpAndOpen) }
+            onClick = { viewModel.onSessionsClick(open) }
         )
 
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.Person, resources().getString(AppText.profile)) },
             label = { Text(text = resources().getString(AppText.profile)) },
             selected = false, // TODO
-            onClick = { viewModel.onProfileClick(popUpAndOpen) }
+            onClick = { viewModel.onProfileClick(open) }
         )
 
     }
@@ -68,7 +68,7 @@ fun NavigationBar(
 fun NavigationBarPreview() {
     StudeezTheme {
         NavigationBar(
-            { _, _ -> {} },
+            { _ -> {} },
             hiltViewModel()
         )
     }

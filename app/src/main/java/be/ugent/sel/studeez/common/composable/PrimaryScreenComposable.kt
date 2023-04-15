@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun PrimaryScreenTemplate(
     title: String,
+    open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
@@ -42,10 +43,10 @@ fun PrimaryScreenTemplate(
         ) },
 
         drawerContent = {
-            Drawer(openAndPopUp)
+            Drawer(open, openAndPopUp)
         },
 
-        bottomBar = { NavigationBar(openAndPopUp) },
+        bottomBar = { NavigationBar(open) },
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
         floatingActionButton = { CollapsedAddButton() }
@@ -60,6 +61,7 @@ fun PrimaryScreenPreview() {
     StudeezTheme {
         PrimaryScreenTemplate(
             "Preview screen",
+            { _ -> {}},
             { _, _ -> {}}
         ) {}
     }

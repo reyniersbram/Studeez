@@ -13,6 +13,18 @@ class DrawerViewModel @Inject constructor(
     logService: LogService
 ) : StudeezViewModel(logService) {
 
+    fun onHomeButtonClick(open: (String) -> Unit) {
+        // TODO
+    }
+
+    fun onTimersClick(open: (String) -> Unit) {
+        // TODO
+    }
+
+    fun onSettingsClick(open: (String) -> Unit) {
+        // TODO
+    }
+
     fun onLogoutClick(openAndPopup: (String, String) -> Unit) {
         launchCatching {
             accountDAO.signOut()
@@ -20,19 +32,7 @@ class DrawerViewModel @Inject constructor(
         }
     }
 
-    fun onHomeButtonClick(openAndPopup: (String, String) -> Unit) {
-        // TODO
-    }
-
-    fun onTimersClick(openAndPopup: (String, String) -> Unit) {
-        // TODO
-    }
-
-    fun onSettingsClick(openAndPopup: (String, String) -> Unit) {
-        // TODO
-    }
-
-    fun onAboutClick(openAndPopup: (String, String) -> Unit) {
+    fun onAboutClick(open: (String) -> Unit) {
         // TODO
     }
 }

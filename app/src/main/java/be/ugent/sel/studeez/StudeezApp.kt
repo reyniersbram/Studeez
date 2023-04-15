@@ -80,6 +80,10 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
             route, popUp -> appState.navigateAndPopUp(route, popUp)
     }
 
+    val open: (String) -> Unit = {
+        route -> appState.navigate(route)
+    }
+
     composable(StudeezDestinations.SPLASH_SCREEN) {
         SplashScreen(openAndPopUp)
     }
@@ -93,6 +97,6 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     }
 
     composable(StudeezDestinations.HOME_SCREEN) {
-        HomeScreen(openAndPopUp)
+        HomeScreen(open, openAndPopUp)
     }
 }
