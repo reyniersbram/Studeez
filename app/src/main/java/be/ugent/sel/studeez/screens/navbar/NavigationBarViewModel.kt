@@ -3,6 +3,7 @@ package be.ugent.sel.studeez.screens.navbar
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.navigation.StudeezDestinations
+import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,7 @@ class NavigationBarViewModel @Inject constructor(
 ) : StudeezViewModel(logService) {
 
     fun onHomeClick(open: (String) -> Unit) {
-        // TODO
+        open(HOME_SCREEN)
     }
 
     fun onTasksClick(open: (String) -> Unit) {

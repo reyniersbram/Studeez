@@ -3,6 +3,7 @@ package be.ugent.sel.studeez.screens.drawer
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.navigation.StudeezDestinations
+import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -14,7 +15,7 @@ class DrawerViewModel @Inject constructor(
 ) : StudeezViewModel(logService) {
 
     fun onHomeButtonClick(open: (String) -> Unit) {
-        // TODO
+        open(HOME_SCREEN)
     }
 
     fun onTimersClick(open: (String) -> Unit) {
@@ -25,10 +26,10 @@ class DrawerViewModel @Inject constructor(
         // TODO
     }
 
-    fun onLogoutClick(openAndPopup: (String, String) -> Unit) {
+    fun onLogoutClick(openAndPopUp: (String, String) -> Unit) {
         launchCatching {
             accountDAO.signOut()
-            openAndPopup(StudeezDestinations.LOGIN_SCREEN, StudeezDestinations.HOME_SCREEN)
+            openAndPopUp(StudeezDestinations.LOGIN_SCREEN, StudeezDestinations.HOME_SCREEN)
         }
     }
 
