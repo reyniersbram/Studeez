@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -29,7 +27,7 @@ fun SignUpScreen(
     val uiState by viewModel.uiState
     val fieldModifier = Modifier.fieldModifier()
 
-    SecondaryScreenTemplate(title = resources().getString(AppText.create_account), {}) {
+    SimpleScreenTemplate(title = resources().getString(AppText.create_account)) {
         Column(
             modifier = modifier
                 .fillMaxWidth()
