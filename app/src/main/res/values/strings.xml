@@ -18,7 +18,6 @@
     <string name="password_match_error">Passwords do not match.</string>
     <string name="already_user">Already have an account? Log in.</string>
 
-
     <!-- LoginScreen -->
     <string name="not_already_user">Don\'t have an account yet? Sign up.</string>
     <string name="sign_in">Sign in</string>
@@ -30,6 +29,15 @@
     <!-- HomeScreen -->
     <string name="home">Home</string>
     <string name="start_session">Start session</string>
+
+    <!-- Tasks -->
+    <string name="tasks">Tasks</string>
+
+    <!-- Sessions -->
+    <string name="sessions">Sessions</string>
+
+    <!-- Profile -->
+    <string name="profile">Profile</string>
 
     <!-- Drawer / SideMenu -->
     <string name="log_out">Log out</string>
