@@ -22,6 +22,7 @@ import be.ugent.sel.studeez.screens.home.HomeScreen
 import be.ugent.sel.studeez.screens.log_in.LoginScreen
 import be.ugent.sel.studeez.screens.sign_up.SignUpScreen
 import be.ugent.sel.studeez.screens.splash.SplashScreen
+import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewScreen
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import kotlinx.coroutines.CoroutineScope
 
@@ -94,5 +95,9 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
 
     composable(StudeezDestinations.HOME_SCREEN) {
         HomeScreen(openAndPopUp)
+    }
+
+    composable(StudeezDestinations.TIMER_OVERVIEW_SCREEN) {
+        TimerOverviewScreen(openAndPopUp)
     }
 }
