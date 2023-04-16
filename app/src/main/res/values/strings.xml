@@ -39,6 +39,10 @@
     <!-- Profile -->
     <string name="profile">Profile</string>
     <string name="no_username">Unknown username</string>
+    <string name="edit_profile">Edit profile</string>
+
+    <!-- Friends -->
+    <string name="friends">Friends</string>
 
     <!-- Drawer / SideMenu -->
     <string name="log_out">Log out</string>
