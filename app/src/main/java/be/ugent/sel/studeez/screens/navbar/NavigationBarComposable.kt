@@ -13,11 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
+import be.ugent.sel.studeez.R.string as AppText
+
 
 @Composable
 fun NavigationBar(
-    popUpAndOpen: (String, String) -> Unit,
+    open: (String) -> Unit,
     viewModel: NavigationBarViewModel = hiltViewModel()
 ) {
     // TODO Pass functions and new screens.
@@ -27,41 +30,46 @@ fun NavigationBar(
         elevation = 10.dp
     ) {
         BottomNavigationItem(
-            icon = { Icon(imageVector = Icons.Default.List, "Home") },
-            label = { Text(text = "Home") },
+            icon = { Icon(imageVector = Icons.Default.List, resources().getString(AppText.home)) },
+            label = { Text(text = resources().getString(AppText.home)) },
             selected = false, // TODO
-            onClick = { viewModel.onHomeClick(popUpAndOpen) }
+            onClick = { viewModel.onHomeClick(open) }
         )
 
         BottomNavigationItem(
-            icon = { Icon(imageVector = Icons.Default.Check, "Tasks") },
-            label = { Text(text = "Tasks") },
+            icon = { Icon(imageVector = Icons.Default.Check, resources().getString(AppText.tasks)) },
+            label = { Text(text = resources().getString(AppText.tasks)) },
             selected = false, // TODO
-            onClick = { viewModel.onTasksClick(popUpAndOpen) }
+            onClick = { viewModel.onTasksClick(open) }
         )
 
         // Hack to space the entries in the navigation bar, make space for fab
         BottomNavigationItem(icon = {}, onClick = {}, selected = false)
 
         BottomNavigationItem(
-            icon = { Icon(imageVector = Icons.Outlined.DateRange, "Sessions") },
-            label = { Text(text = "Sessions") },
+            icon = { Icon(imageVector = Icons.Outlined.DateRange, resources().getString(AppText.sessions)) },
+            label = { Text(text = resources().getString(AppText.sessions)) },
             selected = false, // TODO
-            onClick = { viewModel.onSessionsClick(popUpAndOpen) }
+            onClick = { viewModel.onSessionsClick(open) }
         )
 
         BottomNavigationItem(
-            icon = { Icon(imageVector = Icons.Default.Person, "Profile") },
-            label = { Text(text = "Profile") },
+            icon = { Icon(imageVector = Icons.Default.Person, resources().getString(AppText.profile)) },
+            label = { Text(text = resources().getString(AppText.profile)) },
             selected = false, // TODO
-            onClick = { viewModel.onProfileClick(popUpAndOpen) }
+            onClick = { viewModel.onProfileClick(open) }
         )
 
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun NavigationBarPreview() {
-//    StudeezTheme { NavigationBar() }
-//}
+@Preview(showBackground = true)
+@Composable
+fun NavigationBarPreview() {
+    StudeezTheme {
+        NavigationBar(
+            { _ -> {} },
+            hiltViewModel()
+        )
+    }
+}

@@ -23,6 +23,7 @@ import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
 @Composable
 fun Drawer(
+    open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
     viewModel: DrawerViewModel = hiltViewModel()
 ) {
@@ -36,19 +37,19 @@ fun Drawer(
                 icon = Icons.Default.Home,
                 text = resources().getString(R.string.home)
             ) {
-                // TODO Go to home
+                viewModel.onHomeButtonClick(open)
             }
             DrawerEntry(
                 icon = ImageVector.vectorResource(id = R.drawable.ic_timer),
                 text = resources().getString(R.string.timers)
             ) {
-                viewModel.onTimersClick(openAndPopUp)
+                viewModel.onTimersClick(open)
             }
             DrawerEntry(
                 icon = Icons.Default.Settings,
                 text = resources().getString(R.string.settings)
             ) {
-                viewModel.onSettingsClick(openAndPopUp)
+                viewModel.onSettingsClick(open)
             }
             DrawerEntry(
                 icon = ImageVector.vectorResource(id = R.drawable.ic_logout),
@@ -62,7 +63,7 @@ fun Drawer(
             icon = Icons.Outlined.Info,
             text = resources().getString(R.string.about)
         ) {
-            viewModel.onAboutClick(openAndPopUp)
+            viewModel.onAboutClick(open)
         }
     }
 }
@@ -101,7 +102,9 @@ fun DrawerEntry(
 fun DrawerPreview() {
     StudeezTheme {
         Drawer(
-            {a, b -> {}}, hiltViewModel()
+            { _, -> {} },
+            { _, _ -> {} },
+            hiltViewModel()
         )
     }
 }
