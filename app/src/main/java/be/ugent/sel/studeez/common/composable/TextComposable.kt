@@ -3,7 +3,6 @@ package be.ugent.sel.studeez.common.composable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,8 +17,7 @@ fun Headline(
     ) {
         Text(
             text = text,
-            modifier = Modifier.size(34.dp)
-                .height(45.dp)
+            modifier = Modifier.height(45.dp)
         )
     }
 }
