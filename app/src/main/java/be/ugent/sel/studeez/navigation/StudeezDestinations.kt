@@ -12,4 +12,7 @@ object StudeezDestinations {
 
 //    const val TIMERS_SCREEN = "timers"
 //    const val SETTINGS_SCREEN = "settings"
+
+    // Edit screens
+    const val EDIT_PROFILE_SCREEN = "edit_profile"
 }

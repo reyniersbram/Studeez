@@ -40,6 +40,7 @@
     <string name="profile">Profile</string>
     <string name="no_username">Unknown username</string>
     <string name="edit_profile">Edit profile</string>
+    <string name="editing_profile">Editing profile</string>
 
     <!-- Friends -->
     <string name="friends">Friends</string>

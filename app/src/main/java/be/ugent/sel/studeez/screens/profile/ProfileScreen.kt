@@ -27,15 +27,17 @@ fun ProfileScreen(
         title = resources().getString(AppText.profile),
         open = open,
         openAndPopUp = openAndPopUp,
-        action = { EditAction() }
+        action = { EditAction { viewModel.onEditProfileClick(open) } }
     ) {
         Headline(text = (username ?: resources().getString(R.string.no_username)))
     }
 }
 
 @Composable
-fun EditAction() {
-    IconButton(onClick = { /*TODO*/ }) {
+fun EditAction(
+    onClick: () -> Unit
+) {
+    IconButton(onClick = onClick) {
         Icon(
             imageVector = Icons.Default.Edit,
             contentDescription = resources().getString(AppText.edit_profile)
