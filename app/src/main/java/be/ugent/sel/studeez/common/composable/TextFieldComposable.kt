@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import be.ugent.sel.studeez.common.ext.fieldModifier
 
 @Composable
 fun BasicField(
@@ -33,6 +34,20 @@ fun BasicField(
         value = value,
         onValueChange = { onNewValue(it) },
         placeholder = { Text(stringResource(text)) }
+    )
+}
+
+@Composable
+fun LabelledInputField(
+    value: String,
+    onNewValue: (String) -> Unit,
+    @StringRes label: Int
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onNewValue,
+        label = { Text(text = stringResource(id = label)) },
+        modifier = Modifier.fieldModifier()
     )
 }
 
