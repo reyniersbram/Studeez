@@ -5,5 +5,6 @@ object StudeezDestinations {
     const val SIGN_UP_SCREEN = "signup"
     const val LOGIN_SCREEN = "login"
     const val HOME_SCREEN = "home"
+    const val TIMER_OVERVIEW_SCREEN = "timer_overview"
 
 }
