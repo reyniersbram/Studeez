@@ -1,7 +1,6 @@
 package be.ugent.sel.studeez.common.composable
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -12,17 +11,15 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
-import be.ugent.sel.studeez.R.string as AppText
-import be.ugent.sel.studeez.R.drawable as AppIcon
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import be.ugent.sel.studeez.common.ext.fieldModifier
+import be.ugent.sel.studeez.R.drawable as AppIcon
+import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
 fun BasicField(

@@ -29,5 +29,6 @@ interface AccountDAO {
     suspend fun sendRecoveryEmail(email: String)
     suspend fun signUpWithEmailAndPassword(email: String, password: String)
     suspend fun deleteAccount()
+
     suspend fun signOut()
 }

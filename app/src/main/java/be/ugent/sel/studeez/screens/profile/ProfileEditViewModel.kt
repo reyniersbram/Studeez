@@ -6,6 +6,7 @@ import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.UserDAO
+import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -33,13 +34,15 @@ class ProfileEditViewModel @Inject constructor(
     fun onSaveClick() {
         launchCatching {
             userDAO.save(uiState.value.username)
-            SnackbarManager.showMessage(R.string.save_success)
+            SnackbarManager.showMessage(R.string.success)
         }
     }
 
-    fun onDeleteClick() {
+    fun onDeleteClick(openAndPopUp: (String, String) -> Unit) {
         launchCatching {
-            accountDAO.deleteAccount()
+            userDAO.deleteUserReferences() // Delete references
+            accountDAO.deleteAccount() // Delete authentication
         }
+        openAndPopUp(StudeezDestinations.SIGN_UP_SCREEN, StudeezDestinations.EDIT_PROFILE_SCREEN)
     }
 }

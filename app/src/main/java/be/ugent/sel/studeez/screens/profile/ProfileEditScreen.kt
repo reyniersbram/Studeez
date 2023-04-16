@@ -17,6 +17,7 @@ import be.ugent.sel.studeez.ui.theme.StudeezTheme
 @Composable
 fun EditProfileScreen(
     goBack: () -> Unit,
+    openAndPopUp: (String, String) -> Unit,
     viewModel: ProfileEditViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState
@@ -36,7 +37,7 @@ fun EditProfileScreen(
                 viewModel.onSaveClick()
             }
             BasicTextButton(text = R.string.delete_profile, Modifier.textButton()) {
-                viewModel.onDeleteClick()
+                viewModel.onDeleteClick(openAndPopUp)
             }
         }
     }
@@ -47,7 +48,8 @@ fun EditProfileScreen(
 fun EditProfileScreenComposable() {
     StudeezTheme {
         EditProfileScreen (
-            {}
+            {},
+            {_, _ -> {}}
         )
     }
 }

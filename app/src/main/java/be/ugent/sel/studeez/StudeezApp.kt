@@ -118,6 +118,6 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
 
     // Edit screens
     composable(StudeezDestinations.EDIT_PROFILE_SCREEN) {
-        EditProfileScreen(goBack)
+        EditProfileScreen(goBack, openAndPopUp)
     }
 }
