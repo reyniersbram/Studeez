@@ -22,7 +22,7 @@ fun PrimaryScreenTemplate(
     title: String,
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
-    action: @Composable RowScope.() -> Unit,
+    action: @Composable RowScope.() -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()

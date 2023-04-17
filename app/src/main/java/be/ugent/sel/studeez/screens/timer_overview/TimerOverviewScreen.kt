@@ -27,6 +27,7 @@ import be.ugent.sel.studeez.resources
 
 @Composable
 fun TimerOverviewScreen(
+    open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
     viewModel: TimerOverviewViewModel = hiltViewModel()
 ) {
@@ -35,6 +36,7 @@ fun TimerOverviewScreen(
 
     PrimaryScreenTemplate(
         title = resources().getString(R.string.timers),
+        open = open,
         openAndPopUp = openAndPopUp
     ) {
 

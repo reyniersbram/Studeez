@@ -116,11 +116,11 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     }
 
     composable(StudeezDestinations.TIMER_OVERVIEW_SCREEN) {
-        TimerOverviewScreen(openAndPopUp)
+        TimerOverviewScreen(open, openAndPopUp)
     }
 
     composable(StudeezDestinations.SESSION_SCREEN) {
-        SessionScreen(openAndPopUp)
+        SessionScreen(open, openAndPopUp)
     }
     
     // TODO Timers screen
