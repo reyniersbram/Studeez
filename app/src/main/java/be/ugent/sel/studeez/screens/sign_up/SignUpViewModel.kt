@@ -13,11 +13,8 @@ import be.ugent.sel.studeez.navigation.StudeezDestinations.LOGIN_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SIGN_UP_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.take
-import be.ugent.sel.studeez.R.string as AppText
 import javax.inject.Inject
+import be.ugent.sel.studeez.R.string as AppText
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(

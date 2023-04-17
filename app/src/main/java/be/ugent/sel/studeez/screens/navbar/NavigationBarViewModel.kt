@@ -2,7 +2,6 @@ package be.ugent.sel.studeez.screens.navbar
 
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
-import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
