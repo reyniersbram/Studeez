@@ -17,6 +17,7 @@ class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
         pomodoroTimer = FunctionalPomodoroTimer(time, breakTime, breaks)
     }
 
+    @Test
     override fun testOneTick() {
         pomodoroTimer.tick()
         Assert.assertEquals(
@@ -34,6 +35,7 @@ class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
         )
     }
 
+    @Test
     override fun multipleTicks() {
         val n = 10
         for (i in 1..n) {
@@ -45,6 +47,7 @@ class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
         )
     }
 
+    @Test
     override fun testEnded() {
         pomodoroTimer = FunctionalPomodoroTimer(0, 0, 0)
         pomodoroTimer.tick()
