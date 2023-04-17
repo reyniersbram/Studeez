@@ -24,7 +24,12 @@ class Time(initialTime: Int) {
         val hours: Int = time / (60 * 60)
         val minutes: Int = (time / (60)) % 60
         val seconds: Int = time % 60
-        return HoursMinutesSeconds(hours, minutes, seconds)
+
+        return HoursMinutesSeconds(
+            hours.toString().padStart(2, '0'),
+            minutes.toString().padStart(2, '0'),
+            seconds.toString().padStart(2, '0')
+        )
     }
 
 }
