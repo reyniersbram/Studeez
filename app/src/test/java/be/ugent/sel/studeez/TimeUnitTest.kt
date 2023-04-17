@@ -20,20 +20,20 @@ class TimeUnitTest {
     @Test
     fun formatTime() {
         Assert.assertEquals(
-            time.getAsHMS(),
             HoursMinutesSeconds(
                 hours.toString().padStart(2, '0'),
                 minutes.toString().padStart(2, '0'),
                 seconds.toString().padStart(2, '0'),
             ),
+            time.getAsHMS(),
         )
     }
 
     @Test
     fun getTime() {
         Assert.assertEquals(
+            seconds + minutes * 60 + hours * 60 * 60,
             time.time,
-            seconds + minutes * 60 + hours * 60 * 60
         )
     }
 
@@ -41,8 +41,8 @@ class TimeUnitTest {
     fun minOne() {
         time.minOne()
         Assert.assertEquals(
+            (seconds + minutes * 60 + hours * 60 * 60) - 1,
             time.time,
-            (seconds + minutes * 60 + hours * 60 * 60) - 1
         )
     }
 
@@ -50,8 +50,8 @@ class TimeUnitTest {
     fun plusOne() {
         time.plusOne()
         Assert.assertEquals(
+            (seconds + minutes * 60 + hours * 60 * 60) + 1,
             time.time,
-            (seconds + minutes * 60 + hours * 60 * 60) + 1
         )
     }
 
@@ -62,8 +62,8 @@ class TimeUnitTest {
             time.minOne()
         }
         Assert.assertEquals(
+            (seconds + minutes * 60 + hours * 60 * 60) - n,
             time.time,
-            (seconds + minutes * 60 + hours * 60 * 60) - n
         )
     }
 
@@ -74,8 +74,8 @@ class TimeUnitTest {
             time.plusOne()
         }
         Assert.assertEquals(
+            (seconds + minutes * 60 + hours * 60 * 60) + n,
             time.time,
-            (seconds + minutes * 60 + hours * 60 * 60) + n
         )
     }
 }
