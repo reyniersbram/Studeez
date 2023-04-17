@@ -18,11 +18,13 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SessionScreen(
+    open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
     viewModel: SessionViewModel = hiltViewModel()
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.start_session),
+        open = open,
         openAndPopUp = openAndPopUp
     ) {
         Timer(viewModel)

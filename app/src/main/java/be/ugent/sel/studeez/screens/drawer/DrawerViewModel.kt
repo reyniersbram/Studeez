@@ -19,13 +19,8 @@ class DrawerViewModel @Inject constructor(
         open(HOME_SCREEN)
     }
 
-    fun onTimersClick(open: (String) -> Unit) {
-        // TODO
-    }
-
-    fun onTimersClick(openAndPopup: (String, String) -> Unit) {
-        // TODO is niet altijd het homescreen
-        openAndPopup(StudeezDestinations.TIMER_OVERVIEW_SCREEN, StudeezDestinations.HOME_SCREEN)
+    fun onTimersClick(openAndPopup: (String) -> Unit) {
+        openAndPopup(StudeezDestinations.TIMER_OVERVIEW_SCREEN)
     }
 
     fun onSettingsClick(open: (String) -> Unit) {
