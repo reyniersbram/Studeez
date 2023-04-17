@@ -5,13 +5,12 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 /**
- * Wordt gebruikt door de ConfigurationService en door de TimerDAO.
+ * Used by ConfigurationService and TimerDAO.
  *
- * ConfigurationService: configuration wordt gefetched als een json-string,
- * die wordt omgezet naar een TimerJson, die hier wordt omgezet naar de juiste TimerInfo
+ * ConfigurationService: configuration is fetched as a JSON-string,
+ * which is converted into a TimerJson, and converted here into the correct TimerInfo
  *
- * timerDAO: Timers worden direct naar TimerJson gefetched, die hier ook worden omgezet naar
- * de juiste timerInfo
+ * timerDAO: Timers are being fetched directly to TinerJson and convertes into the correct timerInfo
  */
 class ToTimerConverter {
 
