@@ -13,8 +13,13 @@ class SessionViewModel @Inject constructor(
 ) : StudeezViewModel(logService) {
 
     private val timer: FunctionalTimer = FunctionalPomodoroTimer(15, 5, 3)
+    private val task : String = "No task selected" // placeholder for tasks implementation
 
     fun getTimer() : FunctionalTimer {
         return timer
+    }
+
+    fun getTask(): String {
+        return task
     }
 }
