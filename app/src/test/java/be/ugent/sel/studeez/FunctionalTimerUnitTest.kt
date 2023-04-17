@@ -6,13 +6,21 @@ import org.junit.Test
 
 abstract class FunctionalTimerUnitTest {
     protected lateinit var timer: FunctionalTimer
-    private val hours = 4
-    private val minutes = 20
-    private val seconds = 39
-    protected val time = seconds + minutes * 60 + hours * 60 * 60
+    protected open val hours = 4
+    protected open val minutes = 20
+    protected open val seconds = 39
+    protected var time: Int = 0
 
     @Before
-    abstract fun setup()
+    fun setup() {
+        time = seconds + minutes * 60 + hours * 60 * 60
+        setTimer()
+    }
+
+    /**
+     * The timer-property should be set to the right implementation in this method.
+     */
+    abstract fun setTimer()
 
     @Test
     abstract fun testOneTick()

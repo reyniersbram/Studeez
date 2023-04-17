@@ -3,25 +3,25 @@ package be.ugent.sel.studeez.data.local.models.timer_functional
 class FunctionalPomodoroTimer(
     private var studyTime: Int,
     private var breakTime: Int, repeats: Int
-): FunctionalTimer(studyTime) {
+) : FunctionalTimer(studyTime) {
 
-    private var breaksRemaining = repeats
-    private var isInBreak = false
+    var breaksRemaining = repeats
+    var isInBreak = false
 
     override fun tick() {
-        if (time.time == 0 && breaksRemaining == 0){
-            view = "Done!"
+        if (time.time == 0 && breaksRemaining == 0) {
+            view = DONE
             return
         }
 
         if (time.time == 0) {
             if (isInBreak) {
                 breaksRemaining--
-                view = "Focus! ($breaksRemaining breaks remaining)"
+                view = FOCUS_REMAINING(breaksRemaining)
                 time.time = studyTime
             } else {
-                view = "Take a break!"
-                time.time =breakTime
+                view = BREAK
+                time.time = breakTime
             }
             isInBreak = !isInBreak
         }
