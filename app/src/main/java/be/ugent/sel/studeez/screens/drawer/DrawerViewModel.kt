@@ -2,6 +2,7 @@ package be.ugent.sel.studeez.screens.drawer
 
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
+import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.LOGIN_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
@@ -25,6 +26,7 @@ class DrawerViewModel @Inject constructor(
     fun onTimersClick(openAndPopup: (String, String) -> Unit) {
         // TODO is niet altijd het homescreen
         openAndPopup(StudeezDestinations.TIMER_OVERVIEW_SCREEN, StudeezDestinations.HOME_SCREEN)
+    }
 
     fun onSettingsClick(open: (String) -> Unit) {
         // TODO
