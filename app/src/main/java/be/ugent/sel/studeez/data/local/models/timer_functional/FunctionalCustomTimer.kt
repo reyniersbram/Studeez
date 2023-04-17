@@ -1,16 +1,16 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
-class FunctionalCustomTimer(studyTime: Int): FunctionalTimer(studyTime) {
+class FunctionalCustomTimer(studyTime: Int) : FunctionalTimer(studyTime) {
 
     override fun tick() {
-        if (time.getTime() == 0) {
-            view = "Done!"
+        if (time.time == 0) {
+            view = DONE
         } else {
             time.minOne()
         }
     }
 
     override fun hasEnded(): Boolean {
-        return time.getTime() == 0
+        return time.time == 0
     }
 }
