@@ -1,5 +1,9 @@
 package be.ugent.sel.studeez.screens.home
 
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -18,10 +22,21 @@ fun HomeScreen(
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
         open = open,
-        openAndPopUp = openAndPopUp
+        openAndPopUp = openAndPopUp,
+        action = { FriendsAction() }
     ) {
         BasicButton(R.string.start_session, Modifier.basicButton()) {
             viewModel.onStartSessionClick(open)
         }
+    }
+}
+
+@Composable
+fun FriendsAction () {
+    IconButton(onClick = { /*TODO*/ }) {
+        Icon(
+            imageVector = Icons.Default.Person,
+            contentDescription = resources().getString(R.string.friends)
+        )
     }
 }

@@ -11,14 +11,15 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
-import be.ugent.sel.studeez.R.string as AppText
-import be.ugent.sel.studeez.R.drawable as AppIcon
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import be.ugent.sel.studeez.common.ext.fieldModifier
+import be.ugent.sel.studeez.R.drawable as AppIcon
+import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
 fun BasicField(
@@ -33,6 +34,20 @@ fun BasicField(
         value = value,
         onValueChange = { onNewValue(it) },
         placeholder = { Text(stringResource(text)) }
+    )
+}
+
+@Composable
+fun LabelledInputField(
+    value: String,
+    onNewValue: (String) -> Unit,
+    @StringRes label: Int
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onNewValue,
+        label = { Text(text = stringResource(id = label)) },
+        modifier = Modifier.fieldModifier()
     )
 }
 
