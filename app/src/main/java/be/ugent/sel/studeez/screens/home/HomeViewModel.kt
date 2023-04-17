@@ -5,6 +5,7 @@ import androidx.compose.material.rememberScaffoldState
 import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
+import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.LOGIN_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
@@ -19,7 +20,7 @@ class HomeViewModel @Inject constructor(
 ) : StudeezViewModel(logService) {
 
     fun onStartSessionClick(openAndPopUp: (String, String) -> Unit) {
-        // TODO openAndPopUp(StudeezDestinations.xxx, StudeezDestinations.HOME_SCREEN)
+        openAndPopUp(StudeezDestinations.SESSION_SCREEN, StudeezDestinations.HOME_SCREEN)
     }
 
     fun onLogoutClick(openAndPopup: (String, String) -> Unit) {
