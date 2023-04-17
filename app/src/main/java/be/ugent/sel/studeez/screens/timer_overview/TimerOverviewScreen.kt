@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.screens.timer_overview
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -46,12 +47,12 @@ fun TimerOverviewScreen(
             ) {
                 // Default Timers, cannot be edited
                 items(viewModel.getDefaultTimers()) {
-                    TimerEntry(timerInfo = it, canEdit = false)
+                    TimerEntry(timerInfo = it, canDisplay = false)
                 }
 
                 // User timers, can be edited
                 items(timers.value) {
-                    TimerEntry(timerInfo = it, true) { timerInfo ->
+                    TimerEntry(timerInfo = it, true, R.string.edit) { timerInfo ->
                         viewModel.update(timerInfo)
                     }
                 }
@@ -65,7 +66,12 @@ fun TimerOverviewScreen(
 }
 
 @Composable
-fun TimerEntry(timerInfo: TimerInfo, canEdit: Boolean, update: (TimerInfo) -> Unit = {}) {
+fun TimerEntry(
+    timerInfo: TimerInfo,
+    canDisplay: Boolean,
+    @StringRes buttonName: Int = -1,
+    buttonFunction: (TimerInfo) -> Unit = {}
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth(),
@@ -83,9 +89,9 @@ fun TimerEntry(timerInfo: TimerInfo, canEdit: Boolean, update: (TimerInfo) -> Un
                 fontSize = 15.sp
             )
         }
-        if (canEdit) {
-            BasicButton(R.string.edit, Modifier.card()) {
-                // TODO
+        if (canDisplay) {
+            BasicButton(buttonName, Modifier.card()) {
+                buttonFunction(timerInfo)
             }
         }
 

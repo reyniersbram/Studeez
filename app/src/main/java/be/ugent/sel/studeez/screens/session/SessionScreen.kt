@@ -14,33 +14,33 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.resources
+import be.ugent.sel.studeez.screens.timers.TimerSelectionViewModel
 import kotlinx.coroutines.delay
 
 @Composable
 fun SessionScreen(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
-    viewModel: SessionViewModel = hiltViewModel()
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.start_session),
         open = open,
         openAndPopUp = openAndPopUp
     ) {
-        Timer(viewModel)
+        Timer()
     }
 }
 
 @Composable
-private fun Timer(viewModel: SessionViewModel = hiltViewModel()) {
+fun Timer(viewModel: TimerSelectionViewModel = hiltViewModel()) {
     var tikker by remember { mutableStateOf(false) }
     LaunchedEffect(tikker) {
         delay(1000)
-        viewModel.getTimer().tick()
+        viewModel.sessionTimer!!.tick()
         tikker = !tikker
     }
 
-    val hms = viewModel.getTimer().getHoursMinutesSeconds()
+    val hms = viewModel.sessionTimer!!.getHoursMinutesSeconds()
     Column {
         Text(
             text = "${hms.hours} : ${hms.minutes} : ${hms.seconds}",
@@ -50,7 +50,7 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel()) {
             fontSize = 80.sp
         )
         Text(
-            text = viewModel.getTimer().getViewString(),
+            text = viewModel.sessionTimer!!.getViewString(),
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Light,
