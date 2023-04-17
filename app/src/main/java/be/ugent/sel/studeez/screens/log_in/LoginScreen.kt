@@ -26,8 +26,7 @@ fun LoginScreen(
 ) {
     val uiState by viewModel.uiState
 
-    // TODO Make this a separate kind of screen?
-    SecondaryScreenTemplate(title = resources().getString(AppText.sign_in), {}) {
+    SimpleScreenTemplate(title = resources().getString(AppText.sign_in)) {
         Column(
             modifier = modifier
                 .fillMaxWidth()

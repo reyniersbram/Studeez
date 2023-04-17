@@ -6,16 +6,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.drawer.Drawer
 import be.ugent.sel.studeez.screens.navbar.NavigationBar
+import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
 fun PrimaryScreenTemplate(
     title: String,
+    open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
@@ -40,10 +43,10 @@ fun PrimaryScreenTemplate(
         ) },
 
         drawerContent = {
-            Drawer(openAndPopUp)
+            Drawer(open, openAndPopUp)
         },
 
-        bottomBar = { NavigationBar(openAndPopUp) },
+        bottomBar = { NavigationBar(open) },
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
         floatingActionButton = { CollapsedAddButton() }
@@ -52,13 +55,14 @@ fun PrimaryScreenTemplate(
     }
 }
 
-//@Preview
-//@Composable
-//fun PrimaryScreenPreview() {
-//    StudeezTheme {
-//        PrimaryScreenTemplate(
-//            "Preview screen",
-//            {}
-//        ) {}
-//    }
-//}
+@Preview
+@Composable
+fun PrimaryScreenPreview() {
+    StudeezTheme {
+        PrimaryScreenTemplate(
+            "Preview screen",
+            { _ -> {}},
+            { _, _ -> {}}
+        ) {}
+    }
+}

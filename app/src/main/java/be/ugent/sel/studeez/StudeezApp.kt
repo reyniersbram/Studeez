@@ -21,6 +21,7 @@ import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.home.HomeScreen
 import be.ugent.sel.studeez.screens.log_in.LoginScreen
 import be.ugent.sel.studeez.screens.session.SessionScreen
+import be.ugent.sel.studeez.screens.profile.ProfileScreen
 import be.ugent.sel.studeez.screens.sign_up.SignUpScreen
 import be.ugent.sel.studeez.screens.splash.SplashScreen
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewScreen
@@ -82,6 +83,10 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
             route, popUp -> appState.navigateAndPopUp(route, popUp)
     }
 
+    val open: (String) -> Unit = {
+        route -> appState.navigate(route)
+    }
+
     composable(StudeezDestinations.SPLASH_SCREEN) {
         SplashScreen(openAndPopUp)
     }
@@ -95,7 +100,14 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     }
 
     composable(StudeezDestinations.HOME_SCREEN) {
-        HomeScreen(openAndPopUp)
+        HomeScreen(open, openAndPopUp)
+    }
+
+    // TODO Tasks screen
+    // TODO Sessions screen
+
+    composable(StudeezDestinations.PROFILE_SCREEN) {
+        ProfileScreen(open, openAndPopUp)
     }
 
     composable(StudeezDestinations.TIMER_OVERVIEW_SCREEN) {
@@ -105,4 +117,7 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     composable(StudeezDestinations.SESSION_SCREEN) {
         SessionScreen(openAndPopUp)
     }
+    
+    // TODO Timers screen
+    // TODO Settings screen
 }
