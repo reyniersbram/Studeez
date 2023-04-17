@@ -58,7 +58,7 @@ class TimeUnitTest {
     @Test
     fun minMultiple() {
         val n = 10
-        for (i in 1..n) {
+        for (i in 1 .. n) {
             time.minOne()
         }
         Assert.assertEquals(
@@ -70,7 +70,7 @@ class TimeUnitTest {
     @Test
     fun plusMultiple() {
         val n = 10
-        for (i in 1..n) {
+        for (i in 1 .. n) {
             time.plusOne()
         }
         Assert.assertEquals(
