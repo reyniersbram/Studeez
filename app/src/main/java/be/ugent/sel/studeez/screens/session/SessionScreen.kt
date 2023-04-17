@@ -50,7 +50,7 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel()) {
             fontSize = 80.sp
         )
         Text(
-            text = viewModel.getTimer().getViewString(),
+            text = viewModel.getTimer().view,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Light,

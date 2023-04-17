@@ -3,7 +3,7 @@ package be.ugent.sel.studeez.data.local.models.timer_functional
 class FunctionalCustomTimer(studyTime: Int): FunctionalTimer(studyTime) {
 
     override fun tick() {
-        if (time.getTime() == 0) {
+        if (time.time == 0) {
             view = "Done!"
         } else {
             time.minOne()
@@ -11,6 +11,6 @@ class FunctionalCustomTimer(studyTime: Int): FunctionalTimer(studyTime) {
     }
 
     override fun hasEnded(): Boolean {
-        return time.getTime() == 0
+        return time.time == 0
     }
 }

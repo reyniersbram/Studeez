@@ -32,7 +32,7 @@ class TimeUnitTest {
     @Test
     fun getTime() {
         Assert.assertEquals(
-            time.getTime(),
+            time.time,
             seconds + minutes * 60 + hours * 60 * 60
         )
     }
@@ -41,7 +41,7 @@ class TimeUnitTest {
     fun minOne() {
         time.minOne()
         Assert.assertEquals(
-            time.getTime(),
+            time.time,
             (seconds + minutes * 60 + hours * 60 * 60) - 1
         )
     }
@@ -50,7 +50,7 @@ class TimeUnitTest {
     fun plusOne() {
         time.plusOne()
         Assert.assertEquals(
-            time.getTime(),
+            time.time,
             (seconds + minutes * 60 + hours * 60 * 60) + 1
         )
     }
@@ -62,7 +62,7 @@ class TimeUnitTest {
             time.minOne()
         }
         Assert.assertEquals(
-            time.getTime(),
+            time.time,
             (seconds + minutes * 60 + hours * 60 * 60) - n
         )
     }
@@ -74,7 +74,7 @@ class TimeUnitTest {
             time.plusOne()
         }
         Assert.assertEquals(
-            time.getTime(),
+            time.time,
             (seconds + minutes * 60 + hours * 60 * 60) + n
         )
     }
