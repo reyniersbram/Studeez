@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez
+package be.ugent.sel.studeez.timer_functional
 
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
@@ -32,6 +32,7 @@ class FunctionalEndlessTimerUnitTest : FunctionalTimerUnitTest() {
         val n = 1000
         for (i in 1..n) {
             timer.tick()
+            Assert.assertFalse(timer.hasEnded())
             Assert.assertEquals(
                 FunctionalTimer.FOCUS,
                 timer.view

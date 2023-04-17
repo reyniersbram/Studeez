@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez
+package be.ugent.sel.studeez.timer_functional
 
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
@@ -48,6 +48,7 @@ class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
     override fun testEnded() {
         pomodoroTimer = FunctionalPomodoroTimer(0, 0, 0)
         pomodoroTimer.tick()
+        Assert.assertTrue(pomodoroTimer.hasEnded())
         Assert.assertEquals(
             FunctionalTimer.DONE,
             pomodoroTimer.view,
@@ -59,6 +60,7 @@ class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
         for (i in 0..10) {
             pomodoroTimer.tick()
         }
+        Assert.assertFalse(pomodoroTimer.hasEnded())
         Assert.assertTrue(pomodoroTimer.isInBreak)
         Assert.assertEquals(
             FunctionalTimer.BREAK,

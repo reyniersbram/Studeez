@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez
+package be.ugent.sel.studeez.timer_functional
 
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalCustomTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
@@ -31,6 +31,7 @@ class FunctionalCustomTimerUnitTest : FunctionalTimerUnitTest() {
     override fun testEnded() {
         timer = FunctionalCustomTimer(0)
         timer.tick()
+        Assert.assertTrue(timer.hasEnded())
         Assert.assertEquals(
             FunctionalTimer.DONE,
             timer.view

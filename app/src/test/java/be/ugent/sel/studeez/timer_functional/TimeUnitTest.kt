@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez
+package be.ugent.sel.studeez.timer_functional
 
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
 import be.ugent.sel.studeez.data.local.models.timer_functional.Time
