@@ -20,10 +20,12 @@ import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.home.HomeScreen
 import be.ugent.sel.studeez.screens.log_in.LoginScreen
+import be.ugent.sel.studeez.screens.session.SessionScreen
 import be.ugent.sel.studeez.screens.profile.EditProfileScreen
 import be.ugent.sel.studeez.screens.profile.ProfileScreen
 import be.ugent.sel.studeez.screens.sign_up.SignUpScreen
 import be.ugent.sel.studeez.screens.splash.SplashScreen
+import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewScreen
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import kotlinx.coroutines.CoroutineScope
 
@@ -113,6 +115,14 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
         ProfileScreen(open, openAndPopUp)
     }
 
+    composable(StudeezDestinations.TIMER_OVERVIEW_SCREEN) {
+        TimerOverviewScreen(openAndPopUp)
+    }
+
+    composable(StudeezDestinations.SESSION_SCREEN) {
+        SessionScreen(openAndPopUp)
+    }
+    
     // TODO Timers screen
     // TODO Settings screen
 
