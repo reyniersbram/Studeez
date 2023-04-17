@@ -18,11 +18,4 @@ class HomeViewModel @Inject constructor(
     fun onStartSessionClick(openAndPopUp: (String) -> Unit) {
         openAndPopUp(StudeezDestinations.SESSION_SCREEN)
     }
-
-    fun onLogoutClick(openAndPopup: (String, String) -> Unit) {
-        launchCatching {
-            accountDAO.signOut()
-            openAndPopup(LOGIN_SCREEN, HOME_SCREEN)
-        }
-    }
 }
