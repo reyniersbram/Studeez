@@ -31,4 +31,8 @@ class FunctionalPomodoroTimer(
     override fun hasEnded(): Boolean {
         return breaksRemaining == 0 && time.time == 0
     }
+
+    override fun hasCurrentCountdownEnded(): Boolean {
+        return time.time == 0
+    }
 }

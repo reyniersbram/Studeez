@@ -11,6 +11,11 @@ class FunctionalCustomTimer(studyTime: Int) : FunctionalTimer(studyTime) {
     }
 
     override fun hasEnded(): Boolean {
+        return view == StudyState.DONE
+    }
+
+    override fun hasCurrentCountdownEnded(): Boolean {
         return time.time == 0
     }
+
 }
