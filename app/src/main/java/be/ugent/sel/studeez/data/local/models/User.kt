@@ -1,3 +1,3 @@
 package be.ugent.sel.studeez.data.local.models
 
-data class User(val id: String = "", val isAnonymous: Boolean = true)
+data class User(val id: String = "")
