@@ -1,8 +1,6 @@
-package be.ugent.sel.studeez.screens.timers
+package be.ugent.sel.studeez.screens.timer_selection
 
-import androidx.compose.runtime.mutableStateOf
 import be.ugent.sel.studeez.data.SelectedTimerRepo
-import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.TimerDAO
