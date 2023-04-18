@@ -19,4 +19,6 @@ abstract class DatabaseModule {
     @Binds abstract fun provideLogService(impl: LogServiceImpl): LogService
 
     @Binds abstract fun provideConfigurationService(impl: FirebaseConfigurationService): ConfigurationService
+
+    @Binds abstract fun provideSessionDAO(impl: FireBaseSessionDAO): SessionDAO
 }
