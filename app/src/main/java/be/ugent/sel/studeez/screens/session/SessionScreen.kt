@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
-import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
-import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer.StudyState
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.delay
@@ -43,6 +41,7 @@ var timerEnd = false
 fun SessionScreen(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
+    viewModel: SessionViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
@@ -99,7 +98,7 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel(), mediaplayer: Me
     LaunchedEffect(tikker) {
         delay(1.seconds)
         viewModel.getTimer().tick()
-        ticker = !ticker
+        tikker = !tikker
     }
 
     if (viewModel.getTimer().hasCurrentCountdownEnded() && !viewModel.getTimer().hasEnded()) {

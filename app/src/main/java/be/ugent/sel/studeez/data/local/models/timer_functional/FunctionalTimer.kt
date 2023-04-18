@@ -12,9 +12,7 @@ abstract class FunctionalTimer(initialValue: Int) {
 
     abstract fun hasEnded(): Boolean
 
-    fun hasCurrentCountdownEnded(): Boolean {
-        return time.getTime() == 0
-    }
+    abstract fun hasCurrentCountdownEnded(): Boolean
 
     enum class StudyState {
         FOCUS, DONE, BREAK, FOCUS_REMAINING

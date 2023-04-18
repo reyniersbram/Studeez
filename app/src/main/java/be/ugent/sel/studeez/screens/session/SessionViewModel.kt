@@ -4,6 +4,7 @@ import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import be.ugent.sel.studeez.data.SelectedTimerState
+import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

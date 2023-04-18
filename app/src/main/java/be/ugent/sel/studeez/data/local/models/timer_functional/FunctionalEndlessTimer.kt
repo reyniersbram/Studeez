@@ -6,6 +6,10 @@ class FunctionalEndlessTimer() : FunctionalTimer(0) {
         return false
     }
 
+    override fun hasCurrentCountdownEnded(): Boolean {
+        return false
+    }
+
     override fun tick() {
         time.plusOne()
     }
