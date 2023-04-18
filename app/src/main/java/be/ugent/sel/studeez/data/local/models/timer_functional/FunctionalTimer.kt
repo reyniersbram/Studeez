@@ -16,4 +16,7 @@ abstract class FunctionalTimer(initialValue: Int) {
 
     abstract fun hasEnded(): Boolean
 
+    fun hasCurrentCountdownEnded(): Boolean {
+        return time.getTime() == 0
+    }
 }
