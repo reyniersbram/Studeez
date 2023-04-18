@@ -30,7 +30,7 @@ class ToTimerConverter {
             it.studyTime,
             it.id
         ) },
-        TimerType.BREAK to TimerFactory { BreakTimerInfo(
+        TimerType.BREAK to TimerFactory { PomodoroTimerInfo(
             it.name,
             it.description,
             it.studyTime,

@@ -7,37 +7,32 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun SessionScreen(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
-    viewModel: SessionViewModel = hiltViewModel()
 ) {
-    PrimaryScreenTemplate(
-        title = resources().getString(R.string.start_session),
-        open = open,
-        openAndPopUp = openAndPopUp
-    ) {
-        Timer(viewModel)
-    }
+    Timer()
 }
 
 @Composable
-private fun Timer(viewModel: SessionViewModel = hiltViewModel()) {
-    var tikker by remember { mutableStateOf(false) }
-    LaunchedEffect(tikker) {
-        delay(1000)
+fun Timer(viewModel: SessionViewModel = hiltViewModel()) {
+
+
+    var ticker by remember { mutableStateOf(false) }
+    LaunchedEffect(ticker) {
+        delay(1.seconds)
         viewModel.getTimer().tick()
-        tikker = !tikker
+        ticker = !ticker
     }
 
     val hms = viewModel.getTimer().getHoursMinutesSeconds()
