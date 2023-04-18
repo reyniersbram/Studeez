@@ -13,6 +13,7 @@
         <string name="cancel">Cancel</string>
         <string name="go_back">Go back</string>
         <string name="next">Next</string>
+        <string name="start">Start</string>
 
         <!-- Messages -->
         <string name="success">Success!</string>
