@@ -38,7 +38,7 @@ class FunctionalEndlessTimerUnitTest : FunctionalTimerUnitTest() {
             timer.tick()
             Assert.assertFalse(timer.hasEnded())
             Assert.assertEquals(
-                FunctionalTimer.FOCUS,
+                FunctionalTimer.StudyState.FOCUS,
                 timer.view
             )
         }
