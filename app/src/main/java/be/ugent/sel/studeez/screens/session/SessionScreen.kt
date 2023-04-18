@@ -19,11 +19,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import be.ugent.sel.studeez.domain.implementation.LogServiceImpl
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import kotlinx.coroutines.delay
 
@@ -35,10 +33,25 @@ fun SessionScreen(
     openAndPopUp: (String, String) -> Unit,
     viewModel: SessionViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+    val mediaplayer = MediaPlayer.create(context, uri)
+    mediaplayer.setOnCompletionListener {
+        if (!mediaplayer.isPlaying) {
+            mediaplayer.stop()
+        }
+        if (timerEnd) {
+            mediaplayer.release()
+        }
+    }
+    mediaplayer.setOnPreparedListener {
+        mediaplayer.start()
+    }
+
     Column(
        modifier = Modifier.padding(10.dp)
    ) {
-        Timer(viewModel)
+        Timer(viewModel, mediaplayer)
 
         Box(
             contentAlignment = Alignment.Center,
@@ -47,7 +60,11 @@ fun SessionScreen(
                 .padding(50.dp)
         ) {
             TextButton(
-                onClick = { open(StudeezDestinations.HOME_SCREEN) },
+                onClick = {
+                    mediaplayer.release()
+                    open(StudeezDestinations.HOME_SCREEN)
+                    // Vanaf hier ook naar report gaan als "end session" knop word ingedrukt
+                  },
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .border(1.dp, Color.Red, RoundedCornerShape(32.dp))
@@ -66,7 +83,7 @@ fun SessionScreen(
 }
 
 @Composable
-private fun Timer(viewModel: SessionViewModel = hiltViewModel()) {
+private fun Timer(viewModel: SessionViewModel = hiltViewModel(), mediaplayer: MediaPlayer) {
     var tikker by remember { mutableStateOf(false) }
     LaunchedEffect(tikker) {
         delay(1000)
@@ -74,22 +91,12 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel()) {
         tikker = !tikker
     }
 
-    val context = LocalContext.current
-    val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-    val mediaplayer = MediaPlayer.create(context, uri)
-    mediaplayer.setOnCompletionListener {
-        mediaplayer.stop()
-        if (timerEnd) {
-            mediaplayer.release()
-        }
-    }
-
     if (viewModel.getTimer().hasCurrentCountdownEnded() && !viewModel.getTimer().hasEnded()) {
-        mediaplayer.start()
+        mediaplayer.prepare()
     }
 
     if (!timerEnd && viewModel.getTimer().hasEnded()) {
-        mediaplayer.start()
+        mediaplayer.prepare()
         timerEnd = true // Placeholder, vanaf hier moet het report opgestart worden en de sessie afgesloten
     }
 
@@ -131,40 +138,6 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel()) {
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .padding(vertical = 4.dp, horizontal = 20.dp)
-                )
-            }
-        }
-    }
-}
-
-@Preview
-@Composable
-fun Screen() {
-    val viewModel = SessionViewModel(LogServiceImpl())
-    Column(
-        modifier = Modifier.padding(10.dp)
-    ) {
-        Timer(viewModel)
-
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(50.dp)
-        ) {
-            TextButton(
-                onClick = {},
-                modifier = Modifier
-                    .padding(vertical = 1.dp, horizontal = 20.dp)
-                    .border(1.dp, Color.Red, RoundedCornerShape(32.dp))
-                    .background(Color.Transparent)
-            ) {
-                Text(
-                    text = "End session",
-                    color = Color.Red,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    modifier = Modifier.padding(1.dp)
                 )
             }
         }
