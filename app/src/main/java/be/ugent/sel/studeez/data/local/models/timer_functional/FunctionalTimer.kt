@@ -2,7 +2,7 @@ package be.ugent.sel.studeez.data.local.models.timer_functional
 
 abstract class FunctionalTimer(initialValue: Int) {
     val time: Time = Time(initialValue)
-    var view: String = FOCUS
+    var view: StudyState = StudyState.FOCUS
 
     fun getHoursMinutesSeconds(): HoursMinutesSeconds {
         return time.getAsHMS()
@@ -12,11 +12,8 @@ abstract class FunctionalTimer(initialValue: Int) {
 
     abstract fun hasEnded(): Boolean
 
-    companion object {
-        const val FOCUS: String = "Focus"
-        const val DONE: String = "Done!"
-        const val BREAK: String = "Take a break!"
-        val FOCUS_REMAINING: (Int) -> String = { n -> "Focus! ($n breaks remaining)" }
+    enum class StudyState {
+        FOCUS, DONE, BREAK, FOCUS_REMAINING
     }
 
 }

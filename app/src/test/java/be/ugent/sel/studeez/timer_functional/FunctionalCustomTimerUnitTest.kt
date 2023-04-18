@@ -37,7 +37,7 @@ class FunctionalCustomTimerUnitTest : FunctionalTimerUnitTest() {
         timer.tick()
         Assert.assertTrue(timer.hasEnded())
         Assert.assertEquals(
-            FunctionalTimer.DONE,
+            FunctionalTimer.StudyState.DONE,
             timer.view
         )
     }

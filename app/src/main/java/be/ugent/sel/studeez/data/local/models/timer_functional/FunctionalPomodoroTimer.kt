@@ -10,17 +10,17 @@ class FunctionalPomodoroTimer(
 
     override fun tick() {
         if (time.time == 0 && breaksRemaining == 0) {
-            view = DONE
+            view = StudyState.DONE
             return
         }
 
         if (time.time == 0) {
             if (isInBreak) {
                 breaksRemaining--
-                view = FOCUS_REMAINING(breaksRemaining)
+                view = StudyState.FOCUS_REMAINING
                 time.time = studyTime
             } else {
-                view = BREAK
+                view = StudyState.BREAK
                 time.time = breakTime
             }
             isInBreak = !isInBreak

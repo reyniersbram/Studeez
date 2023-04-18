@@ -4,7 +4,7 @@ class FunctionalCustomTimer(studyTime: Int) : FunctionalTimer(studyTime) {
 
     override fun tick() {
         if (time.time == 0) {
-            view = DONE
+            view = StudyState.DONE
         } else {
             time.minOne()
         }

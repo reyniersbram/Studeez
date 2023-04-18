@@ -5,7 +5,7 @@ import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import org.junit.Assert
 import org.junit.Test
 
-class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
+class FunctionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
     private val breakTime = 10
     private val breaks = 2
     override val hours = 0
@@ -30,7 +30,7 @@ class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
             pomodoroTimer.breaksRemaining,
         )
         Assert.assertEquals(
-            FunctionalTimer.FOCUS,
+            FunctionalTimer.StudyState.FOCUS,
             pomodoroTimer.view,
         )
     }
@@ -53,7 +53,7 @@ class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
         pomodoroTimer.tick()
         Assert.assertTrue(pomodoroTimer.hasEnded())
         Assert.assertEquals(
-            FunctionalTimer.DONE,
+            FunctionalTimer.StudyState.DONE,
             pomodoroTimer.view,
         )
     }
@@ -66,7 +66,7 @@ class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
         Assert.assertFalse(pomodoroTimer.hasEnded())
         Assert.assertTrue(pomodoroTimer.isInBreak)
         Assert.assertEquals(
-            FunctionalTimer.BREAK,
+            FunctionalTimer.StudyState.BREAK,
             pomodoroTimer.view
         )
     }
@@ -78,7 +78,7 @@ class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
         }
         Assert.assertTrue(pomodoroTimer.isInBreak)
         Assert.assertEquals(
-            FunctionalTimer.BREAK,
+            FunctionalTimer.StudyState.BREAK,
             pomodoroTimer.view
         )
         for (i in 0..breakTime) {
@@ -91,7 +91,7 @@ class FuntionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
             pomodoroTimer.breaksRemaining
         )
         Assert.assertEquals(
-            FunctionalTimer.FOCUS_REMAINING(breaksRemaining),
+            FunctionalTimer.StudyState.FOCUS_REMAINING,
             pomodoroTimer.view
         )
     }
