@@ -21,11 +21,7 @@ fun SessionScreen(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
 ) {
-    SecondaryScreenTemplate(
-        title = resources().getString(R.string.start_session),
-        popUp = {},
-        content = { Timer() }
-    )
+    Timer()
 }
 
 @Composable
