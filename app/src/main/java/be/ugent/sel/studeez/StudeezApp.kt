@@ -26,7 +26,7 @@ import be.ugent.sel.studeez.screens.profile.ProfileScreen
 import be.ugent.sel.studeez.screens.sign_up.SignUpScreen
 import be.ugent.sel.studeez.screens.splash.SplashScreen
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewScreen
-import be.ugent.sel.studeez.screens.timers.TimerSelectionScreen
+import be.ugent.sel.studeez.screens.timer_selection.TimerSelectionScreen
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import kotlinx.coroutines.CoroutineScope
 
