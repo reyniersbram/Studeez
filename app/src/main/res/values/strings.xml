@@ -13,6 +13,7 @@
         <string name="cancel">Cancel</string>
         <string name="go_back">Go back</string>
         <string name="next">Next</string>
+        <string name="start">Start</string>
 
         <!-- Messages -->
         <string name="success">Success!</string>
@@ -63,6 +64,14 @@
     <string name="timers">Timers</string>
     <string name="edit">Edit</string>
     <string name="add_timer">Add timer</string>
+    <string name="state_focus">Focus!</string>
+    <plurals name="state_focus_remaining">
+        <item quantity="zero">Focus one more time!</item>
+        <item quantity="one">Focus! (%d break remaining)</item>
+        <item quantity="other">Focus! (%d breaks remaining)</item>
+    </plurals>
+    <string name="state_done">Done!</string>
+    <string name="state_take_a_break">Take a break!</string>
 
     <!-- Settings -->
     <string name="settings">Settings</string>

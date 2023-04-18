@@ -15,14 +15,7 @@ class HomeViewModel @Inject constructor(
     logService: LogService
 ) : StudeezViewModel(logService) {
 
-    fun onStartSessionClick(openAndPopUp: (String) -> Unit) {
-        openAndPopUp(StudeezDestinations.SESSION_SCREEN)
-    }
-
-    fun onLogoutClick(openAndPopup: (String, String) -> Unit) {
-        launchCatching {
-            accountDAO.signOut()
-            openAndPopup(LOGIN_SCREEN, HOME_SCREEN)
-        }
+    fun onStartSessionClick(open: (String) -> Unit) {
+        open(StudeezDestinations.TIMER_SELECTION_SCREEN)
     }
 }

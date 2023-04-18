@@ -2,7 +2,7 @@ package be.ugent.sel.studeez.data.local.models.timer_functional
 
 class Time(initialTime: Int) {
 
-    private var time = initialTime
+    var time = initialTime
 
     fun minOne() {
         time--
@@ -10,14 +10,6 @@ class Time(initialTime: Int) {
 
     fun plusOne() {
         time++
-    }
-
-    fun setTime(newTime: Int) {
-        time = newTime
-    }
-
-    fun getTime(): Int {
-        return time
     }
 
     fun getAsHMS(): HoursMinutesSeconds {

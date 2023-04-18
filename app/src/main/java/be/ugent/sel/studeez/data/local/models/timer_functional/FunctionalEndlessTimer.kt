@@ -1,6 +1,6 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
-class FunctionalEndlessTimer() : FunctionalTimer(0){
+class FunctionalEndlessTimer() : FunctionalTimer(0) {
 
     override fun hasEnded(): Boolean {
         return false

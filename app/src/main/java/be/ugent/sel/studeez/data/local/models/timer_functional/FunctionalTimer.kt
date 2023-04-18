@@ -1,15 +1,11 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
 abstract class FunctionalTimer(initialValue: Int) {
-    protected val time: Time = Time(initialValue)
-    protected var view: String = "Focus"
+    val time: Time = Time(initialValue)
+    var view: StudyState = StudyState.FOCUS
 
     fun getHoursMinutesSeconds(): HoursMinutesSeconds {
         return time.getAsHMS()
-    }
-
-    fun getViewString(): String {
-        return view
     }
 
     abstract fun tick()
@@ -19,4 +15,9 @@ abstract class FunctionalTimer(initialValue: Int) {
     fun hasCurrentCountdownEnded(): Boolean {
         return time.getTime() == 0
     }
+
+    enum class StudyState {
+        FOCUS, DONE, BREAK, FOCUS_REMAINING
+    }
+
 }
