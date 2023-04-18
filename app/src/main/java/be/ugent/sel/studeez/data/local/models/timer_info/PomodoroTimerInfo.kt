@@ -3,7 +3,7 @@ package be.ugent.sel.studeez.data.local.models.timer_info
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 
-class BreakTimerInfo(
+class PomodoroTimerInfo(
     name: String,
     description: String,
     private val studyTime: Int,
