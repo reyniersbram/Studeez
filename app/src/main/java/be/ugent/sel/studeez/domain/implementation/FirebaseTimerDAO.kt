@@ -50,14 +50,8 @@ class FirebaseTimerDAO @Inject constructor(
     }
 
     private fun currentUserTimersCollection(): CollectionReference =
-        firestore.collection(USER_COLLECTION)
+        firestore.collection(FirebaseCollectionRoutes.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(TIMER_COLLECTION)
-
-
-    companion object {
-        private const val TIMER_COLLECTION = "timers"
-        private const val USER_COLLECTION = "users"
-    }
+            .collection(FirebaseCollectionRoutes.TIMER_COLLECTION)
 
 }
