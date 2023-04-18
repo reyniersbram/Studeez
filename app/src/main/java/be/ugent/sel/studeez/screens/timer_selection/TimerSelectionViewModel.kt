@@ -1,6 +1,6 @@
 package be.ugent.sel.studeez.screens.timer_selection
 
-import be.ugent.sel.studeez.data.SelectedTimerRepo
+import be.ugent.sel.studeez.data.SelectedTimerState
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.TimerDAO
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TimerSelectionViewModel @Inject constructor(
     private val timerDAO: TimerDAO,
-    private val selectedTimerRepo: SelectedTimerRepo,
+    private val selectedTimerState: SelectedTimerState,
     logService: LogService
 ) : StudeezViewModel(logService) {
 
@@ -22,7 +22,7 @@ class TimerSelectionViewModel @Inject constructor(
     }
 
     fun startSession(open: (String) -> Unit, timerInfo: TimerInfo) {
-        selectedTimerRepo.selectedTimer = timerInfo.getFunctionalTimer()
+        selectedTimerState.selectedTimer = timerInfo.getFunctionalTimer()
         open(StudeezDestinations.SESSION_SCREEN)
     }
 }

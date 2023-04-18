@@ -9,6 +9,6 @@ import javax.inject.Singleton
  * Because this is a singleton-class the view-models of both screens observe the same data.
  */
 @Singleton
-class SelectedTimerRepo @Inject constructor(){
+class SelectedTimerState @Inject constructor(){
     var selectedTimer: FunctionalTimer? = null
 }
