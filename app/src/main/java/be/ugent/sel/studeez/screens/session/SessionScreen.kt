@@ -7,40 +7,39 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.resources
-import be.ugent.sel.studeez.screens.timers.TimerSelectionViewModel
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun SessionScreen(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
 ) {
-    PrimaryScreenTemplate(
+    SecondaryScreenTemplate(
         title = resources().getString(R.string.start_session),
-        open = open,
-        openAndPopUp = openAndPopUp
-    ) {
-        Timer()
-    }
+        popUp = {},
+        content = { Timer() }
+    )
 }
 
 @Composable
-fun Timer(viewModel: TimerSelectionViewModel = hiltViewModel()) {
-    var tikker by remember { mutableStateOf(false) }
-    LaunchedEffect(tikker) {
-        delay(1000)
-        viewModel.sessionTimer!!.tick()
-        tikker = !tikker
+fun Timer(viewModel: SessionViewModel = hiltViewModel()) {
+
+
+    var ticker by remember { mutableStateOf(false) }
+    LaunchedEffect(ticker) {
+        delay(1.seconds)
+        viewModel.getTimer().tick()
+        ticker = !ticker
     }
 
-    val hms = viewModel.sessionTimer!!.getHoursMinutesSeconds()
+    val hms = viewModel.getTimer().getHoursMinutesSeconds()
     Column {
         Text(
             text = "${hms.hours} : ${hms.minutes} : ${hms.seconds}",
@@ -50,7 +49,7 @@ fun Timer(viewModel: TimerSelectionViewModel = hiltViewModel()) {
             fontSize = 80.sp
         )
         Text(
-            text = viewModel.sessionTimer!!.getViewString(),
+            text = viewModel.getTimer().getViewString(),
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Light,
