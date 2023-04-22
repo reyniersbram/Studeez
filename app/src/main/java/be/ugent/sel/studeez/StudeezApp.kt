@@ -30,6 +30,7 @@ import be.ugent.sel.studeez.screens.log_in.LoginRoute
 import be.ugent.sel.studeez.screens.log_in.LoginScreen
 import be.ugent.sel.studeez.screens.profile.EditProfileRoute
 import be.ugent.sel.studeez.screens.profile.EditProfileScreen
+import be.ugent.sel.studeez.screens.profile.ProfileRoute
 import be.ugent.sel.studeez.screens.profile.ProfileScreen
 import be.ugent.sel.studeez.screens.session.SessionScreen
 import be.ugent.sel.studeez.screens.sign_up.SignUpScreen
@@ -122,7 +123,7 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     // TODO Sessions screen
 
     composable(StudeezDestinations.PROFILE_SCREEN) {
-        ProfileScreen(open, openAndPopUp)
+        ProfileRoute(open, openAndPopUp, viewModel = hiltViewModel())
     }
 
     composable(StudeezDestinations.TIMER_OVERVIEW_SCREEN) {
