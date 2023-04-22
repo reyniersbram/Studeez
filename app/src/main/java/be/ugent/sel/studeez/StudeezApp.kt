@@ -33,6 +33,7 @@ import be.ugent.sel.studeez.screens.session.SessionScreen
 import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewRoute
+import be.ugent.sel.studeez.screens.timer_selection.TimerSelectionRoute
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import kotlinx.coroutines.CoroutineScope
 
@@ -139,6 +140,6 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     }
 
     composable(StudeezDestinations.TIMER_SELECTION_SCREEN) {
-        TimerOverviewRoute(open, openAndPopUp, viewModel = hiltViewModel())
+        TimerSelectionRoute(open, openAndPopUp, viewModel = hiltViewModel())
     }
 }
