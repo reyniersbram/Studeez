@@ -28,6 +28,7 @@ import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.home.HomeRoute
 import be.ugent.sel.studeez.screens.log_in.LoginRoute
 import be.ugent.sel.studeez.screens.log_in.LoginScreen
+import be.ugent.sel.studeez.screens.profile.EditProfileRoute
 import be.ugent.sel.studeez.screens.profile.EditProfileScreen
 import be.ugent.sel.studeez.screens.profile.ProfileScreen
 import be.ugent.sel.studeez.screens.session.SessionScreen
@@ -137,7 +138,7 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
 
     // Edit screens
     composable(StudeezDestinations.EDIT_PROFILE_SCREEN) {
-        EditProfileScreen(goBack, openAndPopUp)
+        EditProfileRoute(goBack, openAndPopUp, viewModel = hiltViewModel())
     }
 
     composable(StudeezDestinations.TIMER_SELECTION_SCREEN) {
