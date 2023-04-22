@@ -28,6 +28,8 @@ import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.resources
+import be.ugent.sel.studeez.screens.drawer.DrawerActions
+import be.ugent.sel.studeez.screens.drawer.DrawerViewModel
 
 @Composable
 fun TimerOverviewScreen(
@@ -37,11 +39,19 @@ fun TimerOverviewScreen(
 ) {
 
     val timers = viewModel.getUserTimers().collectAsState(initial = emptyList())
-
+    val drawerViewModel: DrawerViewModel = hiltViewModel()
+    val drawerActions = DrawerActions(
+        onHomeButtonClick = { drawerViewModel.onHomeButtonClick(open) },
+        onTimersClick = { drawerViewModel.onTimersClick(open) },
+        onSettingsClick = { drawerViewModel.onSettingsClick(open) },
+        onLogoutClick = { drawerViewModel.onLogoutClick(openAndPopUp) },
+        onAboutClick = { drawerViewModel.onAboutClick(open) },
+    )
     PrimaryScreenTemplate(
         title = resources().getString(R.string.timers),
         open = open,
-        openAndPopUp = openAndPopUp
+        openAndPopUp = openAndPopUp,
+        drawerActions = drawerActions,
     ) {
 
         Column {

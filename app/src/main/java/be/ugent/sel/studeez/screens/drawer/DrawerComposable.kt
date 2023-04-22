@@ -23,14 +23,17 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
+data class DrawerActions(
+    val onHomeButtonClick: () -> Unit,
+    val onTimersClick: () -> Unit,
+    val onSettingsClick: () -> Unit,
+    val onLogoutClick: () -> Unit,
+    val onAboutClick: () -> Unit,
+)
 
 @Composable
 fun Drawer(
-    onHomeButtonClick: () -> Unit,
-    onTimersClick: () -> Unit,
-    onSettingsClick: () -> Unit,
-    onLogoutClick: () -> Unit,
-    onAboutClick: () -> Unit,
+    drawerActions: DrawerActions,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -43,29 +46,29 @@ fun Drawer(
             DrawerEntry(
                 icon = Icons.Default.Home,
                 text = resources().getString(R.string.home),
-                onClick = onHomeButtonClick,
+                onClick = drawerActions.onHomeButtonClick,
             )
             DrawerEntry(
                 icon = ImageVector.vectorResource(id = R.drawable.ic_timer),
                 text = resources().getString(R.string.timers),
-                onClick = onTimersClick,
+                onClick = drawerActions.onTimersClick,
             )
             DrawerEntry(
                 icon = Icons.Default.Settings,
                 text = resources().getString(R.string.settings),
-                onClick = onSettingsClick,
+                onClick = drawerActions.onSettingsClick,
             )
             DrawerEntry(
                 icon = ImageVector.vectorResource(id = R.drawable.ic_logout),
                 text = resources().getString(R.string.log_out),
-                onClick = onLogoutClick,
+                onClick = drawerActions.onLogoutClick,
             )
         }
 
         DrawerEntry(
             icon = Icons.Outlined.Info,
             text = resources().getString(R.string.about),
-            onClick = onAboutClick,
+            onClick = drawerActions.onAboutClick,
         )
     }
 }
@@ -100,7 +103,8 @@ fun DrawerEntry(
 @Preview
 @Composable
 fun DrawerPreview() {
+    val drawerActions = DrawerActions({}, {}, {}, {}, {})
     StudeezTheme {
-        Drawer({}, {}, {}, {}, {})
+        Drawer(drawerActions)
     }
 }

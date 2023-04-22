@@ -9,6 +9,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.resources
+import be.ugent.sel.studeez.screens.drawer.DrawerActions
+import be.ugent.sel.studeez.screens.drawer.DrawerViewModel
 import be.ugent.sel.studeez.screens.timer_overview.TimerEntry
 
 @Composable
@@ -19,11 +21,19 @@ fun TimerSelectionScreen(
 ) {
 
     val timers = viewModel.getAllTimers().collectAsState(initial = emptyList())
-
+    val drawerViewModel: DrawerViewModel = hiltViewModel()
+    val drawerActions = DrawerActions(
+        onHomeButtonClick = { drawerViewModel.onHomeButtonClick(open) },
+        onTimersClick = { drawerViewModel.onTimersClick(open) },
+        onSettingsClick = { drawerViewModel.onSettingsClick(open) },
+        onLogoutClick = { drawerViewModel.onLogoutClick(openAndPopUp) },
+        onAboutClick = { drawerViewModel.onAboutClick(open) },
+    )
     PrimaryScreenTemplate(
         title = resources().getString(R.string.timers),
         open = open,
         openAndPopUp = openAndPopUp,
+        drawerActions = drawerActions,
     ) {
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(7.dp)) {

@@ -10,6 +10,8 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.Headline
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.resources
+import be.ugent.sel.studeez.screens.drawer.DrawerActions
+import be.ugent.sel.studeez.screens.drawer.DrawerViewModel
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
@@ -22,11 +24,19 @@ fun ProfileScreen(
     LaunchedEffect(key1 = Unit) {
         username = viewModel.getUsername()
     }
-
+    val drawerViewModel: DrawerViewModel = hiltViewModel()
+    val drawerActions = DrawerActions(
+        onHomeButtonClick = { drawerViewModel.onHomeButtonClick(open) },
+        onTimersClick = { drawerViewModel.onTimersClick(open) },
+        onSettingsClick = { drawerViewModel.onSettingsClick(open) },
+        onLogoutClick = { drawerViewModel.onLogoutClick(openAndPopUp) },
+        onAboutClick = { drawerViewModel.onAboutClick(open) },
+    )
     PrimaryScreenTemplate(
         title = resources().getString(AppText.profile),
         open = open,
         openAndPopUp = openAndPopUp,
+        drawerActions = drawerActions,
         action = { EditAction { viewModel.onEditProfileClick(open) } }
     ) {
         Headline(text = (username ?: resources().getString(R.string.no_username)))

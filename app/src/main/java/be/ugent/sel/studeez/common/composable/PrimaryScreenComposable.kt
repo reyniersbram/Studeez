@@ -2,16 +2,24 @@ package be.ugent.sel.studeez.common.composable
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.*
+import androidx.compose.material.FabPosition
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.drawer.Drawer
+import be.ugent.sel.studeez.screens.drawer.DrawerActions
 import be.ugent.sel.studeez.screens.navbar.NavigationBar
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +30,7 @@ fun PrimaryScreenTemplate(
     title: String,
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
+    drawerActions: DrawerActions,
     action: @Composable RowScope.() -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
@@ -31,23 +40,25 @@ fun PrimaryScreenTemplate(
     Scaffold(
         scaffoldState = scaffoldState,
 
-        topBar = { TopAppBar(
-            title = { Text(text = title) },
-            navigationIcon = {
-                IconButton(onClick = {
-                    coroutineScope.launch { scaffoldState.drawerState.open() }
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.Menu,
-                        contentDescription = resources().getString(R.string.menu)
-                    )
-                }
-            },
-            actions = action
-        ) },
+        topBar = {
+            TopAppBar(
+                title = { Text(text = title) },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        coroutineScope.launch { scaffoldState.drawerState.open() }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = resources().getString(R.string.menu)
+                        )
+                    }
+                },
+                actions = action
+            )
+        },
 
         drawerContent = {
-            Drawer(open, openAndPopUp)
+            Drawer(drawerActions)
         },
 
         bottomBar = { NavigationBar(open) },
@@ -65,14 +76,17 @@ fun PrimaryScreenPreview() {
     StudeezTheme {
         PrimaryScreenTemplate(
             "Preview screen",
-            { _ -> {}},
-            { _, _ -> {}},
-            { IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit"
-                )
-            }}
+            {},
+            { _, _ -> run {} },
+            DrawerActions({}, {}, {}, {}, {}),
+            {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Edit"
+                    )
+                }
+            },
         ) {}
     }
 }
