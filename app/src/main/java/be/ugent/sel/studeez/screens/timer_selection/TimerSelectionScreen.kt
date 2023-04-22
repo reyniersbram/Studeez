@@ -10,13 +10,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.TimerEntry
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.drawer.DrawerActions
 import be.ugent.sel.studeez.screens.drawer.getDrawerActions
 import be.ugent.sel.studeez.screens.navbar.NavigationBarActions
 import be.ugent.sel.studeez.screens.navbar.getNavigationBarActions
-import be.ugent.sel.studeez.screens.timer_overview.TimerEntry
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
