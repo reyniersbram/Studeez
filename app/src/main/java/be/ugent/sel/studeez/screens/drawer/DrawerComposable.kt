@@ -31,6 +31,20 @@ data class DrawerActions(
     val onAboutClick: () -> Unit,
 )
 
+fun getDrawerActions(
+    drawerViewModel: DrawerViewModel,
+    open: (String) -> Unit,
+    openAndPopUp: (String, String) -> Unit,
+): DrawerActions {
+    return DrawerActions(
+        onHomeButtonClick = { drawerViewModel.onHomeButtonClick(open) },
+        onTimersClick = { drawerViewModel.onTimersClick(open) },
+        onSettingsClick = { drawerViewModel.onSettingsClick(open) },
+        onLogoutClick = { drawerViewModel.onLogoutClick(openAndPopUp) },
+        onAboutClick = { drawerViewModel.onAboutClick(open) },
+    )
+}
+
 @Composable
 fun Drawer(
     drawerActions: DrawerActions,

@@ -15,8 +15,10 @@ import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.drawer.DrawerActions
 import be.ugent.sel.studeez.screens.drawer.DrawerViewModel
+import be.ugent.sel.studeez.screens.drawer.getDrawerActions
 import be.ugent.sel.studeez.screens.navbar.NavigationBarActions
 import be.ugent.sel.studeez.screens.navbar.NavigationBarViewModel
+import be.ugent.sel.studeez.screens.navbar.getNavigationBarActions
 
 @Composable
 fun HomeRoute(
@@ -25,33 +27,19 @@ fun HomeRoute(
     viewModel: HomeViewModel,
 ) {
     HomeScreen(
-        open = open,
-        openAndPopUp = openAndPopUp,
-        onStartSessionClick = { viewModel.onStartSessionClick(open) }
+        onStartSessionClick = { viewModel.onStartSessionClick(open) },
+        drawerActions = getDrawerActions(hiltViewModel(), open, openAndPopUp),
+        navigationBarActions = getNavigationBarActions(hiltViewModel(), open),
     )
 }
 
 @Composable
 fun HomeScreen(
-    open: (String) -> Unit,
-    openAndPopUp: (String, String) -> Unit,
     onStartSessionClick: () -> Unit,
+    drawerActions: DrawerActions,
+    navigationBarActions: NavigationBarActions,
 ) {
-    val drawerViewModel: DrawerViewModel = hiltViewModel()
-    val drawerActions = DrawerActions(
-        onHomeButtonClick = { drawerViewModel.onHomeButtonClick(open) },
-        onTimersClick = { drawerViewModel.onTimersClick(open) },
-        onSettingsClick = { drawerViewModel.onSettingsClick(open) },
-        onLogoutClick = { drawerViewModel.onLogoutClick(openAndPopUp) },
-        onAboutClick = { drawerViewModel.onAboutClick(open) },
-    )
-    val navigationBarViewModel: NavigationBarViewModel = hiltViewModel()
-    val navigationBarActions = NavigationBarActions(
-        onHomeClick = { navigationBarViewModel.onHomeClick(open) },
-        onTasksClick = { navigationBarViewModel.onTasksClick(open) },
-        onSessionsClick = { navigationBarViewModel.onSessionsClick(open) },
-        onProfileClick = { navigationBarViewModel.onProfileClick(open) },
-    )
+
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
         drawerActions = drawerActions,
@@ -77,5 +65,9 @@ fun FriendsAction() {
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(open = {}, openAndPopUp = { _, _ -> run {} }, onStartSessionClick = {})
+    HomeScreen(
+        onStartSessionClick = {},
+        drawerActions = DrawerActions({}, {}, {}, {}, {}),
+        navigationBarActions = NavigationBarActions({}, {}, {}, {})
+    )
 }

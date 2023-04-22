@@ -23,6 +23,18 @@ data class NavigationBarActions(
     val onProfileClick: () -> Unit,
 )
 
+fun getNavigationBarActions(
+    navigationBarViewModel: NavigationBarViewModel,
+    open: (String) -> Unit,
+): NavigationBarActions {
+    return NavigationBarActions(
+        onHomeClick = { navigationBarViewModel.onHomeClick(open) },
+        onTasksClick = { navigationBarViewModel.onTasksClick(open) },
+        onSessionsClick = { navigationBarViewModel.onSessionsClick(open) },
+        onProfileClick = { navigationBarViewModel.onProfileClick(open) },
+    )
+}
+
 @Composable
 fun NavigationBar(
     navigationBarActions: NavigationBarActions,

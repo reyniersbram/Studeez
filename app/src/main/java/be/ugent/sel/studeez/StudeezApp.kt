@@ -2,7 +2,13 @@ package be.ugent.sel.studeez
 
 import android.content.res.Resources
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.Surface
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
@@ -11,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -18,11 +25,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.navigation.StudeezDestinations
-import be.ugent.sel.studeez.screens.home.HomeScreen
+import be.ugent.sel.studeez.screens.home.HomeRoute
 import be.ugent.sel.studeez.screens.log_in.LoginScreen
-import be.ugent.sel.studeez.screens.session.SessionScreen
 import be.ugent.sel.studeez.screens.profile.EditProfileScreen
 import be.ugent.sel.studeez.screens.profile.ProfileScreen
+import be.ugent.sel.studeez.screens.session.SessionScreen
 import be.ugent.sel.studeez.screens.sign_up.SignUpScreen
 import be.ugent.sel.studeez.screens.splash.SplashScreen
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewScreen
@@ -85,12 +92,12 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
         appState.popUp()
     }
 
-    val open: (String) -> Unit = {
-            route -> appState.navigate(route)
+    val open: (String) -> Unit = { route ->
+        appState.navigate(route)
     }
 
-    val openAndPopUp: (String, String) -> Unit = {
-            route, popUp -> appState.navigateAndPopUp(route, popUp)
+    val openAndPopUp: (String, String) -> Unit = { route, popUp ->
+        appState.navigateAndPopUp(route, popUp)
     }
 
     composable(StudeezDestinations.SPLASH_SCREEN) {
@@ -106,7 +113,7 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     }
 
     composable(StudeezDestinations.HOME_SCREEN) {
-        HomeScreen(open, openAndPopUp)
+        HomeRoute(open, openAndPopUp, viewModel = hiltViewModel())
     }
 
     // TODO Tasks screen
@@ -123,7 +130,7 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     composable(StudeezDestinations.SESSION_SCREEN) {
         SessionScreen(open, openAndPopUp)
     }
-    
+
     // TODO Timers screen
     // TODO Settings screen
 
