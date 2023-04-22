@@ -11,6 +11,8 @@ import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.drawer.DrawerActions
 import be.ugent.sel.studeez.screens.drawer.DrawerViewModel
+import be.ugent.sel.studeez.screens.navbar.NavigationBarActions
+import be.ugent.sel.studeez.screens.navbar.NavigationBarViewModel
 import be.ugent.sel.studeez.screens.timer_overview.TimerEntry
 
 @Composable
@@ -29,11 +31,17 @@ fun TimerSelectionScreen(
         onLogoutClick = { drawerViewModel.onLogoutClick(openAndPopUp) },
         onAboutClick = { drawerViewModel.onAboutClick(open) },
     )
+    val navigationBarViewModel: NavigationBarViewModel = hiltViewModel()
+    val navigationBarActions = NavigationBarActions(
+        onHomeClick = { navigationBarViewModel.onHomeClick(open) },
+        onTasksClick = { navigationBarViewModel.onTasksClick(open) },
+        onSessionsClick = { navigationBarViewModel.onSessionsClick(open) },
+        onProfileClick = { navigationBarViewModel.onProfileClick(open) },
+    )
     PrimaryScreenTemplate(
         title = resources().getString(R.string.timers),
-        open = open,
-        openAndPopUp = openAndPopUp,
         drawerActions = drawerActions,
+        navigationBarActions = navigationBarActions,
     ) {
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(7.dp)) {

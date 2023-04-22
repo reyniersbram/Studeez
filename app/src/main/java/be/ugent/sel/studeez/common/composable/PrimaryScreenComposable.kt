@@ -21,6 +21,7 @@ import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.drawer.Drawer
 import be.ugent.sel.studeez.screens.drawer.DrawerActions
 import be.ugent.sel.studeez.screens.navbar.NavigationBar
+import be.ugent.sel.studeez.screens.navbar.NavigationBarActions
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,9 +29,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun PrimaryScreenTemplate(
     title: String,
-    open: (String) -> Unit,
-    openAndPopUp: (String, String) -> Unit,
     drawerActions: DrawerActions,
+    navigationBarActions: NavigationBarActions,
     action: @Composable RowScope.() -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
@@ -61,7 +61,7 @@ fun PrimaryScreenTemplate(
             Drawer(drawerActions)
         },
 
-        bottomBar = { NavigationBar(open) },
+        bottomBar = { NavigationBar(navigationBarActions) },
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
         floatingActionButton = { CollapsedAddButton() }
@@ -76,9 +76,8 @@ fun PrimaryScreenPreview() {
     StudeezTheme {
         PrimaryScreenTemplate(
             "Preview screen",
-            {},
-            { _, _ -> run {} },
             DrawerActions({}, {}, {}, {}, {}),
+            NavigationBarActions({}, {}, {}, {}),
             {
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(

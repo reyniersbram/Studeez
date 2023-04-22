@@ -15,6 +15,8 @@ import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.drawer.DrawerActions
 import be.ugent.sel.studeez.screens.drawer.DrawerViewModel
+import be.ugent.sel.studeez.screens.navbar.NavigationBarActions
+import be.ugent.sel.studeez.screens.navbar.NavigationBarViewModel
 
 @Composable
 fun HomeRoute(
@@ -43,11 +45,17 @@ fun HomeScreen(
         onLogoutClick = { drawerViewModel.onLogoutClick(openAndPopUp) },
         onAboutClick = { drawerViewModel.onAboutClick(open) },
     )
+    val navigationBarViewModel: NavigationBarViewModel = hiltViewModel()
+    val navigationBarActions = NavigationBarActions(
+        onHomeClick = { navigationBarViewModel.onHomeClick(open) },
+        onTasksClick = { navigationBarViewModel.onTasksClick(open) },
+        onSessionsClick = { navigationBarViewModel.onSessionsClick(open) },
+        onProfileClick = { navigationBarViewModel.onProfileClick(open) },
+    )
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
-        open = open,
-        openAndPopUp = openAndPopUp,
         drawerActions = drawerActions,
+        navigationBarActions = navigationBarActions,
         action = { FriendsAction() }
     ) {
         BasicButton(R.string.start_session, Modifier.basicButton()) {

@@ -12,16 +12,20 @@ import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import be.ugent.sel.studeez.R.string as AppText
 
+data class NavigationBarActions(
+    val onHomeClick: () -> Unit,
+    val onTasksClick: () -> Unit,
+    val onSessionsClick: () -> Unit,
+    val onProfileClick: () -> Unit,
+)
 
 @Composable
 fun NavigationBar(
-    open: (String) -> Unit,
-    viewModel: NavigationBarViewModel = hiltViewModel()
+    navigationBarActions: NavigationBarActions,
 ) {
     // TODO Pass functions and new screens.
     // TODO Pass which screen is selected.
@@ -33,31 +37,43 @@ fun NavigationBar(
             icon = { Icon(imageVector = Icons.Default.List, resources().getString(AppText.home)) },
             label = { Text(text = resources().getString(AppText.home)) },
             selected = false, // TODO
-            onClick = { viewModel.onHomeClick(open) }
+            onClick = navigationBarActions.onHomeClick
         )
 
         BottomNavigationItem(
-            icon = { Icon(imageVector = Icons.Default.Check, resources().getString(AppText.tasks)) },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Check, resources().getString(AppText.tasks)
+                )
+            },
             label = { Text(text = resources().getString(AppText.tasks)) },
             selected = false, // TODO
-            onClick = { viewModel.onTasksClick(open) }
+            onClick = navigationBarActions.onTasksClick
         )
 
         // Hack to space the entries in the navigation bar, make space for fab
         BottomNavigationItem(icon = {}, onClick = {}, selected = false)
 
         BottomNavigationItem(
-            icon = { Icon(imageVector = Icons.Outlined.DateRange, resources().getString(AppText.sessions)) },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.DateRange, resources().getString(AppText.sessions)
+                )
+            },
             label = { Text(text = resources().getString(AppText.sessions)) },
             selected = false, // TODO
-            onClick = { viewModel.onSessionsClick(open) }
+            onClick = navigationBarActions.onSessionsClick
         )
 
         BottomNavigationItem(
-            icon = { Icon(imageVector = Icons.Default.Person, resources().getString(AppText.profile)) },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Person, resources().getString(AppText.profile)
+                )
+            },
             label = { Text(text = resources().getString(AppText.profile)) },
             selected = false, // TODO
-            onClick = { viewModel.onProfileClick(open) }
+            onClick = navigationBarActions.onProfileClick
         )
 
     }
@@ -67,9 +83,6 @@ fun NavigationBar(
 @Composable
 fun NavigationBarPreview() {
     StudeezTheme {
-        NavigationBar(
-            { _ -> {} },
-            hiltViewModel()
-        )
+        NavigationBar(NavigationBarActions({}, {}, {}, {}))
     }
 }
