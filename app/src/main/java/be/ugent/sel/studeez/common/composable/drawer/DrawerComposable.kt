@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.drawer
+package be.ugent.sel.studeez.common.composable.drawer
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

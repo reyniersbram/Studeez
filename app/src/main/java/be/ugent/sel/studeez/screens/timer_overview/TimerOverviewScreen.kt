@@ -18,10 +18,10 @@ import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.resources
-import be.ugent.sel.studeez.screens.drawer.DrawerActions
-import be.ugent.sel.studeez.screens.drawer.getDrawerActions
-import be.ugent.sel.studeez.screens.navbar.NavigationBarActions
-import be.ugent.sel.studeez.screens.navbar.getNavigationBarActions
+import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
+import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
+import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
+import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

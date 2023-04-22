@@ -16,10 +16,10 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.Headline
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.resources
-import be.ugent.sel.studeez.screens.drawer.DrawerActions
-import be.ugent.sel.studeez.screens.drawer.getDrawerActions
-import be.ugent.sel.studeez.screens.navbar.NavigationBarActions
-import be.ugent.sel.studeez.screens.navbar.getNavigationBarActions
+import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
+import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
+import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
+import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
 import kotlinx.coroutines.CoroutineScope
 import be.ugent.sel.studeez.R.string as AppText
 

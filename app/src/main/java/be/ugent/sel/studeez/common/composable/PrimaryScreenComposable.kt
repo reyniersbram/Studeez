@@ -18,10 +18,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.resources
-import be.ugent.sel.studeez.screens.drawer.Drawer
-import be.ugent.sel.studeez.screens.drawer.DrawerActions
-import be.ugent.sel.studeez.screens.navbar.NavigationBar
-import be.ugent.sel.studeez.screens.navbar.NavigationBarActions
+import be.ugent.sel.studeez.common.composable.drawer.Drawer
+import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
+import be.ugent.sel.studeez.common.composable.navbar.NavigationBar
+import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

@@ -62,7 +62,7 @@ fun TimerEntryPreview() {
 @Composable
 fun TimerDefaultEntryPreview() {
     val timerInfo = CustomTimerInfo(
-        "my preview timer", "This is the description of the timer", 60
+        "Default preview timer", "This is the description of the timer", 60
     )
     TimerEntry(timerInfo = timerInfo, false, buttonName = R.string.edit) { }
 }

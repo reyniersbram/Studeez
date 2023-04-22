@@ -13,12 +13,12 @@ import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.resources
-import be.ugent.sel.studeez.screens.drawer.DrawerActions
-import be.ugent.sel.studeez.screens.drawer.DrawerViewModel
-import be.ugent.sel.studeez.screens.drawer.getDrawerActions
-import be.ugent.sel.studeez.screens.navbar.NavigationBarActions
-import be.ugent.sel.studeez.screens.navbar.NavigationBarViewModel
-import be.ugent.sel.studeez.screens.navbar.getNavigationBarActions
+import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
+import be.ugent.sel.studeez.common.composable.drawer.DrawerViewModel
+import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
+import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
+import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
+import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
 
 @Composable
 fun HomeRoute(
