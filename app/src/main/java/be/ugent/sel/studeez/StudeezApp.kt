@@ -26,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.home.HomeRoute
+import be.ugent.sel.studeez.screens.log_in.LoginRoute
 import be.ugent.sel.studeez.screens.log_in.LoginScreen
 import be.ugent.sel.studeez.screens.profile.EditProfileScreen
 import be.ugent.sel.studeez.screens.profile.ProfileScreen
@@ -105,7 +106,7 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     }
 
     composable(StudeezDestinations.LOGIN_SCREEN) {
-        LoginScreen(openAndPopUp)
+        LoginRoute(openAndPopUp, viewModel = hiltViewModel())
     }
 
     composable(StudeezDestinations.SIGN_UP_SCREEN) {
