@@ -50,7 +50,7 @@ fun TimerSelectionScreen(
             items(timers.value) {
                 TimerEntry(
                     timerInfo = it,
-                    canDisplay = true,
+                    showButton = true,
                     buttonName = R.string.start
                 ) { timerInfo ->
                     viewModel.startSession(open, timerInfo)

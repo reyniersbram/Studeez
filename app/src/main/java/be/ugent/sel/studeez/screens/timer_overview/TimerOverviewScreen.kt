@@ -1,6 +1,5 @@
 package be.ugent.sel.studeez.screens.timer_overview
 
-import android.annotation.SuppressLint
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -29,53 +27,73 @@ import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.drawer.DrawerActions
-import be.ugent.sel.studeez.screens.drawer.DrawerViewModel
+import be.ugent.sel.studeez.screens.drawer.getDrawerActions
 import be.ugent.sel.studeez.screens.navbar.NavigationBarActions
-import be.ugent.sel.studeez.screens.navbar.NavigationBarViewModel
+import be.ugent.sel.studeez.screens.navbar.getNavigationBarActions
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+
+data class TimerOverviewActions(
+    val getUserTimers: () -> Flow<List<TimerInfo>>,
+    val getDefaultTimers: () -> List<TimerInfo>,
+    val onEditClick: (TimerInfo) -> Unit,
+)
+
+fun getTimerOverviewActions(
+    viewModel: TimerOverviewViewModel,
+): TimerOverviewActions {
+    return TimerOverviewActions(
+        getUserTimers = viewModel::getUserTimers,
+        getDefaultTimers = viewModel::getDefaultTimers,
+        onEditClick = { viewModel.update(it) },
+    )
+}
+
+@Composable
+fun TimerOverviewRoute(
+    open: (String) -> Unit,
+    openAndPopUp: (String, String) -> Unit,
+    viewModel: TimerOverviewViewModel,
+) {
+    TimerOverviewScreen(
+        timerOverviewActions = getTimerOverviewActions(viewModel),
+        drawerActions = getDrawerActions(hiltViewModel(), open, openAndPopUp),
+        navigationBarActions = getNavigationBarActions(hiltViewModel(), open),
+    )
+}
 
 @Composable
 fun TimerOverviewScreen(
-    open: (String) -> Unit,
-    openAndPopUp: (String, String) -> Unit,
-    viewModel: TimerOverviewViewModel = hiltViewModel()
+    timerOverviewActions: TimerOverviewActions,
+    drawerActions: DrawerActions,
+    navigationBarActions: NavigationBarActions,
 ) {
 
-    val timers = viewModel.getUserTimers().collectAsState(initial = emptyList())
-    val drawerViewModel: DrawerViewModel = hiltViewModel()
-    val drawerActions = DrawerActions(
-        onHomeButtonClick = { drawerViewModel.onHomeButtonClick(open) },
-        onTimersClick = { drawerViewModel.onTimersClick(open) },
-        onSettingsClick = { drawerViewModel.onSettingsClick(open) },
-        onLogoutClick = { drawerViewModel.onLogoutClick(openAndPopUp) },
-        onAboutClick = { drawerViewModel.onAboutClick(open) },
-    )
-    val navigationBarViewModel: NavigationBarViewModel = hiltViewModel()
-    val navigationBarActions = NavigationBarActions(
-        onHomeClick = { navigationBarViewModel.onHomeClick(open) },
-        onTasksClick = { navigationBarViewModel.onTasksClick(open) },
-        onSessionsClick = { navigationBarViewModel.onSessionsClick(open) },
-        onProfileClick = { navigationBarViewModel.onProfileClick(open) },
-    )
+    val timers = timerOverviewActions.getUserTimers().collectAsState(initial = emptyList())
+
+    // TODO moet geen primary screen zijn: geen navbar nodig
     PrimaryScreenTemplate(
         title = resources().getString(R.string.timers),
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
     ) {
-
         Column {
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
                 // Default Timers, cannot be edited
-                items(viewModel.getDefaultTimers()) {
-                    TimerEntry(timerInfo = it, canDisplay = false)
+                items(timerOverviewActions.getDefaultTimers()) {
+                    TimerEntry(timerInfo = it, showButton = false)
                 }
-
                 // User timers, can be edited
                 items(timers.value) {
-                    TimerEntry(timerInfo = it, true, R.string.edit) { timerInfo ->
-                        viewModel.update(timerInfo)
-                    }
+                    TimerEntry(
+                        timerInfo = it,
+                        true,
+                        R.string.edit,
+                        onEditClick = timerOverviewActions.onEditClick
+                    )
+
                 }
             }
             BasicButton(R.string.add_timer, Modifier.basicButton()) {
@@ -89,9 +107,9 @@ fun TimerOverviewScreen(
 @Composable
 fun TimerEntry(
     timerInfo: TimerInfo,
-    canDisplay: Boolean,
+    showButton: Boolean,
     @StringRes buttonName: Int = -1,
-    buttonFunction: (TimerInfo) -> Unit = {}
+    onEditClick: (TimerInfo) -> Unit = {}
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -112,29 +130,45 @@ fun TimerEntry(
                 fontSize = 15.sp
             )
         }
-        if (canDisplay) {
+        if (showButton) {
             StealthButton(buttonName) {
-                buttonFunction(timerInfo)
+                onEditClick(timerInfo)
             }
         }
 
     }
 }
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Preview
 @Composable
 fun TimerEntryPreview() {
     val timerInfo = CustomTimerInfo(
-        "my preview timer",
-        "This is the description of the timer",
-        60
+        "my preview timer", "This is the description of the timer", 60
     )
-    Scaffold() {
-        Column() {
-            TimerEntry(timerInfo = timerInfo, true, buttonName = R.string.edit) { }
-            TimerEntry(timerInfo = timerInfo, true, buttonName = R.string.edit) { }
-            TimerEntry(timerInfo = timerInfo, true, buttonName = R.string.edit) { }
-        }
-    }
+    TimerEntry(timerInfo = timerInfo, true, buttonName = R.string.edit) { }
+}
+
+@Preview
+@Composable
+fun TimerDefaultEntryPreview() {
+    val timerInfo = CustomTimerInfo(
+        "my preview timer", "This is the description of the timer", 60
+    )
+    TimerEntry(timerInfo = timerInfo, false, buttonName = R.string.edit) { }
+}
+
+@Preview
+@Composable
+fun TimerOverviewPreview() {
+    val customTimer = CustomTimerInfo(
+        "my preview timer", "This is the description of the timer", 60
+    )
+    TimerOverviewScreen(
+        timerOverviewActions = TimerOverviewActions(
+            { flowOf(listOf()) },
+            { listOf(customTimer, customTimer) },
+            {}),
+        drawerActions = DrawerActions({}, {}, {}, {}, {}),
+        navigationBarActions = NavigationBarActions({}, {}, {}, {})
+    )
 }
