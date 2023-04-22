@@ -1,7 +1,12 @@
 package be.ugent.sel.studeez.screens.drawer
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -14,8 +19,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
@@ -23,56 +26,53 @@ import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
 @Composable
 fun Drawer(
-    open: (String) -> Unit,
-    openAndPopUp: (String, String) -> Unit,
-    viewModel: DrawerViewModel = hiltViewModel()
+    onHomeButtonClick: () -> Unit,
+    onTimersClick: () -> Unit,
+    onSettingsClick: () -> Unit,
+    onLogoutClick: () -> Unit,
+    onAboutClick: () -> Unit,
 ) {
-    Column (
+    Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Column (
-            modifier = Modifier.fillMaxWidth().weight(1f)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
         ) {
             DrawerEntry(
                 icon = Icons.Default.Home,
-                text = resources().getString(R.string.home)
-            ) {
-                viewModel.onHomeButtonClick(open)
-            }
+                text = resources().getString(R.string.home),
+                onClick = onHomeButtonClick,
+            )
             DrawerEntry(
                 icon = ImageVector.vectorResource(id = R.drawable.ic_timer),
-                text = resources().getString(R.string.timers)
-            ) {
-                viewModel.onTimersClick(open)
-            }
+                text = resources().getString(R.string.timers),
+                onClick = onTimersClick,
+            )
             DrawerEntry(
                 icon = Icons.Default.Settings,
-                text = resources().getString(R.string.settings)
-            ) {
-                viewModel.onSettingsClick(open)
-            }
+                text = resources().getString(R.string.settings),
+                onClick = onSettingsClick,
+            )
             DrawerEntry(
                 icon = ImageVector.vectorResource(id = R.drawable.ic_logout),
-                text = resources().getString(R.string.log_out)
-            ) {
-                viewModel.onLogoutClick(openAndPopUp)
-            }
+                text = resources().getString(R.string.log_out),
+                onClick = onLogoutClick,
+            )
         }
 
         DrawerEntry(
             icon = Icons.Outlined.Info,
-            text = resources().getString(R.string.about)
-        ) {
-            viewModel.onAboutClick(open)
-        }
+            text = resources().getString(R.string.about),
+            onClick = onAboutClick,
+        )
     }
 }
 
 @Composable
 fun DrawerEntry(
-    icon: ImageVector,
-    text: String,
-    onClick: () -> Unit
+    icon: ImageVector, text: String, onClick: () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,
@@ -101,10 +101,6 @@ fun DrawerEntry(
 @Composable
 fun DrawerPreview() {
     StudeezTheme {
-        Drawer(
-            { _, -> {} },
-            { _, _ -> {} },
-            hiltViewModel()
-        )
+        Drawer({}, {}, {}, {}, {})
     }
 }
