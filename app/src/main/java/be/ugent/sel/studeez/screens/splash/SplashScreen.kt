@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.screens.splash
 
+import android.window.SplashScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.ext.basicButton
 import kotlinx.coroutines.delay
@@ -24,14 +25,26 @@ import be.ugent.sel.studeez.R.string as AppText
 private const val SPLASH_TIMEOUT = 500L
 
 @Composable
-fun SplashScreen(
+fun SplashRoute(
     openAndPopUp: (String, String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SplashViewModel = hiltViewModel()
+    viewModel: SplashViewModel,
+) {
+    SplashScreen(
+        modifier = modifier,
+        onAppStart = { viewModel.onAppStart(openAndPopUp) },
+        showError = viewModel.showError.value
+    )
+}
+
+@Composable
+fun SplashScreen(
+    modifier: Modifier = Modifier,
+    onAppStart: () -> Unit,
+    showError: Boolean,
 ) {
     Column(
-        modifier =
-        modifier
+        modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight()
             .background(color = MaterialTheme.colors.background)
@@ -39,17 +52,37 @@ fun SplashScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (viewModel.showError.value) {
+        if (showError) {
             Text(text = stringResource(AppText.generic_error))
-
-            BasicButton(AppText.try_again, Modifier.basicButton()) { viewModel.onAppStart(openAndPopUp) }
+            BasicButton(
+                AppText.try_again,
+                Modifier.basicButton(),
+                onClick = onAppStart,
+            )
         } else {
             CircularProgressIndicator(color = MaterialTheme.colors.onBackground)
         }
     }
-
     LaunchedEffect(true) {
         delay(SPLASH_TIMEOUT)
-        viewModel.onAppStart(openAndPopUp)
+        onAppStart()
     }
+}
+
+@Preview
+@Composable
+fun SplashPreview() {
+    SplashScreen(
+        onAppStart = {},
+        showError = false,
+    )
+}
+
+@Preview
+@Composable
+fun SplashErrorPreview() {
+    SplashScreen(
+        onAppStart = {},
+        showError = true,
+    )
 }
