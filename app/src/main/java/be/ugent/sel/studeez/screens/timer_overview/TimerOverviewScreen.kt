@@ -1,12 +1,15 @@
 package be.ugent.sel.studeez.screens.timer_overview
 
+import android.annotation.SuppressLint
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -20,8 +23,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.common.ext.basicButton
-import be.ugent.sel.studeez.common.ext.card
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.resources
@@ -77,7 +80,9 @@ fun TimerEntry(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Column {
+        Column(
+            Modifier.padding(horizontal = 10.dp)
+        ) {
             Text(
                 text = timerInfo.name,
                 fontWeight = FontWeight.Bold,
@@ -90,7 +95,7 @@ fun TimerEntry(
             )
         }
         if (canDisplay) {
-            BasicButton(buttonName, Modifier.card()) {
+            StealthButton(buttonName) {
                 buttonFunction(timerInfo)
             }
         }
@@ -98,6 +103,7 @@ fun TimerEntry(
     }
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Preview
 @Composable
 fun TimerEntryPreview() {
@@ -106,5 +112,11 @@ fun TimerEntryPreview() {
         "This is the description of the timer",
         60
     )
-    TimerEntry(timerInfo = timerInfo, true) { }
+    Scaffold() {
+        Column() {
+            TimerEntry(timerInfo = timerInfo, true, buttonName = R.string.edit) { }
+            TimerEntry(timerInfo = timerInfo, true, buttonName = R.string.edit) { }
+            TimerEntry(timerInfo = timerInfo, true, buttonName = R.string.edit) { }
+        }
+    }
 }
