@@ -91,7 +91,7 @@ fun TimerOverviewScreen(
                         timerInfo = it,
                         true,
                         R.string.edit,
-                        onEditClick = timerOverviewActions.onEditClick
+                        onButtonClick = timerOverviewActions.onEditClick
                     )
 
                 }
@@ -109,7 +109,7 @@ fun TimerEntry(
     timerInfo: TimerInfo,
     showButton: Boolean,
     @StringRes buttonName: Int = -1,
-    onEditClick: (TimerInfo) -> Unit = {}
+    onButtonClick: (TimerInfo) -> Unit = {}
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -132,7 +132,7 @@ fun TimerEntry(
         }
         if (showButton) {
             StealthButton(buttonName) {
-                onEditClick(timerInfo)
+                onButtonClick(timerInfo)
             }
         }
 
