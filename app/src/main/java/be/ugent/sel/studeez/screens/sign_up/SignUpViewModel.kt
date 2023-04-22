@@ -71,7 +71,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun onLoginScreenClick(openAndPopUp: (String, String) -> Unit) {
+    fun onLoginClick(openAndPopUp: (String, String) -> Unit) {
         openAndPopUp(LOGIN_SCREEN, SIGN_UP_SCREEN)
     }
 }
