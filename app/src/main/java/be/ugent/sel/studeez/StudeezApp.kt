@@ -29,6 +29,7 @@ import be.ugent.sel.studeez.screens.home.HomeRoute
 import be.ugent.sel.studeez.screens.log_in.LoginRoute
 import be.ugent.sel.studeez.screens.profile.EditProfileRoute
 import be.ugent.sel.studeez.screens.profile.ProfileRoute
+import be.ugent.sel.studeez.screens.session.SessionRoute
 import be.ugent.sel.studeez.screens.session.SessionScreen
 import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
@@ -128,7 +129,7 @@ fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
     }
 
     composable(StudeezDestinations.SESSION_SCREEN) {
-        SessionScreen(open, openAndPopUp)
+        SessionRoute(open, viewModel = hiltViewModel())
     }
 
     // TODO Timers screen
