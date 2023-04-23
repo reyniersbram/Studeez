@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
@@ -45,7 +44,6 @@ data class SessionActions(
     val getTask: () -> String,
     val prepareMediaPlayer: () -> Unit,
     val releaseMediaPlayer: () -> Unit,
-    val play: () -> Unit,
 )
 
 fun getSessionActions(
@@ -55,9 +53,8 @@ fun getSessionActions(
     return SessionActions(
         getTimer = viewModel::getTimer,
         getTask = viewModel::getTask,
-        prepareMediaPlayer = mediaplayer::prepare,
+        prepareMediaPlayer = mediaplayer::prepareAsync,
         releaseMediaPlayer = mediaplayer::release,
-        play = mediaplayer::start,
     )
 }
 
@@ -68,11 +65,10 @@ fun SessionRoute(
 ) {
     val context = LocalContext.current
     val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-    val mediaplayer = MediaPlayer.create(context, uri)
+    val mediaplayer = MediaPlayer()
+    mediaplayer.setDataSource(context, uri)
     mediaplayer.setOnCompletionListener {
-        if (!mediaplayer.isPlaying) {
-            mediaplayer.stop()
-        }
+        mediaplayer.stop()
         if (timerEnd) {
             mediaplayer.release()
         }
@@ -122,9 +118,6 @@ fun SessionScreen(
                 )
             }
         }
-//        Button(onClick = sessionActions.play) {
-//            Text(text = "Play")
-//        }
     }
 }
 
@@ -206,7 +199,7 @@ private fun Timer(
 @Preview
 @Composable
 fun TimerPreview() {
-    Timer(sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}, {}))
+    Timer(sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}))
 }
 
 @Preview
@@ -214,6 +207,6 @@ fun TimerPreview() {
 fun SessionPreview() {
     SessionScreen(
         open = {},
-        sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}, {})
+        sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {})
     )
 }
