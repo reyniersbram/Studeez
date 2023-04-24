@@ -89,7 +89,9 @@ fun Drawer(
 
 @Composable
 fun DrawerEntry(
-    icon: ImageVector, text: String, onClick: () -> Unit
+    icon: ImageVector,
+    text: String,
+    onClick: () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,

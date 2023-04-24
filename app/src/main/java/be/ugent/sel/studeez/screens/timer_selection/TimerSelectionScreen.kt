@@ -10,13 +10,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.common.composable.TimerEntry
-import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
-import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
 import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
+import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
+import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -62,13 +63,15 @@ fun TimerSelectionScreen(
     ) {
         LazyColumn(verticalArrangement = Arrangement.spacedBy(7.dp)) {
             // All timers
-            items(timers.value) {
+            items(timers.value) { timerInfo ->
                 TimerEntry(
-                    timerInfo = it,
-                    showButton = true,
-                    buttonName = R.string.start,
-                    onButtonClick = timerSelectionActions.startSession
-                )
+                    timerInfo = timerInfo,
+                ) {
+                    StealthButton(
+                        text = R.string.start,
+                        onClick = { timerSelectionActions.startSession(timerInfo) }
+                    )
+                }
             }
         }
     }

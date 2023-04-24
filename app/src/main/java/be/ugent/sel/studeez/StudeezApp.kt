@@ -30,7 +30,6 @@ import be.ugent.sel.studeez.screens.log_in.LoginRoute
 import be.ugent.sel.studeez.screens.profile.EditProfileRoute
 import be.ugent.sel.studeez.screens.profile.ProfileRoute
 import be.ugent.sel.studeez.screens.session.SessionRoute
-import be.ugent.sel.studeez.screens.session.SessionScreen
 import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewRoute

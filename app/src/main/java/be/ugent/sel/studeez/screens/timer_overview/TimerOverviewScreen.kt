@@ -13,15 +13,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.common.composable.TimerEntry
-import be.ugent.sel.studeez.common.ext.basicButton
-import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
-import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
-import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
 import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
+import be.ugent.sel.studeez.common.ext.basicButton
+import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
+import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
+import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -75,16 +76,18 @@ fun TimerOverviewScreen(
             ) {
                 // Default Timers, cannot be edited
                 items(timerOverviewActions.getDefaultTimers()) {
-                    TimerEntry(timerInfo = it, showButton = false)
+                    TimerEntry(timerInfo = it) {}
                 }
                 // User timers, can be edited
-                items(timers.value) {
+                items(timers.value) { timerInfo ->
                     TimerEntry(
-                        timerInfo = it,
-                        true,
-                        R.string.edit,
-                        onButtonClick = timerOverviewActions.onEditClick
-                    )
+                        timerInfo = timerInfo,
+                    ) {
+                        StealthButton(
+                            text = R.string.edit,
+                            onClick = { timerOverviewActions.onEditClick(timerInfo) }
+                        )
+                    }
 
                 }
             }
@@ -103,7 +106,7 @@ fun TimerOverviewPreview() {
     )
     TimerOverviewScreen(
         timerOverviewActions = TimerOverviewActions(
-            { flowOf(listOf()) },
+            { flowOf() },
             { listOf(customTimer, customTimer) },
             {}),
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
