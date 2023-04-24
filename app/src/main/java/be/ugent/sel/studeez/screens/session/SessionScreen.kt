@@ -3,7 +3,6 @@ package be.ugent.sel.studeez.screens.session
 import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -35,16 +34,10 @@ import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer.S
 import be.ugent.sel.studeez.data.local.models.timer_functional.Time
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.delay
-import java.time.Duration
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
-import kotlin.properties.Delegates
-import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
-
-var start: LocalDateTime = Calendar.getInstance().time.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
 
 @Composable
 fun SessionScreen(
@@ -57,7 +50,7 @@ fun SessionScreen(
     val mediaplayer = MediaPlayer.create(context, uri)
     mediaplayer.isLooping = false
 
-    SessionTest.setNewViewModel(viewModel = viewModel)
+    InvisibleSessionManager.setNewViewModel(viewModel = viewModel)
 
     Column(
        modifier = Modifier.padding(10.dp)
@@ -75,6 +68,7 @@ fun SessionScreen(
                     mediaplayer.stop()
                     mediaplayer.release()
                     open(StudeezDestinations.HOME_SCREEN)
+                    InvisibleSessionManager.isSession = false
                     // Vanaf hier ook naar report gaan als "end session" knop word ingedrukt
                   },
                 modifier = Modifier
@@ -166,29 +160,21 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel(), mediaplayer: Me
     }
 }
 
-fun test() {
-    start = Calendar.getInstance().time.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-}
-
-object SessionTest {
+object InvisibleSessionManager {
     lateinit var viewModel: SessionViewModel
-    private var isSession: Boolean = false
+    var isSession: Boolean = false
 
     fun setNewViewModel(viewModel: SessionViewModel) {
         isSession = true
         this.viewModel = viewModel
     }
 
-    fun updateTimer() {
+    suspend fun updateTimer() {
         if (isSession) {
-            val end = Calendar.getInstance().time.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-
-            val duration = Duration.between(start, end)
-
-            val hours = duration.toHours()
-            val minutes = duration.toMinutes() % 60
-            val seconds = duration.seconds % 60
-            viewModel.getTimer().time.min((hours + minutes + seconds).toInt())
+            while (true) {
+                delay(1.seconds)
+                viewModel.getTimer().tick()
+            }
         }
     }
 

@@ -4,10 +4,6 @@ class Time(initialTime: Int) {
 
     var time = initialTime
 
-    fun min(i: Int) {
-        time -= i
-    }
-
     fun minOne() {
         time--
     }

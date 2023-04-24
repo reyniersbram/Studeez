@@ -1,7 +1,6 @@
 package be.ugent.sel.studeez.activities
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,11 +10,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
 import be.ugent.sel.studeez.StudeezApp
-import be.ugent.sel.studeez.screens.session.SessionTest
-import be.ugent.sel.studeez.screens.session.test
+import be.ugent.sel.studeez.screens.session.InvisibleSessionManager
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+
+var onTimerInvisible: Job? = null
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -34,13 +37,17 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+
+
     override fun onStop() {
-        test()
+        onTimerInvisible = lifecycleScope.launch {
+            InvisibleSessionManager.updateTimer()
+        }
         super.onStop()
     }
 
     override fun onStart() {
-        SessionTest.updateTimer()
+        onTimerInvisible?.cancel()
         super.onStart()
     }
 }
