@@ -1,6 +1,7 @@
 package be.ugent.sel.studeez.activities
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.StudeezApp
+import be.ugent.sel.studeez.screens.session.SessionTest
+import be.ugent.sel.studeez.screens.session.test
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +32,16 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        test()
+        super.onStop()
+    }
+
+    override fun onStart() {
+        SessionTest.updateTimer()
+        super.onStart()
     }
 }
 

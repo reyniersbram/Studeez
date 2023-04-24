@@ -1,7 +1,7 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
 abstract class FunctionalTimer(initialValue: Int) {
-    val time: Time = Time(initialValue)
+    var time: Time = Time(initialValue)
     var view: StudyState = StudyState.FOCUS
 
     fun getHoursMinutesSeconds(): HoursMinutesSeconds {
