@@ -35,8 +35,6 @@ import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
-var timerEnd = false
-
 @Composable
 fun SessionScreen(
     open: (String) -> Unit,
@@ -46,17 +44,7 @@ fun SessionScreen(
     val context = LocalContext.current
     val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
     val mediaplayer = MediaPlayer.create(context, uri)
-    mediaplayer.setOnCompletionListener {
-        if (!mediaplayer.isPlaying) {
-            mediaplayer.stop()
-        }
-        if (timerEnd) {
-            mediaplayer.release()
-        }
-    }
-    mediaplayer.setOnPreparedListener {
-        mediaplayer.start()
-    }
+    mediaplayer.isLooping = false
 
     Column(
        modifier = Modifier.padding(10.dp)
@@ -71,6 +59,7 @@ fun SessionScreen(
         ) {
             TextButton(
                 onClick = {
+                    mediaplayer.stop()
                     mediaplayer.release()
                     open(StudeezDestinations.HOME_SCREEN)
                     // Vanaf hier ook naar report gaan als "end session" knop word ingedrukt
@@ -102,12 +91,7 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel(), mediaplayer: Me
     }
 
     if (viewModel.getTimer().hasCurrentCountdownEnded() && !viewModel.getTimer().hasEnded()) {
-        mediaplayer.prepare()
-    }
-
-    if (!timerEnd && viewModel.getTimer().hasEnded()) {
-        mediaplayer.prepare()
-        timerEnd = true // Placeholder, vanaf hier moet het report opgestart worden en de sessie afgesloten
+        mediaplayer.start()
     }
 
     val hms = viewModel.getTimer().getHoursMinutesSeconds()
