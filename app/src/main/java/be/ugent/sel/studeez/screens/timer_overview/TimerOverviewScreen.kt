@@ -9,15 +9,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.common.composable.TimerEntry
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
+import be.ugent.sel.studeez.common.composable.drawer.DrawerViewModel
 import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
+import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
 import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
@@ -47,11 +48,13 @@ fun TimerOverviewRoute(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
     viewModel: TimerOverviewViewModel,
+    drawerViewModel: DrawerViewModel,
+    navBarViewModel: NavigationBarViewModel,
 ) {
     TimerOverviewScreen(
         timerOverviewActions = getTimerOverviewActions(viewModel),
-        drawerActions = getDrawerActions(hiltViewModel(), open, openAndPopUp),
-        navigationBarActions = getNavigationBarActions(hiltViewModel(), open),
+        drawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp),
+        navigationBarActions = getNavigationBarActions(navBarViewModel, open),
     )
 }
 

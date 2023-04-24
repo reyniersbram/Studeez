@@ -18,11 +18,12 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import be.ugent.sel.studeez.common.composable.drawer.DrawerViewModel
+import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.home.HomeRoute
@@ -55,13 +56,7 @@ fun StudeezApp() {
                 },
                 scaffoldState = appState.scaffoldState
             ) { innerPaddingModifier ->
-                NavHost(
-                    navController = appState.navController,
-                    startDestination = StudeezDestinations.SPLASH_SCREEN,
-                    modifier = Modifier.padding(innerPaddingModifier)
-                ) {
-                    studeezGraph(appState)
-                }
+                StudeezNavGraph(appState, Modifier.padding(innerPaddingModifier))
             }
         }
     }
@@ -86,60 +81,91 @@ fun resources(): Resources {
     return LocalContext.current.resources
 }
 
-fun NavGraphBuilder.studeezGraph(appState: StudeezAppstate) {
+@Composable
+fun StudeezNavGraph(
+    appState: StudeezAppstate,
+    modifier: Modifier,
+) {
+    val drawerViewModel: DrawerViewModel = hiltViewModel()
+    val navBarViewModel: NavigationBarViewModel = hiltViewModel()
 
-    val goBack: () -> Unit = {
-        appState.popUp()
-    }
+    NavHost(
+        navController = appState.navController,
+        startDestination = StudeezDestinations.SPLASH_SCREEN,
+        modifier = modifier,
+    ) {
+        val goBack: () -> Unit = {
+            appState.popUp()
+        }
 
-    val open: (String) -> Unit = { route ->
-        appState.navigate(route)
-    }
+        val open: (String) -> Unit = { route ->
+            appState.navigate(route)
+        }
 
-    val openAndPopUp: (String, String) -> Unit = { route, popUp ->
-        appState.navigateAndPopUp(route, popUp)
-    }
+        val openAndPopUp: (String, String) -> Unit = { route, popUp ->
+            appState.navigateAndPopUp(route, popUp)
+        }
 
-    composable(StudeezDestinations.SPLASH_SCREEN) {
-        SplashRoute(openAndPopUp, viewModel = hiltViewModel())
-    }
 
-    composable(StudeezDestinations.LOGIN_SCREEN) {
-        LoginRoute(openAndPopUp, viewModel = hiltViewModel())
-    }
+        composable(StudeezDestinations.SPLASH_SCREEN) {
+            SplashRoute(openAndPopUp, viewModel = hiltViewModel())
+        }
 
-    composable(StudeezDestinations.SIGN_UP_SCREEN) {
-        SignUpRoute(openAndPopUp, viewModel = hiltViewModel())
-    }
+        composable(StudeezDestinations.LOGIN_SCREEN) {
+            LoginRoute(openAndPopUp, viewModel = hiltViewModel())
+        }
 
-    composable(StudeezDestinations.HOME_SCREEN) {
-        HomeRoute(open, openAndPopUp, viewModel = hiltViewModel())
-    }
+        composable(StudeezDestinations.SIGN_UP_SCREEN) {
+            SignUpRoute(openAndPopUp, viewModel = hiltViewModel())
+        }
 
-    // TODO Tasks screen
-    // TODO Sessions screen
+        composable(StudeezDestinations.HOME_SCREEN) {
+            HomeRoute(
+                open,
+                openAndPopUp,
+                viewModel = hiltViewModel(),
+                drawerViewModel = drawerViewModel,
+                navBarViewModel = navBarViewModel,
+            )
+        }
 
-    composable(StudeezDestinations.PROFILE_SCREEN) {
-        ProfileRoute(open, openAndPopUp, viewModel = hiltViewModel())
-    }
+        // TODO Tasks screen
+        // TODO Sessions screen
 
-    composable(StudeezDestinations.TIMER_OVERVIEW_SCREEN) {
-        TimerOverviewRoute(open, openAndPopUp, viewModel = hiltViewModel())
-    }
+        composable(StudeezDestinations.PROFILE_SCREEN) {
+            ProfileRoute(open, openAndPopUp, viewModel = hiltViewModel())
+        }
 
-    composable(StudeezDestinations.SESSION_SCREEN) {
-        SessionRoute(open, viewModel = hiltViewModel())
-    }
+        composable(StudeezDestinations.TIMER_OVERVIEW_SCREEN) {
+            TimerOverviewRoute(
+                open,
+                openAndPopUp,
+                viewModel = hiltViewModel(),
+                drawerViewModel = drawerViewModel,
+                navBarViewModel = navBarViewModel,
+            )
+        }
 
-    // TODO Timers screen
-    // TODO Settings screen
+        composable(StudeezDestinations.SESSION_SCREEN) {
+            SessionRoute(open, viewModel = hiltViewModel())
+        }
 
-    // Edit screens
-    composable(StudeezDestinations.EDIT_PROFILE_SCREEN) {
-        EditProfileRoute(goBack, openAndPopUp, viewModel = hiltViewModel())
-    }
+        // TODO Timers screen
+        // TODO Settings screen
 
-    composable(StudeezDestinations.TIMER_SELECTION_SCREEN) {
-        TimerSelectionRoute(open, openAndPopUp, viewModel = hiltViewModel())
+        // Edit screens
+        composable(StudeezDestinations.EDIT_PROFILE_SCREEN) {
+            EditProfileRoute(goBack, openAndPopUp, viewModel = hiltViewModel())
+        }
+
+        composable(StudeezDestinations.TIMER_SELECTION_SCREEN) {
+            TimerSelectionRoute(
+                open,
+                openAndPopUp,
+                viewModel = hiltViewModel(),
+                drawerViewModel = drawerViewModel,
+                navBarViewModel = navBarViewModel,
+            )
+        }
     }
 }
