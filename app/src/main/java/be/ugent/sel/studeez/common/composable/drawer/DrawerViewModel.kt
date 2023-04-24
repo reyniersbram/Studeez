@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.drawer
+package be.ugent.sel.studeez.common.composable.drawer
 
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService

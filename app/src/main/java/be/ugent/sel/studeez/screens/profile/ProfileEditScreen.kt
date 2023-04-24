@@ -14,14 +14,43 @@ import be.ugent.sel.studeez.common.ext.textButton
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
+data class EditProfileActions(
+    val onUserNameChange: (String) -> Unit,
+    val onSaveClick: () -> Unit,
+    val onDeleteClick: () -> Unit
+)
+
+fun getEditProfileActions(
+    viewModel: ProfileEditViewModel,
+    openAndPopUp: (String, String) -> Unit,
+): EditProfileActions {
+    return EditProfileActions(
+        onUserNameChange = { viewModel.onUsernameChange(it) },
+        onSaveClick = { viewModel.onSaveClick() },
+        onDeleteClick = { viewModel.onDeleteClick(openAndPopUp) },
+    )
+}
+
+@Composable
+fun EditProfileRoute(
+    goBack: () -> Unit,
+    openAndPopUp: (String, String) -> Unit,
+    viewModel: ProfileEditViewModel,
+) {
+    val uiState by viewModel.uiState
+    EditProfileScreen(
+        goBack = goBack,
+        uiState = uiState,
+        editProfileActions = getEditProfileActions(viewModel, openAndPopUp)
+    )
+}
+
 @Composable
 fun EditProfileScreen(
     goBack: () -> Unit,
-    openAndPopUp: (String, String) -> Unit,
-    viewModel: ProfileEditViewModel = hiltViewModel()
+    uiState: ProfileEditUiState,
+    editProfileActions: EditProfileActions,
 ) {
-    val uiState by viewModel.uiState
-
     SecondaryScreenTemplate(
         title = resources().getString(R.string.editing_profile),
         popUp = goBack
@@ -29,16 +58,19 @@ fun EditProfileScreen(
         Column {
             LabelledInputField(
                 value = uiState.username,
-                onNewValue = viewModel::onUsernameChange,
+                onNewValue = editProfileActions.onUserNameChange,
                 label = R.string.username
             )
-
-            BasicTextButton(text = R.string.save, Modifier.textButton()) {
-                viewModel.onSaveClick()
-            }
-            BasicTextButton(text = R.string.delete_profile, Modifier.textButton()) {
-                viewModel.onDeleteClick(openAndPopUp)
-            }
+            BasicTextButton(
+                text = R.string.save,
+                Modifier.textButton(),
+                action = editProfileActions.onSaveClick
+            )
+            BasicTextButton(
+                text = R.string.delete_profile,
+                Modifier.textButton(),
+                action = editProfileActions.onDeleteClick
+            )
         }
     }
 }
@@ -47,9 +79,6 @@ fun EditProfileScreen(
 @Composable
 fun EditProfileScreenComposable() {
     StudeezTheme {
-        EditProfileScreen (
-            {},
-            {_, _ -> {}}
-        )
+        EditProfileScreen({}, ProfileEditUiState(), EditProfileActions({}, {}, {}))
     }
 }
