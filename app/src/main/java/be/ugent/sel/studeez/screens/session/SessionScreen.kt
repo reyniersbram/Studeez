@@ -70,11 +70,11 @@ fun SessionRoute(
     mediaplayer.setOnCompletionListener {
         mediaplayer.stop()
         if (timerEnd) {
-            mediaplayer.release()
+//            mediaplayer.release()
         }
     }
     mediaplayer.setOnPreparedListener {
-        mediaplayer.start()
+//        mediaplayer.start()
     }
     SessionScreen(
         open = open,
@@ -136,11 +136,11 @@ private fun Timer(
         sessionActions.getTimer().hasCurrentCountdownEnded() && !sessionActions.getTimer()
             .hasEnded()
     ) {
-        sessionActions.prepareMediaPlayer()
+//        sessionActions.prepareMediaPlayer()
     }
 
     if (!timerEnd && sessionActions.getTimer().hasEnded()) {
-        sessionActions.prepareMediaPlayer()
+//        sessionActions.prepareMediaPlayer()
         timerEnd =
             true // Placeholder, vanaf hier moet het report opgestart worden en de sessie afgesloten
     }
