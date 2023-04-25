@@ -24,34 +24,71 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
+import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
+import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer.StudyState
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.delay
+import javax.inject.Singleton
 import kotlin.time.Duration.Companion.seconds
 
+data class SessionActions(
+    val getTimer: () -> FunctionalTimer,
+    val getTask: () -> String,
+    val releaseMediaPlayer: () -> Unit,
+    val startMediaPlayer: () -> Unit,
+)
+
+fun getSessionActions(
+    viewModel: SessionViewModel,
+    mediaplayer: MediaPlayer,
+): SessionActions {
+    return SessionActions(
+        getTimer = viewModel::getTimer,
+        getTask = viewModel::getTask,
+        releaseMediaPlayer = mediaplayer::release,
+        startMediaPlayer = mediaplayer::start,
+    )
+}
+
 @Composable
-fun SessionScreen(
+fun SessionRoute(
     open: (String) -> Unit,
-    openAndPopUp: (String, String) -> Unit,
-    viewModel: SessionViewModel = hiltViewModel()
+    viewModel: SessionViewModel,
 ) {
     val context = LocalContext.current
     val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
     val mediaplayer = MediaPlayer.create(context, uri)
     mediaplayer.isLooping = false
 
-    InvisibleSessionManager.setParameters(viewModel = viewModel, mediaplayer = mediaplayer)
+    InvisibleSessionManager.setParameters(
+        viewModel = viewModel,
+        mediaplayer = mediaplayer
+    )
 
+    SessionScreen(
+        open = open,
+        sessionActions = getSessionActions(viewModel, mediaplayer)
+    )
+}
+
+@Composable
+fun SessionScreen(
+    open: (String) -> Unit,
+    sessionActions: SessionActions
+) {
     Column(
-       modifier = Modifier.padding(10.dp)
-   ) {
-        Timer(viewModel, mediaplayer)
+        modifier = Modifier.padding(10.dp)
+    ) {
+        Timer(
+            sessionActions = sessionActions
+        )
 
         Box(
             contentAlignment = Alignment.Center,
@@ -61,12 +98,11 @@ fun SessionScreen(
         ) {
             TextButton(
                 onClick = {
-                    mediaplayer.stop()
-                    mediaplayer.release()
+                    sessionActions.releaseMediaPlayer
+
                     open(StudeezDestinations.HOME_SCREEN)
-                    InvisibleSessionManager.isSession = false
                     // Vanaf hier ook naar report gaan als "end session" knop word ingedrukt
-                  },
+                },
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .border(1.dp, Color.Red, RoundedCornerShape(32.dp))
@@ -77,7 +113,8 @@ fun SessionScreen(
                     color = Color.Red,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
-                    modifier = Modifier.padding(1.dp)
+                    modifier = Modifier
+                        .padding(1.dp)
                 )
             }
         }
@@ -85,19 +122,21 @@ fun SessionScreen(
 }
 
 @Composable
-private fun Timer(viewModel: SessionViewModel = hiltViewModel(), mediaplayer: MediaPlayer) {
+private fun Timer(
+    sessionActions: SessionActions
+) {
     var tikker by remember { mutableStateOf(false) }
     LaunchedEffect(tikker) {
         delay(1.seconds)
-        viewModel.getTimer().tick()
+        sessionActions.getTimer().tick()
         tikker = !tikker
     }
 
-    if (viewModel.getTimer().hasCurrentCountdownEnded() && !viewModel.getTimer().hasEnded()) {
-        mediaplayer.start()
+    if (sessionActions.getTimer().hasCurrentCountdownEnded() && !sessionActions.getTimer().hasEnded()) {
+        sessionActions.startMediaPlayer
     }
 
-    val hms = viewModel.getTimer().getHoursMinutesSeconds()
+    val hms = sessionActions.getTimer().getHoursMinutesSeconds()
     Column {
         Text(
             text = "${hms.hours} : ${hms.minutes} : ${hms.seconds}",
@@ -108,14 +147,14 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel(), mediaplayer: Me
             fontWeight = FontWeight.Bold,
             fontSize = 40.sp,
         )
-        val stateString: String = when (viewModel.getTimer().view) {
+        val stateString: String = when (sessionActions.getTimer().view) {
             StudyState.DONE -> resources().getString(R.string.state_done)
             StudyState.FOCUS -> resources().getString(R.string.state_focus)
             StudyState.BREAK -> resources().getString(R.string.state_take_a_break)
             StudyState.FOCUS_REMAINING ->
-                (viewModel.getTimer() as FunctionalPomodoroTimer?)?.breaksRemaining?.let {
+                (sessionActions.getTimer() as FunctionalPomodoroTimer?)?.breaksRemaining?.let {
                     resources().getQuantityString(R.plurals.state_focus_remaining, it, it)
-            }.toString()
+                }.toString()
         }
 
         Text(
@@ -139,7 +178,7 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel(), mediaplayer: Me
                     .background(Color.Blue, RoundedCornerShape(32.dp))
             ) {
                 Text(
-                    text = viewModel.getTask(),
+                    text = sessionActions.getTask(),
                     color = Color.White,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
@@ -151,6 +190,8 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel(), mediaplayer: Me
     }
 }
 
+
+@Singleton
 object InvisibleSessionManager {
     private lateinit var viewModel: SessionViewModel
     private lateinit var mediaplayer: MediaPlayer
@@ -174,3 +215,19 @@ object InvisibleSessionManager {
         }
     }
 }
+
+@Preview
+@Composable
+fun TimerPreview() {
+    Timer(sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}))
+}
+
+@Preview
+@Composable
+fun SessionPreview() {
+    SessionScreen(
+        open = {},
+        sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {})
+    )
+}
+

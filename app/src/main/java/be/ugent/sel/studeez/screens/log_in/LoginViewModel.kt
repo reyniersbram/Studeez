@@ -63,7 +63,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun onNotAlreadyUser(openAndPopUp: (String, String) -> Unit) {
+    fun onSignUpClick(openAndPopUp: (String, String) -> Unit) {
         openAndPopUp(SIGN_UP_SCREEN, LOGIN_SCREEN)
     }
 }

@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.navbar
+package be.ugent.sel.studeez.common.composable.navbar
 
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
