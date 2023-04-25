@@ -1,5 +1,8 @@
 package be.ugent.sel.studeez.activities
 
+import android.media.MediaPlayer
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,7 +25,13 @@ var onTimerInvisible: Job? = null
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private var mediaPlayer: MediaPlayer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
+        val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        mediaPlayer = MediaPlayer.create(this, uri)
+        mediaPlayer?.isLooping = false
+
         super.onCreate(savedInstanceState)
         setContent {
             StudeezTheme {
@@ -37,18 +46,23 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
-
     override fun onStop() {
         onTimerInvisible = lifecycleScope.launch {
-            InvisibleSessionManager.updateTimer()
+            InvisibleSessionManager.updateTimer(mediaPlayer)
         }
         super.onStop()
     }
 
     override fun onStart() {
+        mediaPlayer?.stop()
         onTimerInvisible?.cancel()
         super.onStart()
+    }
+
+    override fun onDestroy() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        super.onDestroy()
     }
 }
 

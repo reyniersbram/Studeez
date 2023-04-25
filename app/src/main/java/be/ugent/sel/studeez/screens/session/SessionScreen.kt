@@ -31,12 +31,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer.StudyState
-import be.ugent.sel.studeez.data.local.models.timer_functional.Time
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.delay
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
@@ -50,6 +46,7 @@ fun SessionScreen(
     val mediaplayer = MediaPlayer.create(context, uri)
     mediaplayer.isLooping = false
 
+    // evt mediaplayer meegeven vanaf hier als reserve oplossing
     InvisibleSessionManager.setNewViewModel(viewModel = viewModel)
 
     Column(
@@ -86,11 +83,6 @@ fun SessionScreen(
             }
         }
     }
-}
-
-private operator fun Time.minus(time: Time): Time {
-    return Time(this.time - time.time)
-
 }
 
 @Composable
@@ -169,11 +161,14 @@ object InvisibleSessionManager {
         this.viewModel = viewModel
     }
 
-    suspend fun updateTimer() {
+    suspend fun updateTimer(mediaPlayer: MediaPlayer?) {
         if (isSession) {
             while (true) {
                 delay(1.seconds)
                 viewModel.getTimer().tick()
+                if (viewModel.getTimer().hasCurrentCountdownEnded() && !viewModel.getTimer().hasEnded()) {
+                    mediaPlayer?.start()
+                }
             }
         }
     }
