@@ -1,8 +1,8 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
+import be.ugent.sel.studeez.screens.session.sessionScreens.AbstractSessionScreen
 abstract class FunctionalTimer(initialValue: Int) {
     val time: Time = Time(initialValue)
-    var view: StudyState = StudyState.FOCUS
 
     fun getHoursMinutesSeconds(): HoursMinutesSeconds {
         return time.getAsHMS()
@@ -14,8 +14,6 @@ abstract class FunctionalTimer(initialValue: Int) {
 
     abstract fun hasCurrentCountdownEnded(): Boolean
 
-    enum class StudyState {
-        FOCUS, DONE, BREAK, FOCUS_REMAINING
-    }
+    abstract fun getView(): AbstractSessionScreen
 
 }

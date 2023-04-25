@@ -1,21 +1,26 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
+import be.ugent.sel.studeez.screens.session.sessionScreens.CustomSessionScreen
+import be.ugent.sel.studeez.screens.session.sessionScreens.AbstractSessionScreen
+
 class FunctionalCustomTimer(studyTime: Int) : FunctionalTimer(studyTime) {
 
     override fun tick() {
-        if (time.time == 0) {
-            view = StudyState.DONE
-        } else {
+        if (!hasEnded()) {
             time.minOne()
         }
     }
 
     override fun hasEnded(): Boolean {
-        return view == StudyState.DONE
+        return time.time == 0
     }
 
     override fun hasCurrentCountdownEnded(): Boolean {
-        return time.time == 0
+        return hasEnded()
+    }
+
+    override fun getView(): AbstractSessionScreen {
+        return CustomSessionScreen(this)
     }
 
 }
