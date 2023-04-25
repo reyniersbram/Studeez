@@ -1,8 +1,12 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
+import be.ugent.sel.studeez.data.local.models.SessionReport
 import be.ugent.sel.studeez.screens.session.sessionScreens.AbstractSessionScreen
+import com.google.firebase.Timestamp
+
 abstract class FunctionalTimer(initialValue: Int) {
     val time: Time = Time(initialValue)
+    var totalStudyTime: Int = 0
 
     fun getHoursMinutesSeconds(): HoursMinutesSeconds {
         return time.getAsHMS()
@@ -15,5 +19,12 @@ abstract class FunctionalTimer(initialValue: Int) {
     abstract fun hasCurrentCountdownEnded(): Boolean
 
     abstract fun getView(): AbstractSessionScreen
+    fun getSessionReport(): SessionReport {
+        return SessionReport(
+            id = "",
+            studyTime = totalStudyTime,
+            endTime = Timestamp.now()
+        )
+    }
 
 }
