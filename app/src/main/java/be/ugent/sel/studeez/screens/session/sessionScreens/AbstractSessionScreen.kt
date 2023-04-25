@@ -22,7 +22,7 @@ import be.ugent.sel.studeez.screens.session.SessionActions
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
-abstract class SessionScreen {
+abstract class AbstractSessionScreen {
 
     var timerEnd = false
 
