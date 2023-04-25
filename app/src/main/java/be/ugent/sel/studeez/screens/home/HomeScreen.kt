@@ -69,6 +69,6 @@ fun HomeScreenPreview() {
     HomeScreen(
         onStartSessionClick = {},
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({}, {}, {}, {})
+        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {})
     )
 }

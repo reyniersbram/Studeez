@@ -17,6 +17,7 @@ import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import be.ugent.sel.studeez.R.string as AppText
 
 data class NavigationBarActions(
+    val selectedTab: (Int) -> Boolean,
     val onHomeClick: () -> Unit,
     val onTasksClick: () -> Unit,
     val onSessionsClick: () -> Unit,
@@ -28,10 +29,19 @@ fun getNavigationBarActions(
     open: (String) -> Unit,
 ): NavigationBarActions {
     return NavigationBarActions(
-        onHomeClick = { navigationBarViewModel.onHomeClick(open) },
-        onTasksClick = { navigationBarViewModel.onTasksClick(open) },
-        onSessionsClick = { navigationBarViewModel.onSessionsClick(open) },
-        onProfileClick = { navigationBarViewModel.onProfileClick(open) },
+        selectedTab = { navigationBarViewModel.isSelected(it) },
+        onHomeClick = {
+            navigationBarViewModel.onHomeClick(open)
+        },
+        onTasksClick = {
+            navigationBarViewModel.onTasksClick(open)
+        },
+        onSessionsClick = {
+            navigationBarViewModel.onSessionsClick(open)
+        },
+        onProfileClick = {
+            navigationBarViewModel.onProfileClick(open)
+        },
     )
 }
 
@@ -39,16 +49,14 @@ fun getNavigationBarActions(
 fun NavigationBar(
     navigationBarActions: NavigationBarActions,
 ) {
-    // TODO Pass functions and new screens.
-    // TODO Pass which screen is selected.
-    // TODO Disabled -> HIGH/MEDIUM_EMPHASIS if the page is implemented
     BottomNavigation(
         elevation = 10.dp
     ) {
+
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.List, resources().getString(AppText.home)) },
             label = { Text(text = resources().getString(AppText.home)) },
-            selected = false, // TODO
+            selected = navigationBarActions.selectedTab(0),
             onClick = navigationBarActions.onHomeClick
         )
 
@@ -59,7 +67,7 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.tasks)) },
-            selected = false, // TODO
+            selected = navigationBarActions.selectedTab(1),
             onClick = navigationBarActions.onTasksClick
         )
 
@@ -73,7 +81,7 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.sessions)) },
-            selected = false, // TODO
+            selected = navigationBarActions.selectedTab(2),
             onClick = navigationBarActions.onSessionsClick
         )
 
@@ -84,7 +92,7 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.profile)) },
-            selected = false, // TODO
+            selected = navigationBarActions.selectedTab(3),
             onClick = navigationBarActions.onProfileClick
         )
 
@@ -95,6 +103,6 @@ fun NavigationBar(
 @Composable
 fun NavigationBarPreview() {
     StudeezTheme {
-        NavigationBar(NavigationBarActions({}, {}, {}, {}))
+        NavigationBar(NavigationBarActions({ false }, {}, {}, {}, {}))
     }
 }

@@ -77,7 +77,7 @@ fun PrimaryScreenPreview() {
         PrimaryScreenTemplate(
             "Preview screen",
             DrawerActions({}, {}, {}, {}, {}),
-            NavigationBarActions({}, {}, {}, {}),
+            NavigationBarActions({ false }, {}, {}, {}, {}),
             {
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(

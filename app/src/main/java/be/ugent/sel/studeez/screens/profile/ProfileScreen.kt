@@ -90,6 +90,6 @@ fun ProfileScreenPreview() {
     ProfileScreen(
         profileActions = ProfileActions({ null }, {}),
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({}, {}, {}, {})
+        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {})
     )
 }

@@ -86,6 +86,6 @@ fun TimerSelectionPreview() {
     TimerSelectionScreen(
         timerSelectionActions = TimerSelectionActions({ flowOf() }, {}),
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({}, {}, {}, {}),
+        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}),
     )
 }
