@@ -16,32 +16,32 @@ class NavigationBarViewModel @Inject constructor(
     logService: LogService
 ) : StudeezViewModel(logService) {
 
-    fun isSelected(index: Int): Boolean {
-        return index == selectedTab.selectedTab
+    fun isSelected(screen: String): Boolean {
+        return screen == selectedTab.selectedTab
     }
 
     fun onHomeClick(open: (String) -> Unit) {
-        selectedTab.selectedTab = 0
+        selectedTab.selectedTab = HOME_SCREEN
         open(HOME_SCREEN)
     }
 
     fun onTasksClick(open: (String) -> Unit) {
         // TODO
-        selectedTab.selectedTab = 1
+        // selectedTab.selectedTab = TASKS_SCREEN
     }
 
     fun onSessionsClick(open: (String) -> Unit) {
         // TODO
-        selectedTab.selectedTab = 2
+        // selectedTab.selectedTab = SESSIONS_SCREEN
     }
 
     fun onProfileClick(open: (String) -> Unit) {
-        selectedTab.selectedTab = 3
+        selectedTab.selectedTab = PROFILE_SCREEN
         open(PROFILE_SCREEN)
     }
 }
 
 @Singleton
 class SelectedTabState @Inject constructor() {
-    var selectedTab: Int = 0
+    var selectedTab: String = HOME_SCREEN
 }

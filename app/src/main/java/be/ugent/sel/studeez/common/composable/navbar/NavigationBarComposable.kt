@@ -12,12 +12,14 @@ import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import be.ugent.sel.studeez.R.string as AppText
 
 data class NavigationBarActions(
-    val selectedTab: (Int) -> Boolean,
+    val selectedTab: (String) -> Boolean,
     val onHomeClick: () -> Unit,
     val onTasksClick: () -> Unit,
     val onSessionsClick: () -> Unit,
@@ -56,7 +58,7 @@ fun NavigationBar(
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.List, resources().getString(AppText.home)) },
             label = { Text(text = resources().getString(AppText.home)) },
-            selected = navigationBarActions.selectedTab(0),
+            selected = navigationBarActions.selectedTab(HOME_SCREEN),
             onClick = navigationBarActions.onHomeClick
         )
 
@@ -67,7 +69,8 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.tasks)) },
-            selected = navigationBarActions.selectedTab(1),
+            // TODO selected = navigationBarActions.selectedTab(TASKS_SCREEN),
+            selected = false,
             onClick = navigationBarActions.onTasksClick
         )
 
@@ -81,7 +84,8 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.sessions)) },
-            selected = navigationBarActions.selectedTab(2),
+            // TODO selected = navigationBarActions.selectedTab(SESSIONS_SCREEN),
+            selected = false,
             onClick = navigationBarActions.onSessionsClick
         )
 
@@ -92,7 +96,7 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.profile)) },
-            selected = navigationBarActions.selectedTab(3),
+            selected = navigationBarActions.selectedTab(PROFILE_SCREEN),
             onClick = navigationBarActions.onProfileClick
         )
 
