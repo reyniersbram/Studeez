@@ -35,7 +35,6 @@ import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer.StudyState
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.delay
-import javax.inject.Singleton
 import kotlin.time.Duration.Companion.seconds
 
 data class SessionActions(
@@ -99,7 +98,7 @@ fun SessionScreen(
             TextButton(
                 onClick = {
                     sessionActions.releaseMediaPlayer
-
+                    InvisibleSessionManager.removeParameters()
                     open(StudeezDestinations.HOME_SCREEN)
                     // Vanaf hier ook naar report gaan als "end session" knop word ingedrukt
                 },
@@ -109,7 +108,7 @@ fun SessionScreen(
                     .background(Color.Transparent)
             ) {
                 Text(
-                    text = "End session",
+                    text = resources().getString(R.string.end_session),
                     color = Color.Red,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
@@ -185,32 +184,6 @@ private fun Timer(
                     modifier = Modifier
                         .padding(vertical = 4.dp, horizontal = 20.dp)
                 )
-            }
-        }
-    }
-}
-
-
-@Singleton
-object InvisibleSessionManager {
-    private lateinit var viewModel: SessionViewModel
-    private lateinit var mediaplayer: MediaPlayer
-    var isSession: Boolean = false
-
-    fun setParameters(viewModel: SessionViewModel, mediaplayer: MediaPlayer) {
-        isSession = true
-        this.viewModel = viewModel
-        this.mediaplayer = mediaplayer
-    }
-
-    suspend fun updateTimer() {
-        if (isSession) {
-            while (true) {
-                delay(1.seconds)
-                viewModel.getTimer().tick()
-                if (viewModel.getTimer().hasCurrentCountdownEnded() && !viewModel.getTimer().hasEnded()) {
-                    mediaplayer.start()
-                }
             }
         }
     }

@@ -44,6 +44,7 @@
 
     <!-- Sessions -->
     <string name="sessions">Sessions</string>
+    <string name="end_session">End session</string>
 
     <!-- Profile -->
     <string name="profile">Profile</string>
