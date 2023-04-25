@@ -47,7 +47,7 @@ fun SessionScreen(
     mediaplayer.isLooping = false
 
     // evt mediaplayer meegeven vanaf hier als reserve oplossing
-    InvisibleSessionManager.setNewViewModel(viewModel = viewModel)
+    InvisibleSessionManager.setParameters(viewModel = viewModel, mediaplayer = mediaplayer)
 
     Column(
        modifier = Modifier.padding(10.dp)
@@ -153,25 +153,25 @@ private fun Timer(viewModel: SessionViewModel = hiltViewModel(), mediaplayer: Me
 }
 
 object InvisibleSessionManager {
-    lateinit var viewModel: SessionViewModel
+    private lateinit var viewModel: SessionViewModel
+    private lateinit var mediaplayer: MediaPlayer
     var isSession: Boolean = false
 
-    fun setNewViewModel(viewModel: SessionViewModel) {
+    fun setParameters(viewModel: SessionViewModel, mediaplayer: MediaPlayer) {
         isSession = true
         this.viewModel = viewModel
+        this.mediaplayer = mediaplayer
     }
 
-    suspend fun updateTimer(mediaPlayer: MediaPlayer?) {
+    suspend fun updateTimer() {
         if (isSession) {
             while (true) {
                 delay(1.seconds)
                 viewModel.getTimer().tick()
                 if (viewModel.getTimer().hasCurrentCountdownEnded() && !viewModel.getTimer().hasEnded()) {
-                    mediaPlayer?.start()
+                    mediaplayer.start()
                 }
             }
         }
     }
-
-
 }

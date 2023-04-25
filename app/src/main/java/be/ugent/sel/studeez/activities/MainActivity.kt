@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onStop() {
         onTimerInvisible = lifecycleScope.launch {
-            InvisibleSessionManager.updateTimer(mediaPlayer)
+            InvisibleSessionManager.updateTimer()
         }
         super.onStop()
     }
