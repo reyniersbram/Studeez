@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
+import be.ugent.sel.studeez.screens.session.sessionScreens.AbstractSessionScreen
 
 data class SessionActions(
     val getTimer: () -> FunctionalTimer,
@@ -31,6 +32,7 @@ fun SessionRoute(
     open: (String) -> Unit,
     viewModel: SessionViewModel,
 ) {
+    val sessionScreen: AbstractSessionScreen = viewModel.getTimer().getView()
     val context = LocalContext.current
     val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
     val mediaplayer = MediaPlayer()
@@ -44,7 +46,7 @@ fun SessionRoute(
     mediaplayer.setOnPreparedListener {
 //        mediaplayer.start()
     }
-    viewModel.getTimer().getView().SessionScreen(
+    sessionScreen.SessionScreen(
         open = open,
         sessionActions = getSessionActions(viewModel, mediaplayer),
     )
