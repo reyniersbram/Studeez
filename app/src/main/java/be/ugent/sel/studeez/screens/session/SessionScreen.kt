@@ -46,7 +46,6 @@ fun SessionScreen(
     val mediaplayer = MediaPlayer.create(context, uri)
     mediaplayer.isLooping = false
 
-    // evt mediaplayer meegeven vanaf hier als reserve oplossing
     InvisibleSessionManager.setParameters(viewModel = viewModel, mediaplayer = mediaplayer)
 
     Column(
