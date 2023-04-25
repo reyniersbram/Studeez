@@ -10,10 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.R
-import be.ugent.sel.studeez.common.composable.BasicButton
-import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
-import be.ugent.sel.studeez.common.composable.StealthButton
-import be.ugent.sel.studeez.common.composable.TimerEntry
+import be.ugent.sel.studeez.common.composable.*
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
 import be.ugent.sel.studeez.common.composable.drawer.DrawerViewModel
 import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
@@ -48,30 +45,25 @@ fun TimerOverviewRoute(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
     viewModel: TimerOverviewViewModel,
-    drawerViewModel: DrawerViewModel,
-    navBarViewModel: NavigationBarViewModel,
+    drawerViewModel: DrawerViewModel
 ) {
     TimerOverviewScreen(
         timerOverviewActions = getTimerOverviewActions(viewModel),
-        drawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp),
-        navigationBarActions = getNavigationBarActions(navBarViewModel, open),
+        drawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp)
     )
 }
 
 @Composable
 fun TimerOverviewScreen(
     timerOverviewActions: TimerOverviewActions,
-    drawerActions: DrawerActions,
-    navigationBarActions: NavigationBarActions,
+    drawerActions: DrawerActions
 ) {
 
     val timers = timerOverviewActions.getUserTimers().collectAsState(initial = emptyList())
 
-    // TODO moet geen primary screen zijn: geen navbar nodig
-    PrimaryScreenTemplate(
+    DrawerScreenTemplate(
         title = resources().getString(R.string.timers),
-        drawerActions = drawerActions,
-        navigationBarActions = navigationBarActions,
+        drawerActions = drawerActions
     ) {
         Column {
             LazyColumn(
@@ -112,7 +104,6 @@ fun TimerOverviewPreview() {
             { flowOf() },
             { listOf(customTimer, customTimer) },
             {}),
-        drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({}, {}, {}, {})
+        drawerActions = DrawerActions({}, {}, {}, {}, {})
     )
 }

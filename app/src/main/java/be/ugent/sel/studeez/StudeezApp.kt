@@ -141,8 +141,7 @@ fun StudeezNavGraph(
                 open,
                 openAndPopUp,
                 viewModel = hiltViewModel(),
-                drawerViewModel = drawerViewModel,
-                navBarViewModel = navBarViewModel,
+                drawerViewModel = drawerViewModel
             )
         }
 
