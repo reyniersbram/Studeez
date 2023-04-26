@@ -6,15 +6,12 @@ import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodor
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimerVisitor
 
 class GetSessionScreen : FunctionalTimerVisitor<AbstractSessionScreen> {
-    override fun visitFunctionalCustomTimer(functionalCustomTimer: FunctionalCustomTimer): AbstractSessionScreen {
-        return CustomSessionScreen(functionalCustomTimer)
-    }
+    override fun visitFunctionalCustomTimer(functionalCustomTimer: FunctionalCustomTimer): AbstractSessionScreen =
+        CustomSessionScreen(functionalCustomTimer)
 
-    override fun visitFunctionalEndlessTimer(functionalEndlessTimer: FunctionalEndlessTimer): AbstractSessionScreen {
-        return EndlessSessionScreen()
-    }
+    override fun visitFunctionalEndlessTimer(functionalEndlessTimer: FunctionalEndlessTimer): AbstractSessionScreen =
+        EndlessSessionScreen()
 
-    override fun visitFunctionalBreakTimer(functionalPomodoroTimer: FunctionalPomodoroTimer): AbstractSessionScreen {
-        return BreakSessionScreen(functionalPomodoroTimer)
-    }
+    override fun visitFunctionalBreakTimer(functionalPomodoroTimer: FunctionalPomodoroTimer): AbstractSessionScreen =
+        BreakSessionScreen(functionalPomodoroTimer)
 }
