@@ -39,8 +39,4 @@ class FunctionalPomodoroTimer(
     override fun hasCurrentCountdownEnded(): Boolean {
         return time.time == 0
     }
-
-    override fun getView(): AbstractSessionScreen {
-        return BreakSessionScreen(this)
-    }
 }

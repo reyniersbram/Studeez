@@ -13,7 +13,4 @@ abstract class FunctionalTimer(initialValue: Int) {
     abstract fun hasEnded(): Boolean
 
     abstract fun hasCurrentCountdownEnded(): Boolean
-
-    abstract fun getView(): AbstractSessionScreen
-
 }

@@ -27,7 +27,7 @@ abstract class AbstractSessionScreen {
     var timerEnd = false
 
     @Composable
-    fun SessionScreen(
+    operator fun invoke(
         open: (String) -> Unit,
         sessionActions: SessionActions,
     ) {

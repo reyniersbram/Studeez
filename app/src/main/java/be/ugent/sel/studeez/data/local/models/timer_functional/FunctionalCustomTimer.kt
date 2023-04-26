@@ -19,8 +19,4 @@ class FunctionalCustomTimer(studyTime: Int) : FunctionalTimer(studyTime) {
         return hasEnded()
     }
 
-    override fun getView(): AbstractSessionScreen {
-        return CustomSessionScreen(this)
-    }
-
 }

@@ -16,8 +16,4 @@ class FunctionalEndlessTimer : FunctionalTimer(0) {
     override fun tick() {
         time.plusOne()
     }
-
-    override fun getView(): AbstractSessionScreen {
-        return EndlessSessionScreen()
-    }
 }
