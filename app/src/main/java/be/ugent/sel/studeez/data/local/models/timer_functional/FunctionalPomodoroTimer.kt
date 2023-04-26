@@ -39,4 +39,8 @@ class FunctionalPomodoroTimer(
     override fun hasCurrentCountdownEnded(): Boolean {
         return time.time == 0
     }
+
+    override fun <T> accept(visitor: FunctionalTimerVisitor<T>): T {
+        return visitor.visitFunctionalBreakTimer(this)
+    }
 }

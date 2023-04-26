@@ -19,4 +19,8 @@ class FunctionalCustomTimer(studyTime: Int) : FunctionalTimer(studyTime) {
         return hasEnded()
     }
 
+    override fun <T> accept(visitor: FunctionalTimerVisitor<T>): T {
+        return visitor.visitFunctionalCustomTimer(this)
+    }
+
 }
