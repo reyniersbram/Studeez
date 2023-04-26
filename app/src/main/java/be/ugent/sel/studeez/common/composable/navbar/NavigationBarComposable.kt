@@ -34,7 +34,6 @@ fun getNavigationBarActions(
 ): NavigationBarActions {
     return NavigationBarActions(
         isSelectedTab = { screen ->
-            Log.v("TEMP", getCurrentScreen().toString()) // TODO Remove
             screen == getCurrentScreen()
         },
         onHomeClick = {
