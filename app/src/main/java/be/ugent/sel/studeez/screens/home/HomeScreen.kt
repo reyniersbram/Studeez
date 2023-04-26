@@ -23,6 +23,7 @@ import be.ugent.sel.studeez.resources
 fun HomeRoute(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
+    getCurrentScreen: () -> String?,
     viewModel: HomeViewModel,
     drawerViewModel: DrawerViewModel,
     navBarViewModel: NavigationBarViewModel,
@@ -30,7 +31,7 @@ fun HomeRoute(
     HomeScreen(
         onStartSessionClick = { viewModel.onStartSessionClick(open) },
         drawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp),
-        navigationBarActions = getNavigationBarActions(navBarViewModel, open),
+        navigationBarActions = getNavigationBarActions(navBarViewModel, open, getCurrentScreen),
     )
 }
 
@@ -45,7 +46,7 @@ fun HomeScreen(
         title = resources().getString(R.string.home),
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
-        action = { FriendsAction() }
+        barAction = { FriendsAction() }
     ) {
         BasicButton(R.string.start_session, Modifier.basicButton()) {
             onStartSessionClick()

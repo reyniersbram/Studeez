@@ -2,17 +2,8 @@ package be.ugent.sel.studeez
 
 import android.content.res.Resources
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.Surface
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -21,6 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import be.ugent.sel.studeez.common.composable.drawer.DrawerViewModel
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
@@ -89,6 +81,8 @@ fun StudeezNavGraph(
     val drawerViewModel: DrawerViewModel = hiltViewModel()
     val navBarViewModel: NavigationBarViewModel = hiltViewModel()
 
+    val backStackEntry by appState.navController.currentBackStackEntryAsState()
+
     NavHost(
         navController = appState.navController,
         startDestination = StudeezDestinations.SPLASH_SCREEN,
@@ -106,6 +100,9 @@ fun StudeezNavGraph(
             appState.navigateAndPopUp(route, popUp)
         }
 
+        val getCurrentScreen: () -> String? = {
+            backStackEntry?.destination?.route
+        }
 
         composable(StudeezDestinations.SPLASH_SCREEN) {
             SplashRoute(openAndPopUp, viewModel = hiltViewModel())
@@ -123,6 +120,7 @@ fun StudeezNavGraph(
             HomeRoute(
                 open,
                 openAndPopUp,
+                getCurrentScreen,
                 viewModel = hiltViewModel(),
                 drawerViewModel = drawerViewModel,
                 navBarViewModel = navBarViewModel,
@@ -133,7 +131,7 @@ fun StudeezNavGraph(
         // TODO Sessions screen
 
         composable(StudeezDestinations.PROFILE_SCREEN) {
-            ProfileRoute(open, openAndPopUp, viewModel = hiltViewModel())
+            ProfileRoute(open, openAndPopUp, getCurrentScreen, viewModel = hiltViewModel())
         }
 
         composable(StudeezDestinations.TIMER_OVERVIEW_SCREEN) {
@@ -161,6 +159,7 @@ fun StudeezNavGraph(
             TimerSelectionRoute(
                 open,
                 openAndPopUp,
+                getCurrentScreen,
                 viewModel = hiltViewModel(),
                 drawerViewModel = drawerViewModel,
                 navBarViewModel = navBarViewModel,

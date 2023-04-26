@@ -4,22 +4,17 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.Headline
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
-import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
 import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
+import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.CoroutineScope
 import be.ugent.sel.studeez.R.string as AppText
 
@@ -42,12 +37,13 @@ fun getProfileActions(
 fun ProfileRoute(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
+    getCurrentScreen: () -> String?,
     viewModel: ProfileViewModel,
 ) {
     ProfileScreen(
         profileActions = getProfileActions(viewModel, open),
         drawerActions = getDrawerActions(hiltViewModel(), open, openAndPopUp),
-        navigationBarActions = getNavigationBarActions(hiltViewModel(), open),
+        navigationBarActions = getNavigationBarActions(hiltViewModel(), open, getCurrentScreen),
     )
 }
 
@@ -65,7 +61,7 @@ fun ProfileScreen(
         title = resources().getString(AppText.profile),
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
-        action = { EditAction(onClick = profileActions.onEditProfileClick) }
+        barAction = { EditAction(onClick = profileActions.onEditProfileClick) }
     ) {
         Headline(text = (username ?: resources().getString(R.string.no_username)))
     }

@@ -41,6 +41,7 @@ fun getTimerSelectionActions(
 fun TimerSelectionRoute(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
+    getCurrentScreen: () -> String?,
     viewModel: TimerSelectionViewModel,
     drawerViewModel: DrawerViewModel,
     navBarViewModel: NavigationBarViewModel,
@@ -48,7 +49,7 @@ fun TimerSelectionRoute(
     TimerSelectionScreen(
         timerSelectionActions = getTimerSelectionActions(viewModel, open),
         drawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp),
-        navigationBarActions = getNavigationBarActions(navBarViewModel, open),
+        navigationBarActions = getNavigationBarActions(navBarViewModel, open, getCurrentScreen),
     )
 }
 
