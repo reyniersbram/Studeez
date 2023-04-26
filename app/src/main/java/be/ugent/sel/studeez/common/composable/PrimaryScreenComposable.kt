@@ -31,7 +31,7 @@ fun PrimaryScreenTemplate(
     title: String,
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions,
-    action: @Composable RowScope.() -> Unit = {},
+    barAction: @Composable RowScope.() -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
@@ -53,7 +53,7 @@ fun PrimaryScreenTemplate(
                         )
                     }
                 },
-                actions = action
+                actions = barAction
             )
         },
 

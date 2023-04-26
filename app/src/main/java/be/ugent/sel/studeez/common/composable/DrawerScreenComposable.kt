@@ -20,7 +20,7 @@ import be.ugent.sel.studeez.R.string as AppText
 fun DrawerScreenTemplate(
     title: String,
     drawerActions: DrawerActions,
-    action: @Composable RowScope.() -> Unit = {},
+    barAction: @Composable RowScope.() -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
@@ -41,7 +41,7 @@ fun DrawerScreenTemplate(
                     )
                 }
             },
-            actions = action
+            actions = barAction
         )},
 
         drawerContent = {
