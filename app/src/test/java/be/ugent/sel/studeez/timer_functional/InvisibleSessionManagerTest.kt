@@ -2,6 +2,7 @@ package be.ugent.sel.studeez.timer_functional
 
 import android.media.MediaPlayer
 import be.ugent.sel.studeez.data.SelectedTimerState
+import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalCustomTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
@@ -76,6 +77,27 @@ class InvisibleSessionManagerTest {
 
         advanceTimeBy(4_000)
         Assert.assertEquals(viewModel.getTimer().view, FunctionalTimer.StudyState.DONE) // Done
+
+        test.cancel()
+        return@runTest
+    }
+
+    @Test
+    fun InvisibleCustomTimerTest() = runTest {
+        timerState.selectedTimer = FunctionalCustomTimer(5)
+        viewModel = SessionViewModel(timerState, mock())
+        InvisibleSessionManager.setParameters(viewModel, mediaPlayer)
+
+        val test = launch {
+            InvisibleSessionManager.updateTimer()
+        }
+
+        Assert.assertEquals(viewModel.getTimer().time.time, 5)
+        advanceTimeBy(1_000) // Start tikker
+        advanceTimeBy(4_000)
+        Assert.assertEquals(viewModel.getTimer().time.time, 1)
+        advanceTimeBy(1_000)
+        Assert.assertEquals(viewModel.getTimer().time.time, 0)
 
         test.cancel()
         return@runTest
