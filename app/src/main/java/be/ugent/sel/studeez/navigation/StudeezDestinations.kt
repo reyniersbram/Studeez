@@ -18,4 +18,6 @@ object StudeezDestinations {
 
     // Edit screens
     const val EDIT_PROFILE_SCREEN = "edit_profile"
+
+    const val ADD_TIMER_SCREEN = "add_timer"
 }
