@@ -1,12 +1,12 @@
 package be.ugent.sel.studeez.screens.timer_selection
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.StealthButton
@@ -59,17 +59,18 @@ fun TimerSelectionScreen(
         title = resources().getString(R.string.timers),
         popUp = popUp
     ) {
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(7.dp)) {
+        LazyColumn {
             // All timers
             items(timers.value) { timerInfo ->
                 TimerEntry(
                     timerInfo = timerInfo,
-                ) {
-                    StealthButton(
-                        text = R.string.start,
-                        onClick = { timerSelectionActions.startSession(timerInfo) }
-                    )
-                }
+                    leftButton = {
+                        StealthButton(
+                            text = R.string.start,
+                            onClick = { timerSelectionActions.startSession(timerInfo) }
+                        )
+                    }
+                )
             }
         }
     }
