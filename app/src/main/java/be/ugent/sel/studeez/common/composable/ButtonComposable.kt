@@ -23,7 +23,14 @@ import be.ugent.sel.studeez.common.ext.card
 @Composable
 
 fun BasicTextButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit) {
-    TextButton(onClick = action, modifier = modifier) { Text(text = stringResource(text)) }
+    TextButton(
+        onClick = action,
+        modifier = modifier
+    ) {
+        Text(
+            text = stringResource(text)
+        )
+    }
 }
 
 @Composable

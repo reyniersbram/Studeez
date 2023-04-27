@@ -23,6 +23,7 @@ import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
+import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -31,15 +32,18 @@ data class TimerOverviewActions(
     val getUserTimers: () -> Flow<List<TimerInfo>>,
     val getDefaultTimers: () -> List<TimerInfo>,
     val onEditClick: (TimerInfo) -> Unit,
+    val open: (String) -> Unit,
 )
 
 fun getTimerOverviewActions(
     viewModel: TimerOverviewViewModel,
+    open: (String) -> Unit,
 ): TimerOverviewActions {
     return TimerOverviewActions(
         getUserTimers = viewModel::getUserTimers,
         getDefaultTimers = viewModel::getDefaultTimers,
         onEditClick = { viewModel.update(it) },
+        open = open
     )
 }
 
@@ -52,7 +56,7 @@ fun TimerOverviewRoute(
     navBarViewModel: NavigationBarViewModel,
 ) {
     TimerOverviewScreen(
-        timerOverviewActions = getTimerOverviewActions(viewModel),
+        timerOverviewActions = getTimerOverviewActions(viewModel, open),
         drawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp),
         navigationBarActions = getNavigationBarActions(navBarViewModel, open),
     )
@@ -95,7 +99,7 @@ fun TimerOverviewScreen(
                 }
             }
             BasicButton(R.string.add_timer, Modifier.basicButton()) {
-                // TODO
+                timerOverviewActions.open(StudeezDestinations.ADD_TIMER_SCREEN)
             }
         }
     }
@@ -111,7 +115,9 @@ fun TimerOverviewPreview() {
         timerOverviewActions = TimerOverviewActions(
             { flowOf() },
             { listOf(customTimer, customTimer) },
-            {}),
+            {},
+            {}
+        ),
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
         navigationBarActions = NavigationBarActions({}, {}, {}, {})
     )
