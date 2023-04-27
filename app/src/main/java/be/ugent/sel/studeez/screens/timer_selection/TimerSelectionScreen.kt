@@ -8,15 +8,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.R
-import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.common.composable.TimerEntry
-import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
 import be.ugent.sel.studeez.common.composable.drawer.DrawerViewModel
-import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
-import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
-import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.flow.Flow
@@ -41,6 +37,7 @@ fun getTimerSelectionActions(
 fun TimerSelectionRoute(
     open: (String) -> Unit,
     openAndPopUp: (String, String) -> Unit,
+    popUp: () -> Unit,
     getCurrentScreen: () -> String?,
     viewModel: TimerSelectionViewModel,
     drawerViewModel: DrawerViewModel,
@@ -48,22 +45,19 @@ fun TimerSelectionRoute(
 ) {
     TimerSelectionScreen(
         timerSelectionActions = getTimerSelectionActions(viewModel, open),
-        drawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp),
-        navigationBarActions = getNavigationBarActions(navBarViewModel, open, getCurrentScreen),
+        popUp = popUp
     )
 }
 
 @Composable
 fun TimerSelectionScreen(
     timerSelectionActions: TimerSelectionActions,
-    drawerActions: DrawerActions,
-    navigationBarActions: NavigationBarActions,
+    popUp: () -> Unit
 ) {
     val timers = timerSelectionActions.getAllTimers().collectAsState(initial = emptyList())
-    PrimaryScreenTemplate(
+    SecondaryScreenTemplate(
         title = resources().getString(R.string.timers),
-        drawerActions = drawerActions,
-        navigationBarActions = navigationBarActions,
+        popUp = popUp
     ) {
         LazyColumn(verticalArrangement = Arrangement.spacedBy(7.dp)) {
             // All timers
@@ -86,7 +80,6 @@ fun TimerSelectionScreen(
 fun TimerSelectionPreview() {
     TimerSelectionScreen(
         timerSelectionActions = TimerSelectionActions({ flowOf() }, {}),
-        drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}),
+        popUp = {}
     )
 }

@@ -159,6 +159,7 @@ fun StudeezNavGraph(
             TimerSelectionRoute(
                 open,
                 openAndPopUp,
+                goBack,
                 getCurrentScreen,
                 viewModel = hiltViewModel(),
                 drawerViewModel = drawerViewModel,
