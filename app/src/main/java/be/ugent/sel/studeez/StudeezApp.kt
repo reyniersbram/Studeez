@@ -11,6 +11,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -21,9 +22,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
 import be.ugent.sel.studeez.common.composable.drawer.DrawerViewModel
+import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
+import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
+import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.home.HomeRoute
@@ -90,43 +96,52 @@ fun StudeezNavGraph(
     val drawerViewModel: DrawerViewModel = hiltViewModel()
     val navBarViewModel: NavigationBarViewModel = hiltViewModel()
 
+    val backStackEntry by appState.navController.currentBackStackEntryAsState()
+    val getCurrentScreen: () -> String? = { backStackEntry?.destination?.route }
+
+    val goBack: () -> Unit = { appState.popUp() }
+    val open: (String) -> Unit = { appState.navigate(it) }
+    val openAndPopUp: (String, String) -> Unit =
+        { route, popUp -> appState.navigateAndPopUp(route, popUp) }
+
+    val drawerActions: DrawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp)
+    val navigationBarActions: NavigationBarActions =
+        getNavigationBarActions(navBarViewModel, open, getCurrentScreen)
+
     NavHost(
         navController = appState.navController,
         startDestination = StudeezDestinations.SPLASH_SCREEN,
         modifier = modifier,
     ) {
-        val goBack: () -> Unit = {
-            appState.popUp()
-        }
-
-        val open: (String) -> Unit = { route ->
-            appState.navigate(route)
-        }
-
-        val openAndPopUp: (String, String) -> Unit = { route, popUp ->
-            appState.navigateAndPopUp(route, popUp)
-        }
 
 
         composable(StudeezDestinations.SPLASH_SCREEN) {
-            SplashRoute(openAndPopUp, viewModel = hiltViewModel())
+            SplashRoute(
+                openAndPopUp,
+                viewModel = hiltViewModel(),
+            )
         }
 
         composable(StudeezDestinations.LOGIN_SCREEN) {
-            LoginRoute(openAndPopUp, viewModel = hiltViewModel())
+            LoginRoute(
+                openAndPopUp,
+                viewModel = hiltViewModel(),
+            )
         }
 
         composable(StudeezDestinations.SIGN_UP_SCREEN) {
-            SignUpRoute(openAndPopUp, viewModel = hiltViewModel())
+            SignUpRoute(
+                openAndPopUp,
+                viewModel = hiltViewModel(),
+            )
         }
 
         composable(StudeezDestinations.HOME_SCREEN) {
             HomeRoute(
                 open,
-                openAndPopUp,
                 viewModel = hiltViewModel(),
-                drawerViewModel = drawerViewModel,
-                navBarViewModel = navBarViewModel,
+                drawerActions = drawerActions,
+                navigationBarActions = navigationBarActions,
             )
         }
 
@@ -134,21 +149,27 @@ fun StudeezNavGraph(
         // TODO Sessions screen
 
         composable(StudeezDestinations.PROFILE_SCREEN) {
-            ProfileRoute(open, openAndPopUp, viewModel = hiltViewModel())
+            ProfileRoute(
+                open,
+                viewModel = hiltViewModel(),
+                drawerActions = drawerActions,
+                navigationBarActions = navigationBarActions,
+            )
         }
 
         composable(StudeezDestinations.TIMER_OVERVIEW_SCREEN) {
             TimerOverviewRoute(
-                open,
-                openAndPopUp,
                 viewModel = hiltViewModel(),
-                drawerViewModel = drawerViewModel,
-                navBarViewModel = navBarViewModel,
+                drawerActions = drawerActions,
             )
         }
 
         composable(StudeezDestinations.SESSION_SCREEN) {
-            SessionRoute(open, openAndPopUp, viewModel = hiltViewModel())
+            SessionRoute(
+                open,
+                openAndPopUp,
+                viewModel = hiltViewModel()
+            )
         }
 
         // TODO Timers screen
@@ -156,16 +177,18 @@ fun StudeezNavGraph(
 
         // Edit screens
         composable(StudeezDestinations.EDIT_PROFILE_SCREEN) {
-            EditProfileRoute(goBack, openAndPopUp, viewModel = hiltViewModel())
+            EditProfileRoute(
+                goBack,
+                openAndPopUp,
+                viewModel = hiltViewModel(),
+            )
         }
 
         composable(StudeezDestinations.TIMER_SELECTION_SCREEN) {
             TimerSelectionRoute(
                 open,
-                openAndPopUp,
+                goBack,
                 viewModel = hiltViewModel(),
-                drawerViewModel = drawerViewModel,
-                navBarViewModel = navBarViewModel,
             )
         }
 
