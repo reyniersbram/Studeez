@@ -3,15 +3,9 @@ package be.ugent.sel.studeez.common.composable
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,7 +15,6 @@ import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.card
 
 @Composable
-
 fun BasicTextButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit) {
     TextButton(onClick = action, modifier = modifier) { Text(text = stringResource(text)) }
 }
@@ -64,10 +57,10 @@ fun StealthButton(
         onClick = onClick,
         modifier = Modifier.card(),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.Transparent,
-            contentColor = Color.DarkGray,
+            backgroundColor = MaterialTheme.colors.surface,
+            contentColor = MaterialTheme.colors.onSurface
         ),
-        border = BorderStroke(3.dp, Color.DarkGray),
+        border = BorderStroke(1.dp, MaterialTheme.colors.onSurface)
     )
 }
 

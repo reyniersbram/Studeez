@@ -1,6 +1,5 @@
 package be.ugent.sel.studeez.screens.splash
 
-import android.window.SplashScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
