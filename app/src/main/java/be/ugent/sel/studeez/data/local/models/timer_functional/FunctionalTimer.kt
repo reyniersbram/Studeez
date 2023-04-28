@@ -20,7 +20,6 @@ abstract class FunctionalTimer(initialValue: Int) {
 
     fun getSessionReport(): SessionReport {
         return SessionReport(
-            id = "",
             studyTime = totalStudyTime,
             endTime = Timestamp.now()
         )
