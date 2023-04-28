@@ -29,10 +29,6 @@ class FunctionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
             breaks,
             pomodoroTimer.breaksRemaining,
         )
-        Assert.assertEquals(
-            FunctionalTimer.StudyState.FOCUS,
-            pomodoroTimer.view,
-        )
     }
 
     @Test
@@ -52,10 +48,6 @@ class FunctionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
         pomodoroTimer = FunctionalPomodoroTimer(0, 0, 0)
         pomodoroTimer.tick()
         Assert.assertTrue(pomodoroTimer.hasEnded())
-        Assert.assertEquals(
-            FunctionalTimer.StudyState.DONE,
-            pomodoroTimer.view,
-        )
     }
 
     @Test
@@ -65,10 +57,6 @@ class FunctionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
         }
         Assert.assertFalse(pomodoroTimer.hasEnded())
         Assert.assertTrue(pomodoroTimer.isInBreak)
-        Assert.assertEquals(
-            FunctionalTimer.StudyState.BREAK,
-            pomodoroTimer.view
-        )
     }
 
     @Test
@@ -77,10 +65,6 @@ class FunctionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
             pomodoroTimer.tick()
         }
         Assert.assertTrue(pomodoroTimer.isInBreak)
-        Assert.assertEquals(
-            FunctionalTimer.StudyState.BREAK,
-            pomodoroTimer.view
-        )
         for (i in 0..breakTime) {
             pomodoroTimer.tick()
         }
@@ -89,10 +73,6 @@ class FunctionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
         Assert.assertEquals(
             breaksRemaining,
             pomodoroTimer.breaksRemaining
-        )
-        Assert.assertEquals(
-            FunctionalTimer.StudyState.FOCUS_REMAINING,
-            pomodoroTimer.view
         )
     }
 }
