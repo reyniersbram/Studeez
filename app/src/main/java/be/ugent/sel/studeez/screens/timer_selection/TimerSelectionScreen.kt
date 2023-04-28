@@ -2,8 +2,6 @@ package be.ugent.sel.studeez.screens.timer_selection
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
@@ -11,8 +9,6 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.common.composable.TimerEntry
-import be.ugent.sel.studeez.common.composable.drawer.DrawerViewModel
-import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.flow.Flow
@@ -36,12 +32,8 @@ fun getTimerSelectionActions(
 @Composable
 fun TimerSelectionRoute(
     open: (String) -> Unit,
-    openAndPopUp: (String, String) -> Unit,
     popUp: () -> Unit,
-    getCurrentScreen: () -> String?,
     viewModel: TimerSelectionViewModel,
-    drawerViewModel: DrawerViewModel,
-    navBarViewModel: NavigationBarViewModel,
 ) {
     TimerSelectionScreen(
         timerSelectionActions = getTimerSelectionActions(viewModel, open),

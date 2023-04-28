@@ -13,8 +13,6 @@ import be.ugent.sel.studeez.common.composable.DrawerScreenTemplate
 import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.common.composable.TimerEntry
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
-import be.ugent.sel.studeez.common.composable.drawer.DrawerViewModel
-import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
@@ -40,14 +38,12 @@ fun getTimerOverviewActions(
 
 @Composable
 fun TimerOverviewRoute(
-    open: (String) -> Unit,
-    openAndPopUp: (String, String) -> Unit,
     viewModel: TimerOverviewViewModel,
-    drawerViewModel: DrawerViewModel
+    drawerActions: DrawerActions,
 ) {
     TimerOverviewScreen(
         timerOverviewActions = getTimerOverviewActions(viewModel),
-        drawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp)
+        drawerActions = drawerActions,
     )
 }
 
