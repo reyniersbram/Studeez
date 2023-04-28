@@ -1,7 +1,6 @@
 package be.ugent.sel.studeez.screens.timer_overview.add_timer
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,6 +21,7 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.resources
+import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
 data class AddTimerActions(
     val goBack: () -> Unit,
@@ -79,122 +79,137 @@ fun AddTimerScreen(
         title = resources().getString(R.string.add_timer),
         popUp = addTimerActions.goBack
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "How long do you want to study?",
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+            item {
                 Text(
-                    text = "How long do you want to study?",
-                    textAlign = TextAlign.Center
+                    text = "${uiState.studyTimeHours.toInt()} hour${ if (uiState.studyTimeHours == 1f) "" else "s"}"
                 )
             }
-
-            LazyColumn(
-                modifier = Modifier
-                    .padding(16.dp)
-            ) {
-                item{
+            item {
+                Slider(
+                    value = uiState.studyTimeHours,
+                    onValueChange = {
+                        addTimerActions.onStudyTimeHoursChange(it)
+                    },
+                    steps = 8,
+                    valueRange = 1f..10f,
+                    enabled = true
+                )
+            }
+            item {
+                Text(
+                    text = "${uiState.studyTimeMinutes.toInt()} minutes"
+                )
+            }
+            item {
+                Slider(
+                    value = uiState.studyTimeMinutes,
+                    onValueChange = {
+                        addTimerActions.onStudyTimeMinutesChange(it)
+                    },
+                    steps = 11,
+                    valueRange = 0f..60f,
+                    enabled = true
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
                     Text(
-                        text = "${uiState.studyTimeHours.toInt()} hour${ if (uiState.studyTimeHours == 1f) "" else "s"}"
+                        text = "With breaks?",
                     )
-                    Slider(
-                        value = uiState.studyTimeHours,
-                        onValueChange = {
-                            addTimerActions.onStudyTimeHoursChange(it)
-                        },
-                        steps = 8,
-                        valueRange = 1f..10f,
-                        enabled = true
+                    Checkbox(
+                        checked = uiState.withBreaks,
+                        onCheckedChange = { addTimerActions.onWithBreaksChange(it) }
                     )
-
-                    Text(
-                        text = "${uiState.studyTimeMinutes.toInt()} minutes"
+                }
+            }
+            item {
+                Text(
+                    text = if (uiState.withBreaks) "breaks of ${uiState.breakTime.toInt()} minutes" else "",
+                )
+            }
+            item {
+                Slider(
+                    value = uiState.breakTime,
+                    onValueChange = {
+                        addTimerActions.onBreakTimeChange(it)
+                    },
+                    steps = 11,
+                    valueRange = 0f..60f,
+                    enabled = uiState.withBreaks
+                )
+            }
+            item {
+                Text(
+                    text = if (uiState.withBreaks) "${uiState.repeats.toInt()} breaks" else ""
+                )
+            }
+            item {
+                Slider(
+                    value = uiState.repeats,
+                    onValueChange = {
+                        addTimerActions.onRepeatsChange(it)
+                    },
+                    steps = 8,
+                    valueRange = 1f..10f,
+                    enabled = uiState.withBreaks
+                )
+            }
+            item {
+                Text(
+                    text = "Timer name"
+                )
+            }
+            item {
+                TextField(
+                    value = uiState.name,
+                    onValueChange = { addTimerActions.onNameChange(it) }
+                )
+            }
+            item {
+                Text(
+                    text = "Timer description"
+                )
+            }
+            item {
+                TextField(
+                    value = uiState.description,
+                    onValueChange = { addTimerActions.onDescriptionChange(it) }
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    BasicButton(
+                        text = R.string.add_timer,
+                        modifier = Modifier,
+                        onClick = addTimerActions.addTimer
                     )
-                    Slider(
-                        value = uiState.studyTimeMinutes,
-                        onValueChange = {
-                            addTimerActions.onStudyTimeMinutesChange(it)
-                        },
-                        steps = 11,
-                        valueRange = 0f..60f,
-                        enabled = true
-                    )
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = "With breaks?",
-                        )
-                        Checkbox(
-                            checked = uiState.withBreaks,
-                            onCheckedChange = { addTimerActions.onWithBreaksChange(it) }
-                        )
-                    }
-
-                    Text(
-                        text = if (uiState.withBreaks) "breaks of ${uiState.breakTime.toInt()} minutes" else "",
-                    )
-                    Slider(
-                        value = uiState.breakTime,
-                        onValueChange = {
-                            addTimerActions.onBreakTimeChange(it)
-                        },
-                        steps = 11,
-                        valueRange = 0f..60f,
-                        enabled = uiState.withBreaks
-                    )
-
-                    Text(
-                        text = if (uiState.withBreaks) "${uiState.repeats.toInt()} breaks" else ""
-                    )
-                    Slider(
-                        value = uiState.repeats,
-                        onValueChange = {
-                            addTimerActions.onRepeatsChange(it)
-                        },
-                        steps = 8,
-                        valueRange = 1f..10f,
-                        enabled = uiState.withBreaks
-                    )
-
-                    Text(
-                        text = "Timer name"
-                    )
-                    TextField(
-                        value = uiState.name,
-                        onValueChange = { addTimerActions.onNameChange(it) }
-                    )
-
-                    Text(
-                        text = "Timer description"
-                    )
-                    TextField(
-                        value = uiState.description,
-                        onValueChange = { addTimerActions.onDescriptionChange(it) }
-                    )
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight(),
-                        verticalAlignment = Alignment.Bottom,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        BasicButton(
-                            text = R.string.add_timer,
-                            modifier = Modifier,
-                            onClick = addTimerActions.addTimer
-                        )
-                    }
                 }
             }
         }
@@ -203,9 +218,10 @@ fun AddTimerScreen(
 
 @Preview
 @Composable
-fun AddTimerScreenPreview() {
+fun AddTimerScreenPreview() { StudeezTheme {
     AddTimerScreen(
         addTimerActions = AddTimerActions({}, {}, {}, {}, {}, {}, {}, {}, {}),
         uiState = AddTimerUiState()
-    )
+        )
+    }
 }
