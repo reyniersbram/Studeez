@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.screens.session.sessionScreens
 
+import android.media.MediaPlayer
 import androidx.compose.runtime.Composable
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
@@ -7,7 +8,8 @@ import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.R.string as AppText
 
 class BreakSessionScreen(
-    private val funPomoDoroTimer: FunctionalPomodoroTimer
+    private val funPomoDoroTimer: FunctionalPomodoroTimer,
+    private var mediaplayer: MediaPlayer?
 ): AbstractSessionScreen() {
 
     @Composable
@@ -27,4 +29,15 @@ class BreakSessionScreen(
         )
     }
 
+    override fun callMediaPlayer() {
+        if (funPomoDoroTimer.hasEnded()) {
+            mediaplayer?.setOnCompletionListener {
+                mediaplayer!!.release()
+                mediaplayer = null
+            }
+            mediaplayer?.start()
+        } else if (funPomoDoroTimer.hasCurrentCountdownEnded()) {
+            mediaplayer?.start()
+        }
+    }
 }

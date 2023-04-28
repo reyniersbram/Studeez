@@ -5,12 +5,6 @@ class FunctionalCustomTimer(studyTime: Int) : FunctionalTimer(studyTime) {
     override fun tick() {
         if (!hasEnded()) {
             time.minOne()
-        } else {
-            mediaPlayer?.setOnCompletionListener {
-                mediaPlayer!!.release()
-                mediaPlayer = null
-            }
-            mediaPlayer?.start()
         }
     }
 

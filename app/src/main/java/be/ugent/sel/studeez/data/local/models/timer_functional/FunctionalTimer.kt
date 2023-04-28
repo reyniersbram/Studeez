@@ -1,10 +1,7 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
-import android.media.MediaPlayer
-
 abstract class FunctionalTimer(initialValue: Int) {
     val time: Time = Time(initialValue)
-    var mediaPlayer: MediaPlayer? = null
 
     fun getHoursMinutesSeconds(): HoursMinutesSeconds {
         return time.getAsHMS()

@@ -5,7 +5,6 @@ import be.ugent.sel.studeez.data.SelectedTimerState
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalCustomTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
-import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.screens.session.InvisibleSessionManager
 import be.ugent.sel.studeez.screens.session.SessionViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,7 +19,7 @@ import org.mockito.kotlin.mock
 class InvisibleSessionManagerTest {
     private var timerState: SelectedTimerState = SelectedTimerState()
     private lateinit var viewModel: SessionViewModel
-    private val mediaPlayer = mock<MediaPlayer>()
+    private var mediaPlayer: MediaPlayer = mock()
 
     @Test
     fun InvisibleEndlessTimerTest() = runTest {
@@ -58,25 +57,20 @@ class InvisibleSessionManagerTest {
         advanceTimeBy(1_000) // start tikker
 
         advanceTimeBy(9_000)
-        Assert.assertEquals(viewModel.getTimer().view, FunctionalTimer.StudyState.FOCUS) // Tijdens het focussen
+        Assert.assertEquals(viewModel.getTimer().time.time, 1)
+        // focus, 9 sec, 1 sec nog
 
-        advanceTimeBy(1_000)
-        Assert.assertEquals(viewModel.getTimer().time.time, 0) // Focussen gedaan
+        advanceTimeBy(2_000)
+        Assert.assertEquals(viewModel.getTimer().time.time, 4)
+        // pauze, 11 sec bezig, 4 seconden nog pauze
 
-        advanceTimeBy(4_000)
-        Assert.assertEquals(viewModel.getTimer().view, FunctionalTimer.StudyState.BREAK) // Tijdens pauze
+        advanceTimeBy(5_000)
+        Assert.assertEquals(viewModel.getTimer().time.time, 9)
+        // 2e focus, 16 sec, 9 sec in 2e focus nog
 
-        advanceTimeBy(1_000)
-        Assert.assertEquals(viewModel.getTimer().time.time, 0) // Pauze gedaan
-
-        advanceTimeBy(9_000)
-        Assert.assertEquals(viewModel.getTimer().view, FunctionalTimer.StudyState.FOCUS_REMAINING) // Tijdens 2e focus
-
-        advanceTimeBy(1_000)
-        Assert.assertEquals(viewModel.getTimer().time.time, 0) // 2e focus gedaan
-
-        advanceTimeBy(4_000)
-        Assert.assertEquals(viewModel.getTimer().view, FunctionalTimer.StudyState.DONE) // Done
+        advanceTimeBy(13_000)
+        Assert.assertTrue(viewModel.getTimer().hasEnded())
+        // Done
 
         test.cancel()
         return@runTest

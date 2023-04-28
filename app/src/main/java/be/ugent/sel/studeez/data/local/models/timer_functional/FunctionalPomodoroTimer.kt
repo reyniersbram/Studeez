@@ -10,14 +10,10 @@ class FunctionalPomodoroTimer(
 
     override fun tick() {
         if (hasEnded()) {
-            mediaPlayer?.setOnCompletionListener {
-                mediaPlayer!!.release()
-                mediaPlayer = null
-            }
-            mediaPlayer?.start()
             return
-        } else if (hasCurrentCountdownEnded()) {
-            mediaPlayer?.start()
+        }
+
+        if (hasCurrentCountdownEnded()) {
             if (isInBreak) {
                 breaksRemaining--
                 time.time = studyTime

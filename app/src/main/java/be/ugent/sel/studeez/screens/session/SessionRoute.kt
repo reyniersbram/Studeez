@@ -38,13 +38,12 @@ fun SessionRoute(
     val mediaplayer = MediaPlayer.create(context, uri)
     mediaplayer.isLooping = false
 
-    viewModel.getTimer().mediaPlayer = mediaplayer
-
     InvisibleSessionManager.setParameters(
-        viewModel = viewModel
+        viewModel = viewModel,
+        mediaplayer = mediaplayer
     )
 
-    val sessionScreen: AbstractSessionScreen = viewModel.getTimer().accept(GetSessionScreen())
+    val sessionScreen: AbstractSessionScreen = viewModel.getTimer().accept(GetSessionScreen(mediaplayer))
 
     sessionScreen(
         open = open,

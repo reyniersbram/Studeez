@@ -73,6 +73,7 @@ abstract class AbstractSessionScreen {
         LaunchedEffect(tikker) {
             delay(1.seconds)
             sessionActions.getTimer().tick()
+            callMediaPlayer()
             tikker = !tikker
         }
 
@@ -122,6 +123,8 @@ abstract class AbstractSessionScreen {
     @Composable
     abstract fun motivationString(): String
 
+    abstract fun callMediaPlayer()
+
 }
 
 @Preview
@@ -130,6 +133,7 @@ fun TimerPreview() {
     val sessionScreen = object : AbstractSessionScreen() {
         @Composable
         override fun motivationString(): String = "Test"
+        override fun callMediaPlayer() {}
 
     }
     sessionScreen.Timer(sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}))

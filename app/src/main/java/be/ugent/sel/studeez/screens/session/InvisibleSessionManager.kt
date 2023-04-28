@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.screens.session
 
+import android.media.MediaPlayer
 import kotlinx.coroutines.delay
 import javax.inject.Singleton
 import kotlin.time.Duration.Companion.seconds
@@ -7,8 +8,9 @@ import kotlin.time.Duration.Companion.seconds
 @Singleton
 object InvisibleSessionManager {
     private var viewModel: SessionViewModel? = null
+    private var mediaPlayer: MediaPlayer? = null
 
-    fun setParameters(viewModel: SessionViewModel) {
+    fun setParameters(viewModel: SessionViewModel, mediaplayer: MediaPlayer) {
         this.viewModel = viewModel
     }
 
@@ -17,6 +19,7 @@ object InvisibleSessionManager {
             while (true) {
                 delay(1.seconds)
                 viewModel!!.getTimer().tick()
+
             }
         }
     }

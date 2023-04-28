@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.screens.session.sessionScreens
 
+import android.media.MediaPlayer
 import androidx.compose.runtime.Composable
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalCustomTimer
 import be.ugent.sel.studeez.resources
@@ -7,7 +8,8 @@ import be.ugent.sel.studeez.R.string as AppText
 
 
 class CustomSessionScreen(
-    private val functionalTimer: FunctionalCustomTimer
+    private val functionalTimer: FunctionalCustomTimer,
+    private var mediaplayer: MediaPlayer?
 ): AbstractSessionScreen() {
 
     @Composable
@@ -16,6 +18,16 @@ class CustomSessionScreen(
             return resources().getString(AppText.state_done)
         }
         return resources().getString(AppText.state_focus)
+    }
+
+    override fun callMediaPlayer() {
+        if (functionalTimer.hasEnded()) {
+            mediaplayer?.setOnCompletionListener {
+                mediaplayer!!.release()
+                mediaplayer = null
+            }
+            mediaplayer?.start()
+        }
     }
 
 }
