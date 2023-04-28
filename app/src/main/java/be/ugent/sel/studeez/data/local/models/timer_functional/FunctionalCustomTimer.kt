@@ -5,6 +5,7 @@ class FunctionalCustomTimer(studyTime: Int) : FunctionalTimer(studyTime) {
     override fun tick() {
         if (!hasEnded()) {
             time.minOne()
+            totalStudyTime++
         }
     }
 

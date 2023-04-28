@@ -19,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
-import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.session.SessionActions
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
@@ -45,8 +44,7 @@ abstract class AbstractSessionScreen {
                 TextButton(
                     onClick = {
                         sessionActions.releaseMediaPlayer
-                        open(StudeezDestinations.HOME_SCREEN)
-                        // Vanaf hier ook naar report gaan als "end session" knop word ingedrukt
+                        sessionActions.endSession()
                     },
                     modifier = Modifier
                         .padding(horizontal = 20.dp)
@@ -136,5 +134,5 @@ fun TimerPreview() {
         override fun callMediaPlayer() {}
 
     }
-    sessionScreen.Timer(sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}))
+    sessionScreen.Timer(sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}, {}))
 }

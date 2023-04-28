@@ -12,6 +12,7 @@ class FunctionalEndlessTimer : FunctionalTimer(0) {
 
     override fun tick() {
         time.plusOne()
+        totalStudyTime++
     }
 
     override fun <T> accept(visitor: FunctionalTimerVisitor<T>): T {

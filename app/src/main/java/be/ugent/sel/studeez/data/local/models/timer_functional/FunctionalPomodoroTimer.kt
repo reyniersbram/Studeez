@@ -23,6 +23,10 @@ class FunctionalPomodoroTimer(
             isInBreak = !isInBreak
         }
         time.minOne()
+
+        if (!isInBreak) {
+            totalStudyTime++
+        }
     }
 
     override fun hasEnded(): Boolean {
