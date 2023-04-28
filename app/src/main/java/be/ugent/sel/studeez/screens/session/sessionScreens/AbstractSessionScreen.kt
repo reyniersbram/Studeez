@@ -146,5 +146,5 @@ fun TimerPreview() {
         override fun motivationString(): String = "Test"
 
     }
-    sessionScreen.Timer(sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}))
+    sessionScreen.Timer(sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}, {}))
 }
