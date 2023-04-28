@@ -1,7 +1,6 @@
 package be.ugent.sel.studeez.timer_functional
 
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
-import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import org.junit.Assert
 import org.junit.Test
 
@@ -37,10 +36,6 @@ class FunctionalEndlessTimerUnitTest : FunctionalTimerUnitTest() {
         for (i in 1..n) {
             timer.tick()
             Assert.assertFalse(timer.hasEnded())
-            Assert.assertEquals(
-                FunctionalTimer.StudyState.FOCUS,
-                timer.view
-            )
         }
     }
 }

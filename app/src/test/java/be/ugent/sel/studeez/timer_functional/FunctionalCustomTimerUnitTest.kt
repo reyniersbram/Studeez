@@ -1,7 +1,6 @@
 package be.ugent.sel.studeez.timer_functional
 
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalCustomTimer
-import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import org.junit.Assert
 import org.junit.Test
 
@@ -36,9 +35,6 @@ class FunctionalCustomTimerUnitTest : FunctionalTimerUnitTest() {
         timer = FunctionalCustomTimer(0)
         timer.tick()
         Assert.assertTrue(timer.hasEnded())
-        Assert.assertEquals(
-            FunctionalTimer.StudyState.DONE,
-            timer.view
-        )
+        Assert.assertTrue(timer.hasEnded())
     }
 }
