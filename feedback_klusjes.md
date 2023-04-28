@@ -39,13 +39,21 @@
 ## Code Review
 
 Positieve puntjes:
-+ Navigatie is volgens jetpack compose opgebouwd, met behulp van routes en een `AppState`
-+ Duidelijke opdeling van bestanden
-+ Communicatie met databank via services
-+ Gebruik van viewmodels
+
+- Navigatie is volgens jetpack compose opgebouwd, met behulp van routes en een `AppState`
+
+- Duidelijke opdeling van bestanden
+
+- Communicatie met databank via services
+
+- Gebruik van viewmodels
 
 Negatieve puntjes:
+
 - Hardcoded strings (bv. bij HomeScreen.kt 51-58: Alle categorieen zijn hardcoded)
+
 - Errors juist afhandelen (bv. HomveViewModel.kt 21: Er wordt gewoon iets geprint naar stdout)
+
 - Er is een package met common composables maar er deze worden niet gebruikt.
+
 - Op veel plekken staat `@ExperimentalMaterialAPI`. Dit is volgens ons niet de beste oplossing voor waarschijnlijk een vaag probleem. We denken dat het beter is om dit bij zijn oorsprong op te lossen, zodat deze annotation niet door heel het project doorloopt.
