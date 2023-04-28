@@ -8,18 +8,21 @@ import kotlin.time.Duration.Companion.seconds
 @Singleton
 object InvisibleSessionManager {
     private var viewModel: SessionViewModel? = null
-    private var mediaPlayer: MediaPlayer? = null
+    private lateinit var mediaPlayer: MediaPlayer
 
     fun setParameters(viewModel: SessionViewModel, mediaplayer: MediaPlayer) {
         this.viewModel = viewModel
+        this.mediaPlayer = mediaplayer
     }
 
     suspend fun updateTimer() {
-        if (viewModel != null) {
-            while (true) {
+        viewModel?.let {
+            while (!it.getTimer().hasEnded()) {
                 delay(1.seconds)
-                viewModel!!.getTimer().tick()
-
+                it.getTimer().tick()
+                if (it.getTimer().hasCurrentCountdownEnded()) {
+                    mediaPlayer.start()
+                }
             }
         }
     }
