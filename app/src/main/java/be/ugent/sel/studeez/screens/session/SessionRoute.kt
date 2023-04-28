@@ -14,23 +14,27 @@ data class SessionActions(
     val getTask: () -> String,
     val prepareMediaPlayer: () -> Unit,
     val releaseMediaPlayer: () -> Unit,
+    val endSession: () -> Unit
 )
 
 private fun getSessionActions(
     viewModel: SessionViewModel,
+    openAndPopUp: (String, String) -> Unit,
     mediaplayer: MediaPlayer,
 ): SessionActions {
     return SessionActions(
         getTimer = viewModel::getTimer,
         getTask = viewModel::getTask,
+        endSession = { viewModel.endSession(openAndPopUp) },
         prepareMediaPlayer = mediaplayer::prepareAsync,
-        releaseMediaPlayer = mediaplayer::release,
+        releaseMediaPlayer = mediaplayer::release
     )
 }
 
 @Composable
 fun SessionRoute(
     open: (String) -> Unit,
+    openAndPopUp: (String, String) -> Unit,
     viewModel: SessionViewModel,
 ) {
     val context = LocalContext.current
@@ -58,6 +62,6 @@ fun SessionRoute(
 
     sessionScreen(
         open = open,
-        sessionActions = getSessionActions(viewModel, mediaplayer)
+        sessionActions = getSessionActions(viewModel, openAndPopUp, mediaplayer)
     )
 }

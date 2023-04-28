@@ -47,8 +47,7 @@ abstract class AbstractSessionScreen {
                 TextButton(
                     onClick = {
                         sessionActions.releaseMediaPlayer
-                        open(StudeezDestinations.HOME_SCREEN)
-                        // Vanaf hier ook naar report gaan als "end session" knop word ingedrukt
+                        sessionActions.endSession()
                     },
                     modifier = Modifier
                         .padding(horizontal = 20.dp)
