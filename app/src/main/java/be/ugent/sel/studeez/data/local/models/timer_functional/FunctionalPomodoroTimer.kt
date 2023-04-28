@@ -44,7 +44,7 @@ class FunctionalPomodoroTimer(
         return time.time == 0
     }
 
-    override fun getView(): AbstractSessionScreen {
-        return BreakSessionScreen(this)
+    override fun <T> accept(visitor: FunctionalTimerVisitor<T>): T {
+        return visitor.visitFunctionalBreakTimer(this)
     }
 }

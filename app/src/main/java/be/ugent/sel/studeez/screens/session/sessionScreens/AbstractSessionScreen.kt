@@ -15,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.session.SessionActions
 import kotlinx.coroutines.delay
@@ -27,7 +29,7 @@ abstract class AbstractSessionScreen {
     var timerEnd = false
 
     @Composable
-    fun SessionScreen(
+    operator fun invoke(
         open: (String) -> Unit,
         sessionActions: SessionActions,
     ) {
@@ -65,7 +67,7 @@ abstract class AbstractSessionScreen {
     }
 
     @Composable
-    private fun Timer(
+    fun Timer(
         sessionActions: SessionActions,
     ) {
         var tikker by remember { mutableStateOf(false) }
@@ -84,8 +86,8 @@ abstract class AbstractSessionScreen {
 
         if (!timerEnd && sessionActions.getTimer().hasEnded()) {
 //        sessionActions.prepareMediaPlayer()
-            timerEnd =
-                true // Placeholder, vanaf hier moet het report opgestart worden en de sessie afgesloten
+             timerEnd =
+                 true // Placeholder, vanaf hier moet het report opgestart worden en de sessie afgesloten
         }
 
         val hms = sessionActions.getTimer().getHoursMinutesSeconds()
@@ -134,4 +136,15 @@ abstract class AbstractSessionScreen {
     @Composable
     abstract fun motivationString(): String
 
+}
+
+@Preview
+@Composable
+fun TimerPreview() {
+    val sessionScreen = object : AbstractSessionScreen() {
+        @Composable
+        override fun motivationString(): String = "Test"
+
+    }
+    sessionScreen.Timer(sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}))
 }

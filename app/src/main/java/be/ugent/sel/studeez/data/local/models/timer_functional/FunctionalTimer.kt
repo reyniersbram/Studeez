@@ -18,7 +18,6 @@ abstract class FunctionalTimer(initialValue: Int) {
 
     abstract fun hasCurrentCountdownEnded(): Boolean
 
-    abstract fun getView(): AbstractSessionScreen
     fun getSessionReport(): SessionReport {
         return SessionReport(
             id = "",
@@ -27,4 +26,5 @@ abstract class FunctionalTimer(initialValue: Int) {
         )
     }
 
+    abstract fun <T> accept(visitor: FunctionalTimerVisitor<T>): T
 }

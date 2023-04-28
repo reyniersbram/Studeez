@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.screens.session.sessionScreens.AbstractSessionScreen
+import be.ugent.sel.studeez.screens.session.sessionScreens.GetSessionScreen
 
 data class SessionActions(
     val getTimer: () -> FunctionalTimer,
@@ -36,7 +37,6 @@ fun SessionRoute(
     openAndPopUp: (String, String) -> Unit,
     viewModel: SessionViewModel,
 ) {
-    val sessionScreen: AbstractSessionScreen = viewModel.getTimer().getView()
     val context = LocalContext.current
     val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
     val mediaplayer = MediaPlayer()
@@ -50,8 +50,18 @@ fun SessionRoute(
     mediaplayer.setOnPreparedListener {
 //        mediaplayer.start()
     }
-    sessionScreen.SessionScreen(
+
+    val sessionScreen: AbstractSessionScreen = viewModel.getTimer().accept(GetSessionScreen())
+
+    //val sessionScreen = when (val timer = viewModel.getTimer()) {
+    //    is FunctionalCustomTimer -> CustomSessionScreen(timer)
+    //    is FunctionalPomodoroTimer -> BreakSessionScreen(timer)
+    //    is FunctionalEndlessTimer -> EndlessSessionScreen()
+    //    else -> throw java.lang.IllegalArgumentException("Unknown Timer")
+    //}
+
+    sessionScreen(
         open = open,
-        sessionActions = getSessionActions(viewModel, openAndPopUp, mediaplayer),
+        sessionActions = getSessionActions(viewModel, openAndPopUp, mediaplayer)
     )
 }

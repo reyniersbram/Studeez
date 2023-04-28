@@ -1,8 +1,5 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
-import be.ugent.sel.studeez.screens.session.sessionScreens.EndlessSessionScreen
-import be.ugent.sel.studeez.screens.session.sessionScreens.AbstractSessionScreen
-
 class FunctionalEndlessTimer : FunctionalTimer(0) {
 
     override fun hasEnded(): Boolean {
@@ -18,7 +15,7 @@ class FunctionalEndlessTimer : FunctionalTimer(0) {
         totalStudyTime++
     }
 
-    override fun getView(): AbstractSessionScreen {
-        return EndlessSessionScreen()
+    override fun <T> accept(visitor: FunctionalTimerVisitor<T>): T {
+        return visitor.visitFunctionalEndlessTimer(this)
     }
 }
