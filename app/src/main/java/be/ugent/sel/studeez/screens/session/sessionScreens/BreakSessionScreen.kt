@@ -31,11 +31,13 @@ class BreakSessionScreen(
 
     override fun callMediaPlayer() {
         if (funPomoDoroTimer.hasEnded()) {
-            mediaplayer?.setOnCompletionListener {
-                mediaplayer!!.release()
-                mediaplayer = null
+            mediaplayer?.let { it: MediaPlayer ->
+                it.setOnCompletionListener {
+                    it.release()
+                    mediaplayer = null
+                }
+                it.start()
             }
-            mediaplayer?.start()
         } else if (funPomoDoroTimer.hasCurrentCountdownEnded()) {
             mediaplayer?.start()
         }

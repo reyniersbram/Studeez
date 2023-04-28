@@ -22,11 +22,13 @@ class CustomSessionScreen(
 
     override fun callMediaPlayer() {
         if (functionalTimer.hasEnded()) {
-            mediaplayer?.setOnCompletionListener {
-                mediaplayer!!.release()
-                mediaplayer = null
+            mediaplayer?.let { it: MediaPlayer ->
+                it.setOnCompletionListener {
+                    it.release()
+                    mediaplayer = null
+                }
+                it.start()
             }
-            mediaplayer?.start()
         }
     }
 
