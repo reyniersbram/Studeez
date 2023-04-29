@@ -7,4 +7,4 @@ data class SessionReport(
     @DocumentId val id: String = "",
     val studyTime: Int = 0,
     val endTime: Timestamp = Timestamp(0, 0)
-    )
+)
