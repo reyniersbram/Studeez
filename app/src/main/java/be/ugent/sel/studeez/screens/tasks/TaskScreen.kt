@@ -62,7 +62,7 @@ fun AddSubjectButton(
     onClick: () -> Unit,
 ) {
     Button(onClick = onClick) {
-        Text(text = "Test Button")
+        Text(text = "Add Subject")
     }
 }
 
