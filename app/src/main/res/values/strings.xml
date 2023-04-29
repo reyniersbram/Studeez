@@ -65,6 +65,7 @@
     <string name="timers">Timers</string>
     <string name="edit">Edit</string>
     <string name="add_timer">Add timer</string>
+    <string name="pick_time">Select time</string>
     <string name="state_focus">Focus!</string>
     <plurals name="state_focus_remaining">
         <item quantity="zero">Focus one more time!</item>
@@ -73,6 +74,8 @@
     </plurals>
     <string name="state_done">Done!</string>
     <string name="state_take_a_break">Take a break!</string>
+    <string name="custom_name">Custom</string>
+    <string name="custom_description">Select how long you want to study</string>
 
     <!-- Settings -->
     <string name="settings">Settings</string>

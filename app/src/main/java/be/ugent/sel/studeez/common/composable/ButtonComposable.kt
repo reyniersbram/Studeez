@@ -2,7 +2,6 @@ package be.ugent.sel.studeez.common.composable
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,6 +12,7 @@ import androidx.compose.ui.unit.sp
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.card
+import be.ugent.sel.studeez.common.ext.defaultButtonShape
 
 @Composable
 fun BasicTextButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit) {
@@ -30,7 +30,7 @@ fun BasicButton(
     Button(
         onClick = onClick,
         modifier = modifier,
-        shape = RoundedCornerShape(20.dp),
+        shape = defaultButtonShape(),
         colors = colors,
         border = border,
     ) {
@@ -45,6 +45,25 @@ fun BasicButton(
 @Composable
 fun BasicButtonPreview() {
     BasicButton(text = R.string.add_timer, modifier = Modifier.basicButton()) {}
+}
+
+@Composable
+fun NotInternationalisedButton(
+    text: String,
+    modifier: Modifier = Modifier,
+    colors: ButtonColors = ButtonDefaults.buttonColors(),
+    border: BorderStroke? = null,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier,
+        shape = defaultButtonShape(),
+        colors = colors,
+        border = border
+    ) {
+        Text(text = text)
+    }
 }
 
 @Composable
