@@ -18,12 +18,12 @@ import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import java.util.*
 
 data class TimerSelectionActions(
     val getAllTimers: () -> Flow<List<TimerInfo>>,
     val startSession: (TimerInfo) -> Unit,
-    val pickDuration: (Context, CustomTimerInfo) -> Unit
+    val pickDuration: (Context) -> Unit,
+    val customTimeStudyTime: Int
 )
 
 fun getTimerSelectionActions(
@@ -33,21 +33,20 @@ fun getTimerSelectionActions(
     return TimerSelectionActions(
         getAllTimers = viewModel::getAllTimers,
         startSession = { viewModel.startSession(open, it) },
-        pickDuration = { context, timerInfo ->
-            val mCalendar = Calendar.getInstance()
-            val mHour = mCalendar[Calendar.HOUR]
-            val mMinute = mCalendar[Calendar.MINUTE]
-
-            val mTimePickerDialog = TimePickerDialog(
+        pickDuration = { context ->
+            val dialog = TimePickerDialog(
                 context,
-                { _, hour : Int, minute: Int -> timerInfo.studyTime = hour * 60 * 60 + minute * 60 },
-                mHour,
-                mMinute,
+                { _, hour: Int, minute: Int ->
+                    viewModel.customTimerStudyTime.value = hour * 60 * 60 + minute * 60
+                },
+                0,
+                0,
                 true
             )
 
-            mTimePickerDialog.show()
-        }
+            dialog.show()
+        },
+        customTimeStudyTime = viewModel.customTimerStudyTime.value
     )
 }
 
@@ -76,28 +75,7 @@ fun TimerSelectionScreen(
         LazyColumn {
             // Custom timer with duration selection button
             item {
-                val timerInfo = CustomTimerInfo(
-                    name = resources().getString(R.string.custom_name),
-                    description = resources().getString(R.string.custom_name),
-                    studyTime = 0
-                )
-                val context = LocalContext.current
-
-                TimerEntry(
-                    timerInfo = timerInfo,
-                    leftButton = {
-                        StealthButton(
-                            text = R.string.start,
-                            onClick = { timerSelectionActions.startSession(timerInfo) }
-                        )
-                    },
-                    rightButton = {
-                        NotInternationalisedButton(
-                            text = resources().getString(R.string.pick_time),
-                            onClick = { timerSelectionActions.pickDuration(context, timerInfo) }
-                        )
-                    }
-                )
+                CustomTimerEntry(timerSelectionActions)
             }
 
             // All timers
@@ -116,11 +94,39 @@ fun TimerSelectionScreen(
     }
 }
 
+@Composable
+fun CustomTimerEntry(
+    timerSelectionActions: TimerSelectionActions
+) {
+    val timerInfo = CustomTimerInfo(
+        name = resources().getString(R.string.custom_name),
+        description = resources().getString(R.string.custom_description),
+        studyTime = timerSelectionActions.customTimeStudyTime
+    )
+    val context = LocalContext.current
+
+    TimerEntry(
+        timerInfo = timerInfo,
+        leftButton = {
+            StealthButton(
+                text = R.string.start,
+                onClick = { timerSelectionActions.startSession(timerInfo) }
+            )
+        },
+        rightButton = {
+            NotInternationalisedButton(
+                text = String.format("%02d:%02d", timerInfo.studyTime / 3600, (timerInfo.studyTime % 3600) / 60),
+                onClick = { timerSelectionActions.pickDuration(context) }
+            )
+        }
+    )
+}
+
 @Preview
 @Composable
 fun TimerSelectionPreview() {
     TimerSelectionScreen(
-        timerSelectionActions = TimerSelectionActions({ flowOf() }, {}, { _, _ -> {}}),
+        timerSelectionActions = TimerSelectionActions({ flowOf() }, {}, { {} }, 0),
         popUp = {}
     )
 }
