@@ -19,14 +19,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
-import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.session.SessionActions
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
 abstract class AbstractSessionScreen {
-
-    var timerEnd = false
 
     @Composable
     operator fun invoke(
@@ -74,20 +71,8 @@ abstract class AbstractSessionScreen {
         LaunchedEffect(tikker) {
             delay(1.seconds)
             sessionActions.getTimer().tick()
+            callMediaPlayer()
             tikker = !tikker
-        }
-
-        if (
-            sessionActions.getTimer().hasCurrentCountdownEnded() && !sessionActions.getTimer()
-                .hasEnded()
-        ) {
-//        sessionActions.prepareMediaPlayer()
-        }
-
-        if (!timerEnd && sessionActions.getTimer().hasEnded()) {
-//        sessionActions.prepareMediaPlayer()
-             timerEnd =
-                 true // Placeholder, vanaf hier moet het report opgestart worden en de sessie afgesloten
         }
 
         val hms = sessionActions.getTimer().getHoursMinutesSeconds()
@@ -136,6 +121,8 @@ abstract class AbstractSessionScreen {
     @Composable
     abstract fun motivationString(): String
 
+    abstract fun callMediaPlayer()
+
 }
 
 @Preview
@@ -144,6 +131,7 @@ fun TimerPreview() {
     val sessionScreen = object : AbstractSessionScreen() {
         @Composable
         override fun motivationString(): String = "Test"
+        override fun callMediaPlayer() {}
 
     }
     sessionScreen.Timer(sessionActions = SessionActions({ FunctionalEndlessTimer() }, { "Preview" }, {}, {}, {}))

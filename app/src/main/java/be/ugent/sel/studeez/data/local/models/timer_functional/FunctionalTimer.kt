@@ -1,7 +1,6 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
 import be.ugent.sel.studeez.data.local.models.SessionReport
-import be.ugent.sel.studeez.screens.session.sessionScreens.AbstractSessionScreen
 import com.google.firebase.Timestamp
 
 abstract class FunctionalTimer(initialValue: Int) {

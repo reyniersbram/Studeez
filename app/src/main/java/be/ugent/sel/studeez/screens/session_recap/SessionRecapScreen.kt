@@ -26,7 +26,7 @@ fun getSessionRecapActions(
     return SessionRecapActions(
         viewModel::getSessionReport,
         {viewModel.saveSession(openAndPopUp)},
-        {viewModel.saveSession(openAndPopUp)}
+        {viewModel.discardSession(openAndPopUp)}
     )
 }
 

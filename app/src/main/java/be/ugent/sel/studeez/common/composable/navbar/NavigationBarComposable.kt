@@ -1,6 +1,5 @@
 package be.ugent.sel.studeez.common.composable.navbar
 
-import android.util.Log
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
