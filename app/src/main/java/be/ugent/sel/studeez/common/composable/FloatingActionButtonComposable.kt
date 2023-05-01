@@ -2,10 +2,8 @@ package be.ugent.sel.studeez.common.composable
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -60,11 +58,13 @@ fun AddButton(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        // Show minis when expanded.
-        if (multiFloatingState == MultiFloatingState.Expanded) {
-            ExpandedAddButton(
-                addButtonActions = addButtonActions
-            )
+        Box {
+            // Show minis when expanded.
+            if (multiFloatingState == MultiFloatingState.Expanded) {
+                ExpandedAddButton(
+                    addButtonActions = addButtonActions
+                )
+            }
         }
 
         // The base add button
@@ -75,7 +75,8 @@ fun AddButton(
                     MultiFloatingState.Collapsed -> MultiFloatingState.Expanded
                     MultiFloatingState.Expanded -> MultiFloatingState.Collapsed
                 }
-            }
+            },
+            modifier = Modifier.padding(bottom = if (multiFloatingState == MultiFloatingState.Expanded) 78.dp else 0.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
