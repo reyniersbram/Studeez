@@ -1,5 +1,6 @@
 <resources>
-    <!-- Common -->
+    <!-- ========== Common ========== -->
+
     <string name="app_name">Studeez</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
@@ -7,34 +8,22 @@
     <string name="repeat_password">Repeat password</string>
     <string name="menu">Menu</string>
 
-        <!-- Actions -->
-        <string name="confirm">Confirm</string>
-        <string name="save">Save</string>
-        <string name="discard">Discard</string>
-        <string name="cancel">Cancel</string>
-        <string name="go_back">Go back</string>
-        <string name="next">Next</string>
-        <string name="start">Start</string>
+    <!-- Actions -->
+    <string name="confirm">Confirm</string>
+    <string name="save">Save</string>
+    <string name="discard">Discard</string>
+    <string name="cancel">Cancel</string>
+    <string name="go_back">Go back</string>
+    <string name="next">Next</string>
+    <string name="start">Start</string>
 
-        <!-- Messages -->
-        <string name="success">Success!</string>
-        <string name="try_again">Try again</string>
-        <string name="generic_error">Something wrong happened. Please try again.</string>
-        <string name="email_error">Please insert a valid email.</string>
+    <!-- Messages -->
+    <string name="success">Success!</string>
+    <string name="try_again">Try again</string>
+    <string name="generic_error">Something wrong happened. Please try again.</string>
+    <string name="email_error">Please insert a valid email.</string>
 
-    <!-- SignUpScreen -->
-    <string name="create_account">Create account</string>
-    <string name="password_error">Your password should have at least six characters and include one digit, one lower case letter and one upper case letter.</string>
-    <string name="password_match_error">Passwords do not match.</string>
-    <string name="already_user">Already have an account? Log in.</string>
-
-    <!-- LoginScreen -->
-    <string name="not_already_user">Don\'t have an account yet? Sign up.</string>
-    <string name="sign_in">Sign in</string>
-    <string name="login_details">Enter your login details</string>
-    <string name="forgot_password">Forgot password? Click to get recovery email.</string>
-    <string name="recovery_email_sent">Check your inbox for the recovery email.</string>
-    <string name="empty_password_error">Password cannot be empty.</string>
+    <!-- ========== NavBar ========== -->
 
     <!-- HomeScreen -->
     <string name="home">Home</string>
@@ -54,10 +43,8 @@
     <string name="editing_profile">Editing profile</string>
     <string name="delete_profile">Delete profile</string>
 
-    <!-- Friends -->
-    <string name="friends">Friends</string>
+    <!-- ========== Drawer ========== -->
 
-    <!-- Drawer / SideMenu -->
     <string name="log_out">Log out</string>
     <string name="profile_picture_description">Profile Picture</string>
     <string name="user_description">Normal user</string>
@@ -80,5 +67,27 @@
 
     <!-- About -->
     <string name="about">About Studeez</string>
+
+    <!-- ========== Login flow ========== -->
+
+    <!-- SignUpScreen -->
+    <string name="create_account">Create account</string>
+    <string name="password_error">Your password should have at least six characters and include one digit, one lower case letter and one upper case letter.</string>
+    <string name="password_match_error">Passwords do not match.</string>
+    <string name="already_user">Already have an account? Log in.</string>
+
+    <!-- LoginScreen -->
+    <string name="not_already_user">Don\'t have an account yet? Sign up.</string>
+    <string name="sign_in">Sign in</string>
+    <string name="login_details">Enter your login details</string>
+    <string name="forgot_password">Forgot password? Click to get recovery email.</string>
+    <string name="recovery_email_sent">Check your inbox for the recovery email.</string>
+    <string name="empty_password_error">Password cannot be empty.</string>
+
+    <!-- ========== Studying flow ========== -->
+
+    <!-- ========== Friends flow ========== -->
+
+    <string name="friends">Friends</string>
 
 </resources>
