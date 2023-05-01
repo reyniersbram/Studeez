@@ -60,11 +60,9 @@ fun getNavigationBarActions(
         onAddTaskClick = {
             navigationBarViewModel.onAddTaskClick(open)
         },
-
         onAddFriendClick = {
             navigationBarViewModel.onAddFriendClick(open)
         },
-
         onAddSessionClick = {
             navigationBarViewModel.onAddSessionClick(open)
         }

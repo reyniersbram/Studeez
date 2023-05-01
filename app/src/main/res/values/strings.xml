@@ -92,5 +92,14 @@
     <!-- ========== Friends flow ========== -->
 
     <string name="friends">Friends</string>
+    <string name="add_friend_not_possible_yet">Adding friends still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
+
+    <!-- ========== Create & edit screens ========== -->
+
+    <!-- Task -->
+    <string name="create_task_not_possible_yet">Creating tasks still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
+
+    <!-- Session -->
+    <string name="create_session_not_possible_yet">Creating sessions still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
 
 </resources>
