@@ -14,6 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.SESSIONS_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.TASKS_SCREEN
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import be.ugent.sel.studeez.R.string as AppText
@@ -71,8 +73,7 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.tasks)) },
-            // TODO selected = navigationBarActions.isSelectedTab(TASKS_SCREEN),
-            selected = false,
+            selected = navigationBarActions.isSelectedTab(TASKS_SCREEN),
             onClick = navigationBarActions.onTasksClick
         )
 
@@ -86,8 +87,7 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.sessions)) },
-            // TODO selected = navigationBarActions.isSelectedTab(SESSIONS_SCREEN),
-            selected = false,
+            selected = navigationBarActions.isSelectedTab(SESSIONS_SCREEN),
             onClick = navigationBarActions.onSessionsClick
         )
 

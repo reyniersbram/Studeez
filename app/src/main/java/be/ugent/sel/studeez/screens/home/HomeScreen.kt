@@ -39,7 +39,7 @@ fun HomeScreen(
         title = resources().getString(R.string.home),
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
-        barAction = { FriendsAction() }
+        // TODO barAction = { FriendsAction() }
     ) {
         BasicButton(R.string.start_session, Modifier.basicButton()) {
             onStartSessionClick()

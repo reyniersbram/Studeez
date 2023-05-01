@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.common.composable.drawer
 
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,7 +30,7 @@ data class DrawerActions(
     val onTimersClick: () -> Unit,
     val onSettingsClick: () -> Unit,
     val onLogoutClick: () -> Unit,
-    val onAboutClick: () -> Unit,
+    val onAboutClick: (Context) -> Unit,
 )
 
 fun getDrawerActions(
@@ -41,7 +43,9 @@ fun getDrawerActions(
         onTimersClick = { drawerViewModel.onTimersClick(open) },
         onSettingsClick = { drawerViewModel.onSettingsClick(open) },
         onLogoutClick = { drawerViewModel.onLogoutClick(openAndPopUp) },
-        onAboutClick = { drawerViewModel.onAboutClick(open) },
+        onAboutClick = { context ->
+            drawerViewModel.onAboutClick(open, context = context)
+        },
     )
 }
 
@@ -79,10 +83,11 @@ fun Drawer(
             )
         }
 
+        val context = LocalContext.current
         DrawerEntry(
             icon = Icons.Outlined.Info,
             text = resources().getString(R.string.about),
-            onClick = drawerActions.onAboutClick,
+            onClick = { drawerActions.onAboutClick(context) },
         )
     }
 }
