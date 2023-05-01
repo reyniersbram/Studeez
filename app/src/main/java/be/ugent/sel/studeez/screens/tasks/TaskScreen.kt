@@ -3,12 +3,11 @@ package be.ugent.sel.studeez.screens.tasks
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
+import be.ugent.sel.studeez.common.composable.NewTaskSubjectButton
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.SubjectEntry
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
@@ -52,19 +51,11 @@ fun TaskScreen(
                     SubjectEntry(subject = it)
                 }
             }
-            AddSubjectButton(onClick = addSubject)
+            NewTaskSubjectButton(onClick = addSubject, R.string.new_subject)
         }
     }
 }
 
-@Composable
-fun AddSubjectButton(
-    onClick: () -> Unit,
-) {
-    Button(onClick = onClick) {
-        Text(text = "Add Subject")
-    }
-}
 
 @Preview
 @Composable
