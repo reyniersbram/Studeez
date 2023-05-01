@@ -44,6 +44,7 @@
     <string name="tasks">Tasks</string>
     <string name="new_subject">New Subject</string>
     <string name="new_task">New Task</string>
+    <string name="view_task">View</string>
 
     <!-- Sessions -->
     <string name="sessions">Sessions</string>

@@ -19,7 +19,7 @@ class TaskViewModel @Inject constructor(
                 name = "Test Subject",
                 tasks = listOf(),
                 time = 0,
-                color = 0,
+                argb_color = 0xFFF44336,
             )
         )
     }
