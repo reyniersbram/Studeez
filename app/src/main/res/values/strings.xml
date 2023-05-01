@@ -75,6 +75,14 @@
     <string name="state_done">Done!</string>
     <string name="state_take_a_break">Take a break!</string>
 
+    <!--    Edit Timer-->
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="studyTime">Study Time</string>
+    <string name="breakTime">Break Time</string>
+    <string name="repeats">Number of Repeats</string>
+
+
     <!-- Settings -->
     <string name="settings">Settings</string>
 
