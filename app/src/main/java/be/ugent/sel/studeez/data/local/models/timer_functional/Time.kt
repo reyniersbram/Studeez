@@ -13,11 +13,7 @@ class Time(initialTime: Int) {
     }
 
     fun getAsHMS(): HoursMinutesSeconds {
-        val hours: Int = time / (60 * 60)
-        val minutes: Int = (time / (60)) % 60
-        val seconds: Int = time % 60
-
-        return HoursMinutesSeconds(hours, minutes, seconds)
+        return HoursMinutesSeconds(time)
     }
 
 }
