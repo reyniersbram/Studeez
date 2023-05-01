@@ -78,7 +78,7 @@ abstract class AbstractSessionScreen {
         val hms = sessionActions.getTimer().getHoursMinutesSeconds()
         Column {
             Text(
-                text = "${hms.hours} : ${hms.minutes} : ${hms.seconds}",
+                text = hms.toString(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(50.dp),

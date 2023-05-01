@@ -48,8 +48,7 @@ fun SessionRecapScreen(modifier: Modifier, sessionRecapActions: SessionRecapActi
     val studyTime: Int = sessionReport.studyTime
     val hms: HoursMinutesSeconds = Time(studyTime).getAsHMS()
     Column {
-        Text(text = "You studied: ${hms.hours} : ${hms.minutes} : ${hms.seconds}")
-
+        Text(text = "You studied: $hms")
         BasicButton(
             R.string.save, Modifier.basicButton()
         ) {
