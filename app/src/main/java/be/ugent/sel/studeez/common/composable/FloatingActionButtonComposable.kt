@@ -2,9 +2,7 @@ package be.ugent.sel.studeez.common.composable
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -19,9 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
 const val TRANSITION = "transition"
+val HEIGHT_DIFFERENCE = 30.dp
 enum class MultiFloatingState {
     Expanded,
     Collapsed
@@ -83,20 +83,28 @@ fun ExpandedAddButton(
     addButtonActions: AddButtonActions
 ) {
     Row {
-        IconButton(onClick = addButtonActions.onTaskClick) {
+        IconButton(
+            onClick = addButtonActions.onTaskClick,
+            modifier = Modifier.padding(36.dp, HEIGHT_DIFFERENCE, 36.dp, 0.dp)
+        ) {
             Column (horizontalAlignment = Alignment.CenterHorizontally) {
                 Icon(imageVector = Icons.Default.Check, contentDescription = "Task")
                 Text(text = "Task")
             }
         }
+
         IconButton(onClick = addButtonActions.onFriendClick) {
             Column (horizontalAlignment = Alignment.CenterHorizontally) {
                 Icon(imageVector = Icons.Default.Person, contentDescription = "Friend")
                 Text(text = "Friend")
             }
         }
-        IconButton(onClick = addButtonActions.onSessionClick) {
-            Column (horizontalAlignment = Alignment.CenterHorizontally) {
+
+        IconButton(
+            onClick = addButtonActions.onSessionClick,
+            modifier = Modifier.padding(36.dp, HEIGHT_DIFFERENCE, 36.dp, 0.dp)
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Icon(imageVector = Icons.Default.DateRange, contentDescription = "Session")
                 Text(text = "Session")
             }

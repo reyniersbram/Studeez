@@ -101,7 +101,7 @@ fun DrawerEntry(
     Row(
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
-            .clickable(onClick = { onClick() })
+            .clickable(onClick = onClick)
             .fillMaxWidth()
     ) {
         Box(
