@@ -2,18 +2,8 @@ package be.ugent.sel.studeez
 
 import android.content.res.Resources
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.Surface
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -119,7 +109,7 @@ fun StudeezNavGraph(
                 open,
                 viewModel = hiltViewModel(),
                 drawerActions = drawerActions,
-                navigationBarActions = navigationBarActions,
+                navigationBarActions = navigationBarActions
             )
         }
 
@@ -136,7 +126,7 @@ fun StudeezNavGraph(
                 open,
                 viewModel = hiltViewModel(),
                 drawerActions = drawerActions,
-                navigationBarActions = navigationBarActions,
+                navigationBarActions = navigationBarActions
             )
         }
 
@@ -198,7 +188,20 @@ fun StudeezNavGraph(
             )
         }
 
-        // Edit screens
+        // Friends flow
+        composable(StudeezDestinations.SEARCH_FRIENDS_SCREEN) {
+            // TODO
+        }
+
+        // Create & edit screens
+        composable(StudeezDestinations.CREATE_TASK_SCREEN) {
+            // TODO
+        }
+
+        composable(StudeezDestinations.CREATE_SESSION_SCREEN) {
+            // TODO
+        }
+
         composable(StudeezDestinations.EDIT_PROFILE_SCREEN) {
             EditProfileRoute(
                 goBack,

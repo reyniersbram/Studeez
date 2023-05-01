@@ -22,10 +22,16 @@ import be.ugent.sel.studeez.R.string as AppText
 
 data class NavigationBarActions(
     val isSelectedTab: (String) -> Boolean,
+
     val onHomeClick: () -> Unit,
     val onTasksClick: () -> Unit,
     val onSessionsClick: () -> Unit,
     val onProfileClick: () -> Unit,
+
+    // AddButton
+    val onAddTaskClick: () -> Unit,
+    val onAddFriendClick: () -> Unit,
+    val onAddSessionClick: () -> Unit
 )
 
 fun getNavigationBarActions(
@@ -37,6 +43,7 @@ fun getNavigationBarActions(
         isSelectedTab = { screen ->
             screen == getCurrentScreen()
         },
+
         onHomeClick = {
             navigationBarViewModel.onHomeClick(open)
         },
@@ -49,6 +56,18 @@ fun getNavigationBarActions(
         onProfileClick = {
             navigationBarViewModel.onProfileClick(open)
         },
+
+        onAddTaskClick = {
+            navigationBarViewModel.onAddTaskClick(open)
+        },
+
+        onAddFriendClick = {
+            navigationBarViewModel.onAddFriendClick(open)
+        },
+
+        onAddSessionClick = {
+            navigationBarViewModel.onAddSessionClick(open)
+        }
     )
 }
 
@@ -110,7 +129,7 @@ fun NavigationBar(
 fun NavigationBarPreview() {
     StudeezTheme {
         NavigationBar(
-            navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}),
+            navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
         )
     }
 }

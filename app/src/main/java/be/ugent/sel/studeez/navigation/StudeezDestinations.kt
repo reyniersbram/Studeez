@@ -21,6 +21,11 @@ object StudeezDestinations {
     const val SESSION_SCREEN = "session"
     const val SESSION_RECAP = "session_recap"
 
-    // Edit screens
+    // Friends flow
+    const val SEARCH_FRIENDS_SCREEN = "search_friends"
+
+    // Create & edit screens
+    const val CREATE_TASK_SCREEN = "create_task"
+    const val CREATE_SESSION_SCREEN = "create_session"
     const val EDIT_PROFILE_SCREEN = "edit_profile"
 }

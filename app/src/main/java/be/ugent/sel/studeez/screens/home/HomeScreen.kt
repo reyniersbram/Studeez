@@ -33,7 +33,7 @@ fun HomeRoute(
 fun HomeScreen(
     onStartSessionClick: () -> Unit,
     drawerActions: DrawerActions,
-    navigationBarActions: NavigationBarActions,
+    navigationBarActions: NavigationBarActions
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
@@ -63,6 +63,6 @@ fun HomeScreenPreview() {
     HomeScreen(
         onStartSessionClick = {},
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {})
+        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {})
     )
 }

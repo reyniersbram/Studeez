@@ -56,8 +56,12 @@ fun PrimaryScreenTemplate(
 
         bottomBar = { NavigationBar(navigationBarActions) },
         floatingActionButtonPosition = FabPosition.Center,
-        isFloatingActionButtonDocked = true,
-        floatingActionButton = { CollapsedAddButton() }
+        isFloatingActionButtonDocked = false,
+        floatingActionButton = { AddButton(AddButtonActions(
+            onTaskClick = navigationBarActions.onAddTaskClick,
+            onFriendClick = navigationBarActions.onAddFriendClick,
+            onSessionClick = navigationBarActions.onAddSessionClick
+        )) }
     ) {
         content(it)
     }
@@ -70,7 +74,7 @@ fun PrimaryScreenPreview() {
         PrimaryScreenTemplate(
             "Preview screen",
             DrawerActions({}, {}, {}, {}, {}),
-            NavigationBarActions({ false }, {}, {}, {}, {}),
+            NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
             {
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(
