@@ -1,34 +1,26 @@
 package be.ugent.sel.studeez.screens.timer_edit
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import be.ugent.sel.studeez.R
-import be.ugent.sel.studeez.common.composable.BasicButton
-import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.EndlessTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.PomodoroTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfoVisitor
+import be.ugent.sel.studeez.screens.timer_edit.editScreens.AbstractTimerEditScreen
+import be.ugent.sel.studeez.screens.timer_edit.editScreens.BreakTimerEditScreen
+import be.ugent.sel.studeez.screens.timer_edit.editScreens.CustomTimerEditScreen
+import be.ugent.sel.studeez.screens.timer_edit.editScreens.EndlessTimerEditScreen
 
-class GetTimerEditView: TimerInfoVisitor<Unit> {
+class GetTimerEditScreen: TimerInfoVisitor<AbstractTimerEditScreen> {
 
-    @SuppressLint("ComposableNaming")
-    override fun visitCustomTimerInfo(customTimerInfo: CustomTimerInfo) {
-
+    override fun visitCustomTimerInfo(customTimerInfo: CustomTimerInfo): AbstractTimerEditScreen {
+        return CustomTimerEditScreen(customTimerInfo)
     }
 
-    @SuppressLint("ComposableNaming")
-    override fun visitEndlessTimerInfo(endlessTimerInfo: EndlessTimerInfo) {
-
+    override fun visitEndlessTimerInfo(endlessTimerInfo: EndlessTimerInfo): AbstractTimerEditScreen {
+        return EndlessTimerEditScreen(endlessTimerInfo)
     }
 
-    @SuppressLint("ComposableNaming")
-    override fun visitBreakTimerInfo(pomodoroTimerInfo: PomodoroTimerInfo) {
-
+    override fun visitBreakTimerInfo(pomodoroTimerInfo: PomodoroTimerInfo): AbstractTimerEditScreen {
+        return BreakTimerEditScreen(pomodoroTimerInfo)
     }
 
 
