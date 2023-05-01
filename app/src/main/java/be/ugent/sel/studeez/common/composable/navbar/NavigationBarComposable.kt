@@ -95,7 +95,7 @@ fun NavigationBar(
         )
 
         // Hack to space the entries in the navigation bar, make space for fab
-        BottomNavigationItem(icon = {}, onClick = {}, selected = false)
+        BottomNavigationItem(icon = {}, onClick = {}, selected = false, enabled = false)
 
         BottomNavigationItem(
             icon = {
