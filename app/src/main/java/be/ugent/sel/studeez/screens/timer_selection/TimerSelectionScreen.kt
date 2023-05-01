@@ -1,7 +1,6 @@
 package be.ugent.sel.studeez.screens.timer_selection
 
-import android.app.TimePickerDialog
-import android.content.Context
+import android.widget.TimePicker
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -9,10 +8,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
-import be.ugent.sel.studeez.common.composable.NotInternationalisedButton
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.StealthButton
+import be.ugent.sel.studeez.common.composable.TimePickerButton
 import be.ugent.sel.studeez.common.composable.TimerEntry
+import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
+import be.ugent.sel.studeez.data.local.models.timer_functional.Time
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.resources
@@ -22,7 +23,7 @@ import kotlinx.coroutines.flow.flowOf
 data class TimerSelectionActions(
     val getAllTimers: () -> Flow<List<TimerInfo>>,
     val startSession: (TimerInfo) -> Unit,
-    val pickDuration: (Context) -> Unit,
+    val pickDuration: (TimePicker?, Int, Int) -> Unit,
     val customTimeStudyTime: Int
 )
 
@@ -33,18 +34,8 @@ fun getTimerSelectionActions(
     return TimerSelectionActions(
         getAllTimers = viewModel::getAllTimers,
         startSession = { viewModel.startSession(open, it) },
-        pickDuration = { context ->
-            val dialog = TimePickerDialog(
-                context,
-                { _, hour: Int, minute: Int ->
-                    viewModel.customTimerStudyTime.value = hour * 60 * 60 + minute * 60
-                },
-                0,
-                0,
-                true
-            )
-
-            dialog.show()
+        pickDuration = { _, hour: Int, minute: Int ->
+            viewModel.customTimerStudyTime.value = hour * 60 * 60 + minute * 60
         },
         customTimeStudyTime = viewModel.customTimerStudyTime.value
     )
@@ -103,7 +94,7 @@ fun CustomTimerEntry(
         description = resources().getString(R.string.custom_description),
         studyTime = timerSelectionActions.customTimeStudyTime
     )
-    val context = LocalContext.current
+    val hms: HoursMinutesSeconds = Time(timerInfo.studyTime).getAsHMS()
 
     TimerEntry(
         timerInfo = timerInfo,
@@ -114,9 +105,9 @@ fun CustomTimerEntry(
             )
         },
         rightButton = {
-            NotInternationalisedButton(
-                text = String.format("%02d:%02d", timerInfo.studyTime / 3600, (timerInfo.studyTime % 3600) / 60),
-                onClick = { timerSelectionActions.pickDuration(context) }
+            TimePickerButton(
+                hoursMinutesSeconds = hms,
+                onTimeSetListener = timerSelectionActions.pickDuration
             )
         }
     )
@@ -126,7 +117,7 @@ fun CustomTimerEntry(
 @Composable
 fun TimerSelectionPreview() {
     TimerSelectionScreen(
-        timerSelectionActions = TimerSelectionActions({ flowOf() }, {}, { {} }, 0),
+        timerSelectionActions = TimerSelectionActions({ flowOf() }, {}, { _, _, _ -> {} }, 0),
         popUp = {}
     )
 }

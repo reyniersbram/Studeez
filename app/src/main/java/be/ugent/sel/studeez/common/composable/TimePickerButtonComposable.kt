@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
 import java.util.*
 
-// TODO codeduplicatie met Tibo, later wegdoen
 @Composable
 fun TimePickerButton(
     hoursMinutesSeconds: HoursMinutesSeconds,
@@ -37,11 +36,13 @@ fun TimePickerButton(
     }
 }
 
-// TODO idem codedup Tibo
 private fun pickDuration(context: Context, listener: OnTimeSetListener) {
-    val mCalendar = Calendar.getInstance()
-    val mHour = mCalendar[Calendar.HOUR]
-    val mMinute = mCalendar[Calendar.MINUTE]
-    val mTimePickerDialog = TimePickerDialog(context, listener, mHour, mMinute, true)
-    mTimePickerDialog.show()
+    val timePickerDialog = TimePickerDialog(
+        context,
+        listener,
+        0,
+        0,
+        true
+    )
+    timePickerDialog.show()
 }
