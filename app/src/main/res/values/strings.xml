@@ -33,8 +33,10 @@
     <string name="tasks">Tasks</string>
 
     <!-- Sessions -->
+    <string name="sessions_temp_description">Looks like you found the sessions screen! In here, your upcoming studying sessions with friends will be listed. You can accept invites or edit your own.</string> <!-- TODO Remove this description line once implemented. -->
     <string name="sessions">Sessions</string>
     <string name="end_session">End session</string>
+    <string name="upcoming_sessions">Upcoming sessions</string>
 
     <!-- Profile -->
     <string name="profile">Profile</string>
