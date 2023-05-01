@@ -6,7 +6,7 @@ import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 class CustomTimerInfo(
     name: String,
     description: String,
-    val studyTime: Int,
+    var studyTime: Int,
     id: String = ""
 ):  TimerInfo(id, name, description) {
 

@@ -7,8 +7,8 @@ import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimerVi
 class PomodoroTimerInfo(
     name: String,
     description: String,
-    val studyTime: Int,
-    val breakTime: Int,
+    var studyTime: Int,
+    var breakTime: Int,
     val repeats: Int,
     id: String = ""
 ):  TimerInfo(id, name, description) {
