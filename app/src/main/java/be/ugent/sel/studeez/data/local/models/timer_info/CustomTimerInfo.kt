@@ -10,7 +10,6 @@ class CustomTimerInfo(
     id: String = ""
 ):  TimerInfo(id, name, description) {
 
-
     override fun getFunctionalTimer(): FunctionalTimer {
         return FunctionalCustomTimer(studyTime)
     }
@@ -22,6 +21,10 @@ class CustomTimerInfo(
             "description" to description,
             "studyTime" to studyTime,
         )
+    }
+
+    override fun <T> accept(visitor: TimerInfoVisitor<T>): T {
+        return visitor.visitCustomTimerInfo(this)
     }
 
 }
