@@ -8,6 +8,7 @@ object StudeezDestinations {
     const val HOME_SCREEN = "home"
     const val TIMER_OVERVIEW_SCREEN = "timer_overview"
     const val TIMER_SELECTION_SCREEN = "timer_selection"
+    const val TIMER_EDIT_SCREEN = "timer_edit"
     const val SESSION_SCREEN = "session"
     const val SESSION_RECAP = "session_recap"
  //    const val TASKS_SCREEN = "tasks"
