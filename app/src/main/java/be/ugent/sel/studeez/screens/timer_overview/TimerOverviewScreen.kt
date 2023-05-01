@@ -28,11 +28,12 @@ data class TimerOverviewActions(
 
 fun getTimerOverviewActions(
     viewModel: TimerOverviewViewModel,
+    open: (String) -> Unit,
 ): TimerOverviewActions {
     return TimerOverviewActions(
         getUserTimers = viewModel::getUserTimers,
         getDefaultTimers = viewModel::getDefaultTimers,
-        onEditClick = { viewModel.update(it) },
+        onEditClick = { viewModel.update(it, open) },
     )
 }
 
@@ -40,10 +41,11 @@ fun getTimerOverviewActions(
 fun TimerOverviewRoute(
     viewModel: TimerOverviewViewModel,
     drawerActions: DrawerActions,
+    open: (String) -> Unit
 ) {
     TimerOverviewScreen(
-        timerOverviewActions = getTimerOverviewActions(viewModel),
-        drawerActions = drawerActions,
+        timerOverviewActions = getTimerOverviewActions(viewModel, open),
+        drawerActions = drawerActions
     )
 }
 
