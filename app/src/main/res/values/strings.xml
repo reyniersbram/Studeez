@@ -65,6 +65,7 @@
     <string name="state_take_a_break">Take a break!</string>
 
     <!-- Settings -->
+    <string name="settings_temp_description">Looks like you found the settings screen! In the future, this will enable you to edit your preferenes such as light/dark mode, end sessions automatically when we detect you are gone etc.</string> <!-- TODO Remove this description line once implemented. -->
     <string name="settings">Settings</string>
 
     <!-- About -->
