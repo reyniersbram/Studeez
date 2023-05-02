@@ -40,6 +40,7 @@ import be.ugent.sel.studeez.screens.session.SessionRoute
 import be.ugent.sel.studeez.screens.session_recap.SessionRecapRoute
 import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
+import be.ugent.sel.studeez.screens.tasks.SubjectRoute
 import be.ugent.sel.studeez.screens.tasks.TaskRoute
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewRoute
 import be.ugent.sel.studeez.screens.timer_selection.TimerSelectionRoute
@@ -146,14 +147,21 @@ fun StudeezNavGraph(
             )
         }
 
-        composable(StudeezDestinations.TASKS_SCREEN) {
-            TaskRoute(
+        composable(StudeezDestinations.SUBJECT_SCREEN) {
+            SubjectRoute(
                 open = open,
                 viewModel = hiltViewModel(),
                 drawerActions = drawerActions,
                 navigationBarActions = navigationBarActions,
             )
         }
+
+        composable(StudeezDestinations.TASKS_SCREEN) {
+            TaskRoute(
+                viewModel = hiltViewModel()
+            )
+        }
+
         // TODO Sessions screen
 
         composable(StudeezDestinations.PROFILE_SCREEN) {

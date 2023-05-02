@@ -30,4 +30,7 @@ abstract class DatabaseModule {
 
     @Binds
     abstract fun provideSubjectDAO(impl: FireBaseSubjectDAO): SubjectDAO
+
+    @Binds
+    abstract fun provideTaskDAO(impl: FireBaseTaskDAO): TaskDAO
 }
