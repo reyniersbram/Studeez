@@ -64,7 +64,9 @@ fun TimerSelectionScreen(
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
     ) {
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(7.dp)) {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(7.dp),
+        ) {
             // All timers
             items(timers.value) { timerInfo ->
                 TimerEntry(

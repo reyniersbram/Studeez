@@ -3,7 +3,6 @@ package be.ugent.sel.studeez.screens.timer_overview.add_timer
 import androidx.compose.runtime.mutableStateOf
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.PomodoroTimerInfo
-import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.TimerDAO
 import be.ugent.sel.studeez.screens.StudeezViewModel
@@ -24,8 +23,11 @@ class AddTimerViewModel @Inject constructor(
     private val studyTimeMinutes
         get() = uiState.value.studyTimeMinutes
 
-    private val breakTime
-        get() = uiState.value.breakTime
+    private val breakTimeHours
+        get() = uiState.value.breakTimeHours
+
+    private val breakTimeMinutes
+        get() = uiState.value.breakTimeMinutes
 
     private val repeats
         get() = uiState.value.repeats
@@ -36,24 +38,28 @@ class AddTimerViewModel @Inject constructor(
     private val description
         get() = uiState.value.description
 
-    fun onStudyTimeHoursChange(newValue: Float) {
+    fun onStudyTimeHoursChange(newValue: Int) {
         uiState.value = uiState.value.copy(studyTimeHours = newValue)
 
     }
 
-    fun onStudyTimeMinutesChange(newValue: Float) {
+    fun onStudyTimeMinutesChange(newValue: Int) {
         uiState.value = uiState.value.copy(studyTimeMinutes = newValue)
     }
 
-    fun onWithBreaksChange(newValue: Boolean) {
-        uiState.value = uiState.value.copy(withBreaks = newValue)
+    fun onWithBreaksChange() {
+        uiState.value = uiState.value.copy(withBreaks = !uiState.value.withBreaks)
     }
 
-    fun onBreakTimeChange(newValue: Float) {
-        uiState.value = uiState.value.copy(breakTime = newValue)
+    fun onBreakTimeHourChange(newValue: Int) {
+        uiState.value = uiState.value.copy(breakTimeHours = newValue)
     }
 
-    fun onRepeatsChange(newValue: Float) {
+    fun onBreakTimeMinutesChange(newValue: Int) {
+        uiState.value = uiState.value.copy(breakTimeMinutes = newValue)
+    }
+
+    fun onRepeatsChange(newValue: Int) {
         uiState.value = uiState.value.copy(repeats = newValue)
     }
 
@@ -62,15 +68,15 @@ class AddTimerViewModel @Inject constructor(
             timerDAO.saveTimer(PomodoroTimerInfo(
                 name = uiState.value.name,
                 description = uiState.value.description,
-                studyTime = studyTimeHours.toInt() * 60 * 60 + studyTimeMinutes.toInt() * 60,
-                breakTime = breakTime.toInt() * 60,
-                repeats = repeats.toInt()
+                studyTime = studyTimeHours * 60 * 60 + studyTimeMinutes * 60,
+                breakTime = breakTimeHours * 60 * 60 + breakTimeMinutes * 60,
+                repeats = repeats
             ))
         } else {
             timerDAO.saveTimer(CustomTimerInfo(
                 name = uiState.value.name,
                 description = uiState.value.description,
-                studyTime = studyTimeHours.toInt() * 60 * 60 + studyTimeMinutes.toInt() * 60
+                studyTime = studyTimeHours * 60 * 60 + studyTimeMinutes * 60
             ))
         }
     }

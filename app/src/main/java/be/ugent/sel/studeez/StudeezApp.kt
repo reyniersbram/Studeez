@@ -172,7 +172,6 @@ fun StudeezNavGraph(
         composable(StudeezDestinations.ADD_TIMER_SCREEN) {
             AddTimerRoute(
                 open = open,
-                openAndPopUp = openAndPopUp,
                 goBack = goBack,
                 viewModel = hiltViewModel()
             )
