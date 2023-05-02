@@ -1,10 +1,6 @@
 package be.ugent.sel.studeez.common.composable
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,24 +16,39 @@ import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 @Composable
 fun TimerEntry(
     timerInfo: TimerInfo,
-    button: @Composable () -> Unit,
+    rightButton: @Composable () -> Unit = {},
+    leftButton: @Composable () -> Unit = {}
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth()
     ) {
-        Column(
-            Modifier.padding(horizontal = 10.dp)
+        Row(
+            modifier = Modifier.weight(1f)
         ) {
-            Text(
-                text = timerInfo.name, fontWeight = FontWeight.Bold, fontSize = 20.sp
-            )
-            Text(
-                text = timerInfo.description, fontWeight = FontWeight.Light, fontSize = 15.sp
-            )
+            Box(modifier = Modifier.align(alignment = Alignment.CenterVertically)) {
+                leftButton()
+            }
+
+            Column(
+                Modifier.padding(
+                    horizontal = 20.dp,
+                    vertical = 11.dp
+                )
+            ) {
+                Text(
+                    text = timerInfo.name,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 20.sp
+                )
+                Text(
+                    text = timerInfo.description, fontWeight = FontWeight.Light, fontSize = 14.sp
+                )
+            }
         }
-        button()
+
+        Box(modifier = Modifier.align(alignment = Alignment.CenterVertically)) {
+            rightButton()
+        }
     }
 }
 

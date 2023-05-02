@@ -10,6 +10,7 @@
         <!-- Actions -->
         <string name="confirm">Confirm</string>
         <string name="save">Save</string>
+        <string name="discard">Discard</string>
         <string name="cancel">Cancel</string>
         <string name="go_back">Go back</string>
         <string name="next">Next</string>
@@ -44,6 +45,7 @@
 
     <!-- Sessions -->
     <string name="sessions">Sessions</string>
+    <string name="end_session">End session</string>
 
     <!-- Profile -->
     <string name="profile">Profile</string>

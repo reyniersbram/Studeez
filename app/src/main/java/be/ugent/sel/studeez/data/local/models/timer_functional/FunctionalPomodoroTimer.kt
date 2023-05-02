@@ -9,30 +9,39 @@ class FunctionalPomodoroTimer(
     var isInBreak = false
 
     override fun tick() {
-        if (time.time == 0 && breaksRemaining == 0) {
-            view = StudyState.DONE
+        if (hasEnded()) {
             return
         }
 
-        if (time.time == 0) {
+        if (hasCurrentCountdownEnded()) {
             if (isInBreak) {
                 breaksRemaining--
-                view = StudyState.FOCUS_REMAINING
                 time.time = studyTime
             } else {
-                view = StudyState.BREAK
                 time.time = breakTime
             }
             isInBreak = !isInBreak
         }
         time.minOne()
+
+        if (!isInBreak) {
+            totalStudyTime++
+        }
     }
 
     override fun hasEnded(): Boolean {
-        return breaksRemaining == 0 && time.time == 0
+        return !hasBreaksRemaining() && hasCurrentCountdownEnded()
+    }
+
+    private fun hasBreaksRemaining(): Boolean {
+        return breaksRemaining > 0
     }
 
     override fun hasCurrentCountdownEnded(): Boolean {
         return time.time == 0
+    }
+
+    override fun <T> accept(visitor: FunctionalTimerVisitor<T>): T {
+        return visitor.visitFunctionalBreakTimer(this)
     }
 }

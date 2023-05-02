@@ -11,26 +11,21 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
-import be.ugent.sel.studeez.common.composable.drawer.DrawerViewModel
-import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
-import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
-import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.resources
 
 @Composable
 fun HomeRoute(
     open: (String) -> Unit,
-    openAndPopUp: (String, String) -> Unit,
     viewModel: HomeViewModel,
-    drawerViewModel: DrawerViewModel,
-    navBarViewModel: NavigationBarViewModel,
+    drawerActions: DrawerActions,
+    navigationBarActions: NavigationBarActions,
 ) {
     HomeScreen(
         onStartSessionClick = { viewModel.onStartSessionClick(open) },
-        drawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp),
-        navigationBarActions = getNavigationBarActions(navBarViewModel, open),
+        drawerActions = drawerActions,
+        navigationBarActions = navigationBarActions,
     )
 }
 
@@ -40,12 +35,11 @@ fun HomeScreen(
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions,
 ) {
-
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
-        action = { FriendsAction() }
+        barAction = { FriendsAction() }
     ) {
         BasicButton(R.string.start_session, Modifier.basicButton()) {
             onStartSessionClick()
@@ -69,6 +63,6 @@ fun HomeScreenPreview() {
     HomeScreen(
         onStartSessionClick = {},
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({}, {}, {}, {})
+        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {})
     )
 }

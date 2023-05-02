@@ -11,15 +11,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.Headline
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
-import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
-import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
-import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
+import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.CoroutineScope
 import be.ugent.sel.studeez.R.string as AppText
 
@@ -41,13 +38,14 @@ fun getProfileActions(
 @Composable
 fun ProfileRoute(
     open: (String) -> Unit,
-    openAndPopUp: (String, String) -> Unit,
     viewModel: ProfileViewModel,
+    drawerActions: DrawerActions,
+    navigationBarActions: NavigationBarActions,
 ) {
     ProfileScreen(
         profileActions = getProfileActions(viewModel, open),
-        drawerActions = getDrawerActions(hiltViewModel(), open, openAndPopUp),
-        navigationBarActions = getNavigationBarActions(hiltViewModel(), open),
+        drawerActions = drawerActions,
+        navigationBarActions = navigationBarActions,
     )
 }
 
@@ -65,7 +63,7 @@ fun ProfileScreen(
         title = resources().getString(AppText.profile),
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
-        action = { EditAction(onClick = profileActions.onEditProfileClick) }
+        barAction = { EditAction(onClick = profileActions.onEditProfileClick) }
     ) {
         Headline(text = (username ?: resources().getString(R.string.no_username)))
     }
@@ -90,6 +88,6 @@ fun ProfileScreenPreview() {
     ProfileScreen(
         profileActions = ProfileActions({ null }, {}),
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({}, {}, {}, {})
+        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {})
     )
 }

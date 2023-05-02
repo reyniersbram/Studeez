@@ -12,11 +12,14 @@ import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import be.ugent.sel.studeez.R.string as AppText
 
 data class NavigationBarActions(
+    val isSelectedTab: (String) -> Boolean,
     val onHomeClick: () -> Unit,
     val onTasksClick: () -> Unit,
     val onSessionsClick: () -> Unit,
@@ -26,29 +29,38 @@ data class NavigationBarActions(
 fun getNavigationBarActions(
     navigationBarViewModel: NavigationBarViewModel,
     open: (String) -> Unit,
+    getCurrentScreen: () -> String?
 ): NavigationBarActions {
     return NavigationBarActions(
-        onHomeClick = { navigationBarViewModel.onHomeClick(open) },
-        onTasksClick = { navigationBarViewModel.onTasksClick(open) },
-        onSessionsClick = { navigationBarViewModel.onSessionsClick(open) },
-        onProfileClick = { navigationBarViewModel.onProfileClick(open) },
+        isSelectedTab = { screen ->
+            screen == getCurrentScreen()
+        },
+        onHomeClick = {
+            navigationBarViewModel.onHomeClick(open)
+        },
+        onTasksClick = {
+            navigationBarViewModel.onTasksClick(open)
+        },
+        onSessionsClick = {
+            navigationBarViewModel.onSessionsClick(open)
+        },
+        onProfileClick = {
+            navigationBarViewModel.onProfileClick(open)
+        },
     )
 }
 
 @Composable
 fun NavigationBar(
-    navigationBarActions: NavigationBarActions,
+    navigationBarActions: NavigationBarActions
 ) {
-    // TODO Pass functions and new screens.
-    // TODO Pass which screen is selected.
-    // TODO Disabled -> HIGH/MEDIUM_EMPHASIS if the page is implemented
     BottomNavigation(
         elevation = 10.dp
     ) {
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.List, resources().getString(AppText.home)) },
             label = { Text(text = resources().getString(AppText.home)) },
-            selected = false, // TODO
+            selected = navigationBarActions.isSelectedTab(HOME_SCREEN),
             onClick = navigationBarActions.onHomeClick
         )
 
@@ -59,7 +71,8 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.tasks)) },
-            selected = false, // TODO
+            // TODO selected = navigationBarActions.isSelectedTab(TASKS_SCREEN),
+            selected = false,
             onClick = navigationBarActions.onTasksClick
         )
 
@@ -73,7 +86,8 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.sessions)) },
-            selected = false, // TODO
+            // TODO selected = navigationBarActions.isSelectedTab(SESSIONS_SCREEN),
+            selected = false,
             onClick = navigationBarActions.onSessionsClick
         )
 
@@ -84,7 +98,7 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.profile)) },
-            selected = false, // TODO
+            selected = navigationBarActions.isSelectedTab(PROFILE_SCREEN),
             onClick = navigationBarActions.onProfileClick
         )
 
@@ -95,6 +109,8 @@ fun NavigationBar(
 @Composable
 fun NavigationBarPreview() {
     StudeezTheme {
-        NavigationBar(NavigationBarActions({}, {}, {}, {}))
+        NavigationBar(
+            navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}),
+        )
     }
 }

@@ -10,9 +10,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
 import be.ugent.sel.studeez.StudeezApp
+import be.ugent.sel.studeez.screens.session.InvisibleSessionManager
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+
+var onTimerInvisible: Job? = null
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -29,6 +35,18 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        onTimerInvisible = lifecycleScope.launch {
+            InvisibleSessionManager.updateTimer()
+        }
+        super.onStop()
+    }
+
+    override fun onStart() {
+        onTimerInvisible?.cancel()
+        super.onStart()
     }
 }
 
