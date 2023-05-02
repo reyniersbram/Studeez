@@ -25,7 +25,7 @@ class FireBaseSubjectDAO @Inject constructor(
     }
 
     override fun deleteSubject(oldSubject: Subject) {
-        TODO("Not yet implemented")
+        currentUserSubjectsCollection().document(oldSubject.id).delete()
     }
 
     private fun currentUserSubjectsCollection(): CollectionReference =

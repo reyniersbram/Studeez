@@ -34,23 +34,24 @@ data class TaskActions(
     val deleteSubject: () -> Unit,
 )
 
-fun getTaskActions(viewModel: TaskViewModel): TaskActions {
+fun getTaskActions(viewModel: TaskViewModel, open: (String) -> Unit): TaskActions {
     return TaskActions(
         addTask = viewModel::addTask,
         getTasks = viewModel::getTasks,
-        getSubject = { Subject(name = "Test Subject") },
-        deleteSubject = {},
+        getSubject = viewModel::getSelectedSubject,
+        deleteSubject = { viewModel.deleteSubject(open) },
     )
 }
 
 @Composable
 fun TaskRoute(
     goBack: () -> Unit,
+    open: (String) -> Unit,
     viewModel: TaskViewModel,
 ) {
     TaskScreen(
         goBack = goBack,
-        taskActions = getTaskActions(viewModel = viewModel),
+        taskActions = getTaskActions(viewModel = viewModel, open = open),
     )
 }
 
