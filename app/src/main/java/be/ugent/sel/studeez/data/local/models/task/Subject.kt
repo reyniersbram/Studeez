@@ -8,6 +8,4 @@ data class Subject(
     val tasks: List<Task> = mutableListOf(),
     val time: Int = 0,
     val argb_color: Long = 0,
-) {
-//    fun getColor(): Color = Color(ARGB_color)
-}
+)

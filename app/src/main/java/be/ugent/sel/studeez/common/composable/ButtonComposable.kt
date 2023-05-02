@@ -37,7 +37,7 @@ fun BasicTextButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit
 @Composable
 fun BasicButton(
     @StringRes text: Int,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
     border: BorderStroke? = null,
     onClick: () -> Unit,
@@ -65,12 +65,13 @@ fun BasicButtonPreview() {
 @Composable
 fun StealthButton(
     @StringRes text: Int,
+    modifier: Modifier = Modifier.card(),
     onClick: () -> Unit,
 ) {
     BasicButton(
         text = text,
         onClick = onClick,
-        modifier = Modifier.card(),
+        modifier = modifier,
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.surface,
             contentColor = MaterialTheme.colors.onSurface

@@ -49,20 +49,25 @@ fun TaskScreen(
         barAction = {},
     ) {
         val subjects = getSubjects().collectAsState(initial = emptyList())
-        Column {
+        Column(
+            modifier = Modifier.padding(top = 5.dp)
+        ) {
             LazyColumn {
-                if (subjects.value.isNotEmpty()) {
-                    item {
-                        SubjectEntry(subject = subjects.value[0])
-                    }
-                }
-                if (subjects.value.size > 1) {
-                    items(subjects.value.subList(1, subjects.value.lastIndex + 1)) {
-                        Column {
-                            Divider(modifier = Modifier.padding(10.dp, 0.dp))
-                            SubjectEntry(subject = it)
-                        }
-                    }
+//                if (subjects.value.isNotEmpty()) {
+//                    item {
+//                        SubjectEntry(subject = subjects.value[0])
+//                    }
+//                }
+//                if (subjects.value.size > 1) {
+//                    items(subjects.value.subList(1, subjects.value.lastIndex + 1)) {
+//                        Column {
+//                            Divider(modifier = Modifier.padding(10.dp, 0.dp))
+//                            SubjectEntry(subject = it)
+//                        }
+//                    }
+//                }
+                items(subjects.value) {
+                    SubjectEntry(subject = it)
                 }
             }
             NewTaskSubjectButton(onClick = addSubject, R.string.new_subject)
