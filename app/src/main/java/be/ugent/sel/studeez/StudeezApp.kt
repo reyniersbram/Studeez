@@ -158,7 +158,8 @@ fun StudeezNavGraph(
 
         composable(StudeezDestinations.TASKS_SCREEN) {
             TaskRoute(
-                viewModel = hiltViewModel()
+                goBack = goBack,
+                viewModel = hiltViewModel(),
             )
         }
 

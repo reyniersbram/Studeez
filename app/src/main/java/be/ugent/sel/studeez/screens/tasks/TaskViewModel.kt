@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.screens.tasks
 
+import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.TaskDAO
@@ -19,15 +20,6 @@ class TaskViewModel @Inject constructor(
     }
 
     fun getTasks() : Flow<List<Task>> {
-        return flowOf(listOf(
-            Task(
-                name = "Test Task",
-                completed = false,
-            ),
-            Task(
-                name = "Test Task 2",
-                completed = true,
-            )
-        ))
+        return taskDAO.getTasks(Subject())
     }
 }

@@ -31,7 +31,9 @@ fun SubjectRoute(
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
         addSubject = { viewModel.addSubject() },
-    ) { viewModel.getSubjects() }
+        getSubjects = viewModel::getSubjects,
+        onViewSubject = { viewModel.onViewSubject(Subject(), open) },
+    )
 }
 
 @Composable
@@ -40,6 +42,7 @@ fun SubjectScreen(
     navigationBarActions: NavigationBarActions,
     addSubject: () -> Unit,
     getSubjects: () -> Flow<List<Subject>>,
+    onViewSubject: () -> Unit,
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.tasks),
@@ -66,7 +69,10 @@ fun SubjectScreen(
 //                    }
 //                }
                 items(subjects.value) {
-                    SubjectEntry(subject = it)
+                    SubjectEntry(
+                        subject = it,
+                        onViewSubject = onViewSubject,
+                    )
                 }
             }
             NewTaskSubjectButton(onClick = addSubject, R.string.new_subject)
@@ -80,6 +86,8 @@ fun SubjectScreenPreview() {
     SubjectScreen(
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}),
-        {},
-    ) { flowOf() }
+        addSubject = {},
+        getSubjects = { flowOf() },
+        onViewSubject = {},
+    )
 }

@@ -3,6 +3,7 @@ package be.ugent.sel.studeez.screens.tasks
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.SubjectDAO
+import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -26,5 +27,9 @@ class SubjectViewModel @Inject constructor(
 
     fun getSubjects(): Flow<List<Subject>> {
         return subjectDAO.getSubjects()
+    }
+
+    fun onViewSubject(subject: Subject, open: (String) -> Unit) {
+        open(StudeezDestinations.TASKS_SCREEN)
     }
 }

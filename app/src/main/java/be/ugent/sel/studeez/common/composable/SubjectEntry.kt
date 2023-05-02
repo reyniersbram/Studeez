@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -31,6 +30,7 @@ import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSecon
 @Composable
 fun SubjectEntry(
     subject: Subject,
+    onViewSubject: () -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -40,12 +40,13 @@ fun SubjectEntry(
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-//            modifier = Modifier.fillMaxWidth(),
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(start = 10.dp).weight(3f)
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .weight(3f)
             ) {
                 Box(
                     modifier = Modifier
@@ -61,8 +62,6 @@ fun SubjectEntry(
                         fontWeight = FontWeight.Bold,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
-//                        modifier = Modifier.fillMaxWidth(),
-//                        modifier = Modifier.width(200.dp)
                     )
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -78,16 +77,18 @@ fun SubjectEntry(
                             Icon(
                                 imageVector = Icons.Default.List, contentDescription = "tasks"
                             )
-                            Text(text = "4/9")
+                            Text(text = subject.tasks.size.toString())
                         }
                     }
                 }
             }
             StealthButton(
                 text = R.string.view_task,
-                modifier = Modifier.padding(start = 10.dp, end = 5.dp).weight(1f)
-                ) {
-
+                modifier = Modifier
+                    .padding(start = 10.dp, end = 5.dp)
+                    .weight(1f)
+            ) {
+                onViewSubject()
             }
         }
     }
@@ -98,10 +99,9 @@ fun SubjectEntry(
 fun SubjectEntryPreview() {
     SubjectEntry(
         subject = Subject(
-            name = "Test Subject longgggggggggggggggggggggggggggggggggggggggg",
-//            name = "Test Subject",
+            name = "Test Subject",
             argb_color = 0xFFF44336,
             time = 60
-        )
-    )
+        ),
+    ) {}
 }

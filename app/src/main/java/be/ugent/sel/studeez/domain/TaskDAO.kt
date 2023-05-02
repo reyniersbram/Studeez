@@ -1,11 +1,12 @@
 package be.ugent.sel.studeez.domain
 
+import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.Task
 import kotlinx.coroutines.flow.Flow
 
 interface TaskDAO {
 
-    fun getTasks(): Flow<List<Task>>
+    fun getTasks(subject: Subject): Flow<List<Task>>
 
     fun saveTask(newTask: Task)
 
