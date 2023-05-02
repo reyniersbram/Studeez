@@ -26,10 +26,6 @@ import be.ugent.sel.studeez.R.string as AppText
 
 const val TRANSITION = "transition"
 val HEIGHT_DIFFERENCE = 30.dp
-enum class MultiFloatingState {
-    Expanded,
-    Collapsed
-}
 
 data class AddButtonActions(
     val onTaskClick: () -> Unit,
@@ -41,18 +37,11 @@ data class AddButtonActions(
 fun AddButton(
     addButtonActions: AddButtonActions
 ) {
-    var multiFloatingState by remember {
-        mutableStateOf(MultiFloatingState.Collapsed)
-    }
+    var isExpanded by remember { mutableStateOf(false) }
 
     // Rotate the button when expanded, normal when collapsed.
-    val transition = updateTransition(targetState = multiFloatingState, label = TRANSITION)
-    val rotate by transition.animateFloat(label = TRANSITION) {
-        when (it) {
-            MultiFloatingState.Expanded -> 315f
-            MultiFloatingState.Collapsed -> 0f
-        }
-    }
+    val transition = updateTransition(targetState = isExpanded, label = TRANSITION)
+    val rotate by transition.animateFloat(label = TRANSITION) { expanded -> if (expanded) 315f else 0f }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -60,7 +49,7 @@ fun AddButton(
     ) {
         Box {
             // Show minis when expanded.
-            if (multiFloatingState == MultiFloatingState.Expanded) {
+            if (isExpanded) {
                 ExpandedAddButton(
                     addButtonActions = addButtonActions
                 )
@@ -71,12 +60,9 @@ fun AddButton(
         FloatingActionButton(
             onClick = {
                 // Toggle expanded/collapsed.
-                multiFloatingState = when (transition.currentState) {
-                    MultiFloatingState.Collapsed -> MultiFloatingState.Expanded
-                    MultiFloatingState.Expanded -> MultiFloatingState.Collapsed
-                }
+                isExpanded = !isExpanded
             },
-            modifier = Modifier.padding(bottom = if (multiFloatingState == MultiFloatingState.Expanded) 78.dp else 0.dp)
+            modifier = Modifier.padding(bottom = if (isExpanded) 78.dp else 0.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.Add,

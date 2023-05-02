@@ -43,9 +43,7 @@ fun getDrawerActions(
         onTimersClick = { drawerViewModel.onTimersClick(open) },
         onSettingsClick = { drawerViewModel.onSettingsClick(open) },
         onLogoutClick = { drawerViewModel.onLogoutClick(openAndPopUp) },
-        onAboutClick = { context ->
-            drawerViewModel.onAboutClick(open, context = context)
-        },
+        onAboutClick = { context -> drawerViewModel.onAboutClick(open, context = context) },
     )
 }
 
