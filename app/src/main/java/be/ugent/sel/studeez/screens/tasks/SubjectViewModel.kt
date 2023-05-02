@@ -1,5 +1,7 @@
 package be.ugent.sel.studeez.screens.tasks
 
+import android.util.Log
+import be.ugent.sel.studeez.data.SelectedSubject
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.SubjectDAO
@@ -12,13 +14,13 @@ import javax.inject.Inject
 @HiltViewModel
 class SubjectViewModel @Inject constructor(
     private val subjectDAO: SubjectDAO,
+    private val selectedSubject: SelectedSubject,
     logService: LogService,
 ) : StudeezViewModel(logService) {
     fun addSubject() {
         subjectDAO.saveSubject(
             Subject(
                 name = "Test Subject",
-                tasks = listOf(),
                 time = 0,
                 argb_color = 0xFFF44336,
             )
@@ -30,6 +32,8 @@ class SubjectViewModel @Inject constructor(
     }
 
     fun onViewSubject(subject: Subject, open: (String) -> Unit) {
+        Log.v("MYLOG", subject.id)
+        selectedSubject.set(subject)
         open(StudeezDestinations.TASKS_SCREEN)
     }
 }

@@ -5,4 +5,5 @@ object FireBaseCollections {
     const val USER_COLLECTION = "users"
     const val TIMER_COLLECTION = "timers"
     const val SUBJECT_COLLECTION = "subjects"
+    const val TASK_COLLECTION = "tasks"
 }

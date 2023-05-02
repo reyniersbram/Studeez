@@ -32,7 +32,7 @@ fun SubjectRoute(
         navigationBarActions = navigationBarActions,
         addSubject = { viewModel.addSubject() },
         getSubjects = viewModel::getSubjects,
-        onViewSubject = { viewModel.onViewSubject(Subject(), open) },
+        onViewSubject = { viewModel.onViewSubject(it, open) },
     )
 }
 
@@ -42,7 +42,7 @@ fun SubjectScreen(
     navigationBarActions: NavigationBarActions,
     addSubject: () -> Unit,
     getSubjects: () -> Flow<List<Subject>>,
-    onViewSubject: () -> Unit,
+    onViewSubject: (Subject) -> Unit,
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.tasks),
@@ -71,7 +71,7 @@ fun SubjectScreen(
                 items(subjects.value) {
                     SubjectEntry(
                         subject = it,
-                        onViewSubject = onViewSubject,
+                        onViewSubject = { onViewSubject(it) },
                     )
                 }
             }

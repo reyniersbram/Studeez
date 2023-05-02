@@ -77,7 +77,7 @@ fun SubjectEntry(
                             Icon(
                                 imageVector = Icons.Default.List, contentDescription = "tasks"
                             )
-                            Text(text = subject.tasks.size.toString())
+                            Text(text = "0/0") // TODO
                         }
                     }
                 }
