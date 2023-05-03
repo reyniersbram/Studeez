@@ -19,8 +19,8 @@ class TaskViewModel @Inject constructor(
     private val selectedSubject: SelectedSubject,
     logService: LogService,
 ) : StudeezViewModel(logService) {
-    fun addTask() {
-
+    fun addTask(open: (String) -> Unit) {
+        open(StudeezDestinations.ADD_TASK_FORM)
     }
 
     fun getTasks(): Flow<List<Task>> {

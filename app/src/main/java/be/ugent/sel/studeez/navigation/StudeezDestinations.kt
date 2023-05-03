@@ -15,6 +15,8 @@ object StudeezDestinations {
     const val ADD_SUBJECT_FORM = "add_subject"
     const val EDIT_SUBJECT_FORM = "edit_subject"
     const val TASKS_SCREEN = "tasks"
+    const val ADD_TASK_FORM = "add_task"
+    const val EDIT_TASK_FORM = "edit_task"
 
     //    const val SESSIONS_SCREEN = "sessions"
     const val PROFILE_SCREEN = "profile"

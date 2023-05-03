@@ -16,7 +16,13 @@ class SubjectFormViewModel @Inject constructor(
     private val selectedSubject: SelectedSubject,
     logService: LogService,
 ) : StudeezViewModel(logService) {
-    var uiState = mutableStateOf(SubjectFormUiState())
+    var uiState = mutableStateOf(
+        if (selectedSubject.isSet()) SubjectFormUiState(
+            name = selectedSubject().name,
+            color = selectedSubject().argb_color
+        )
+        else SubjectFormUiState()
+    )
         private set
 
     private val name: String
@@ -33,12 +39,12 @@ class SubjectFormViewModel @Inject constructor(
         uiState.value = uiState.value.copy(color = newValue)
     }
 
-    fun onDelete(open: (String) -> Unit) {
+    fun onDelete(openAndPopUp: (String, String) -> Unit) {
         subjectDAO.deleteSubject(selectedSubject())
-        open(StudeezDestinations.SUBJECT_SCREEN)
+        openAndPopUp(StudeezDestinations.SUBJECT_SCREEN, StudeezDestinations.EDIT_SUBJECT_FORM)
     }
 
-    fun onCreate(open: (String) -> Unit) {
+    fun onCreate(openAndPopUp: (String, String) -> Unit) {
         val newSubject = Subject(
             name = name,
             argb_color = color,
@@ -46,20 +52,18 @@ class SubjectFormViewModel @Inject constructor(
         subjectDAO.saveSubject(
             newSubject
         )
-        selectedSubject.set(newSubject)
         // TODO open newly created subject
+//        selectedSubject.set(newSubject)
 //        open(StudeezDestinations.TASKS_SCREEN)
-        open(StudeezDestinations.SUBJECT_SCREEN)
+        openAndPopUp(StudeezDestinations.SUBJECT_SCREEN, StudeezDestinations.ADD_SUBJECT_FORM)
     }
 
-    fun onEdit(open: (String) -> Unit) {
+    fun onEdit(openAndPopUp: (String, String) -> Unit) {
         val newSubject = selectedSubject().copy(
             name = name,
             argb_color = color,
         )
-        subjectDAO.updateSubject(
-            newSubject
-        )
-        open(StudeezDestinations.TASKS_SCREEN)
+        subjectDAO.updateSubject(newSubject)
+        openAndPopUp(StudeezDestinations.TASKS_SCREEN, StudeezDestinations.EDIT_SUBJECT_FORM)
     }
 }

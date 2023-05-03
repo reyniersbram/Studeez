@@ -91,10 +91,11 @@ fun StealthButtonCardPreview() {
 
 @Composable
 fun DeleteButton(
+    @StringRes text: Int,
     onClick: () -> Unit,
 ) {
     BasicButton(
-        text = R.string.delete_subject,
+        text = text,
         modifier = Modifier.basicButton(),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
@@ -107,7 +108,7 @@ fun DeleteButton(
 @Preview
 @Composable
 fun DeleteButtonPreview() {
-    DeleteButton {}
+    DeleteButton(text = R.string.delete_subject) {}
 }
 
 @Composable

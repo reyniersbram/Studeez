@@ -22,7 +22,11 @@ class FireBaseTaskDAO @Inject constructor(
     }
 
     override fun saveTask(newTask: Task) {
-        TODO("Not yet implemented")
+        selectedSubjectTasksCollection(newTask.subjectId).add(newTask)
+    }
+
+    override fun updateTask(newTask: Task) {
+        selectedSubjectTasksCollection(newTask.id).document(newTask.id).set(newTask)
     }
 
     override fun deleteTask(oldTask: Task) {

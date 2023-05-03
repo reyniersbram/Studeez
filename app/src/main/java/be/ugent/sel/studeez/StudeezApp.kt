@@ -44,6 +44,8 @@ import be.ugent.sel.studeez.screens.tasks.SubjectRoute
 import be.ugent.sel.studeez.screens.tasks.TaskRoute
 import be.ugent.sel.studeez.screens.tasks.forms.SubjectAddRoute
 import be.ugent.sel.studeez.screens.tasks.forms.SubjectEditRoute
+import be.ugent.sel.studeez.screens.tasks.forms.TaskAddRoute
+import be.ugent.sel.studeez.screens.tasks.forms.TaskEditRoute
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewRoute
 import be.ugent.sel.studeez.screens.timer_selection.TimerSelectionRoute
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
@@ -161,7 +163,7 @@ fun StudeezNavGraph(
         composable(StudeezDestinations.ADD_SUBJECT_FORM) {
             SubjectAddRoute(
                 goBack = goBack,
-                open = open,
+                openAndPopUp = openAndPopUp,
                 viewModel = hiltViewModel(),
             )
         }
@@ -169,7 +171,23 @@ fun StudeezNavGraph(
         composable(StudeezDestinations.EDIT_SUBJECT_FORM) {
             SubjectEditRoute(
                 goBack = goBack,
-                open = open,
+                openAndPopUp = openAndPopUp,
+                viewModel = hiltViewModel(),
+            )
+        }
+
+        composable(StudeezDestinations.ADD_TASK_FORM) {
+            TaskAddRoute(
+                goBack = goBack,
+                openAndPopUp = openAndPopUp,
+                viewModel = hiltViewModel(),
+            )
+        }
+
+        composable(StudeezDestinations.EDIT_TASK_FORM) {
+            TaskEditRoute(
+                goBack = goBack,
+                openAndPopUp = openAndPopUp,
                 viewModel = hiltViewModel(),
             )
         }

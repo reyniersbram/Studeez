@@ -10,6 +10,8 @@ interface TaskDAO {
 
     fun saveTask(newTask: Task)
 
+    fun updateTask(newTask: Task)
+
     fun deleteTask(oldTask: Task)
 
     fun toggleTaskCompleted(task: Task, completed: Boolean)

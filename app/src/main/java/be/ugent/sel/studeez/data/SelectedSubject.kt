@@ -5,7 +5,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Used to communicate the selected subject from the subject overview to the task overview of that subject.
+ * Used to communicate the selected subject from the subject overview other screens.
  * Because this is a singleton-class the view-models of both screens observe the same data.
  */
 @Singleton
@@ -15,4 +15,6 @@ class SelectedSubject @Inject constructor() {
     fun set(subject: Subject) {
         this.subject = subject
     }
+
+    fun isSet() = this::subject.isInitialized
 }
