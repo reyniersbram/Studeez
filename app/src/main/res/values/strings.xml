@@ -50,6 +50,9 @@
     <string name="delete_task">Delete Task</string>
     <string name="view_tasks">View</string>
 
+    <!-- Form -->
+    <string name="name">Name</string>
+
     <!-- Sessions -->
     <string name="sessions">Sessions</string>
 

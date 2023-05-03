@@ -73,7 +73,7 @@ fun SubjectForm(
                 singleLine = true,
                 value = uiState.name,
                 onValueChange = onNameChange,
-                placeholder = { Text(stringResource(id = R.string.username)) },
+                placeholder = { Text(stringResource(id = R.string.name)) },
                 modifier = Modifier.fieldModifier(),
             )
             BasicButton(
