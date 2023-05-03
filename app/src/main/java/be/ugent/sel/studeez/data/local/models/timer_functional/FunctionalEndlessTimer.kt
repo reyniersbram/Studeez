@@ -11,7 +11,7 @@ class FunctionalEndlessTimer : FunctionalTimer(0) {
     }
 
     override fun tick() {
-        time.plusOne()
+        time++
         totalStudyTime++
     }
 
