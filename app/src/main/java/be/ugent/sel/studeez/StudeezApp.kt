@@ -2,18 +2,8 @@ package be.ugent.sel.studeez
 
 import android.content.res.Resources
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.Surface
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -38,6 +28,8 @@ import be.ugent.sel.studeez.screens.profile.EditProfileRoute
 import be.ugent.sel.studeez.screens.profile.ProfileRoute
 import be.ugent.sel.studeez.screens.session.SessionRoute
 import be.ugent.sel.studeez.screens.session_recap.SessionRecapRoute
+import be.ugent.sel.studeez.screens.sessions.SessionsRoute
+import be.ugent.sel.studeez.screens.settings.SettingsRoute
 import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewRoute
@@ -91,7 +83,7 @@ fun resources(): Resources {
 @Composable
 fun StudeezNavGraph(
     appState: StudeezAppstate,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     val drawerViewModel: DrawerViewModel = hiltViewModel()
     val navBarViewModel: NavigationBarViewModel = hiltViewModel()
@@ -113,8 +105,51 @@ fun StudeezNavGraph(
         startDestination = StudeezDestinations.SPLASH_SCREEN,
         modifier = modifier,
     ) {
+        // NavBar
+        composable(StudeezDestinations.HOME_SCREEN) {
+            HomeRoute(
+                open,
+                viewModel = hiltViewModel(),
+                drawerActions = drawerActions,
+                navigationBarActions = navigationBarActions
+            )
+        }
 
+        composable(StudeezDestinations.TASKS_SCREEN) {
+            // TODO
+        }
 
+        composable(StudeezDestinations.SESSIONS_SCREEN) {
+            SessionsRoute(
+                drawerActions = drawerActions,
+                navigationBarActions = navigationBarActions
+            )
+        }
+
+        composable(StudeezDestinations.PROFILE_SCREEN) {
+            ProfileRoute(
+                open,
+                viewModel = hiltViewModel(),
+                drawerActions = drawerActions,
+                navigationBarActions = navigationBarActions
+            )
+        }
+
+        // Drawer
+        composable(StudeezDestinations.TIMER_SCREEN) {
+            TimerOverviewRoute(
+                viewModel = hiltViewModel(),
+                drawerActions = drawerActions,
+            )
+        }
+
+        composable(StudeezDestinations.SETTINGS_SCREEN) {
+            SettingsRoute(
+                drawerActions = drawerActions
+            )
+        }
+
+        // Login flow
         composable(StudeezDestinations.SPLASH_SCREEN) {
             SplashRoute(
                 openAndPopUp,
@@ -136,31 +171,12 @@ fun StudeezNavGraph(
             )
         }
 
-        composable(StudeezDestinations.HOME_SCREEN) {
-            HomeRoute(
+        // Studying flow
+        composable(StudeezDestinations.TIMER_SELECTION_SCREEN) {
+            TimerSelectionRoute(
                 open,
+                goBack,
                 viewModel = hiltViewModel(),
-                drawerActions = drawerActions,
-                navigationBarActions = navigationBarActions,
-            )
-        }
-
-        // TODO Tasks screen
-        // TODO Sessions screen
-
-        composable(StudeezDestinations.PROFILE_SCREEN) {
-            ProfileRoute(
-                open,
-                viewModel = hiltViewModel(),
-                drawerActions = drawerActions,
-                navigationBarActions = navigationBarActions,
-            )
-        }
-
-        composable(StudeezDestinations.TIMER_OVERVIEW_SCREEN) {
-            TimerOverviewRoute(
-                viewModel = hiltViewModel(),
-                drawerActions = drawerActions,
             )
         }
 
@@ -172,30 +188,32 @@ fun StudeezNavGraph(
             )
         }
 
-        // TODO Timers screen
-        // TODO Settings screen
+        composable(StudeezDestinations.SESSION_RECAP) {
+            SessionRecapRoute(
+                openAndPopUp = openAndPopUp,
+                viewModel = hiltViewModel()
+            )
+        }
 
-        // Edit screens
+        // Friends flow
+        composable(StudeezDestinations.SEARCH_FRIENDS_SCREEN) {
+            // TODO
+        }
+
+        // Create & edit screens
+        composable(StudeezDestinations.CREATE_TASK_SCREEN) {
+            // TODO
+        }
+
+        composable(StudeezDestinations.CREATE_SESSION_SCREEN) {
+            // TODO
+        }
+
         composable(StudeezDestinations.EDIT_PROFILE_SCREEN) {
             EditProfileRoute(
                 goBack,
                 openAndPopUp,
                 viewModel = hiltViewModel(),
-            )
-        }
-
-        composable(StudeezDestinations.TIMER_SELECTION_SCREEN) {
-            TimerSelectionRoute(
-                open,
-                goBack,
-                viewModel = hiltViewModel(),
-            )
-        }
-
-        composable(StudeezDestinations.SESSION_RECAP) {
-            SessionRecapRoute(
-                openAndPopUp = openAndPopUp,
-                viewModel = hiltViewModel()
             )
         }
     }

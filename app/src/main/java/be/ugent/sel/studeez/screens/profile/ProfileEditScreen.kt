@@ -63,7 +63,10 @@ fun EditProfileScreen(
             BasicTextButton(
                 text = R.string.save,
                 Modifier.textButton(),
-                action = editProfileActions.onSaveClick
+                action = {
+                    editProfileActions.onSaveClick()
+                    goBack()
+                }
             )
             BasicTextButton(
                 text = R.string.delete_profile,

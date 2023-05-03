@@ -14,16 +14,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.SESSIONS_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.TASKS_SCREEN
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import be.ugent.sel.studeez.R.string as AppText
 
 data class NavigationBarActions(
     val isSelectedTab: (String) -> Boolean,
+
     val onHomeClick: () -> Unit,
     val onTasksClick: () -> Unit,
     val onSessionsClick: () -> Unit,
     val onProfileClick: () -> Unit,
+
+    // AddButton
+    val onAddTaskClick: () -> Unit,
+    val onAddFriendClick: () -> Unit,
+    val onAddSessionClick: () -> Unit
 )
 
 fun getNavigationBarActions(
@@ -35,6 +43,7 @@ fun getNavigationBarActions(
         isSelectedTab = { screen ->
             screen == getCurrentScreen()
         },
+
         onHomeClick = {
             navigationBarViewModel.onHomeClick(open)
         },
@@ -47,6 +56,16 @@ fun getNavigationBarActions(
         onProfileClick = {
             navigationBarViewModel.onProfileClick(open)
         },
+
+        onAddTaskClick = {
+            navigationBarViewModel.onAddTaskClick(open)
+        },
+        onAddFriendClick = {
+            navigationBarViewModel.onAddFriendClick(open)
+        },
+        onAddSessionClick = {
+            navigationBarViewModel.onAddSessionClick(open)
+        }
     )
 }
 
@@ -71,13 +90,12 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.tasks)) },
-            // TODO selected = navigationBarActions.isSelectedTab(TASKS_SCREEN),
-            selected = false,
+            selected = navigationBarActions.isSelectedTab(TASKS_SCREEN),
             onClick = navigationBarActions.onTasksClick
         )
 
         // Hack to space the entries in the navigation bar, make space for fab
-        BottomNavigationItem(icon = {}, onClick = {}, selected = false)
+        BottomNavigationItem(icon = {}, onClick = {}, selected = false, enabled = false)
 
         BottomNavigationItem(
             icon = {
@@ -86,8 +104,7 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.sessions)) },
-            // TODO selected = navigationBarActions.isSelectedTab(SESSIONS_SCREEN),
-            selected = false,
+            selected = navigationBarActions.isSelectedTab(SESSIONS_SCREEN),
             onClick = navigationBarActions.onSessionsClick
         )
 
@@ -110,7 +127,7 @@ fun NavigationBar(
 fun NavigationBarPreview() {
     StudeezTheme {
         NavigationBar(
-            navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}),
+            navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
         )
     }
 }

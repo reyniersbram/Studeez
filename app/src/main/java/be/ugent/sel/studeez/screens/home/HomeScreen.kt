@@ -33,13 +33,13 @@ fun HomeRoute(
 fun HomeScreen(
     onStartSessionClick: () -> Unit,
     drawerActions: DrawerActions,
-    navigationBarActions: NavigationBarActions,
+    navigationBarActions: NavigationBarActions
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
-        barAction = { FriendsAction() }
+        // TODO barAction = { FriendsAction() }
     ) {
         BasicButton(R.string.start_session, Modifier.basicButton()) {
             onStartSessionClick()
@@ -63,6 +63,6 @@ fun HomeScreenPreview() {
     HomeScreen(
         onStartSessionClick = {},
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {})
+        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {})
     )
 }
