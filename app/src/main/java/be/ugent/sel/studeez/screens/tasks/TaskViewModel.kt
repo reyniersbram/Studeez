@@ -35,4 +35,12 @@ class TaskViewModel @Inject constructor(
     fun getSelectedSubject(): Subject {
         return selectedSubject()
     }
+
+    fun deleteTask(task: Task) {
+        taskDAO.deleteTask(task)
+    }
+
+    fun toggleTaskCompleted(task: Task, completed: Boolean) {
+        taskDAO.toggleTaskCompleted(task, completed)
+    }
 }

@@ -16,7 +16,7 @@ class FireBaseTaskDAO @Inject constructor(
     private val auth: AccountDAO,
 ) : TaskDAO {
     override fun getTasks(subject: Subject): Flow<List<Task>> {
-        return selectedSubjectTasksCollection(subject)
+        return selectedSubjectTasksCollection(subject.id)
             .snapshots()
             .map { it.toObjects(Task::class.java) }
     }
@@ -26,13 +26,19 @@ class FireBaseTaskDAO @Inject constructor(
     }
 
     override fun deleteTask(oldTask: Task) {
-        TODO("Not yet implemented")
+        selectedSubjectTasksCollection(oldTask.subjectId).document(oldTask.id).delete()
     }
 
-    private fun selectedSubjectTasksCollection(subject: Subject): CollectionReference =
+    override fun toggleTaskCompleted(task: Task, completed: Boolean) {
+        selectedSubjectTasksCollection(task.subjectId)
+            .document(task.id)
+            .update("completed", completed)
+    }
+
+    private fun selectedSubjectTasksCollection(subjectId: String): CollectionReference =
         firestore.collection(FireBaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
             .collection(FireBaseCollections.SUBJECT_COLLECTION)
-            .document(subject.id)
+            .document(subjectId)
             .collection(FireBaseCollections.TASK_COLLECTION)
 }

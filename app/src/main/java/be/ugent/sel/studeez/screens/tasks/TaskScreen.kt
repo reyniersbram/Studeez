@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
@@ -20,6 +19,7 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.NewTaskSubjectButton
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.tasks.TaskEntry
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.Task
@@ -32,6 +32,8 @@ data class TaskActions(
     val getSubject: () -> Subject,
     val getTasks: () -> Flow<List<Task>>,
     val deleteSubject: () -> Unit,
+    val deleteTask: (Task) -> Unit,
+    val onCheckTask: (Task, Boolean) -> Unit,
 )
 
 fun getTaskActions(viewModel: TaskViewModel, open: (String) -> Unit): TaskActions {
@@ -40,6 +42,8 @@ fun getTaskActions(viewModel: TaskViewModel, open: (String) -> Unit): TaskAction
         getTasks = viewModel::getTasks,
         getSubject = viewModel::getSelectedSubject,
         deleteSubject = { viewModel.deleteSubject(open) },
+        deleteTask = viewModel::deleteTask,
+        onCheckTask = { task, isChecked -> viewModel.toggleTaskCompleted(task, isChecked) },
     )
 }
 
@@ -71,7 +75,11 @@ fun TaskScreen(
         ) {
             LazyColumn {
                 items(tasks.value) {
-                    Text(text = it.name)
+                    TaskEntry(
+                        task = it,
+                        onCheckTask = { isChecked -> taskActions.onCheckTask(it, isChecked) },
+                        onDeleteTask = { taskActions.deleteTask(it) },
+                    )
                 }
             }
             NewTaskSubjectButton(onClick = taskActions.addTask, R.string.new_task)
@@ -111,6 +119,8 @@ fun TaskScreenPreview() {
             { Subject(name = "Test Subject") },
             { flowOf() },
             {},
+            {},
+            { _, _ -> run {} },
         )
     )
 }

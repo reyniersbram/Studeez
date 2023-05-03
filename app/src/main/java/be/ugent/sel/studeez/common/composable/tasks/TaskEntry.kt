@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,13 +30,15 @@ import be.ugent.sel.studeez.resources
 @Composable
 fun TaskEntry(
     task: Task,
+    onCheckTask: (Boolean) -> Unit,
+    onDeleteTask: () -> Unit,
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 10.dp, vertical = 5.dp),
     ) {
-        val color = if (task.completed) Color.Gray else Color.Black
+        val color = if (task.completed) Color.Gray else MaterialTheme.colors.onSurface
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -50,7 +51,7 @@ fun TaskEntry(
             ) {
                 Checkbox(
                     checked = task.completed,
-                    onCheckedChange = {},
+                    onCheckedChange = onCheckTask,
                     colors = CheckboxDefaults.colors(
                         checkedColor = Color.Gray,
                         uncheckedColor = MaterialTheme.colors.onSurface,
@@ -79,7 +80,7 @@ fun TaskEntry(
             Box(modifier = Modifier.weight(7f)) {
                 if (task.completed) {
                     IconButton(
-                        onClick = { /*TODO*/ },
+                        onClick = onDeleteTask,
                         modifier = Modifier
                             .padding(start = 20.dp)
                     ) {
@@ -109,6 +110,7 @@ fun TaskEntryPreview() {
             name = "Test Task",
             completed = false,
         ),
+        {}, {},
     )
 }
 
@@ -119,7 +121,8 @@ fun CompletedTaskEntryPreview() {
         task = Task(
             name = "Test Task",
             completed = true,
-        )
+        ),
+        {}, {},
     )
 }
 
@@ -131,5 +134,6 @@ fun OverflowTaskEntryPreview() {
             name = "Test Taskkkkkkkkkkkkkkkkkkkkkkkkkkk",
             completed = false,
         ),
+        {}, {},
     )
 }

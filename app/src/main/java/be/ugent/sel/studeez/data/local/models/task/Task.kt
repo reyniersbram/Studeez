@@ -7,4 +7,5 @@ data class Task(
     val name: String = "",
     val completed: Boolean = false,
     val time: Int = 0,
+    val subjectId: String = "",
 )
