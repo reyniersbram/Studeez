@@ -32,6 +32,10 @@ class TimerOverviewViewModel @Inject constructor(
         open(StudeezDestinations.TIMER_EDIT_SCREEN)
     }
 
+    fun create(open: (String) -> Unit) {
+        open(StudeezDestinations.ADD_TIMER_SCREEN)
+    }
+
     fun delete(timerInfo: TimerInfo) =timerDAO.deleteTimer(timerInfo)
 
     fun save(timerInfo: TimerInfo) = timerDAO.saveTimer(timerInfo)

@@ -42,12 +42,16 @@ abstract class AbstractTimerEditScreen(private val timerInfo: TimerInfo) {
                     onNewValue = { name = it },
                     label = R.string.name
                 )
-                LabelledInputField(
-                    value = description,
-                    onNewValue = { description = it },
-                    label = R.string.description,
-                    singleLine = false
-                )
+
+                repeat(20) {
+                    LabelledInputField(
+                        value = description,
+                        onNewValue = { description = it },
+                        label = R.string.description,
+                        singleLine = false
+                    )
+
+                }
 
                 ExtraFields()
 
