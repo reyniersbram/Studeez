@@ -42,6 +42,8 @@ import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
 import be.ugent.sel.studeez.screens.tasks.SubjectRoute
 import be.ugent.sel.studeez.screens.tasks.TaskRoute
+import be.ugent.sel.studeez.screens.tasks.forms.SubjectAddRoute
+import be.ugent.sel.studeez.screens.tasks.forms.SubjectEditRoute
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewRoute
 import be.ugent.sel.studeez.screens.timer_selection.TimerSelectionRoute
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
@@ -153,6 +155,22 @@ fun StudeezNavGraph(
                 viewModel = hiltViewModel(),
                 drawerActions = drawerActions,
                 navigationBarActions = navigationBarActions,
+            )
+        }
+
+        composable(StudeezDestinations.ADD_SUBJECT_FORM) {
+            SubjectAddRoute(
+                goBack = goBack,
+                open = open,
+                viewModel = hiltViewModel(),
+            )
+        }
+
+        composable(StudeezDestinations.EDIT_SUBJECT_FORM) {
+            SubjectEditRoute(
+                goBack = goBack,
+                open = open,
+                viewModel = hiltViewModel(),
             )
         }
 

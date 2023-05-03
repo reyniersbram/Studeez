@@ -30,7 +30,7 @@ fun SubjectRoute(
     SubjectScreen(
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
-        addSubject = { viewModel.addSubject() },
+        addSubject = { viewModel.addSubject(open) },
         getSubjects = viewModel::getSubjects,
         onViewSubject = { viewModel.onViewSubject(it, open) },
     )
@@ -55,19 +55,6 @@ fun SubjectScreen(
             modifier = Modifier.padding(top = 5.dp)
         ) {
             LazyColumn {
-//                if (subjects.value.isNotEmpty()) {
-//                    item {
-//                        SubjectEntry(subject = subjects.value[0])
-//                    }
-//                }
-//                if (subjects.value.size > 1) {
-//                    items(subjects.value.subList(1, subjects.value.lastIndex + 1)) {
-//                        Column {
-//                            Divider(modifier = Modifier.padding(10.dp, 0.dp))
-//                            SubjectEntry(subject = it)
-//                        }
-//                    }
-//                }
                 items(subjects.value) {
                     SubjectEntry(
                         subject = it,

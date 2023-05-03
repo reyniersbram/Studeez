@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
@@ -29,6 +30,8 @@ fun SubjectAddRoute(
         goBack = goBack,
         uiState = uiState,
         onConfirm = { viewModel.onCreate(open) },
+        onNameChange = viewModel::onNameChange,
+        onColorChange = {},
     )
 }
 
@@ -44,8 +47,10 @@ fun SubjectEditRoute(
         goBack = goBack,
         uiState = uiState,
         onConfirm = { viewModel.onEdit(open) },
+        onNameChange = viewModel::onNameChange,
+        onColorChange = {},
     ) {
-        DeleteButton(onClick = viewModel::onDelete)
+        DeleteButton(onClick = { viewModel.onDelete(open) })
     }
 }
 
@@ -55,6 +60,8 @@ fun SubjectForm(
     goBack: () -> Unit,
     uiState: SubjectFormUiState,
     onConfirm: () -> Unit,
+    onNameChange: (String) -> Unit,
+    onColorChange: (Color) -> Unit,
     extraButton: @Composable () -> Unit = {},
 ) {
     SecondaryScreenTemplate(
@@ -65,7 +72,7 @@ fun SubjectForm(
             OutlinedTextField(
                 singleLine = true,
                 value = uiState.name,
-                onValueChange = {},
+                onValueChange = onNameChange,
                 placeholder = { Text(stringResource(id = R.string.username)) },
                 modifier = Modifier.fieldModifier(),
             )
@@ -87,6 +94,8 @@ fun AddSubjectFormPreview() {
         goBack = {},
         uiState = SubjectFormUiState(),
         onConfirm = {},
+        onNameChange = {},
+        onColorChange = {},
     )
 }
 
@@ -100,6 +109,8 @@ fun EditSubjectFormPreview() {
             name = "Test Subject",
         ),
         onConfirm = {},
+        onNameChange = {},
+        onColorChange = {},
     ) {
         DeleteButton {}
     }

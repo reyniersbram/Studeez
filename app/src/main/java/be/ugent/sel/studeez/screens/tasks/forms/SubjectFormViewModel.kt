@@ -33,8 +33,9 @@ class SubjectFormViewModel @Inject constructor(
         uiState.value = uiState.value.copy(color = newValue)
     }
 
-    fun onDelete() {
+    fun onDelete(open: (String) -> Unit) {
         subjectDAO.deleteSubject(selectedSubject())
+        open(StudeezDestinations.SUBJECT_SCREEN)
     }
 
     fun onCreate(open: (String) -> Unit) {
@@ -48,6 +49,7 @@ class SubjectFormViewModel @Inject constructor(
         selectedSubject.set(newSubject)
         // TODO open newly created subject
 //        open(StudeezDestinations.TASKS_SCREEN)
+        open(StudeezDestinations.SUBJECT_SCREEN)
     }
 
     fun onEdit(open: (String) -> Unit) {

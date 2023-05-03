@@ -10,7 +10,10 @@ object StudeezDestinations {
     const val TIMER_SELECTION_SCREEN = "timer_selection"
     const val SESSION_SCREEN = "session"
     const val SESSION_RECAP = "session_recap"
+
     const val SUBJECT_SCREEN = "subjects"
+    const val ADD_SUBJECT_FORM = "add_subject"
+    const val EDIT_SUBJECT_FORM = "edit_subject"
     const val TASKS_SCREEN = "tasks"
 
     //    const val SESSIONS_SCREEN = "sessions"

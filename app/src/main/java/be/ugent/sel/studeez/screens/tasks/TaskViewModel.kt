@@ -43,4 +43,8 @@ class TaskViewModel @Inject constructor(
     fun toggleTaskCompleted(task: Task, completed: Boolean) {
         taskDAO.toggleTaskCompleted(task, completed)
     }
+
+    fun editSubject(open: (String) -> Unit) {
+        open(StudeezDestinations.EDIT_SUBJECT_FORM)
+    }
 }

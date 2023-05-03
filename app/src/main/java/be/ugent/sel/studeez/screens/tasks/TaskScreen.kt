@@ -31,9 +31,9 @@ data class TaskActions(
     val addTask: () -> Unit,
     val getSubject: () -> Subject,
     val getTasks: () -> Flow<List<Task>>,
-    val deleteSubject: () -> Unit,
     val deleteTask: (Task) -> Unit,
     val onCheckTask: (Task, Boolean) -> Unit,
+    val editSubject: () -> Unit,
 )
 
 fun getTaskActions(viewModel: TaskViewModel, open: (String) -> Unit): TaskActions {
@@ -41,9 +41,9 @@ fun getTaskActions(viewModel: TaskViewModel, open: (String) -> Unit): TaskAction
         addTask = viewModel::addTask,
         getTasks = viewModel::getTasks,
         getSubject = viewModel::getSelectedSubject,
-        deleteSubject = { viewModel.deleteSubject(open) },
         deleteTask = viewModel::deleteTask,
         onCheckTask = { task, isChecked -> viewModel.toggleTaskCompleted(task, isChecked) },
+        editSubject = { viewModel.editSubject(open) }
     )
 }
 
@@ -67,7 +67,7 @@ fun TaskScreen(
     SecondaryScreenTemplate(
         title = taskActions.getSubject().name,
         popUp = goBack,
-        barAction = { EditAction {} } // TODO implement
+        barAction = { EditAction(onClick = taskActions.editSubject) }
     ) {
         val tasks = taskActions.getTasks().collectAsState(initial = emptyList())
         Column(
@@ -83,15 +83,6 @@ fun TaskScreen(
                 }
             }
             NewTaskSubjectButton(onClick = taskActions.addTask, R.string.new_task)
-            BasicButton(
-                text = R.string.delete_subject,
-                modifier = Modifier.basicButton(),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Red,
-                    contentColor = Color.White,
-                ),
-                onClick = taskActions.deleteSubject,
-            )
         }
     }
 }
@@ -119,8 +110,8 @@ fun TaskScreenPreview() {
             { Subject(name = "Test Subject") },
             { flowOf() },
             {},
-            {},
             { _, _ -> run {} },
+            {},
         )
     )
 }
