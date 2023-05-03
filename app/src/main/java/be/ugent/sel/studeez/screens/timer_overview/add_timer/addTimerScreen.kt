@@ -253,7 +253,7 @@ fun AddTimerScreen(
                         onClick = {
                             if (uiState.description != "" && uiState.name != "") {
                                 addTimerActions.addTimer()
-                                addTimerActions.open(StudeezDestinations.TIMER_OVERVIEW_SCREEN)
+                                addTimerActions.open(StudeezDestinations.TIMER_SCREEN)
                             }
                          }
                     )

@@ -50,7 +50,7 @@ fun SessionRecapScreen(modifier: Modifier, sessionRecapActions: SessionRecapActi
     Column(
         modifier = modifier
     ) {
-        Text(text = "You studied: ${hms.hours} : ${hms.minutes} : ${hms.seconds}")
+        Text(text = "You studied: $hms")
 
         BasicButton(
             R.string.save, Modifier.basicButton()

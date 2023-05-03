@@ -1,11 +1,9 @@
 package be.ugent.sel.studeez.screens.timer_selection
 
-import android.widget.TimePicker
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
@@ -23,7 +21,6 @@ import kotlinx.coroutines.flow.flowOf
 data class TimerSelectionActions(
     val getAllTimers: () -> Flow<List<TimerInfo>>,
     val startSession: (TimerInfo) -> Unit,
-    val pickDuration: (TimePicker?, Int, Int) -> Unit,
     val customTimeStudyTime: Int
 )
 
@@ -34,9 +31,6 @@ fun getTimerSelectionActions(
     return TimerSelectionActions(
         getAllTimers = viewModel::getAllTimers,
         startSession = { viewModel.startSession(open, it) },
-        pickDuration = { _, hour: Int, minute: Int ->
-            viewModel.customTimerStudyTime.value = hour * 60 * 60 + minute * 60
-        },
         customTimeStudyTime = viewModel.customTimerStudyTime.value
     )
 }
@@ -105,10 +99,9 @@ fun CustomTimerEntry(
             )
         },
         rightButton = {
-            TimePickerButton(
-                hoursMinutesSeconds = hms,
-                onTimeSetListener = timerSelectionActions.pickDuration
-            )
+            TimePickerButton(initialSeconds = hms.getTotalSeconds()) { chosenTime ->
+                timerInfo.studyTime = chosenTime
+            }
         }
     )
 }
@@ -117,7 +110,7 @@ fun CustomTimerEntry(
 @Composable
 fun TimerSelectionPreview() {
     TimerSelectionScreen(
-        timerSelectionActions = TimerSelectionActions({ flowOf() }, {}, { _, _, _ -> {} }, 0),
+        timerSelectionActions = TimerSelectionActions({ flowOf() }, {}, 0),
         popUp = {}
     )
 }

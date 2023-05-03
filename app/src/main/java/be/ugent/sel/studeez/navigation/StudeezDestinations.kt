@@ -18,6 +18,7 @@ object StudeezDestinations {
 
     // Studying flow
     const val TIMER_SELECTION_SCREEN = "timer_selection"
+    const val TIMER_EDIT_SCREEN = "timer_edit"
     const val SESSION_SCREEN = "session"
     const val SESSION_RECAP = "session_recap"
 

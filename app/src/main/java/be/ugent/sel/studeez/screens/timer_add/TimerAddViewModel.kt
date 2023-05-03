@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.timer_edit
+package be.ugent.sel.studeez.screens.timer_add
 
 import be.ugent.sel.studeez.data.EditTimerState
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class TimerEditViewModel @Inject constructor(
+class TimerAddViewModel @Inject constructor(
     private val editTimerState: EditTimerState,
     private val timerDAO: TimerDAO,
     logService: LogService

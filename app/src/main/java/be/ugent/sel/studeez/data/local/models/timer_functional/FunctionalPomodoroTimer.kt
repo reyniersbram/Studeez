@@ -22,7 +22,7 @@ class FunctionalPomodoroTimer(
             }
             isInBreak = !isInBreak
         }
-        time.minOne()
+        time--
 
         if (!isInBreak) {
             totalStudyTime++

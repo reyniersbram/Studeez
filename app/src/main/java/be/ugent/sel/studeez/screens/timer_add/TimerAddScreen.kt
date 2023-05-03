@@ -1,10 +1,12 @@
-package be.ugent.sel.studeez.screens.timer_edit
+package be.ugent.sel.studeez.screens.timer_add
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
+import be.ugent.sel.studeez.screens.timer_edit.GetTimerEditScreen
+import be.ugent.sel.studeez.screens.timer_edit.TimerEditViewModel
 import be.ugent.sel.studeez.screens.timer_edit.editScreens.AbstractTimerEditScreen
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
@@ -40,26 +42,3 @@ fun TimerEditRoute(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

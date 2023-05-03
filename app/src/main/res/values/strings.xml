@@ -107,7 +107,7 @@
 
     <!-- Session -->
     <string name="create_session_not_possible_yet">Creating sessions still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
-  
+
     <!-- Add Timer -->
     <string name="addTimer_description_error">Timer description cannot be empty!</string>
     <string name="addTimer_description">Timer description</string>
@@ -122,5 +122,12 @@
     <string name="addTimer_studytime_1">" hours and "</string>
     <string name="addTimer_studytime_2">" minutes of studytime"</string>
     <string name="addTimer_question">How long do you want to study?</string>
+
+    <!-- Edit Timer-->
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="studyTime">Study Time</string>
+    <string name="breakTime">Break Time</string>
+    <string name="repeats">Number of Repeats</string>
 
 </resources>

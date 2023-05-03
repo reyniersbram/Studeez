@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.screens.timer_overview
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -24,7 +25,7 @@ data class TimerOverviewActions(
     val getUserTimers: () -> Flow<List<TimerInfo>>,
     val getDefaultTimers: () -> List<TimerInfo>,
     val onEditClick: (TimerInfo) -> Unit,
-    val open: (String) -> Unit,
+    val onAddClick: () -> Unit,
 )
 
 fun getTimerOverviewActions(
@@ -34,20 +35,20 @@ fun getTimerOverviewActions(
     return TimerOverviewActions(
         getUserTimers = viewModel::getUserTimers,
         getDefaultTimers = viewModel::getDefaultTimers,
-        onEditClick = { viewModel.update(it) },
-        open = open
+        onEditClick = { viewModel.update(it, open) },
+        onAddClick = { viewModel.create(open) }
     )
 }
 
 @Composable
 fun TimerOverviewRoute(
-    open: (String) -> Unit,
     viewModel: TimerOverviewViewModel,
     drawerActions: DrawerActions,
+    open: (String) -> Unit
 ) {
     TimerOverviewScreen(
         timerOverviewActions = getTimerOverviewActions(viewModel, open),
-        drawerActions = drawerActions,
+        drawerActions = drawerActions
     )
 }
 
@@ -63,34 +64,38 @@ fun TimerOverviewScreen(
         title = resources().getString(R.string.timers),
         drawerActions = drawerActions
     ) {
-        LazyColumn {
-            // Custom timer, select new duration each time
-            item {
-                TimerEntry(timerInfo = CustomTimerInfo(
-                    name = resources().getString(R.string.custom_name),
-                    description = resources().getString(R.string.custom_name),
-                    studyTime = 0
-                ))
-            }
-            // Default Timers, cannot be edited
-            items(timerOverviewActions.getDefaultTimers()) {
-                TimerEntry(timerInfo = it) {}
-            }
-            // User timers, can be edited
-            items(timers.value) { timerInfo ->
-                TimerEntry(
-                    timerInfo = timerInfo,
-                ) {
-                    StealthButton(
-                        text = R.string.edit,
-                        onClick = { timerOverviewActions.onEditClick(timerInfo) }
-                    )
+        Column { // TODO knop beneden
+            LazyColumn {
+                // Custom timer, select new duration each time
+                item {
+                    TimerEntry(timerInfo = CustomTimerInfo(
+                        name = resources().getString(R.string.custom_name),
+                        description = resources().getString(R.string.custom_name),
+                        studyTime = 0
+                    ))
+                }
+                // Default Timers, cannot be edited
+                items(timerOverviewActions.getDefaultTimers()) {
+                    TimerEntry(timerInfo = it) {}
+                }
+                // User timers, can be edited
+                items(timers.value) { timerInfo ->
+                    TimerEntry(
+                        timerInfo = timerInfo,
+                    ) {
+                        StealthButton(
+                            text = R.string.edit,
+                            onClick = { timerOverviewActions.onEditClick(timerInfo) }
+                        )
+                    }
+
                 }
 
-            }
-            item {
-                BasicButton(R.string.add_timer, Modifier.basicButton()) {
-                    timerOverviewActions.open(StudeezDestinations.ADD_TIMER_SCREEN)
+                // TODO uit lazy column
+                item {
+                    BasicButton(R.string.add_timer, Modifier.basicButton()) {
+                        timerOverviewActions.onAddClick()
+                    }
                 }
             }
         }
