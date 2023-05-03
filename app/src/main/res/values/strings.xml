@@ -47,6 +47,7 @@
     <string name="view_task">View</string>
     <string name="edit_task">Edit Task</string>
     <string name="delete_subject">Delete Subject</string>
+    <string name="delete_task">Delete Task</string>
 
     <!-- Sessions -->
     <string name="sessions">Sessions</string>

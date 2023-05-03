@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
+import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.session.SessionActions
 import kotlinx.coroutines.delay
@@ -93,7 +94,7 @@ abstract class AbstractSessionScreen {
         val hms = sessionActions.getTimer().getHoursMinutesSeconds()
         Column {
             Text(
-                text = "${hms.hours} : ${hms.minutes} : ${hms.seconds}",
+                text = hms.toString(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(50.dp),

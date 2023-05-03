@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.common.composable
+package be.ugent.sel.studeez.common.composable.tasks
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.R
+import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
 
@@ -100,6 +101,7 @@ fun SubjectEntryPreview() {
     SubjectEntry(
         subject = Subject(
             name = "Test Subject",
+//            name = "Testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
             argb_color = 0xFFF44336,
             time = 60
         ),

@@ -6,4 +6,5 @@ data class Task(
     @DocumentId val id: String = "",
     val name: String = "",
     val completed: Boolean = false,
+    val time: Int = 0,
 )

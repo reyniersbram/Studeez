@@ -12,9 +12,9 @@ import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.NewTaskSubjectButton
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
-import be.ugent.sel.studeez.common.composable.SubjectEntry
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
+import be.ugent.sel.studeez.common.composable.tasks.SubjectEntry
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.flow.Flow
