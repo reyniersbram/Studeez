@@ -64,6 +64,14 @@ fun TimerOverviewScreen(
         drawerActions = drawerActions
     ) {
         LazyColumn {
+            // Custom timer, select new duration each time
+            item {
+                TimerEntry(timerInfo = CustomTimerInfo(
+                    name = resources().getString(R.string.custom_name),
+                    description = resources().getString(R.string.custom_name),
+                    studyTime = 0
+                ))
+            }
             // Default Timers, cannot be edited
             items(timerOverviewActions.getDefaultTimers()) {
                 TimerEntry(timerInfo = it) {}

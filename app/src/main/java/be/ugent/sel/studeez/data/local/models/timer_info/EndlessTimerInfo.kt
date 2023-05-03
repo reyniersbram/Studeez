@@ -22,4 +22,8 @@ class EndlessTimerInfo(
         )
     }
 
+    override fun <T> accept(visitor: TimerInfoVisitor<T>): T {
+        return visitor.visitEndlessTimerInfo(this)
+    }
+
 }
