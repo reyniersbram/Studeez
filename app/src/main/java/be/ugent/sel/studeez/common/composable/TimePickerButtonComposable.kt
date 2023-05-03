@@ -22,6 +22,7 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.ext.fieldModifier
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
+import com.commandiron.wheel_picker_compose.WheelTimePicker
 import java.util.*
 
 @Composable
@@ -80,15 +81,19 @@ fun TimePickerButton(
     }
 }
 
-private fun pickDuration(context: Context, nextStep: (Int) -> Unit, timeState: MutableState<Int>) {
+private fun pickDuration(context: Context, onTimeChosen: (Int) -> Unit, timeState: MutableState<Int>) {
     val listener = OnTimeSetListener { _, hour, minute ->
-        timeState.value = hour * 60 * 60 + minute * 60
-        nextStep(timeState.value)
+        timeState.value = HoursMinutesSeconds(hour, minute, 0).getTotalSeconds()
+        onTimeChosen(timeState.value)
     }
-    val mCalendar = Calendar.getInstance()
-    val mHour = mCalendar[Calendar.HOUR]
-    val mMinute = mCalendar[Calendar.MINUTE]
-    val mTimePickerDialog = TimePickerDialog(context, listener, mHour, mMinute, true)
+    val hms = HoursMinutesSeconds(timeState.value)
+    val mTimePickerDialog = TimePickerDialog(
+        context,
+        listener,
+        hms.hours,
+        hms.minutes,
+        true
+    )
     mTimePickerDialog.show()
 }
 
