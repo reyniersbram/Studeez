@@ -2,6 +2,7 @@ package be.ugent.sel.studeez.timer_functional
 
 import android.media.MediaPlayer
 import be.ugent.sel.studeez.data.SelectedTimerState
+import be.ugent.sel.studeez.data.SessionReportState
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalCustomTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
@@ -24,7 +25,7 @@ class InvisibleSessionManagerTest {
     @Test
     fun InvisibleEndlessTimerTest() = runTest {
         timerState.selectedTimer = FunctionalEndlessTimer()
-        viewModel = SessionViewModel(timerState, mock())
+        viewModel = SessionViewModel(timerState, SessionReportState(), mock())
         InvisibleSessionManager.setParameters(viewModel, mediaPlayer)
 
         val test = launch {
@@ -46,7 +47,7 @@ class InvisibleSessionManagerTest {
         val breakTime = 5
         val repeats = 1
         timerState.selectedTimer = FunctionalPomodoroTimer(studyTime, breakTime, repeats)
-        viewModel = SessionViewModel(timerState, mock())
+        viewModel = SessionViewModel(timerState, SessionReportState(), mock())
         InvisibleSessionManager.setParameters(viewModel, mediaPlayer)
 
         val test = launch {
@@ -79,7 +80,7 @@ class InvisibleSessionManagerTest {
     @Test
     fun InvisibleCustomTimerTest() = runTest {
         timerState.selectedTimer = FunctionalCustomTimer(5)
-        viewModel = SessionViewModel(timerState, mock())
+        viewModel = SessionViewModel(timerState, SessionReportState(), mock())
         InvisibleSessionManager.setParameters(viewModel, mediaPlayer)
 
         val test = launch {

@@ -28,4 +28,6 @@ object StudeezDestinations {
     const val CREATE_TASK_SCREEN = "create_task"
     const val CREATE_SESSION_SCREEN = "create_session"
     const val EDIT_PROFILE_SCREEN = "edit_profile"
+
+    const val ADD_TIMER_SCREEN = "add_timer"
 }

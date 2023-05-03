@@ -107,5 +107,20 @@
 
     <!-- Session -->
     <string name="create_session_not_possible_yet">Creating sessions still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
+  
+    <!-- Add Timer -->
+    <string name="addTimer_description_error">Timer description cannot be empty!</string>
+    <string name="addTimer_description">Timer description</string>
+    <string name="addTimer_name_error">Timer name cannot be empty!</string>
+    <string name="addTimer_name">Timer name</string>
+    <string name="addTimer_timepicker">Open Time Picker</string>
+    <string name="breakTime_1">" hours and "</string>
+    <string name="breakTime_2">" minutes of breaktime"</string>
+    <string name="addTimer_break_1">" break"</string>
+    <string name="addTimer_break_s">" breaks"</string>
+    <string name="addTimer_break_question">With breaks?</string>
+    <string name="addTimer_studytime_1">" hours and "</string>
+    <string name="addTimer_studytime_2">" minutes of studytime"</string>
+    <string name="addTimer_question">How long do you want to study?</string>
 
 </resources>
