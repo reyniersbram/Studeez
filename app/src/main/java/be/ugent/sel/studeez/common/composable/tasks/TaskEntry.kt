@@ -72,7 +72,7 @@ fun TaskEntry(
                     Text(
                         text = "${HoursMinutesSeconds(task.time)}",
                         color = color,
-                        modifier = Modifier.weight(5f)
+                        modifier = Modifier.weight(7f)
                     )
 
                 }

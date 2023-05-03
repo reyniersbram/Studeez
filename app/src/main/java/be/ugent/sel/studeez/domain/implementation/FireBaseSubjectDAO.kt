@@ -28,6 +28,10 @@ class FireBaseSubjectDAO @Inject constructor(
         currentUserSubjectsCollection().document(oldSubject.id).delete()
     }
 
+    override fun updateSubject(newSubject: Subject) {
+        currentUserSubjectsCollection().document(newSubject.id).set(newSubject)
+    }
+
     private fun currentUserSubjectsCollection(): CollectionReference =
         firestore.collection(FireBaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)

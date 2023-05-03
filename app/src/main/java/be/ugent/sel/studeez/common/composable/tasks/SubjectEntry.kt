@@ -84,7 +84,7 @@ fun SubjectEntry(
                 }
             }
             StealthButton(
-                text = R.string.view_task,
+                text = R.string.view_tasks,
                 modifier = Modifier
                     .padding(start = 10.dp, end = 5.dp)
                     .weight(1f)

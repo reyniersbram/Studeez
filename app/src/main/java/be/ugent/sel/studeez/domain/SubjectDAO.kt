@@ -10,4 +10,6 @@ interface SubjectDAO {
     fun saveSubject(newSubject: Subject)
 
     fun deleteSubject(oldSubject: Subject)
+
+    fun updateSubject(newSubject: Subject)
 }

@@ -88,6 +88,28 @@ fun StealthButtonCardPreview() {
     }
 }
 
+
+@Composable
+fun DeleteButton(
+    onClick: () -> Unit,
+) {
+    BasicButton(
+        text = R.string.delete_subject,
+        modifier = Modifier.basicButton(),
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Red,
+            contentColor = Color.White,
+        ),
+    )
+}
+
+@Preview
+@Composable
+fun DeleteButtonPreview() {
+    DeleteButton {}
+}
+
 @Composable
 fun DialogConfirmButton(@StringRes text: Int, action: () -> Unit) {
     Button(
