@@ -41,10 +41,12 @@ fun BasicField(
 fun LabelledInputField(
     value: String,
     onNewValue: (String) -> Unit,
-    @StringRes label: Int
+    @StringRes label: Int,
+    singleLine: Boolean = false
 ) {
     OutlinedTextField(
         value = value,
+        singleLine = singleLine,
         onValueChange = onNewValue,
         label = { Text(text = stringResource(id = label)) },
         modifier = Modifier.fieldModifier()

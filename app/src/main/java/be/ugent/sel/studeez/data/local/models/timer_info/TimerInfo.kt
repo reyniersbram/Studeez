@@ -7,8 +7,8 @@ import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
  */
 abstract class TimerInfo(
     val id: String,
-    val name: String,
-    val description: String
+    var name: String,
+    var description: String
 ) {
 
     /**
@@ -21,6 +21,7 @@ abstract class TimerInfo(
      * TODO implementaties hebben nog hardgecodeerde strings.
      */
     abstract fun asJson(): Map<String, Any>
+    abstract fun <T> accept(visitor: TimerInfoVisitor<T>): T
 
 }
 
