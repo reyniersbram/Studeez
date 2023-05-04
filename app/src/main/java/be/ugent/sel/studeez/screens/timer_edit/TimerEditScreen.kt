@@ -1,16 +1,14 @@
 package be.ugent.sel.studeez.screens.timer_edit
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
-import be.ugent.sel.studeez.screens.timer_edit.editScreens.AbstractTimerEditScreen
-import be.ugent.sel.studeez.ui.theme.StudeezTheme
+import be.ugent.sel.studeez.R.string as AppText
 
 data class TimerEditActions(
     val getTimerInfo: () -> TimerInfo,
-    val saveTimer: (TimerInfo, () -> Unit) -> Unit
+    val editTimer: (TimerInfo, () -> Unit) -> Unit
 )
 
 fun getTimerEditActions(
@@ -19,7 +17,7 @@ fun getTimerEditActions(
 ): TimerEditActions {
     return TimerEditActions(
         getTimerInfo = viewModel::getTimerInfo,
-        saveTimer = viewModel::saveTimer
+        editTimer = viewModel::editTimer
     )
 }
 
@@ -32,11 +30,11 @@ fun TimerEditRoute(
 
     val timerEditActions = getTimerEditActions(viewModel, open)
 
-    SecondaryScreenTemplate(title = "Edit Timer", popUp = popUp) {
+    SecondaryScreenTemplate(title = stringResource(id = AppText.edit_timer), popUp = popUp) {
 
         val timerEditScreen = timerEditActions.getTimerInfo().accept(GetTimerEditScreen())
         timerEditScreen { timerInfo ->
-            timerEditActions.saveTimer(timerInfo, popUp)
+            timerEditActions.editTimer(timerInfo, popUp)
         }
     }
 }
