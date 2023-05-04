@@ -25,7 +25,7 @@ data class TimerOverviewActions(
     val getUserTimers: () -> Flow<List<TimerInfo>>,
     val getDefaultTimers: () -> List<TimerInfo>,
     val onEditClick: (TimerInfo) -> Unit,
-    val onAddClick: () -> Unit,
+    val onAddClick: () -> Unit
 )
 
 fun getTimerOverviewActions(
@@ -36,7 +36,7 @@ fun getTimerOverviewActions(
         getUserTimers = viewModel::getUserTimers,
         getDefaultTimers = viewModel::getDefaultTimers,
         onEditClick = { viewModel.update(it, open) },
-        onAddClick = { viewModel.create(open) }
+        onAddClick = { viewModel.onAddClick(open) }
     )
 }
 
@@ -48,14 +48,14 @@ fun TimerOverviewRoute(
 ) {
     TimerOverviewScreen(
         timerOverviewActions = getTimerOverviewActions(viewModel, open),
-        drawerActions = drawerActions
+        drawerActions = drawerActions,
     )
 }
 
 @Composable
 fun TimerOverviewScreen(
     timerOverviewActions: TimerOverviewActions,
-    drawerActions: DrawerActions
+    drawerActions: DrawerActions,
 ) {
 
     val timers = timerOverviewActions.getUserTimers().collectAsState(initial = emptyList())
