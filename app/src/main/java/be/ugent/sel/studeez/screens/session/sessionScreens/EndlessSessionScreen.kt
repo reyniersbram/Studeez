@@ -11,4 +11,6 @@ class EndlessSessionScreen : AbstractSessionScreen() {
     override fun motivationString(): String {
         return resources().getString(AppText.state_focus)
     }
+
+    override fun callMediaPlayer() {}
 }

@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SessionRecapViewModel @Inject constructor(
-    private val sessionReportState: SessionReportState,
+    sessionReportState: SessionReportState,
     private val sessionDAO: SessionDAO,
     logService: LogService
 ) : StudeezViewModel(logService) {

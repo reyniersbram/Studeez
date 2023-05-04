@@ -6,10 +6,9 @@ import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 class CustomTimerInfo(
     name: String,
     description: String,
-    private val studyTime: Int,
+    var studyTime: Int,
     id: String = ""
 ):  TimerInfo(id, name, description) {
-
 
     override fun getFunctionalTimer(): FunctionalTimer {
         return FunctionalCustomTimer(studyTime)
@@ -22,6 +21,10 @@ class CustomTimerInfo(
             "description" to description,
             "studyTime" to studyTime,
         )
+    }
+
+    override fun <T> accept(visitor: TimerInfoVisitor<T>): T {
+        return visitor.visitCustomTimerInfo(this)
     }
 
 }

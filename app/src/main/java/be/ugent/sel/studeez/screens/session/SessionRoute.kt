@@ -12,7 +12,7 @@ import be.ugent.sel.studeez.screens.session.sessionScreens.GetSessionScreen
 data class SessionActions(
     val getTimer: () -> FunctionalTimer,
     val getTask: () -> String,
-    val prepareMediaPlayer: () -> Unit,
+    val startMediaPlayer: () -> Unit,
     val releaseMediaPlayer: () -> Unit,
     val endSession: () -> Unit
 )
@@ -26,8 +26,8 @@ private fun getSessionActions(
         getTimer = viewModel::getTimer,
         getTask = viewModel::getTask,
         endSession = { viewModel.endSession(openAndPopUp) },
-        prepareMediaPlayer = mediaplayer::prepareAsync,
-        releaseMediaPlayer = mediaplayer::release
+        startMediaPlayer = mediaplayer::start,
+        releaseMediaPlayer = mediaplayer::release,
     )
 }
 
@@ -39,26 +39,15 @@ fun SessionRoute(
 ) {
     val context = LocalContext.current
     val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-    val mediaplayer = MediaPlayer()
-    mediaplayer.setDataSource(context, uri)
-    mediaplayer.setOnCompletionListener {
-        mediaplayer.stop()
-        //if (timerEnd) {
-//            mediaplayer.release()
-        //}
-    }
-    mediaplayer.setOnPreparedListener {
-//        mediaplayer.start()
-    }
+    val mediaplayer = MediaPlayer.create(context, uri)
+    mediaplayer.isLooping = false
 
-    val sessionScreen: AbstractSessionScreen = viewModel.getTimer().accept(GetSessionScreen())
+    InvisibleSessionManager.setParameters(
+        viewModel = viewModel,
+        mediaplayer = mediaplayer
+    )
 
-    //val sessionScreen = when (val timer = viewModel.getTimer()) {
-    //    is FunctionalCustomTimer -> CustomSessionScreen(timer)
-    //    is FunctionalPomodoroTimer -> BreakSessionScreen(timer)
-    //    is FunctionalEndlessTimer -> EndlessSessionScreen()
-    //    else -> throw java.lang.IllegalArgumentException("Unknown Timer")
-    //}
+    val sessionScreen: AbstractSessionScreen = viewModel.getTimer().accept(GetSessionScreen(mediaplayer))
 
     sessionScreen(
         open = open,

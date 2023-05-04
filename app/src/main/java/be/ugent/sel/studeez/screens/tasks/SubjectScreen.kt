@@ -72,7 +72,7 @@ fun SubjectScreen(
 fun SubjectScreenPreview() {
     SubjectScreen(
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}),
+        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
         addSubject = {},
         getSubjects = { flowOf() },
         onViewSubject = {},

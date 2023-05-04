@@ -26,7 +26,7 @@ fun getSessionRecapActions(
     return SessionRecapActions(
         viewModel::getSessionReport,
         {viewModel.saveSession(openAndPopUp)},
-        {viewModel.saveSession(openAndPopUp)}
+        {viewModel.discardSession(openAndPopUp)}
     )
 }
 
@@ -47,8 +47,10 @@ fun SessionRecapScreen(modifier: Modifier, sessionRecapActions: SessionRecapActi
     val sessionReport: SessionReport = sessionRecapActions.getSessionReport()
     val studyTime: Int = sessionReport.studyTime
     val hms: HoursMinutesSeconds = Time(studyTime).getAsHMS()
-    Column {
-        Text(text = "You studied: ${hms.hours} : ${hms.minutes} : ${hms.seconds}")
+    Column(
+        modifier = modifier
+    ) {
+        Text(text = "You studied: $hms")
 
         BasicButton(
             R.string.save, Modifier.basicButton()

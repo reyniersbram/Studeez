@@ -1,8 +1,5 @@
 package be.ugent.sel.studeez.data.local.models.timer_functional
 
-import be.ugent.sel.studeez.screens.session.sessionScreens.BreakSessionScreen
-import be.ugent.sel.studeez.screens.session.sessionScreens.AbstractSessionScreen
-
 class FunctionalPomodoroTimer(
     private var studyTime: Int,
     private var breakTime: Int, repeats: Int
@@ -25,7 +22,7 @@ class FunctionalPomodoroTimer(
             }
             isInBreak = !isInBreak
         }
-        time.minOne()
+        time--
 
         if (!isInBreak) {
             totalStudyTime++

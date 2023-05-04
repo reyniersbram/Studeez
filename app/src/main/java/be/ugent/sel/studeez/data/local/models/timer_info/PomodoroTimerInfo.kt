@@ -2,13 +2,14 @@ package be.ugent.sel.studeez.data.local.models.timer_info
 
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
+import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimerVisitor
 
 class PomodoroTimerInfo(
     name: String,
     description: String,
-    private val studyTime: Int,
-    private val breakTime: Int,
-    private val repeats: Int,
+    var studyTime: Int,
+    var breakTime: Int,
+    val repeats: Int,
     id: String = ""
 ):  TimerInfo(id, name, description) {
 
@@ -26,6 +27,10 @@ class PomodoroTimerInfo(
             "breakTime" to breakTime,
             "repeats" to repeats,
         )
+    }
+
+    override fun <T> accept(visitor: TimerInfoVisitor<T>): T {
+        return visitor.visitBreakTimerInfo(this)
     }
 
 }

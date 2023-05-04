@@ -27,11 +27,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.card
+import be.ugent.sel.studeez.common.ext.defaultButtonShape
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
 fun BasicTextButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit) {
-    TextButton(onClick = action, modifier = modifier) { Text(text = stringResource(text)) }
+    TextButton(
+        onClick = action,
+        modifier = modifier
+    ) {
+        Text(
+            text = stringResource(text)
+        )
+    }
 }
 
 @Composable
@@ -45,7 +53,7 @@ fun BasicButton(
     Button(
         onClick = onClick,
         modifier = modifier,
-        shape = RoundedCornerShape(20.dp),
+        shape = defaultButtonShape(),
         colors = colors,
         border = border,
     ) {

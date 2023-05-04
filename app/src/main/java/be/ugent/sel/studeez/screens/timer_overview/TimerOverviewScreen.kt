@@ -16,6 +16,7 @@ import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
+import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -24,15 +25,18 @@ data class TimerOverviewActions(
     val getUserTimers: () -> Flow<List<TimerInfo>>,
     val getDefaultTimers: () -> List<TimerInfo>,
     val onEditClick: (TimerInfo) -> Unit,
+    val onAddClick: () -> Unit,
 )
 
 fun getTimerOverviewActions(
     viewModel: TimerOverviewViewModel,
+    open: (String) -> Unit,
 ): TimerOverviewActions {
     return TimerOverviewActions(
         getUserTimers = viewModel::getUserTimers,
         getDefaultTimers = viewModel::getDefaultTimers,
-        onEditClick = { viewModel.update(it) },
+        onEditClick = { viewModel.update(it, open) },
+        onAddClick = { viewModel.create(open) }
     )
 }
 
@@ -40,10 +44,11 @@ fun getTimerOverviewActions(
 fun TimerOverviewRoute(
     viewModel: TimerOverviewViewModel,
     drawerActions: DrawerActions,
+    open: (String) -> Unit
 ) {
     TimerOverviewScreen(
-        timerOverviewActions = getTimerOverviewActions(viewModel),
-        drawerActions = drawerActions,
+        timerOverviewActions = getTimerOverviewActions(viewModel, open),
+        drawerActions = drawerActions
     )
 }
 
@@ -59,8 +64,16 @@ fun TimerOverviewScreen(
         title = resources().getString(R.string.timers),
         drawerActions = drawerActions
     ) {
-        Column {
+        Column { // TODO knop beneden
             LazyColumn {
+                // Custom timer, select new duration each time
+                item {
+                    TimerEntry(timerInfo = CustomTimerInfo(
+                        name = resources().getString(R.string.custom_name),
+                        description = resources().getString(R.string.custom_name),
+                        studyTime = 0
+                    ))
+                }
                 // Default Timers, cannot be edited
                 items(timerOverviewActions.getDefaultTimers()) {
                     TimerEntry(timerInfo = it) {}
@@ -77,9 +90,13 @@ fun TimerOverviewScreen(
                     }
 
                 }
-            }
-            BasicButton(R.string.add_timer, Modifier.basicButton()) {
-                // TODO
+
+                // TODO uit lazy column
+                item {
+                    BasicButton(R.string.add_timer, Modifier.basicButton()) {
+                        timerOverviewActions.onAddClick()
+                    }
+                }
             }
         }
     }
@@ -95,7 +112,9 @@ fun TimerOverviewPreview() {
         timerOverviewActions = TimerOverviewActions(
             { flowOf() },
             { listOf(customTimer, customTimer) },
-            {}),
+            {},
+            {}
+        ),
         drawerActions = DrawerActions({}, {}, {}, {}, {})
     )
 }

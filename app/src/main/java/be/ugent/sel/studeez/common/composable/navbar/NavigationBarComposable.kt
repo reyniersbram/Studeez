@@ -1,6 +1,5 @@
 package be.ugent.sel.studeez.common.composable.navbar
 
-import android.util.Log
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -15,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.SESSIONS_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SUBJECT_SCREEN
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
@@ -22,10 +22,16 @@ import be.ugent.sel.studeez.R.string as AppText
 
 data class NavigationBarActions(
     val isSelectedTab: (String) -> Boolean,
+
     val onHomeClick: () -> Unit,
     val onTasksClick: () -> Unit,
     val onSessionsClick: () -> Unit,
     val onProfileClick: () -> Unit,
+
+    // AddButton
+    val onAddTaskClick: () -> Unit,
+    val onAddFriendClick: () -> Unit,
+    val onAddSessionClick: () -> Unit
 )
 
 fun getNavigationBarActions(
@@ -49,6 +55,16 @@ fun getNavigationBarActions(
         onProfileClick = {
             navigationBarViewModel.onProfileClick(open)
         },
+
+        onAddTaskClick = {
+            navigationBarViewModel.onAddTaskClick(open)
+        },
+        onAddFriendClick = {
+            navigationBarViewModel.onAddFriendClick(open)
+        },
+        onAddSessionClick = {
+            navigationBarViewModel.onAddSessionClick(open)
+        }
     )
 }
 
@@ -78,7 +94,7 @@ fun NavigationBar(
         )
 
         // Hack to space the entries in the navigation bar, make space for fab
-        BottomNavigationItem(icon = {}, onClick = {}, selected = false)
+        BottomNavigationItem(icon = {}, onClick = {}, selected = false, enabled = false)
 
         BottomNavigationItem(
             icon = {
@@ -87,8 +103,7 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.sessions)) },
-            // TODO selected = navigationBarActions.isSelectedTab(SESSIONS_SCREEN),
-            selected = false,
+            selected = navigationBarActions.isSelectedTab(SESSIONS_SCREEN),
             onClick = navigationBarActions.onSessionsClick
         )
 
@@ -111,7 +126,7 @@ fun NavigationBar(
 fun NavigationBarPreview() {
     StudeezTheme {
         NavigationBar(
-            navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}),
+            navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
         )
     }
 }
