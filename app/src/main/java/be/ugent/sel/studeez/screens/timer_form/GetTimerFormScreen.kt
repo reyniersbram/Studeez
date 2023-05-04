@@ -1,26 +1,26 @@
-package be.ugent.sel.studeez.screens.timer_form.timer_edit
+package be.ugent.sel.studeez.screens.timer_form
 
 import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.EndlessTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.PomodoroTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfoVisitor
-import be.ugent.sel.studeez.screens.timer_form.form_screens.AbstractTimerEditScreen
-import be.ugent.sel.studeez.screens.timer_form.form_screens.BreakTimerEditScreen
-import be.ugent.sel.studeez.screens.timer_form.form_screens.CustomTimerEditScreen
-import be.ugent.sel.studeez.screens.timer_form.form_screens.EndlessTimerEditScreen
+import be.ugent.sel.studeez.screens.timer_form.form_screens.AbstractTimerFormScreen
+import be.ugent.sel.studeez.screens.timer_form.form_screens.BreakTimerFormScreen
+import be.ugent.sel.studeez.screens.timer_form.form_screens.CustomTimerFormScreen
+import be.ugent.sel.studeez.screens.timer_form.form_screens.EndlessTimerFormScreen
 
-class GetTimerEditScreen: TimerInfoVisitor<AbstractTimerEditScreen> {
+class GetTimerFormScreen: TimerInfoVisitor<AbstractTimerFormScreen> {
 
-    override fun visitCustomTimerInfo(customTimerInfo: CustomTimerInfo): AbstractTimerEditScreen {
-        return CustomTimerEditScreen(customTimerInfo)
+    override fun visitCustomTimerInfo(customTimerInfo: CustomTimerInfo): AbstractTimerFormScreen {
+        return CustomTimerFormScreen(customTimerInfo)
     }
 
-    override fun visitEndlessTimerInfo(endlessTimerInfo: EndlessTimerInfo): AbstractTimerEditScreen {
-        return EndlessTimerEditScreen(endlessTimerInfo)
+    override fun visitEndlessTimerInfo(endlessTimerInfo: EndlessTimerInfo): AbstractTimerFormScreen {
+        return EndlessTimerFormScreen(endlessTimerInfo)
     }
 
-    override fun visitBreakTimerInfo(pomodoroTimerInfo: PomodoroTimerInfo): AbstractTimerEditScreen {
-        return BreakTimerEditScreen(pomodoroTimerInfo)
+    override fun visitBreakTimerInfo(pomodoroTimerInfo: PomodoroTimerInfo): AbstractTimerFormScreen {
+        return BreakTimerFormScreen(pomodoroTimerInfo)
     }
 
 
