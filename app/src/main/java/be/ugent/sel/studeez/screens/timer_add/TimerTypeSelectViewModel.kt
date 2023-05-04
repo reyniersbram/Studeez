@@ -13,7 +13,6 @@ import javax.inject.Inject
 @HiltViewModel
 class TimerTypeSelectViewModel @Inject constructor(
     private val editTimerState: EditTimerState,
-    private val timerDAO: TimerDAO,
     logService: LogService
 ) : StudeezViewModel(logService) {
 
