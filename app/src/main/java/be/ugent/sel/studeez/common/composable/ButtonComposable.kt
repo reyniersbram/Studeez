@@ -74,9 +74,9 @@ fun StealthButton(
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.surface,
-            contentColor = MaterialTheme.colors.onSurface
+            contentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.4f)
         ),
-        border = BorderStroke(1.dp, MaterialTheme.colors.onSurface)
+        border = BorderStroke(3.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.4f))
     )
 }
 
@@ -147,10 +147,10 @@ fun NewTaskSubjectButton(
             .padding(10.dp, 5.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Transparent,
-            contentColor = Color.Gray,
+            contentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.4f),
         ),
         shape = RoundedCornerShape(2.dp),
-        border = BorderStroke(1.dp, Color.Gray),
+        border = BorderStroke(1.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.4f)),
         elevation = null,
     ) {
         Row(
