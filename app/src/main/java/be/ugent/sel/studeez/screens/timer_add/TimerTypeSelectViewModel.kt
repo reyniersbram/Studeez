@@ -19,6 +19,6 @@ class TimerTypeSelectViewModel @Inject constructor(
 
     fun onTimerTypeChosen(timerInfo: TimerInfo, open: (String) -> Unit) {
         editTimerState.timerInfo = timerInfo
-        open(StudeezDestinations.TIMER_EDIT_SCREEN)
+        open(StudeezDestinations.ADD_TIMER_SCREEN)
     }
 }
