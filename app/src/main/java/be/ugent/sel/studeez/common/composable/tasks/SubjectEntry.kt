@@ -70,7 +70,7 @@ fun SubjectEntry(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            text = "${HoursMinutesSeconds(subject.time)}",
+                            text = HoursMinutesSeconds(subject.time).toString(),
                         )
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
