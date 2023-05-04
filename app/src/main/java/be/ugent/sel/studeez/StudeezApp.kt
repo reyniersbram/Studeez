@@ -32,6 +32,7 @@ import be.ugent.sel.studeez.screens.sessions.SessionsRoute
 import be.ugent.sel.studeez.screens.settings.SettingsRoute
 import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
+import be.ugent.sel.studeez.screens.timer_add.TimerAddRoute
 import be.ugent.sel.studeez.screens.timer_add.TimerTypeSelectScreen
 import be.ugent.sel.studeez.screens.timer_edit.TimerEditRoute
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewRoute
@@ -207,9 +208,9 @@ fun StudeezNavGraph(
         }
 
         composable(StudeezDestinations.ADD_TIMER_SCREEN) {
-            AddTimerRoute(
+            TimerAddRoute(
                 open = open,
-                goBack = goBack,
+                popUp = goBack,
                 viewModel = hiltViewModel()
             )
         }
