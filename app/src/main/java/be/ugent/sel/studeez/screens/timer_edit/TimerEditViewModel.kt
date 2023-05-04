@@ -21,9 +21,13 @@ class TimerEditViewModel @Inject constructor(
         return timerInfo
     }
 
-    fun saveTimer(timerInfo: TimerInfo, goBack: () -> Unit) {
+    fun editTimer(timerInfo: TimerInfo, goBack: () -> Unit) {
         timerDAO.updateTimer(timerInfo)
         goBack()
     }
 
+    fun saveTimer(timerInfo: TimerInfo, goBack: () -> Unit) {
+        timerDAO.saveTimer(timerInfo)
+        goBack()
+    }
 }
