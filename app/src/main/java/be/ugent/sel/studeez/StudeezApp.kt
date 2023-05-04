@@ -2,8 +2,18 @@ package be.ugent.sel.studeez
 
 import android.content.res.Resources
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.Surface
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -32,6 +42,12 @@ import be.ugent.sel.studeez.screens.sessions.SessionsRoute
 import be.ugent.sel.studeez.screens.settings.SettingsRoute
 import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
+import be.ugent.sel.studeez.screens.tasks.SubjectRoute
+import be.ugent.sel.studeez.screens.tasks.TaskRoute
+import be.ugent.sel.studeez.screens.tasks.forms.SubjectAddRoute
+import be.ugent.sel.studeez.screens.tasks.forms.SubjectEditRoute
+import be.ugent.sel.studeez.screens.tasks.forms.TaskAddRoute
+import be.ugent.sel.studeez.screens.tasks.forms.TaskEditRoute
 import be.ugent.sel.studeez.screens.timer_edit.TimerEditRoute
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewRoute
 import be.ugent.sel.studeez.screens.timer_overview.add_timer.AddTimerRoute
@@ -117,9 +133,55 @@ fun StudeezNavGraph(
             )
         }
 
-        composable(StudeezDestinations.TASKS_SCREEN) {
-            // TODO
+        composable(StudeezDestinations.SUBJECT_SCREEN) {
+            SubjectRoute(
+                open = open,
+                viewModel = hiltViewModel(),
+                drawerActions = drawerActions,
+                navigationBarActions = navigationBarActions,
+            )
         }
+
+        composable(StudeezDestinations.ADD_SUBJECT_FORM) {
+            SubjectAddRoute(
+                goBack = goBack,
+                openAndPopUp = openAndPopUp,
+                viewModel = hiltViewModel(),
+            )
+        }
+
+        composable(StudeezDestinations.EDIT_SUBJECT_FORM) {
+            SubjectEditRoute(
+                goBack = goBack,
+                openAndPopUp = openAndPopUp,
+                viewModel = hiltViewModel(),
+            )
+        }
+
+        composable(StudeezDestinations.TASKS_SCREEN) {
+            TaskRoute(
+                goBack = goBack,
+                open = open,
+                viewModel = hiltViewModel(),
+            )
+        }
+
+        composable(StudeezDestinations.ADD_TASK_FORM) {
+            TaskAddRoute(
+                goBack = goBack,
+                openAndPopUp = openAndPopUp,
+                viewModel = hiltViewModel(),
+            )
+        }
+
+        composable(StudeezDestinations.EDIT_TASK_FORM) {
+            TaskEditRoute(
+                goBack = goBack,
+                openAndPopUp = openAndPopUp,
+                viewModel = hiltViewModel(),
+            )
+        }
+
 
         composable(StudeezDestinations.SESSIONS_SCREEN) {
             SessionsRoute(
@@ -133,7 +195,7 @@ fun StudeezNavGraph(
                 open,
                 viewModel = hiltViewModel(),
                 drawerActions = drawerActions,
-                navigationBarActions = navigationBarActions
+                navigationBarActions = navigationBarActions,
             )
         }
 

@@ -3,7 +3,7 @@ package be.ugent.sel.studeez.navigation
 object StudeezDestinations {
     // NavBar
     const val HOME_SCREEN = "home"
-    const val TASKS_SCREEN = "tasks"
+    const val SUBJECT_SCREEN = "subjects"
     const val SESSIONS_SCREEN = "sessions"
     const val PROFILE_SCREEN = "profile"
 
@@ -21,6 +21,12 @@ object StudeezDestinations {
     const val TIMER_EDIT_SCREEN = "timer_edit"
     const val SESSION_SCREEN = "session"
     const val SESSION_RECAP = "session_recap"
+
+    const val ADD_SUBJECT_FORM = "add_subject"
+    const val EDIT_SUBJECT_FORM = "edit_subject"
+    const val TASKS_SCREEN = "tasks"
+    const val ADD_TASK_FORM = "add_task"
+    const val EDIT_TASK_FORM = "edit_task"
 
     // Friends flow
     const val SEARCH_FRIENDS_SCREEN = "search_friends"

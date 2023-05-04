@@ -1,12 +1,11 @@
 package be.ugent.sel.studeez.common.composable.navbar
 
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
-import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SESSIONS_SCREEN
-import be.ugent.sel.studeez.navigation.StudeezDestinations.TASKS_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.SUBJECT_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -14,7 +13,6 @@ import be.ugent.sel.studeez.R.string as AppText
 
 @HiltViewModel
 class NavigationBarViewModel @Inject constructor(
-    private val accountDAO: AccountDAO,
     logService: LogService
 ) : StudeezViewModel(logService) {
 
@@ -23,7 +21,7 @@ class NavigationBarViewModel @Inject constructor(
     }
 
     fun onTasksClick(open: (String) -> Unit) {
-        open(TASKS_SCREEN)
+        open(SUBJECT_SCREEN)
     }
 
     fun onSessionsClick(open: (String) -> Unit) {

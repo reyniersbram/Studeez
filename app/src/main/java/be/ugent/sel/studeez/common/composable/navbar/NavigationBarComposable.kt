@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SESSIONS_SCREEN
-import be.ugent.sel.studeez.navigation.StudeezDestinations.TASKS_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.SUBJECT_SCREEN
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import be.ugent.sel.studeez.R.string as AppText
@@ -43,7 +43,6 @@ fun getNavigationBarActions(
         isSelectedTab = { screen ->
             screen == getCurrentScreen()
         },
-
         onHomeClick = {
             navigationBarViewModel.onHomeClick(open)
         },
@@ -90,7 +89,7 @@ fun NavigationBar(
                 )
             },
             label = { Text(text = resources().getString(AppText.tasks)) },
-            selected = navigationBarActions.isSelectedTab(TASKS_SCREEN),
+            selected = navigationBarActions.isSelectedTab(SUBJECT_SCREEN),
             onClick = navigationBarActions.onTasksClick
         )
 

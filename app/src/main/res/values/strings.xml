@@ -32,6 +32,14 @@
     <!-- Tasks -->
     <string name="tasks">Tasks</string>
     <string name="task">Task</string>
+    <string name="my_subjects">My Subjects</string>
+    <string name="new_subject">New Subject</string>
+    <string name="new_task">New Task</string>
+    <string name="edit_subject">Edit Subject</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="delete_subject">Delete Subject</string>
+    <string name="delete_task">Delete Task</string>
+    <string name="view_tasks">View</string>
 
     <!-- Sessions -->
     <string name="sessions_temp_description">Looks like you found the sessions screen! In here, your upcoming studying sessions with friends will be listed. You can accept invites or edit your own.</string> <!-- TODO Remove this description line once implemented. -->
