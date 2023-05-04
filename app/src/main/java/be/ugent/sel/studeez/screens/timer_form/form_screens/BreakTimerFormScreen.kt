@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.timer_edit.editScreens
+package be.ugent.sel.studeez.screens.timer_form.form_screens
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.text.input.KeyboardType
@@ -11,9 +11,9 @@ import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import be.ugent.sel.studeez.R.string as AppText
 
 
-class BreakTimerEditScreen(
+class BreakTimerFormScreen(
     private val breakTimerInfo: PomodoroTimerInfo
-): AbstractTimerEditScreen(breakTimerInfo) {
+): AbstractTimerFormScreen(breakTimerInfo) {
 
     @Composable
     override fun ExtraFields() {
@@ -50,6 +50,6 @@ fun BreakEditScreenPreview() {
         5
     )
     StudeezTheme {
-        BreakTimerEditScreen(pomodoroTimerInfo).invoke(onSaveClick = {})
+        BreakTimerFormScreen(pomodoroTimerInfo).invoke(onSaveClick = {})
     }
 }

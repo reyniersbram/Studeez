@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.timer_edit
+package be.ugent.sel.studeez.screens.timer_form.timer_edit
 
 import be.ugent.sel.studeez.data.EditTimerState
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo

@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.timer_add
+package be.ugent.sel.studeez.screens.timer_form.timer_add
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.timer_edit.editScreens
+package be.ugent.sel.studeez.screens.timer_form.form_screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,7 @@ import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.R.string as AppText
 
-abstract class AbstractTimerEditScreen(private val timerInfo: TimerInfo) {
+abstract class AbstractTimerFormScreen(private val timerInfo: TimerInfo) {
 
     @Composable
     operator fun invoke(onSaveClick: (TimerInfo) -> Unit) {
