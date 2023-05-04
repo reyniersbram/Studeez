@@ -19,11 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import be.ugent.sel.studeez.R
+import be.ugent.sel.studeez.R.string as AppText
 import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
@@ -76,7 +77,8 @@ fun SubjectEntry(
                             horizontalArrangement = Arrangement.spacedBy(3.dp)
                         ) {
                             Icon(
-                                imageVector = Icons.Default.List, contentDescription = "tasks"
+                                imageVector = Icons.Default.List,
+                                contentDescription = stringResource(id = AppText.tasks)
                             )
                             Text(text = "0/0") // TODO
                         }
@@ -84,7 +86,7 @@ fun SubjectEntry(
                 }
             }
             StealthButton(
-                text = R.string.view_tasks,
+                text = AppText.view_tasks,
                 modifier = Modifier
                     .padding(start = 10.dp, end = 5.dp)
                     .weight(1f)

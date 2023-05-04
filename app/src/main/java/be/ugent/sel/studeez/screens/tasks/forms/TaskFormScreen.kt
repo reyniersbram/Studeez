@@ -9,13 +9,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.DeleteButton
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.fieldModifier
 import be.ugent.sel.studeez.resources
+import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
 fun TaskAddRoute(
@@ -25,7 +25,7 @@ fun TaskAddRoute(
 ) {
     val uiState by viewModel.uiState
     TaskForm(
-        title = R.string.new_task,
+        title = AppText.new_task,
         goBack = goBack,
         uiState = uiState,
         onConfirm = { viewModel.onCreate(openAndPopUp) },
@@ -41,13 +41,13 @@ fun TaskEditRoute(
 ) {
     val uiState by viewModel.uiState
     TaskForm(
-        title = R.string.edit_task,
+        title = AppText.edit_task,
         goBack = goBack,
         uiState = uiState,
         onConfirm = { viewModel.onEdit(openAndPopUp) },
         onNameChange = viewModel::onNameChange
     ) {
-        DeleteButton(text = R.string.delete_task) {
+        DeleteButton(text = AppText.delete_task) {
             viewModel.onDelete(openAndPopUp)
         }
     }
@@ -71,11 +71,11 @@ fun TaskForm(
                 singleLine = true,
                 value = uiState.name,
                 onValueChange = onNameChange,
-                placeholder = { Text(stringResource(id = R.string.name)) },
+                placeholder = { Text(stringResource(id = AppText.name)) },
                 modifier = Modifier.fieldModifier(),
             )
             BasicButton(
-                text = R.string.confirm,
+                text = AppText.confirm,
                 modifier = Modifier.basicButton(),
                 onClick = onConfirm,
             )
@@ -88,7 +88,7 @@ fun TaskForm(
 @Composable
 fun AddTaskFormPreview() {
     TaskForm(
-        title = R.string.new_task,
+        title = AppText.new_task,
         goBack = {},
         uiState = TaskFormUiState(),
         onConfirm = {},
@@ -100,7 +100,7 @@ fun AddTaskFormPreview() {
 @Composable
 fun EditTaskFormPreview() {
     TaskForm(
-        title = R.string.edit_task,
+        title = AppText.edit_task,
         goBack = {},
         uiState = TaskFormUiState(
             name = "Test Task",
@@ -108,6 +108,6 @@ fun EditTaskFormPreview() {
         onConfirm = {},
         onNameChange = {},
     ) {
-        DeleteButton(text = R.string.delete_task) {}
+        DeleteButton(text = AppText.delete_task) {}
     }
 }

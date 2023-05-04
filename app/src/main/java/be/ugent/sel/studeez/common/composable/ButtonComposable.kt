@@ -25,9 +25,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.card
+import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
 fun BasicTextButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit) {
@@ -59,7 +59,7 @@ fun BasicButton(
 @Preview
 @Composable
 fun BasicButtonPreview() {
-    BasicButton(text = R.string.add_timer, modifier = Modifier.basicButton()) {}
+    BasicButton(text = AppText.add_timer, modifier = Modifier.basicButton()) {}
 }
 
 @Composable
@@ -83,7 +83,7 @@ fun StealthButton(
 @Preview
 @Composable
 fun StealthButtonCardPreview() {
-    StealthButton(text = R.string.edit) {
+    StealthButton(text = AppText.edit) {
 
     }
 }
@@ -99,8 +99,8 @@ fun DeleteButton(
         modifier = Modifier.basicButton(),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.Red,
-            contentColor = Color.White,
+            backgroundColor = MaterialTheme.colors.error,
+            contentColor = MaterialTheme.colors.onSurface,
         ),
     )
 }
@@ -108,7 +108,7 @@ fun DeleteButton(
 @Preview
 @Composable
 fun DeleteButtonPreview() {
-    DeleteButton(text = R.string.delete_subject) {}
+    DeleteButton(text = AppText.delete_subject) {}
 }
 
 @Composable
@@ -167,5 +167,5 @@ fun NewTaskSubjectButton(
 @Preview
 @Composable
 fun NewTaskButtonPreview() {
-    NewTaskSubjectButton(onClick = {}, text = R.string.new_task)
+    NewTaskSubjectButton(onClick = {}, text = AppText.new_task)
 }

@@ -10,13 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.DeleteButton
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.fieldModifier
 import be.ugent.sel.studeez.resources
+import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
 fun SubjectAddRoute(
@@ -26,7 +26,7 @@ fun SubjectAddRoute(
 ) {
     val uiState by viewModel.uiState
     SubjectForm(
-        title = R.string.new_subject,
+        title = AppText.new_subject,
         goBack = goBack,
         uiState = uiState,
         onConfirm = { viewModel.onCreate(openAndPopUp) },
@@ -43,14 +43,14 @@ fun SubjectEditRoute(
 ) {
     val uiState by viewModel.uiState
     SubjectForm(
-        title = R.string.edit_subject,
+        title = AppText.edit_subject,
         goBack = goBack,
         uiState = uiState,
         onConfirm = { viewModel.onEdit(openAndPopUp) },
         onNameChange = viewModel::onNameChange,
         onColorChange = {},
     ) {
-        DeleteButton(text = R.string.delete_subject) {
+        DeleteButton(text = AppText.delete_subject) {
             viewModel.onDelete(openAndPopUp)
         }
     }
@@ -75,11 +75,11 @@ fun SubjectForm(
                 singleLine = true,
                 value = uiState.name,
                 onValueChange = onNameChange,
-                placeholder = { Text(stringResource(id = R.string.name)) },
+                placeholder = { Text(stringResource(id = AppText.name)) },
                 modifier = Modifier.fieldModifier(),
             )
             BasicButton(
-                text = R.string.confirm,
+                text = AppText.confirm,
                 modifier = Modifier.basicButton(),
                 onClick = onConfirm,
             )
@@ -92,7 +92,7 @@ fun SubjectForm(
 @Composable
 fun AddSubjectFormPreview() {
     SubjectForm(
-        title = R.string.new_subject,
+        title = AppText.new_subject,
         goBack = {},
         uiState = SubjectFormUiState(),
         onConfirm = {},
@@ -105,7 +105,7 @@ fun AddSubjectFormPreview() {
 @Composable
 fun EditSubjectFormPreview() {
     SubjectForm(
-        title = R.string.edit_subject,
+        title = AppText.edit_subject,
         goBack = {},
         uiState = SubjectFormUiState(
             name = "Test Subject",
@@ -114,6 +114,6 @@ fun EditSubjectFormPreview() {
         onNameChange = {},
         onColorChange = {},
     ) {
-        DeleteButton(text = R.string.delete_subject) {}
+        DeleteButton(text = AppText.delete_subject) {}
     }
 }

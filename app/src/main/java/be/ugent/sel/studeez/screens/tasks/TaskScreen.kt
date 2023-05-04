@@ -11,17 +11,17 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.NewTaskSubjectButton
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.tasks.TaskEntry
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.Task
-import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import be.ugent.sel.studeez.R.string as AppText
 
 data class TaskActions(
     val addTask: () -> Unit,
@@ -78,7 +78,7 @@ fun TaskScreen(
                     )
                 }
             }
-            NewTaskSubjectButton(onClick = taskActions.addTask, R.string.new_task)
+            NewTaskSubjectButton(onClick = taskActions.addTask, AppText.new_task)
         }
     }
 }
@@ -90,7 +90,7 @@ fun EditAction(
     IconButton(onClick = onClick) {
         Icon(
             imageVector = Icons.Default.Edit,
-            contentDescription = resources().getString(R.string.edit_task)
+            contentDescription = stringResource(AppText.edit_task)
         )
 
     }
