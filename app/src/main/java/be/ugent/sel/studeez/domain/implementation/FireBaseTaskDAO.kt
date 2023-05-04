@@ -2,6 +2,7 @@ package be.ugent.sel.studeez.domain.implementation
 
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.Task
+import be.ugent.sel.studeez.data.local.models.task.TaskDocument
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.TaskDAO
 import com.google.firebase.firestore.CollectionReference
@@ -36,7 +37,7 @@ class FireBaseTaskDAO @Inject constructor(
     override fun toggleTaskCompleted(task: Task, completed: Boolean) {
         selectedSubjectTasksCollection(task.subjectId)
             .document(task.id)
-            .update("completed", completed)
+            .update(TaskDocument.completed, completed)
     }
 
     private fun selectedSubjectTasksCollection(subjectId: String): CollectionReference =
