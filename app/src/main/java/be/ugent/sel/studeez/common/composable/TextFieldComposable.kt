@@ -119,7 +119,7 @@ fun LabeledErrorTextField(
     initialValue: String,
     @StringRes label: Int,
     singleLine: Boolean = false,
-    errorText: String,
+    errorText: Int,
     keyboardType: KeyboardType,
     predicate: (String) -> Boolean,
     onNewCorrectValue: (String) -> Unit
@@ -144,7 +144,7 @@ fun LabeledErrorTextField(
                 }
             },
             singleLine = singleLine,
-            label = { Text(text = resources().getString(label)) },
+            label = { Text(text = stringResource(id = label)) },
             isError = !isValid,
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType,
@@ -155,15 +155,11 @@ fun LabeledErrorTextField(
         if (!isValid) {
             Text(
                 modifier = Modifier.padding(start = 16.dp),
-                text = errorText,
+                text = stringResource(id = errorText),
                 color = MaterialTheme.colors.error
             )
         }
     }
-}
-
-fun isNumber(string: String): Boolean {
-    return string.matches(Regex("[1-9]+\\d*"))
 }
 
 

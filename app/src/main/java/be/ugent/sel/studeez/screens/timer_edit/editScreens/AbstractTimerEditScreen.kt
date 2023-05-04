@@ -14,6 +14,7 @@ import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.LabelledInputField
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
+import be.ugent.sel.studeez.R.string as AppText
 
 abstract class AbstractTimerEditScreen(private val timerInfo: TimerInfo) {
 
@@ -46,7 +47,7 @@ abstract class AbstractTimerEditScreen(private val timerInfo: TimerInfo) {
                 LabelledInputField(
                     value = description,
                     onNewValue = { description = it },
-                    label = R.string.description,
+                    label = AppText.description,
                     singleLine = false
                 )
 
