@@ -42,6 +42,7 @@
 
     <!-- Tasks -->
     <string name="tasks">Tasks</string>
+    <string name="my_subjects">My Subjects</string>
     <string name="new_subject">New Subject</string>
     <string name="new_task">New Task</string>
     <string name="edit_subject">Edit Subject</string>

@@ -101,8 +101,19 @@ fun SubjectEntryPreview() {
     SubjectEntry(
         subject = Subject(
             name = "Test Subject",
-//            name = "Testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
-            argb_color = 0xFFF44336,
+            argb_color = 0xFFFFD200,
+            time = 60
+        ),
+    ) {}
+}
+
+@Preview
+@Composable
+fun OverflowSubjectEntryPreview() {
+    SubjectEntry(
+        subject = Subject(
+            name = "Testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
+            argb_color = 0xFFFFD200,
             time = 60
         ),
     ) {}
