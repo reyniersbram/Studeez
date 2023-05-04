@@ -125,6 +125,7 @@
 
     <!-- Edit Timer-->
     <string name="name">Name</string>
+    <string name="edit_timer">Edit Timer</string>
     <string name="repeats_error">Repeats must be a positive non-zero number</string>
     <string name="description">Description</string>
     <string name="studyTime">Study Time</string>
