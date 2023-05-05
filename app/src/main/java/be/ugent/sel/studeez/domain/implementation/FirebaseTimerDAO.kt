@@ -1,11 +1,9 @@
 package be.ugent.sel.studeez.domain.implementation
 
 import be.ugent.sel.studeez.data.local.models.timer_info.*
-import be.ugent.sel.studeez.data.local.models.timer_info.TimerType.*
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.TimerDAO
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import kotlinx.coroutines.flow.Flow
@@ -50,8 +48,8 @@ class FirebaseTimerDAO @Inject constructor(
     }
 
     private fun currentUserTimersCollection(): CollectionReference =
-        firestore.collection(FirebaseCollectionRoutes.USER_COLLECTION)
+        firestore.collection(FireBaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(FirebaseCollectionRoutes.TIMER_COLLECTION)
+            .collection(FireBaseCollections.TIMER_COLLECTION)
 
 }

@@ -31,8 +31,7 @@ class FireBaseSessionDAO @Inject constructor(
     }
 
     private fun currentUserSessionsCollection(): CollectionReference =
-        firestore.collection(FirebaseCollectionRoutes.USER_COLLECTION)
+        firestore.collection(FireBaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(FirebaseCollectionRoutes.SESSION_COLLECTION)
-
+            .collection(FireBaseCollections.SESSION_COLLECTION)
 }
