@@ -2,18 +2,8 @@ package be.ugent.sel.studeez
 
 import android.content.res.Resources
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.Surface
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -48,9 +38,10 @@ import be.ugent.sel.studeez.screens.tasks.forms.SubjectAddRoute
 import be.ugent.sel.studeez.screens.tasks.forms.SubjectEditRoute
 import be.ugent.sel.studeez.screens.tasks.forms.TaskAddRoute
 import be.ugent.sel.studeez.screens.tasks.forms.TaskEditRoute
-import be.ugent.sel.studeez.screens.timer_edit.TimerEditRoute
+import be.ugent.sel.studeez.screens.timer_form.timer_type_select.TimerTypeSelectScreen
+import be.ugent.sel.studeez.screens.timer_form.TimerAddRoute
+import be.ugent.sel.studeez.screens.timer_form.TimerEditRoute
 import be.ugent.sel.studeez.screens.timer_overview.TimerOverviewRoute
-import be.ugent.sel.studeez.screens.timer_overview.add_timer.AddTimerRoute
 import be.ugent.sel.studeez.screens.timer_selection.TimerSelectionRoute
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import kotlinx.coroutines.CoroutineScope
@@ -245,6 +236,13 @@ fun StudeezNavGraph(
             )
         }
 
+        composable(StudeezDestinations.TIMER_TYPE_CHOOSING_SCREEN) {
+            TimerTypeSelectScreen(
+                open = open,
+                popUp = goBack
+            )
+        }
+
         composable(StudeezDestinations.SESSION_SCREEN) {
             SessionRoute(
                 open,
@@ -261,16 +259,14 @@ fun StudeezNavGraph(
         }
 
         composable(StudeezDestinations.ADD_TIMER_SCREEN) {
-            AddTimerRoute(
-                open = open,
-                goBack = goBack,
+            TimerAddRoute(
+                popUp = goBack,
                 viewModel = hiltViewModel()
             )
         }
 
         composable(StudeezDestinations.TIMER_EDIT_SCREEN) {
             TimerEditRoute(
-                open = open,
                 popUp = goBack,
                 viewModel = hiltViewModel()
             )

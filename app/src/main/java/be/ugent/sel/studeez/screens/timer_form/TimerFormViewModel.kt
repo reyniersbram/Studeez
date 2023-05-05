@@ -1,25 +1,33 @@
-package be.ugent.sel.studeez.screens.timer_add
+package be.ugent.sel.studeez.screens.timer_form
 
 import be.ugent.sel.studeez.data.EditTimerState
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.TimerDAO
-import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
-class TimerTypeSelectViewModel @Inject constructor(
+class TimerFormViewModel @Inject constructor(
     private val editTimerState: EditTimerState,
     private val timerDAO: TimerDAO,
     logService: LogService
 ) : StudeezViewModel(logService) {
 
+    private val timerInfo: TimerInfo = editTimerState.timerInfo
 
-    fun onTimerTypeChosen(timerInfo: TimerInfo, open: (String) -> Unit) {
-        editTimerState.timerInfo = timerInfo
-        open(StudeezDestinations.TIMER_EDIT_SCREEN)
+    fun getTimerInfo(): TimerInfo {
+        return timerInfo
+    }
+
+    fun editTimer(timerInfo: TimerInfo, goBack: () -> Unit) {
+        timerDAO.updateTimer(timerInfo)
+        goBack()
+    }
+
+    fun saveTimer(timerInfo: TimerInfo, goBack: () -> Unit) {
+        timerDAO.saveTimer(timerInfo)
+        goBack()
     }
 }

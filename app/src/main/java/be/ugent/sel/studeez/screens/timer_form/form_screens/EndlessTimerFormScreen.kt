@@ -1,13 +1,13 @@
-package be.ugent.sel.studeez.screens.timer_edit.editScreens
+package be.ugent.sel.studeez.screens.timer_form.form_screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.data.local.models.timer_info.EndlessTimerInfo
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
-class EndlessTimerEditScreen(
+class EndlessTimerFormScreen(
     endlessTimerInfo: EndlessTimerInfo
-): AbstractTimerEditScreen(endlessTimerInfo) {
+): AbstractTimerFormScreen(endlessTimerInfo) {
 }
 
 @Preview
@@ -18,6 +18,6 @@ fun EndlessEditScreenPreview() {
         "My endless timer description",
     )
     StudeezTheme {
-        EndlessTimerEditScreen(endlessTimerInfo).invoke(onSaveClick = {})
+        EndlessTimerFormScreen(endlessTimerInfo).invoke(onSaveClick = {})
     }
 }

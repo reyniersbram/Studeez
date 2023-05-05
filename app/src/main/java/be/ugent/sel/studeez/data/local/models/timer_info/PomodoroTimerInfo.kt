@@ -9,7 +9,7 @@ class PomodoroTimerInfo(
     description: String,
     var studyTime: Int,
     var breakTime: Int,
-    val repeats: Int,
+    var repeats: Int,
     id: String = ""
 ):  TimerInfo(id, name, description) {
 

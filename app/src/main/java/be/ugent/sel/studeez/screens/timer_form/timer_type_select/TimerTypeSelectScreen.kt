@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.timer_add
+package be.ugent.sel.studeez.screens.timer_form.timer_type_select
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,16 +7,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.data.local.models.timer_info.*
+import be.ugent.sel.studeez.R.string as AppText
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerType.CUSTOM
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerType.BREAK
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerType.ENDLESS
 
 val defaultTimerInfo: Map<TimerType, TimerInfo> = mapOf(
     CUSTOM to CustomTimerInfo("", "", 0),
-    BREAK to PomodoroTimerInfo("", "", 0, 0, 0),
+    BREAK to PomodoroTimerInfo("", "", 0, 0, 1),
     ENDLESS to EndlessTimerInfo("", ""),
 )
 
@@ -28,13 +30,14 @@ fun TimerTypeSelectScreen(
     viewModel: TimerTypeSelectViewModel = hiltViewModel()
 ) {
 
-    SecondaryScreenTemplate(title = "Edit Timer", popUp = popUp) {
+    SecondaryScreenTemplate(title = stringResource(id = AppText.timer_type_select), popUp = popUp) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
             TimerType.values().forEach { timerType ->
-                Button(onClick = { viewModel.onTimerTypeChosen(defaultTimerInfo[timerType]!!, open) }) {
+                val default: TimerInfo = defaultTimerInfo.getValue(timerType)
+                Button(onClick = { viewModel.onTimerTypeChosen(default, open) }) {
                     Text(text = timerType.name)
                 }
             }

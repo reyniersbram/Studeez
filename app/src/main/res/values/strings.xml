@@ -131,8 +131,13 @@
     <string name="addTimer_studytime_2">" minutes of studytime"</string>
     <string name="addTimer_question">How long do you want to study?</string>
 
+    <!-- Timer Type Select -->
+    <string name="timer_type_select">Select Timer Type</string>
+
     <!-- Edit Timer-->
     <string name="name">Name</string>
+    <string name="edit_timer">Edit Timer</string>
+    <string name="repeats_error">Repeats must be a positive non-zero number</string>
     <string name="description">Description</string>
     <string name="studyTime">Study Time</string>
     <string name="breakTime">Break Time</string>
