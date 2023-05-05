@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.timer_edit.editScreens
+package be.ugent.sel.studeez.screens.timer_form.form_screens
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
@@ -7,9 +7,9 @@ import be.ugent.sel.studeez.data.local.models.timer_info.CustomTimerInfo
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
 import be.ugent.sel.studeez.R.string as AppText
 
-class CustomTimerEditScreen(
+class CustomTimerFormScreen(
     private val customTimerInfo: CustomTimerInfo
-    ): AbstractTimerEditScreen(customTimerInfo) {
+    ): AbstractTimerFormScreen(customTimerInfo) {
 
     @Composable
     override fun ExtraFields() {
@@ -29,6 +29,6 @@ class CustomTimerEditScreen(
 fun CustomEditScreenPreview() {
     val customTimerInfo = CustomTimerInfo("custom", "my description", 25)
     StudeezTheme {
-        CustomTimerEditScreen(customTimerInfo).invoke(onSaveClick = {})
+        CustomTimerFormScreen(customTimerInfo).invoke(onSaveClick = {})
     }
 }

@@ -32,8 +32,8 @@ class TimerOverviewViewModel @Inject constructor(
         open(StudeezDestinations.TIMER_EDIT_SCREEN)
     }
 
-    fun create(open: (String) -> Unit) {
-        open(StudeezDestinations.ADD_TIMER_SCREEN)
+    fun onAddClick(open: (String) -> Unit) {
+        open(StudeezDestinations.TIMER_TYPE_CHOOSING_SCREEN)
     }
 
     fun delete(timerInfo: TimerInfo) =timerDAO.deleteTimer(timerInfo)
