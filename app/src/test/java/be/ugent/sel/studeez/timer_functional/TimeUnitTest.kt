@@ -10,7 +10,7 @@ class TimeUnitTest {
     private val hours = 4
     private val minutes = 20
     private val seconds = 39
-    private val time: Time = Time(seconds + minutes * 60 + hours * 60 * 60)
+    private var time: Time = Time(seconds + minutes * 60 + hours * 60 * 60)
 
     @Before
     fun setup() {
@@ -21,9 +21,9 @@ class TimeUnitTest {
     fun formatTime() {
         Assert.assertEquals(
             HoursMinutesSeconds(
-                hours.toString().padStart(2, '0'),
-                minutes.toString().padStart(2, '0'),
-                seconds.toString().padStart(2, '0'),
+                hours,
+                minutes,
+                seconds,
             ),
             time.getAsHMS(),
         )
@@ -39,7 +39,11 @@ class TimeUnitTest {
 
     @Test
     fun minOne() {
-        time.minOne()
+        Assert.assertEquals(
+            (seconds + minutes * 60 + hours * 60 * 60),
+            time.time,
+        )
+        time--
         Assert.assertEquals(
             (seconds + minutes * 60 + hours * 60 * 60) - 1,
             time.time,
@@ -48,7 +52,7 @@ class TimeUnitTest {
 
     @Test
     fun plusOne() {
-        time.plusOne()
+        time++
         Assert.assertEquals(
             (seconds + minutes * 60 + hours * 60 * 60) + 1,
             time.time,
@@ -59,7 +63,7 @@ class TimeUnitTest {
     fun minMultiple() {
         val n = 10
         for (i in 1 .. n) {
-            time.minOne()
+            time--
         }
         Assert.assertEquals(
             (seconds + minutes * 60 + hours * 60 * 60) - n,
@@ -71,7 +75,7 @@ class TimeUnitTest {
     fun plusMultiple() {
         val n = 10
         for (i in 1 .. n) {
-            time.plusOne()
+            time++
         }
         Assert.assertEquals(
             (seconds + minutes * 60 + hours * 60 * 60) + n,
