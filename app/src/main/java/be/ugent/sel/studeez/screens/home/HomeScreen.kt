@@ -25,6 +25,7 @@ fun HomeRoute(
     HomeScreen(
         onStartSessionClick = { viewModel.onStartSessionClick(open) },
         drawerActions = drawerActions,
+        open = open,
         navigationBarActions = navigationBarActions,
     )
 }
@@ -32,6 +33,7 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     onStartSessionClick: () -> Unit,
+    open: (String) -> Unit,
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions
 ) {
@@ -41,9 +43,10 @@ fun HomeScreen(
         navigationBarActions = navigationBarActions,
         // TODO barAction = { FriendsAction() }
     ) {
-        BasicButton(R.string.start_session, Modifier.basicButton()) {
-            onStartSessionClick()
-        }
+        Feed(open)
+//        BasicButton(R.string.start_session, Modifier.basicButton()) {
+//            onStartSessionClick()
+//        }
     }
 }
 
@@ -63,6 +66,7 @@ fun HomeScreenPreview() {
     HomeScreen(
         onStartSessionClick = {},
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {})
+        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
+        open = {}
     )
 }
