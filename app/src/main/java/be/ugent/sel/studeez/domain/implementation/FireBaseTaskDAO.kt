@@ -8,8 +8,11 @@ import be.ugent.sel.studeez.domain.TaskDAO
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class FireBaseTaskDAO @Inject constructor(
@@ -20,6 +23,10 @@ class FireBaseTaskDAO @Inject constructor(
         return selectedSubjectTasksCollection(subject.id)
             .snapshots()
             .map { it.toObjects(Task::class.java) }
+    }
+
+    override suspend fun getTask(subjectId: String, taskId: String): Task {
+        return selectedSubjectTasksCollection(subjectId).document(taskId).get().await().toObject()!!
     }
 
     override fun saveTask(newTask: Task) {
