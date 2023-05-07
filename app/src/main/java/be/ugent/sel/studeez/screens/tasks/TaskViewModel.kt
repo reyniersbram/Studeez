@@ -1,6 +1,7 @@
 package be.ugent.sel.studeez.screens.tasks
 
 import be.ugent.sel.studeez.data.SelectedSubject
+import be.ugent.sel.studeez.data.SelectedTask
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.domain.LogService
@@ -17,6 +18,7 @@ class TaskViewModel @Inject constructor(
     private val taskDAO: TaskDAO,
     private val subjectDAO: SubjectDAO,
     private val selectedSubject: SelectedSubject,
+    private val selectedTask: SelectedTask,
     logService: LogService,
 ) : StudeezViewModel(logService) {
     fun addTask(open: (String) -> Unit) {
@@ -46,5 +48,10 @@ class TaskViewModel @Inject constructor(
 
     fun editSubject(open: (String) -> Unit) {
         open(StudeezDestinations.EDIT_SUBJECT_FORM)
+    }
+
+    fun startTask(task: Task, open: (String) -> Unit) {
+        selectedTask.set(task)
+        open(StudeezDestinations.TIMER_SELECTION_SCREEN)
     }
 }

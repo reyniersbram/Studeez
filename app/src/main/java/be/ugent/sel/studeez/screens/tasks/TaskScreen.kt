@@ -30,6 +30,7 @@ data class TaskActions(
     val deleteTask: (Task) -> Unit,
     val onCheckTask: (Task, Boolean) -> Unit,
     val editSubject: () -> Unit,
+    val startTask: (Task) -> Unit
 )
 
 fun getTaskActions(viewModel: TaskViewModel, open: (String) -> Unit): TaskActions {
@@ -39,7 +40,8 @@ fun getTaskActions(viewModel: TaskViewModel, open: (String) -> Unit): TaskAction
         getSubject = viewModel::getSelectedSubject,
         deleteTask = viewModel::deleteTask,
         onCheckTask = { task, isChecked -> viewModel.toggleTaskCompleted(task, isChecked) },
-        editSubject = { viewModel.editSubject(open) }
+        editSubject = { viewModel.editSubject(open) },
+        startTask = { task -> viewModel.startTask(task, open) }
     )
 }
 
@@ -75,6 +77,7 @@ fun TaskScreen(
                         task = it,
                         onCheckTask = { isChecked -> taskActions.onCheckTask(it, isChecked) },
                         onDeleteTask = { taskActions.deleteTask(it) },
+                        onStartTask = { taskActions.startTask(it) }
                     )
                 }
             }
@@ -108,6 +111,7 @@ fun TaskScreenPreview() {
             {},
             { _, _ -> run {} },
             {},
+            {}
         )
     )
 }

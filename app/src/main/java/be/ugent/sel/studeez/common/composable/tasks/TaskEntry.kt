@@ -32,6 +32,7 @@ fun TaskEntry(
     task: Task,
     onCheckTask: (Boolean) -> Unit,
     onDeleteTask: () -> Unit,
+    onStartTask: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -95,6 +96,7 @@ fun TaskEntry(
                         modifier = Modifier
                             .padding(end = 5.dp),
                     ) {
+                        onStartTask()
                     }
                 }
             }
@@ -110,7 +112,7 @@ fun TaskEntryPreview() {
             name = "Test Task",
             completed = false,
         ),
-        {}, {},
+        {}, {}, {}
     )
 }
 
@@ -122,7 +124,7 @@ fun CompletedTaskEntryPreview() {
             name = "Test Task",
             completed = true,
         ),
-        {}, {},
+        {}, {}, {},
     )
 }
 
@@ -134,6 +136,6 @@ fun OverflowTaskEntryPreview() {
             name = "Test Taskkkkkkkkkkkkkkkkkkkkkkkkkkk",
             completed = false,
         ),
-        {}, {},
+        {}, {}, {}
     )
 }
