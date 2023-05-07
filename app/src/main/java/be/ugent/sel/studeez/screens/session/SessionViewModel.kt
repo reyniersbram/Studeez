@@ -30,7 +30,7 @@ class SessionViewModel @Inject constructor(
     }
 
     fun endSession(openAndPopUp: (String, String) -> Unit) {
-        sessionReportState.sessionReport = getTimer().getSessionReport()
+        sessionReportState.sessionReport = getTimer().getSessionReport(task.id)
         openAndPopUp(StudeezDestinations.SESSION_RECAP, StudeezDestinations.SESSION_SCREEN)
     }
 }
