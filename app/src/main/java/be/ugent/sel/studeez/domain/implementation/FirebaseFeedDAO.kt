@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.domain.implementation
 
+import android.icu.text.DateFormat
 import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.SessionReport
 import be.ugent.sel.studeez.data.local.models.task.Subject
@@ -17,14 +18,19 @@ class FirebaseFeedDAO @Inject constructor(
     private val subjectDAO: FireBaseSubjectDAO
 ) : FeedDAO {
 
-    override fun getFeedEntries(): Flow<List<FeedEntry>> {
+    override fun getFeedEntries(): Flow<Map<String, List<FeedEntry>>> {
         return sessionDAO.getSessions().map {sessionReports ->
             sessionReports
                 .map { sessionReport ->  sessionToFeedEntry(sessionReport) }
                 .groupBy { it.taskId }
                 .map { fuseFeedEntries(it.component2()) }
                 .sortedByDescending { it.endTime }
+                .groupBy { getFormattedTime(it) }
         }
+    }
+
+    private fun getFormattedTime(entry: FeedEntry): String {
+        return DateFormat.getDateInstance().format(entry.endTime.toDate())
     }
 
     private fun fuseFeedEntries(entries: List<FeedEntry>): FeedEntry =

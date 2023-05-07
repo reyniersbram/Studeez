@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface FeedDAO {
 
-    fun getFeedEntries(): Flow<List<FeedEntry>>
+    fun getFeedEntries(): Flow<Map<String, List<FeedEntry>>>
 
 }
