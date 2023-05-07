@@ -1,7 +1,5 @@
 package be.ugent.sel.studeez.screens.home
 
-import android.icu.text.DateFormat
-import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,17 +7,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -27,12 +21,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.StealthButton
+import be.ugent.sel.studeez.common.ext.spacer
 import be.ugent.sel.studeez.data.local.models.FeedEntry
-import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
-import com.google.type.Date
-import java.time.temporal.TemporalField
-import java.util.*
 
 @Composable
 fun Feed(
@@ -44,19 +35,39 @@ fun Feed(
     LazyColumn {
 
         items(feedEntries.value.toList()) {(date, feedEntries) ->
-            Text(
-                text = date,
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                modifier = Modifier.padding(horizontal = 10.dp)
-            )
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                val totalDayStudyTime: Int = feedEntries.sumOf { it.totalStudyTime }
+                DateText(date = date)
+                Text(
+                    text = "${HoursMinutesSeconds(totalDayStudyTime)}",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
             feedEntries.forEach { feedEntry ->
                 FeedEntryCard(feedEntry = feedEntry) {
                     viewModel.continueWithTask(open, feedEntry.subjectId, feedEntry.taskId)
                 }
             }
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
+}
+
+@Composable
+fun DateText(date: String) {
+    Text(
+        text = date,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp,
+        modifier = Modifier.padding(horizontal = 10.dp)
+    )
 }
 
 @Composable
