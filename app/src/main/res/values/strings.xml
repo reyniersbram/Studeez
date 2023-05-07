@@ -29,6 +29,9 @@
     <string name="home">Home</string>
     <string name="start_session">Start session</string>
 
+    <!-- Feed-->
+    <string name="continue_task">Continue</string>
+
     <!-- Tasks -->
     <string name="tasks">Tasks</string>
     <string name="task">Task</string>
