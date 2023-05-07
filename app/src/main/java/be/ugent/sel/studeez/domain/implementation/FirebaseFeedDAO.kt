@@ -22,10 +22,14 @@ class FirebaseFeedDAO @Inject constructor(
         return sessionDAO.getSessions().map {sessionReports ->
             sessionReports
                 .map { sessionReport ->  sessionToFeedEntry(sessionReport) }
-                .groupBy { it.taskId }
-                .map { fuseFeedEntries(it.component2()) }
                 .sortedByDescending { it.endTime }
                 .groupBy { getFormattedTime(it) }
+                .mapValues { (_, entries) ->
+                    entries
+                    .groupBy { it.taskId }
+                    .map { fuseFeedEntries(it.component2()) }
+                    .sortedByDescending { it.endTime }
+                }
         }
     }
 
