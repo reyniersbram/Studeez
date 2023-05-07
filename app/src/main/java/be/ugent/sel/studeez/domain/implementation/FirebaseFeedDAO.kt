@@ -18,6 +18,9 @@ class FirebaseFeedDAO @Inject constructor(
     private val subjectDAO: FireBaseSubjectDAO
 ) : FeedDAO {
 
+    /**
+     *  Return a map as with key the day and value a list of feedentries for that day.
+     */
     override fun getFeedEntries(): Flow<Map<String, List<FeedEntry>>> {
         return sessionDAO.getSessions().map {sessionReports ->
             sessionReports
@@ -28,7 +31,6 @@ class FirebaseFeedDAO @Inject constructor(
                     entries
                     .groupBy { it.taskId }
                     .map { fuseFeedEntries(it.component2()) }
-                    .sortedByDescending { it.endTime }
                 }
         }
     }
@@ -37,6 +39,10 @@ class FirebaseFeedDAO @Inject constructor(
         return DateFormat.getDateInstance().format(entry.endTime.toDate())
     }
 
+    /**
+     * Givin a list of entries referencing the same task, in the same day, fuse them into one
+     * feed-entry by adding the studytime and keeping the most recent end-timestamp
+     */
     private fun fuseFeedEntries(entries: List<FeedEntry>): FeedEntry =
         entries.fold(entries[0]) { accEntry, newEntry ->
             accEntry.copy(
@@ -49,7 +55,9 @@ class FirebaseFeedDAO @Inject constructor(
         return if (t1 < t2) t2 else t1
     }
 
-
+    /**
+     * Convert a sessionReport to a feedEntry. Fetch Task and Subject to get names
+     */
     private suspend fun sessionToFeedEntry(sessionReport: SessionReport): FeedEntry {
         val subjectId: String = sessionReport.subjectId
         val taskId: String = sessionReport.taskId
