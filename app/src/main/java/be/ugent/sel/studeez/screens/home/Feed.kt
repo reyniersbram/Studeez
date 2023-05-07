@@ -1,5 +1,7 @@
 package be.ugent.sel.studeez.screens.home
 
+import android.icu.text.DateFormat
+import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,24 +23,37 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
+import com.google.type.Date
+import java.time.temporal.TemporalField
+import java.util.*
 
 @Composable
 fun Feed(
     open: (String) -> Unit,
     viewModel: FeedViewModel = hiltViewModel()
 ) {
-    val feedEntries = viewModel.getFeedEntries().collectAsState(initial = emptyList())
+    val feedEntries = viewModel.getFeedEntries().collectAsState(initial = emptyMap())
     
     LazyColumn {
-        items(feedEntries.value) {feedEntry ->
-            FeedEntryCard(feedEntry = feedEntry) {
-                viewModel.continueWithTask(open, feedEntry.subjectId, feedEntry.taskId)
+
+        items(feedEntries.value.toList()) {(date, feedEntries) ->
+            Text(
+                text = date,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                modifier = Modifier.padding(horizontal = 10.dp)
+            )
+            feedEntries.forEach { feedEntry ->
+                FeedEntryCard(feedEntry = feedEntry) {
+                    viewModel.continueWithTask(open, feedEntry.subjectId, feedEntry.taskId)
+                }
             }
         }
     }
