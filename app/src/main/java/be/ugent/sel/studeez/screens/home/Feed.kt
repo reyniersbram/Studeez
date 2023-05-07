@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
-import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -21,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.StealthButton
-import be.ugent.sel.studeez.common.ext.spacer
 import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
 
@@ -73,7 +71,7 @@ fun DateText(date: String) {
 @Composable
 fun FeedEntryCard(
     feedEntry: FeedEntry,
-    onViewSubject: () -> Unit,
+    continueWithTask: () -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -122,7 +120,7 @@ fun FeedEntryCard(
                     .padding(start = 10.dp, end = 5.dp)
                     .weight(1f)
             ) {
-                onViewSubject()
+                continueWithTask()
             }
         }
     }
