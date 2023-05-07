@@ -7,5 +7,6 @@ data class SessionReport(
     @DocumentId val id: String = "",
     val studyTime: Int = 0,
     val endTime: Timestamp = Timestamp(0, 0),
-    val taskId: String
+    val taskId: String = "",
+    val subjectId: String = ""
 )
