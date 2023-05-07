@@ -21,9 +21,9 @@ class FeedViewModel @Inject constructor(
     logService: LogService
 ) : StudeezViewModel(logService) {
 
-    private val entries: Flow<List<FeedEntry>> = feedDAO.getFeedEntries()
+    private val entries: Flow<Map<String, List<FeedEntry>>> = feedDAO.getFeedEntries()
 
-    fun getFeedEntries(): Flow<List<FeedEntry>> {
+    fun getFeedEntries(): Flow<Map<String, List<FeedEntry>>> {
         return entries
     }
 
