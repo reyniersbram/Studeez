@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.home
+package be.ugent.sel.studeez.common.composable.feed
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

@@ -5,10 +5,13 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
+import be.ugent.sel.studeez.common.composable.feed.*
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.resources
 import kotlinx.coroutines.flow.flowOf
@@ -16,16 +19,17 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun HomeRoute(
     open: (String) -> Unit,
-    viewModel: HomeViewModel,
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions,
-    feedActions: FeedActions,
+    feedViewModel: FeedViewModel,
 ) {
+    val feedUiState by feedViewModel.uiState.collectAsState()
     HomeScreen(
         drawerActions = drawerActions,
         open = open,
         navigationBarActions = navigationBarActions,
-        feedActions = feedActions,
+        feedActions = getFeedActions(feedViewModel, open),
+        feedUiState = feedUiState,
     )
 }
 
@@ -35,6 +39,7 @@ fun HomeScreen(
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions,
     feedActions: FeedActions,
+    feedUiState: FeedUiState,
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
@@ -42,7 +47,7 @@ fun HomeScreen(
         navigationBarActions = navigationBarActions,
         // TODO barAction = { FriendsAction() }
     ) {
-        Feed(feedActions)
+        Feed(feedActions, feedUiState)
     }
 }
 
@@ -63,6 +68,7 @@ fun HomeScreenPreview() {
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
         open = {},
-        feedActions = FeedActions({ flowOf() }, { _, _ -> run {} })
+        feedActions = FeedActions({ flowOf() }, { _, _ -> run {} }),
+        feedUiState = FeedUiState.Loading,
     )
 }

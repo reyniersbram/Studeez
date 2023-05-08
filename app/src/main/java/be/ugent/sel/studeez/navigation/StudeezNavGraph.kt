@@ -15,7 +15,6 @@ import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
 import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
 import be.ugent.sel.studeez.screens.home.HomeRoute
-import be.ugent.sel.studeez.screens.home.getFeedActions
 import be.ugent.sel.studeez.screens.log_in.LoginRoute
 import be.ugent.sel.studeez.screens.profile.EditProfileRoute
 import be.ugent.sel.studeez.screens.profile.ProfileRoute
@@ -66,10 +65,9 @@ fun StudeezNavGraph(
         composable(StudeezDestinations.HOME_SCREEN) {
             HomeRoute(
                 open,
-                viewModel = hiltViewModel(),
                 drawerActions = drawerActions,
                 navigationBarActions = navigationBarActions,
-                feedActions = getFeedActions(hiltViewModel(), open),
+                feedViewModel = hiltViewModel(),
             )
         }
 
