@@ -44,9 +44,6 @@ fun HomeScreen(
         // TODO barAction = { FriendsAction() }
     ) {
         Feed(open)
-//        BasicButton(R.string.start_session, Modifier.basicButton()) {
-//            onStartSessionClick()
-//        }
     }
 }
 
