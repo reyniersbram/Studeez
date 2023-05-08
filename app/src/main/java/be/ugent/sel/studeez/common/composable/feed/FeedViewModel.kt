@@ -21,8 +21,6 @@ class FeedViewModel @Inject constructor(
     logService: LogService
 ) : StudeezViewModel(logService) {
 
-    private val entries: Flow<Map<String, List<FeedEntry>>> = feedDAO.getFeedEntries()
-
     val uiState: StateFlow<FeedUiState> = feedDAO.getFeedEntries()
         .map { FeedUiState.Succes(it) }
         .stateIn(
@@ -30,10 +28,6 @@ class FeedViewModel @Inject constructor(
             initialValue = FeedUiState.Loading,
             started = SharingStarted.Eagerly,
         )
-
-    fun getFeedEntries(): Flow<Map<String, List<FeedEntry>>> {
-        return entries
-    }
 
     fun continueTask(open: (String) -> Unit, subjectId: String, taskId: String) {
         viewModelScope.launch {

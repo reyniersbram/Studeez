@@ -11,10 +11,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
-import be.ugent.sel.studeez.common.composable.feed.*
+import be.ugent.sel.studeez.common.composable.feed.Feed
+import be.ugent.sel.studeez.common.composable.feed.FeedUiState
+import be.ugent.sel.studeez.common.composable.feed.FeedViewModel
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
+import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.resources
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun HomeRoute(
@@ -28,8 +30,8 @@ fun HomeRoute(
         drawerActions = drawerActions,
         open = open,
         navigationBarActions = navigationBarActions,
-        feedActions = getFeedActions(feedViewModel, open),
         feedUiState = feedUiState,
+        continueTask = { subjectId, taskId -> feedViewModel.continueTask(open, subjectId, taskId) },
     )
 }
 
@@ -38,8 +40,8 @@ fun HomeScreen(
     open: (String) -> Unit,
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions,
-    feedActions: FeedActions,
     feedUiState: FeedUiState,
+    continueTask: (String, String) -> Unit,
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
@@ -47,7 +49,7 @@ fun HomeScreen(
         navigationBarActions = navigationBarActions,
         // TODO barAction = { FriendsAction() }
     ) {
-        Feed(feedActions, feedUiState)
+        Feed(feedUiState, continueTask)
     }
 }
 
@@ -68,7 +70,36 @@ fun HomeScreenPreview() {
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
         open = {},
-        feedActions = FeedActions({ flowOf() }, { _, _ -> run {} }),
-        feedUiState = FeedUiState.Loading,
+        feedUiState = FeedUiState.Succes(
+            mapOf(
+                "08 May 2023" to listOf(
+                    FeedEntry(
+                        argb_color = 0xFFABD200,
+                        subJectName = "Test Subject",
+                        taskName = "Test Task",
+                        totalStudyTime = 600,
+                    ),
+                    FeedEntry(
+                        argb_color = 0xFFFFD200,
+                        subJectName = "Test Subject",
+                        taskName = "Test Task",
+                        totalStudyTime = 20,
+                    ),
+                ),
+                "09 May 2023" to listOf(
+                    FeedEntry(
+                        argb_color = 0xFFFD1200,
+                        subJectName = "Test Subject",
+                        taskName = "Test Task",
+                    ),
+                    FeedEntry(
+                        argb_color = 0xFFFF5C89,
+                        subJectName = "Test Subject",
+                        taskName = "Test Task",
+                    ),
+                )
+            )
+        ),
+        continueTask = { _, _ -> run {} },
     )
 }
