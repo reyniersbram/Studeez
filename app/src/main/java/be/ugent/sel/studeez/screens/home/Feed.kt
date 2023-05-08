@@ -9,22 +9,40 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.common.composable.DateText
+import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
+import kotlinx.coroutines.flow.Flow
+
+data class FeedActions(
+    val getFeedEntries: () -> Flow<Map<String, List<FeedEntry>>>,
+    val continueTask: (String, String) -> Unit,
+)
+
+fun getFeedActions(
+    viewmodel: FeedViewModel,
+    open: (String) -> Unit,
+): FeedActions {
+    return FeedActions(
+        getFeedEntries = viewmodel::getFeedEntries,
+        continueTask = { subjectId, taskId ->
+            viewmodel.continueTask(
+                open,
+                subjectId,
+                taskId,
+            )
+        },
+    )
+}
 
 @Composable
 fun Feed(
-    open: (String) -> Unit,
-    viewModel: FeedViewModel = hiltViewModel()
+    feedActions: FeedActions,
 ) {
-    val feedEntries = viewModel.getFeedEntries().collectAsState(initial = emptyMap())
-
+    val feedEntries = feedActions.getFeedEntries().collectAsState(initial = emptyMap())
     LazyColumn {
-
         items(feedEntries.value.toList()) { (date, feedEntries) ->
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -43,19 +61,10 @@ fun Feed(
             }
             feedEntries.forEach { feedEntry ->
                 FeedEntry(feedEntry = feedEntry) {
-                    viewModel.continueWithTask(open, feedEntry.subjectId, feedEntry.taskId)
+                    feedActions.continueTask(feedEntry.subjectId, feedEntry.taskId)
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
         }
     }
-}
-
-@Preview
-@Composable
-fun FeedPreview() {
-    Feed(
-        open = {},
-        viewModel = hiltViewModel(),
-    )
 }

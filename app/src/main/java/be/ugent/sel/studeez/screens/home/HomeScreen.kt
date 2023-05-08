@@ -5,15 +5,13 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
-import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
-import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.resources
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun HomeRoute(
@@ -21,21 +19,22 @@ fun HomeRoute(
     viewModel: HomeViewModel,
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions,
+    feedActions: FeedActions,
 ) {
     HomeScreen(
-        onStartSessionClick = { viewModel.onStartSessionClick(open) },
         drawerActions = drawerActions,
         open = open,
         navigationBarActions = navigationBarActions,
+        feedActions = feedActions,
     )
 }
 
 @Composable
 fun HomeScreen(
-    onStartSessionClick: () -> Unit,
     open: (String) -> Unit,
     drawerActions: DrawerActions,
-    navigationBarActions: NavigationBarActions
+    navigationBarActions: NavigationBarActions,
+    feedActions: FeedActions,
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
@@ -43,7 +42,7 @@ fun HomeScreen(
         navigationBarActions = navigationBarActions,
         // TODO barAction = { FriendsAction() }
     ) {
-        Feed(open)
+        Feed(feedActions)
     }
 }
 
@@ -61,9 +60,9 @@ fun FriendsAction() {
 @Composable
 fun HomeScreenPreview() {
     HomeScreen(
-        onStartSessionClick = {},
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
-        open = {}
+        open = {},
+        feedActions = FeedActions({ flowOf() }, { _, _ -> run {} })
     )
 }

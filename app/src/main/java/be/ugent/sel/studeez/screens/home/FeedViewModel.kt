@@ -27,7 +27,7 @@ class FeedViewModel @Inject constructor(
         return entries
     }
 
-    fun continueWithTask(open: (String) -> Unit, subjectId: String, taskId: String) {
+    fun continueTask(open: (String) -> Unit, subjectId: String, taskId: String) {
         viewModelScope.launch {
             val task = taskDAO.getTask(subjectId, taskId)
             selectedTask.set(task)
