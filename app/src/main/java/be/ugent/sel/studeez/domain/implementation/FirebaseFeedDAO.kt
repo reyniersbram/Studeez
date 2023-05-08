@@ -44,7 +44,7 @@ class FirebaseFeedDAO @Inject constructor(
      * feed-entry by adding the studytime and keeping the most recent end-timestamp
      */
     private fun fuseFeedEntries(entries: List<FeedEntry>): FeedEntry =
-        entries.fold(entries[0]) { accEntry, newEntry ->
+        entries.drop(1).fold(entries[0]) { accEntry, newEntry ->
             accEntry.copy(
                 totalStudyTime = accEntry.totalStudyTime + newEntry.totalStudyTime,
                 endTime = getMostRecent(accEntry.endTime, newEntry.endTime)
