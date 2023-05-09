@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.screens.tasks
 
+import android.util.Log
 import be.ugent.sel.studeez.data.SelectedSubject
 import be.ugent.sel.studeez.data.SelectedTask
 import be.ugent.sel.studeez.data.local.models.task.Subject
@@ -40,6 +41,11 @@ class TaskViewModel @Inject constructor(
 
     fun deleteTask(task: Task) {
         taskDAO.deleteTask(task)
+    }
+
+    fun archiveTask(task: Task) {
+        task.archive()
+        taskDAO.updateTask(task)
     }
 
     fun toggleTaskCompleted(task: Task, completed: Boolean) {

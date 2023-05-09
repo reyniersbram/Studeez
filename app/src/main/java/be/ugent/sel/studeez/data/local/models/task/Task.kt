@@ -8,8 +8,12 @@ data class Task(
     val completed: Boolean = false,
     val time: Int = 0,
     val subjectId: String = "",
-    val archived: Boolean = false,
-)
+    var archived: Boolean = false,
+) {
+    fun archive() {
+        this.archived = true
+    }
+}
 
 object TaskDocument {
     const val id = "id"

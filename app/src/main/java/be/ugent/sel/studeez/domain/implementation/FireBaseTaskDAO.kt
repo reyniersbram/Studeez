@@ -32,6 +32,7 @@ class FireBaseTaskDAO @Inject constructor(
 
     override suspend fun getTaskCount(subject: Subject): Int {
         return selectedSubjectTasksCollection(subject.id)
+            .whereEqualTo(TaskDocument.archived, false)
             .count()
             .get(AggregateSource.SERVER)
             .await()
@@ -53,7 +54,7 @@ class FireBaseTaskDAO @Inject constructor(
     }
 
     override fun updateTask(newTask: Task) {
-        selectedSubjectTasksCollection(newTask.id).document(newTask.id).set(newTask)
+        selectedSubjectTasksCollection(newTask.subjectId).document(newTask.id).set(newTask)
     }
 
     override fun deleteTask(oldTask: Task) {
@@ -63,7 +64,8 @@ class FireBaseTaskDAO @Inject constructor(
     override fun toggleTaskCompleted(task: Task, completed: Boolean) {
         selectedSubjectTasksCollection(task.subjectId)
             .document(task.id)
-            .update(TaskDocument.completed, completed)
+//            .update(TaskDocument.completed, completed)
+            .set(task.copy(completed = completed))
     }
 
     private fun selectedSubjectTasksCollection(subjectId: String): CollectionReference =
