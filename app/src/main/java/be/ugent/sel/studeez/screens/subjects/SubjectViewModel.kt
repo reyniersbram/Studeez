@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.tasks
+package be.ugent.sel.studeez.screens.subjects
 
 import androidx.lifecycle.viewModelScope
 import be.ugent.sel.studeez.data.SelectedSubject

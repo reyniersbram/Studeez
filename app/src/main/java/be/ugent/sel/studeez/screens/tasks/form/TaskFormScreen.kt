@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.tasks.forms
+package be.ugent.sel.studeez.screens.tasks.form
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
@@ -7,7 +7,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.common.composable.BasicButton
@@ -19,52 +18,49 @@ import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
-fun SubjectAddRoute(
+fun TaskAddRoute(
     goBack: () -> Unit,
     openAndPopUp: (String, String) -> Unit,
-    viewModel: SubjectFormViewModel,
+    viewModel: TaskFormViewModel,
 ) {
     val uiState by viewModel.uiState
-    SubjectForm(
-        title = AppText.new_subject,
+    TaskForm(
+        title = AppText.new_task,
         goBack = goBack,
         uiState = uiState,
         onConfirm = { viewModel.onCreate(openAndPopUp) },
-        onNameChange = viewModel::onNameChange,
-        onColorChange = {},
+        onNameChange = viewModel::onNameChange
     )
 }
 
 @Composable
-fun SubjectEditRoute(
+fun TaskEditRoute(
     goBack: () -> Unit,
     openAndPopUp: (String, String) -> Unit,
-    viewModel: SubjectFormViewModel,
+    viewModel: TaskFormViewModel,
 ) {
     val uiState by viewModel.uiState
-    SubjectForm(
-        title = AppText.edit_subject,
+    TaskForm(
+        title = AppText.edit_task,
         goBack = goBack,
         uiState = uiState,
         onConfirm = { viewModel.onEdit(openAndPopUp) },
-        onNameChange = viewModel::onNameChange,
-        onColorChange = {},
+        onNameChange = viewModel::onNameChange
     ) {
-        DeleteButton(text = AppText.delete_subject) {
+        DeleteButton(text = AppText.delete_task) {
             viewModel.onDelete(openAndPopUp)
         }
     }
 }
 
 @Composable
-fun SubjectForm(
+fun TaskForm(
     @StringRes title: Int,
     goBack: () -> Unit,
-    uiState: SubjectFormUiState,
+    uiState: TaskFormUiState,
     onConfirm: () -> Unit,
     onNameChange: (String) -> Unit,
-    onColorChange: (Color) -> Unit,
-    extraButton: @Composable () -> Unit = {},
+    extraButton: @Composable () -> Unit = {}
 ) {
     SecondaryScreenTemplate(
         title = resources().getString(title),
@@ -90,30 +86,28 @@ fun SubjectForm(
 
 @Preview
 @Composable
-fun AddSubjectFormPreview() {
-    SubjectForm(
-        title = AppText.new_subject,
+fun AddTaskFormPreview() {
+    TaskForm(
+        title = AppText.new_task,
         goBack = {},
-        uiState = SubjectFormUiState(),
+        uiState = TaskFormUiState(),
         onConfirm = {},
         onNameChange = {},
-        onColorChange = {},
     )
 }
 
 @Preview
 @Composable
-fun EditSubjectFormPreview() {
-    SubjectForm(
-        title = AppText.edit_subject,
+fun EditTaskFormPreview() {
+    TaskForm(
+        title = AppText.edit_task,
         goBack = {},
-        uiState = SubjectFormUiState(
-            name = "Test Subject",
+        uiState = TaskFormUiState(
+            name = "Test Task",
         ),
         onConfirm = {},
         onNameChange = {},
-        onColorChange = {},
     ) {
-        DeleteButton(text = AppText.delete_subject) {}
+        DeleteButton(text = AppText.delete_task) {}
     }
 }

@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.tasks
+package be.ugent.sel.studeez.screens.subjects
 
 import be.ugent.sel.studeez.data.local.models.task.Subject
 

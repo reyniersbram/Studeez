@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.tasks.forms
+package be.ugent.sel.studeez.screens.tasks.form
 
 import androidx.compose.runtime.mutableStateOf
 import be.ugent.sel.studeez.data.SelectedSubject
@@ -11,8 +11,7 @@ import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
-class TaskFormViewModel @Inject constructor(
+abstract class TaskFormViewModel(
     private val taskDAO: TaskDAO,
     private val selectedSubject: SelectedSubject,
     private val selectedTask: SelectedTask,

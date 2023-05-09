@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.tasks.forms
+package be.ugent.sel.studeez.screens.subjects.form
 
 data class SubjectFormUiState(
     val name: String = "",
