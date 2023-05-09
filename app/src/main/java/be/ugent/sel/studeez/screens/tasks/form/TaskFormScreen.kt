@@ -18,10 +18,10 @@ import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
-fun TaskAddRoute(
+fun TaskCreateRoute(
     goBack: () -> Unit,
     openAndPopUp: (String, String) -> Unit,
-    viewModel: TaskFormViewModel,
+    viewModel: TaskCreateFormViewModel,
 ) {
     val uiState by viewModel.uiState
     TaskForm(
@@ -37,7 +37,7 @@ fun TaskAddRoute(
 fun TaskEditRoute(
     goBack: () -> Unit,
     openAndPopUp: (String, String) -> Unit,
-    viewModel: TaskFormViewModel,
+    viewModel: TaskEditFormViewModel,
 ) {
     val uiState by viewModel.uiState
     TaskForm(

@@ -28,7 +28,7 @@ import be.ugent.sel.studeez.screens.subjects.SubjectRoute
 import be.ugent.sel.studeez.screens.tasks.TaskRoute
 import be.ugent.sel.studeez.screens.subjects.form.SubjectCreateRoute
 import be.ugent.sel.studeez.screens.subjects.form.SubjectEditRoute
-import be.ugent.sel.studeez.screens.tasks.form.TaskAddRoute
+import be.ugent.sel.studeez.screens.tasks.form.TaskCreateRoute
 import be.ugent.sel.studeez.screens.tasks.form.TaskEditRoute
 import be.ugent.sel.studeez.screens.timer_form.TimerAddRoute
 import be.ugent.sel.studeez.screens.timer_form.TimerEditRoute
@@ -105,7 +105,7 @@ fun StudeezNavGraph(
         }
 
         composable(StudeezDestinations.ADD_TASK_FORM) {
-            TaskAddRoute(
+            TaskCreateRoute(
                 goBack = goBack,
                 openAndPopUp = openAndPopUp,
                 viewModel = hiltViewModel(),
