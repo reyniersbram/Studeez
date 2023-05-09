@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -84,7 +85,7 @@ fun StealthButton(
             backgroundColor = MaterialTheme.colors.surface,
             contentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.4f)
         ),
-        border = BorderStroke(3.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.4f))
+        border = BorderStroke(2.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.4f))
     )
 }
 

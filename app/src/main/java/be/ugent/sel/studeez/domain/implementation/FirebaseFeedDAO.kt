@@ -72,7 +72,8 @@ class FirebaseFeedDAO @Inject constructor(
             taskId = task.id,
             subjectId = subject.id,
             totalStudyTime = sessionReport.studyTime,
-            endTime = sessionReport.endTime
+            endTime = sessionReport.endTime,
+            isArchived = task.completed
         )
     }
 }
