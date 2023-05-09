@@ -14,7 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
@@ -70,7 +69,8 @@ fun FeedEntry(
                     Text(text = HoursMinutesSeconds(feedEntry.totalStudyTime).toString())
                 }
             }
-            val buttonText: Int = if (feedEntry.isArchived) AppText.deleted else AppText.continue_task
+            val buttonText: Int =
+                if (feedEntry.isArchived) AppText.deleted else AppText.continue_task
             StealthButton(
                 text = buttonText,
                 enabled = !feedEntry.isArchived,
@@ -90,6 +90,20 @@ fun FeedEntry(
 @Preview
 @Composable
 fun FeedEntryPreview() {
+    FeedEntry(
+        continueWithTask = {},
+        feedEntry = FeedEntry(
+            argb_color = 0xFFFFD200,
+            subJectName = "Test Subject",
+            taskName = "Test Task",
+            totalStudyTime = 20,
+        )
+    )
+}
+
+@Preview
+@Composable
+fun FeedEntryOverflowPreview() {
     FeedEntry(
         continueWithTask = {},
         feedEntry = FeedEntry(
