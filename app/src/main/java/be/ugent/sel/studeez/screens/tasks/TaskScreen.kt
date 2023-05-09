@@ -27,10 +27,10 @@ data class TaskActions(
     val addTask: () -> Unit,
     val getSubject: () -> Subject,
     val getTasks: () -> Flow<List<Task>>,
-    val deleteTask: (Task) -> Unit,
     val onCheckTask: (Task, Boolean) -> Unit,
     val editSubject: () -> Unit,
-    val startTask: (Task) -> Unit
+    val startTask: (Task) -> Unit,
+    val archiveTask: (Task) -> Unit,
 )
 
 fun getTaskActions(viewModel: TaskViewModel, open: (String) -> Unit): TaskActions {
@@ -38,10 +38,10 @@ fun getTaskActions(viewModel: TaskViewModel, open: (String) -> Unit): TaskAction
         addTask = { viewModel.addTask(open) },
         getTasks = viewModel::getTasks,
         getSubject = viewModel::getSelectedSubject,
-        deleteTask = viewModel::deleteTask,
         onCheckTask = { task, isChecked -> viewModel.toggleTaskCompleted(task, isChecked) },
         editSubject = { viewModel.editSubject(open) },
-        startTask = { task -> viewModel.startTask(task, open) }
+        startTask = { task -> viewModel.startTask(task, open) },
+        archiveTask = viewModel::archiveTask
     )
 }
 
@@ -76,7 +76,7 @@ fun TaskScreen(
                     TaskEntry(
                         task = it,
                         onCheckTask = { isChecked -> taskActions.onCheckTask(it, isChecked) },
-                        onDeleteTask = { taskActions.deleteTask(it) },
+                        onArchiveTask = { taskActions.archiveTask(it) },
                         onStartTask = { taskActions.startTask(it) }
                     )
                 }
@@ -108,10 +108,10 @@ fun TaskScreenPreview() {
             {},
             { Subject(name = "Test Subject") },
             { flowOf() },
-            {},
             { _, _ -> run {} },
             {},
-            {}
+            {},
+            {},
         )
     )
 }

@@ -1,17 +1,7 @@
 package be.ugent.sel.studeez.common.composable.tasks
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
@@ -31,7 +21,7 @@ import be.ugent.sel.studeez.resources
 fun TaskEntry(
     task: Task,
     onCheckTask: (Boolean) -> Unit,
-    onDeleteTask: () -> Unit,
+    onArchiveTask: () -> Unit,
     onStartTask: () -> Unit
 ) {
     Card(
@@ -81,7 +71,7 @@ fun TaskEntry(
             Box(modifier = Modifier.weight(7f)) {
                 if (task.completed) {
                     IconButton(
-                        onClick = onDeleteTask,
+                        onClick = onArchiveTask,
                         modifier = Modifier
                             .padding(start = 20.dp)
                     ) {

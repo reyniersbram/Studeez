@@ -1,5 +1,6 @@
-package be.ugent.sel.studeez.screens.tasks.forms
+package be.ugent.sel.studeez.screens.subjects.form
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import be.ugent.sel.studeez.data.SelectedSubject
 import be.ugent.sel.studeez.data.local.models.task.Subject
@@ -10,25 +11,17 @@ import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
-class SubjectFormViewModel @Inject constructor(
-    private val subjectDAO: SubjectDAO,
-    private val selectedSubject: SelectedSubject,
+abstract class SubjectFormViewModel(
+    protected val subjectDAO: SubjectDAO,
+    protected val selectedSubject: SelectedSubject,
     logService: LogService,
 ) : StudeezViewModel(logService) {
-    var uiState = mutableStateOf(
-        if (selectedSubject.isSet()) SubjectFormUiState(
-            name = selectedSubject().name,
-            color = selectedSubject().argb_color
-        )
-        else SubjectFormUiState()
-    )
-        private set
+    abstract val uiState: MutableState<SubjectFormUiState>
 
-    private val name: String
+    protected val name: String
         get() = uiState.value.name
 
-    private val color: Long
+    protected val color: Long
         get() = uiState.value.color
 
     fun onNameChange(newValue: String) {
@@ -38,11 +31,15 @@ class SubjectFormViewModel @Inject constructor(
     fun onColorChange(newValue: Long) {
         uiState.value = uiState.value.copy(color = newValue)
     }
+}
 
-    fun onDelete(openAndPopUp: (String, String) -> Unit) {
-        subjectDAO.deleteSubject(selectedSubject())
-        openAndPopUp(StudeezDestinations.SUBJECT_SCREEN, StudeezDestinations.EDIT_SUBJECT_FORM)
-    }
+@HiltViewModel
+class SubjectCreateFormViewModel @Inject constructor(
+    subjectDAO: SubjectDAO,
+    selectedSubject: SelectedSubject,
+    logService: LogService,
+) : SubjectFormViewModel(subjectDAO, selectedSubject, logService) {
+    override val uiState = mutableStateOf(SubjectFormUiState())
 
     fun onCreate(openAndPopUp: (String, String) -> Unit) {
         val newSubject = Subject(
@@ -56,6 +53,25 @@ class SubjectFormViewModel @Inject constructor(
 //        selectedSubject.set(newSubject)
 //        open(StudeezDestinations.TASKS_SCREEN)
         openAndPopUp(StudeezDestinations.SUBJECT_SCREEN, StudeezDestinations.ADD_SUBJECT_FORM)
+    }
+}
+
+@HiltViewModel
+class SubjectEditFormViewModel @Inject constructor(
+    subjectDAO: SubjectDAO,
+    selectedSubject: SelectedSubject,
+    logService: LogService,
+) : SubjectFormViewModel(subjectDAO, selectedSubject, logService) {
+    override val uiState = mutableStateOf(
+        SubjectFormUiState(
+            name = selectedSubject().name,
+            color = selectedSubject().argb_color
+        )
+    )
+
+    fun onDelete(openAndPopUp: (String, String) -> Unit) {
+        subjectDAO.updateSubject(selectedSubject().copy(archived = true))
+        openAndPopUp(StudeezDestinations.SUBJECT_SCREEN, StudeezDestinations.EDIT_SUBJECT_FORM)
     }
 
     fun onEdit(openAndPopUp: (String, String) -> Unit) {
