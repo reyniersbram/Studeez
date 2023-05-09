@@ -32,6 +32,7 @@ fun HomeRoute(
         navigationBarActions = navigationBarActions,
         feedUiState = feedUiState,
         continueTask = { subjectId, taskId -> feedViewModel.continueTask(open, subjectId, taskId) },
+        onEmptyFeedHelp = { feedViewModel.onEmptyFeedHelp(open) }
     )
 }
 
@@ -42,6 +43,7 @@ fun HomeScreen(
     navigationBarActions: NavigationBarActions,
     feedUiState: FeedUiState,
     continueTask: (String, String) -> Unit,
+    onEmptyFeedHelp: () -> Unit,
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(R.string.home),
@@ -49,7 +51,7 @@ fun HomeScreen(
         navigationBarActions = navigationBarActions,
         // TODO barAction = { FriendsAction() }
     ) {
-        Feed(feedUiState, continueTask)
+        Feed(feedUiState, continueTask, onEmptyFeedHelp)
     }
 }
 
@@ -101,5 +103,6 @@ fun HomeScreenPreview() {
             )
         ),
         continueTask = { _, _ -> run {} },
+        onEmptyFeedHelp = {}
     )
 }
