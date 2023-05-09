@@ -30,6 +30,10 @@ class SubjectViewModel @Inject constructor(
         open(StudeezDestinations.ADD_SUBJECT_FORM)
     }
 
+    fun getStudyTime(subject: Subject): Flow<Int> {
+        return subjectDAO.getStudyTime(subject)
+    }
+
     fun onViewSubject(subject: Subject, open: (String) -> Unit) {
         selectedSubject.set(subject)
         open(StudeezDestinations.TASKS_SCREEN)

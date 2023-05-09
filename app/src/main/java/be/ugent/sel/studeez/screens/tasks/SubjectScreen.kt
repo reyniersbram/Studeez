@@ -19,6 +19,8 @@ import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.common.composable.tasks.SubjectEntry
 import be.ugent.sel.studeez.data.local.models.task.Subject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
@@ -34,6 +36,7 @@ fun SubjectRoute(
         navigationBarActions = navigationBarActions,
         onAddSubject = { viewModel.onAddSubject(open) },
         onViewSubject = { viewModel.onViewSubject(it, open) },
+        getStudyTime = viewModel::getStudyTime,
         uiState,
     )
 }
@@ -44,6 +47,7 @@ fun SubjectScreen(
     navigationBarActions: NavigationBarActions,
     onAddSubject: () -> Unit,
     onViewSubject: (Subject) -> Unit,
+    getStudyTime: (Subject) -> Flow<Int>,
     uiState: SubjectUiState,
 ) {
     PrimaryScreenTemplate(
@@ -72,6 +76,7 @@ fun SubjectScreen(
                             SubjectEntry(
                                 subject = it,
                                 onViewSubject = { onViewSubject(it) },
+                                getStudyTime = { getStudyTime(it) },
                             )
                         }
                     }
@@ -89,6 +94,7 @@ fun SubjectScreenPreview() {
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
         onAddSubject = {},
         onViewSubject = {},
+        getStudyTime = { flowOf() },
         uiState = SubjectUiState.Succes(
             listOf(
                 Subject(
@@ -109,6 +115,7 @@ fun SubjectScreenLoadingPreview() {
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
         onAddSubject = {},
         onViewSubject = {},
+        getStudyTime = { flowOf() },
         uiState = SubjectUiState.Loading
     )
 }
