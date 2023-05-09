@@ -4,6 +4,7 @@ import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.SubjectDAO
 import be.ugent.sel.studeez.domain.TaskDAO
+import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
@@ -24,8 +25,8 @@ class FireBaseSubjectDAO @Inject constructor(
             .map { it.toObjects(Subject::class.java) }
             .map { subjects ->
                 subjects.map { subject ->
-                    subject.taskCount = taskDAO.getTaskCount(subject)
-                    subject.taskCompletedCount = taskDAO.getCompletedTaskCount(subject)
+                    subject.taskCount = getTaskCount(subject)
+                    subject.taskCompletedCount = getCompletedTaskCount(subject)
                     subject
                 }
             }
@@ -47,8 +48,39 @@ class FireBaseSubjectDAO @Inject constructor(
         currentUserSubjectsCollection().document(newSubject.id).set(newSubject)
     }
 
+    override suspend fun getTaskCount(subject: Subject): Int {
+        return subjectTasksCollection(subject)
+            .nonArchived()
+            .count()
+            .get(AggregateSource.SERVER)
+            .await()
+            .count.toInt()
+    }
+
+    override suspend fun getCompletedTaskCount(subject: Subject): Int {
+        return subjectTasksCollection(subject)
+            .nonArchived()
+            .completed()
+            .count()
+            .get(AggregateSource.SERVER)
+            .await()
+            .count.toInt()
+    }
+
+    override fun getStudyTime(subject: Subject): Flow<Int> {
+        return taskDAO.getTasks(subject)
+            .map { tasks -> tasks.sumOf { it.time } }
+    }
+
     private fun currentUserSubjectsCollection(): CollectionReference =
         firestore.collection(FireBaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
             .collection(FireBaseCollections.SUBJECT_COLLECTION)
+
+    private fun subjectTasksCollection(subject: Subject): CollectionReference =
+        firestore.collection(FireBaseCollections.USER_COLLECTION)
+            .document(auth.currentUserId)
+            .collection(FireBaseCollections.SUBJECT_COLLECTION)
+            .document(subject.id)
+            .collection(FireBaseCollections.TASK_COLLECTION)
 }

@@ -14,11 +14,5 @@ interface TaskDAO {
 
     fun deleteTask(oldTask: Task)
 
-    fun toggleTaskCompleted(task: Task, completed: Boolean)
-
     suspend fun getTask(subjectId: String, taskId: String): Task
-
-    suspend fun getTaskCount(subject: Subject): Int
-
-    suspend fun getCompletedTaskCount(subject: Subject): Int
 }
