@@ -71,6 +71,7 @@ fun TaskScreen(
         Column(
             modifier = Modifier.padding(top = 5.dp)
         ) {
+            NewTaskSubjectButton(onClick = taskActions.addTask, AppText.new_task)
             LazyColumn {
                 items(tasks.value) {
                     TaskEntry(
@@ -81,7 +82,6 @@ fun TaskScreen(
                     )
                 }
             }
-            NewTaskSubjectButton(onClick = taskActions.addTask, AppText.new_task)
         }
     }
 }
