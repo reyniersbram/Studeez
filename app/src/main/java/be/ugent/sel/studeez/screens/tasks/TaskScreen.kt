@@ -73,7 +73,15 @@ fun TaskScreen(
         ) {
             NewTaskSubjectButton(onClick = taskActions.addTask, AppText.new_task)
             LazyColumn {
-                items(tasks.value) {
+                items(tasks.value.filter { !it.completed }) {
+                    TaskEntry(
+                        task = it,
+                        onCheckTask = { isChecked -> taskActions.onCheckTask(it, isChecked) },
+                        onArchiveTask = { taskActions.archiveTask(it) },
+                        onStartTask = { taskActions.startTask(it) }
+                    )
+                }
+                items(tasks.value.filter { it.completed }) {
                     TaskEntry(
                         task = it,
                         onCheckTask = { isChecked -> taskActions.onCheckTask(it, isChecked) },
