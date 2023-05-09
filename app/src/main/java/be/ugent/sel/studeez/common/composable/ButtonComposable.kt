@@ -2,6 +2,7 @@ package be.ugent.sel.studeez.common.composable
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -49,6 +50,7 @@ fun BasicButton(
     modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
     border: BorderStroke? = null,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     Button(
@@ -57,6 +59,7 @@ fun BasicButton(
         shape = defaultButtonShape(),
         colors = colors,
         border = border,
+        enabled = enabled,
     ) {
         Text(
             text = stringResource(text),
@@ -75,17 +78,22 @@ fun BasicButtonPreview() {
 fun StealthButton(
     @StringRes text: Int,
     modifier: Modifier = Modifier.card(),
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
+    //val clickablemodifier = if (disabled) Modifier.clickable(indication = null) else modifier
+    val borderColor = if (enabled) MaterialTheme.colors.primary
+                      else MaterialTheme.colors.onSurface.copy(alpha = 0.3f)
     BasicButton(
         text = text,
         onClick = onClick,
         modifier = modifier,
+        enabled = enabled,
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.surface,
-            contentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.4f)
+            contentColor = borderColor
         ),
-        border = BorderStroke(2.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.4f))
+        border = BorderStroke(2.dp, borderColor)
     )
 }
 

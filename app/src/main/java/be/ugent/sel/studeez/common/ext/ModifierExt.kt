@@ -1,12 +1,23 @@
 package be.ugent.sel.studeez.common.ext
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.unit.dp
 
 fun Modifier.textButton(): Modifier {
     return this.fillMaxWidth().padding(16.dp, 8.dp, 16.dp, 0.dp)
+}
+
+fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
+    clickable(indication = null,
+        interactionSource = remember { MutableInteractionSource() }) {
+        onClick()
+    }
 }
 
 fun Modifier.basicButton(): Modifier {
