@@ -5,7 +5,7 @@ import com.google.firebase.firestore.DocumentId
 data class Task(
     @DocumentId val id: String = "",
     val name: String = "",
-    val completed: Boolean = false,
+    var completed: Boolean = false,
     val time: Int = 0,
     val subjectId: String = "",
     var archived: Boolean = false,
