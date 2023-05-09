@@ -8,6 +8,7 @@ import be.ugent.sel.studeez.domain.TaskDAO
 import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.snapshots
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +22,7 @@ class FireBaseTaskDAO @Inject constructor(
 ) : TaskDAO {
     override fun getTasks(subject: Subject): Flow<List<Task>> {
         return selectedSubjectTasksCollection(subject.id)
-            .whereEqualTo(TaskDocument.archived, false)
+            .nonArchived()
             .snapshots()
             .map { it.toObjects(Task::class.java) }
     }
@@ -32,7 +33,7 @@ class FireBaseTaskDAO @Inject constructor(
 
     override suspend fun getTaskCount(subject: Subject): Int {
         return selectedSubjectTasksCollection(subject.id)
-            .whereEqualTo(TaskDocument.archived, false)
+            .nonArchived()
             .count()
             .get(AggregateSource.SERVER)
             .await()
@@ -41,8 +42,8 @@ class FireBaseTaskDAO @Inject constructor(
 
     override suspend fun getCompletedTaskCount(subject: Subject): Int {
         return selectedSubjectTasksCollection(subject.id)
-            .whereEqualTo(TaskDocument.completed, true)
-            .whereEqualTo(TaskDocument.archived, false)
+            .completed()
+            .nonArchived()
             .count()
             .get(AggregateSource.SERVER)
             .await()
@@ -74,4 +75,19 @@ class FireBaseTaskDAO @Inject constructor(
             .collection(FireBaseCollections.SUBJECT_COLLECTION)
             .document(subjectId)
             .collection(FireBaseCollections.TASK_COLLECTION)
+
+    // Extend CollectionReference and Query with some filters
+
+    private fun CollectionReference.nonArchived(): Query =
+        this.whereEqualTo(TaskDocument.archived, false)
+
+    private fun Query.nonArchived(): Query =
+        this.whereEqualTo(TaskDocument.archived, false)
+
+    private fun CollectionReference.completed(): Query =
+        this.whereEqualTo(TaskDocument.completed, true)
+
+    private fun Query.completed(): Query =
+        this.whereEqualTo(TaskDocument.completed, true)
+
 }
