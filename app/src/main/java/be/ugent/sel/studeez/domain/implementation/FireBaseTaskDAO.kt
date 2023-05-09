@@ -5,12 +5,12 @@ import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.data.local.models.task.TaskDocument
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.TaskDAO
+import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -21,12 +21,31 @@ class FireBaseTaskDAO @Inject constructor(
 ) : TaskDAO {
     override fun getTasks(subject: Subject): Flow<List<Task>> {
         return selectedSubjectTasksCollection(subject.id)
+            .whereEqualTo(TaskDocument.archived, false)
             .snapshots()
             .map { it.toObjects(Task::class.java) }
     }
 
     override suspend fun getTask(subjectId: String, taskId: String): Task {
         return selectedSubjectTasksCollection(subjectId).document(taskId).get().await().toObject()!!
+    }
+
+    override suspend fun getTaskCount(subject: Subject): Int {
+        return selectedSubjectTasksCollection(subject.id)
+            .count()
+            .get(AggregateSource.SERVER)
+            .await()
+            .count.toInt()
+    }
+
+    override suspend fun getCompletedTaskCount(subject: Subject): Int {
+        return selectedSubjectTasksCollection(subject.id)
+            .whereEqualTo(TaskDocument.completed, true)
+            .whereEqualTo(TaskDocument.archived, false)
+            .count()
+            .get(AggregateSource.SERVER)
+            .await()
+            .count.toInt()
     }
 
     override fun saveTask(newTask: Task) {

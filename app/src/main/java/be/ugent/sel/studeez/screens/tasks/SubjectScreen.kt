@@ -54,6 +54,7 @@ fun SubjectScreen(
         Column(
             modifier = Modifier.padding(top = 5.dp)
         ) {
+            NewTaskSubjectButton(onClick = addSubject, AppText.new_subject)
             LazyColumn {
                 items(subjects.value) {
                     SubjectEntry(
@@ -62,7 +63,6 @@ fun SubjectScreen(
                     )
                 }
             }
-            NewTaskSubjectButton(onClick = addSubject, AppText.new_subject)
         }
     }
 }

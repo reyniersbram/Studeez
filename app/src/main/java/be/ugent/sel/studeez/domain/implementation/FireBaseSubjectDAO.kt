@@ -1,9 +1,9 @@
 package be.ugent.sel.studeez.domain.implementation
 
 import be.ugent.sel.studeez.data.local.models.task.Subject
-import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.SubjectDAO
+import be.ugent.sel.studeez.domain.TaskDAO
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
@@ -16,11 +16,19 @@ import javax.inject.Inject
 class FireBaseSubjectDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: AccountDAO,
+    private val taskDAO: TaskDAO,
 ) : SubjectDAO {
     override fun getSubjects(): Flow<List<Subject>> {
         return currentUserSubjectsCollection()
             .snapshots()
             .map { it.toObjects(Subject::class.java) }
+            .map { subjects ->
+                subjects.map { subject ->
+                    subject.taskCount = taskDAO.getTaskCount(subject)
+                    subject.taskCompletedCount = taskDAO.getCompletedTaskCount(subject)
+                    subject
+                }
+            }
     }
 
     override suspend fun getSubject(subjectId: String): Subject? {

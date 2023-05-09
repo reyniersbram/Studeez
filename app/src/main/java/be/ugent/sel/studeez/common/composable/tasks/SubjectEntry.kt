@@ -1,13 +1,7 @@
 package be.ugent.sel.studeez.common.composable.tasks
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -24,10 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import be.ugent.sel.studeez.R.string as AppText
 import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
+import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
 fun SubjectEntry(
@@ -80,7 +74,7 @@ fun SubjectEntry(
                                 imageVector = Icons.Default.List,
                                 contentDescription = stringResource(id = AppText.tasks)
                             )
-                            Text(text = "0/0") // TODO
+                            Text(text = "${subject.taskCompletedCount}/${subject.taskCount}") // TODO
                         }
                     }
                 }
@@ -104,7 +98,9 @@ fun SubjectEntryPreview() {
         subject = Subject(
             name = "Test Subject",
             argb_color = 0xFFFFD200,
-            time = 60
+            time = 60,
+            taskCount = 5,
+            taskCompletedCount = 2,
         ),
     ) {}
 }
@@ -116,7 +112,7 @@ fun OverflowSubjectEntryPreview() {
         subject = Subject(
             name = "Testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
             argb_color = 0xFFFFD200,
-            time = 60
+            time = 60,
         ),
     ) {}
 }

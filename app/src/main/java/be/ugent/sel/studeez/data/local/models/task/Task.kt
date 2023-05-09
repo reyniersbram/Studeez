@@ -8,6 +8,7 @@ data class Task(
     val completed: Boolean = false,
     val time: Int = 0,
     val subjectId: String = "",
+    val archived: Boolean = false,
 )
 
 object TaskDocument {
@@ -16,4 +17,5 @@ object TaskDocument {
     const val completed = "completed"
     const val time = "time"
     const val subjectId = "subjectId"
+    const val archived = "archived"
 }
