@@ -12,4 +12,5 @@ interface SubjectDAO {
     fun deleteSubject(oldSubject: Subject)
 
     fun updateSubject(newSubject: Subject)
+    suspend fun getSubject(subjectId: String): Subject?
 }

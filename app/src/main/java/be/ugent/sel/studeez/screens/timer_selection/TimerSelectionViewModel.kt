@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import be.ugent.sel.studeez.data.SelectedTimerState
+import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.TimerDAO
@@ -21,7 +22,9 @@ class TimerSelectionViewModel @Inject constructor(
     logService: LogService
 ) : StudeezViewModel(logService) {
 
-    var customTimerStudyTime: MutableState<Int> = mutableStateOf(0)
+    var customTimerStudyTime: MutableState<Int> = mutableStateOf(
+        HoursMinutesSeconds(1, 0, 0).getTotalSeconds()
+    )
 
     fun getAllTimers() : Flow<List<TimerInfo>> {
         return timerDAO.getAllTimers()

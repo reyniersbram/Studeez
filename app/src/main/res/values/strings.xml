@@ -29,6 +29,11 @@
     <string name="home">Home</string>
     <string name="start_session">Start session</string>
 
+    <!-- Feed-->
+    <string name="continue_task">Continue</string>
+    <string name="your_feed">This is your feed</string>
+    <string name="empty_feed_help_text">Create you first subject and tasks to get started</string>
+
     <!-- Tasks -->
     <string name="tasks">Tasks</string>
     <string name="task">Task</string>

@@ -2,6 +2,7 @@ package be.ugent.sel.studeez.data.local.models.timer_functional
 
 import be.ugent.sel.studeez.data.local.models.SessionReport
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentReference
 
 abstract class FunctionalTimer(initialValue: Int) {
     var time: Time = Time(initialValue)
@@ -17,10 +18,12 @@ abstract class FunctionalTimer(initialValue: Int) {
 
     abstract fun hasCurrentCountdownEnded(): Boolean
 
-    fun getSessionReport(): SessionReport {
+    fun getSessionReport(subjectId: String, taskId: String): SessionReport {
         return SessionReport(
             studyTime = totalStudyTime,
-            endTime = Timestamp.now()
+            endTime = Timestamp.now(),
+            taskId = taskId,
+            subjectId = subjectId
         )
     }
 

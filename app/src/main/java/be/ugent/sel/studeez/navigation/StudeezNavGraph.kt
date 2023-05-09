@@ -65,9 +65,9 @@ fun StudeezNavGraph(
         composable(StudeezDestinations.HOME_SCREEN) {
             HomeRoute(
                 open,
-                viewModel = hiltViewModel(),
                 drawerActions = drawerActions,
-                navigationBarActions = navigationBarActions
+                navigationBarActions = navigationBarActions,
+                feedViewModel = hiltViewModel(),
             )
         }
 
