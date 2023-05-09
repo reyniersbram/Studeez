@@ -21,7 +21,7 @@ class FireBaseTaskDAO @Inject constructor(
 ) : TaskDAO {
     override fun getTasks(subject: Subject): Flow<List<Task>> {
         return selectedSubjectTasksCollection(subject.id)
-            .nonArchived()
+            .taskNotArchived()
             .snapshots()
             .map { it.toObjects(Task::class.java) }
     }
@@ -55,14 +55,14 @@ class FireBaseTaskDAO @Inject constructor(
 
 // Extend CollectionReference and Query with some filters
 
-fun CollectionReference.nonArchived(): Query =
+fun CollectionReference.taskNotArchived(): Query =
     this.whereEqualTo(TaskDocument.archived, false)
 
-fun Query.nonArchived(): Query =
+fun Query.taskNotArchived(): Query =
     this.whereEqualTo(TaskDocument.archived, false)
 
-fun CollectionReference.completed(): Query =
+fun CollectionReference.taskNotCompleted(): Query =
     this.whereEqualTo(TaskDocument.completed, true)
 
-fun Query.completed(): Query =
+fun Query.taskNotCompleted(): Query =
     this.whereEqualTo(TaskDocument.completed, true)

@@ -1,12 +1,14 @@
 package be.ugent.sel.studeez.domain.implementation
 
 import be.ugent.sel.studeez.data.local.models.task.Subject
+import be.ugent.sel.studeez.data.local.models.task.SubjectDocument
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.SubjectDAO
 import be.ugent.sel.studeez.domain.TaskDAO
 import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.snapshots
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +23,7 @@ class FireBaseSubjectDAO @Inject constructor(
 ) : SubjectDAO {
     override fun getSubjects(): Flow<List<Subject>> {
         return currentUserSubjectsCollection()
+            .subjectNotArchived()
             .snapshots()
             .map { it.toObjects(Subject::class.java) }
             .map { subjects ->
@@ -50,7 +53,7 @@ class FireBaseSubjectDAO @Inject constructor(
 
     override suspend fun getTaskCount(subject: Subject): Int {
         return subjectTasksCollection(subject)
-            .nonArchived()
+            .taskNotArchived()
             .count()
             .get(AggregateSource.SERVER)
             .await()
@@ -59,8 +62,8 @@ class FireBaseSubjectDAO @Inject constructor(
 
     override suspend fun getCompletedTaskCount(subject: Subject): Int {
         return subjectTasksCollection(subject)
-            .nonArchived()
-            .completed()
+            .taskNotArchived()
+            .taskNotCompleted()
             .count()
             .get(AggregateSource.SERVER)
             .await()
@@ -83,4 +86,10 @@ class FireBaseSubjectDAO @Inject constructor(
             .collection(FireBaseCollections.SUBJECT_COLLECTION)
             .document(subject.id)
             .collection(FireBaseCollections.TASK_COLLECTION)
+
+    fun CollectionReference.subjectNotArchived(): Query =
+        this.whereEqualTo(SubjectDocument.archived, false)
+
+    fun Query.subjectNotArchived(): Query =
+        this.whereEqualTo(SubjectDocument.archived, false)
 }

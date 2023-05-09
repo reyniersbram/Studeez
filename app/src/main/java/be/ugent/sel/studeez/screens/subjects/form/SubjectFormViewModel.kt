@@ -70,7 +70,7 @@ class SubjectEditFormViewModel @Inject constructor(
     )
 
     fun onDelete(openAndPopUp: (String, String) -> Unit) {
-        subjectDAO.deleteSubject(selectedSubject())
+        subjectDAO.updateSubject(selectedSubject().copy(archived = true))
         openAndPopUp(StudeezDestinations.SUBJECT_SCREEN, StudeezDestinations.EDIT_SUBJECT_FORM)
     }
 
