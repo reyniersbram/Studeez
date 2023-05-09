@@ -82,12 +82,13 @@ fun TimerOverviewScreen(
                 items(timers.value) { timerInfo ->
                     TimerEntry(
                         timerInfo = timerInfo,
-                    ) {
-                        StealthButton(
-                            text = R.string.edit,
-                            onClick = { timerOverviewActions.onEditClick(timerInfo) }
-                        )
-                    }
+                        rightButton = {
+                            StealthButton(
+                                text = R.string.edit,
+                                onClick = { timerOverviewActions.onEditClick(timerInfo) }
+                            )
+                        }
+                    )
 
                 }
 

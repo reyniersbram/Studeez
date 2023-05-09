@@ -9,58 +9,105 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import be.ugent.sel.studeez.common.composable.BasicTextButton
 import be.ugent.sel.studeez.common.composable.DateText
+import be.ugent.sel.studeez.common.composable.Headline
+import be.ugent.sel.studeez.common.ext.textButton
 import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
+import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
 fun Feed(
     uiState: FeedUiState,
     continueTask: (String, String) -> Unit,
+    onEmptyFeedHelp: () -> Unit
 ) {
     when (uiState) {
-        FeedUiState.Loading -> {
-            Column(
+        FeedUiState.Loading -> LoadingFeed()
+        is FeedUiState.Succes -> LoadedFeed(
+            uiState = uiState,
+            continueTask = continueTask,
+            onEmptyFeedHelp = onEmptyFeedHelp
+        )
+    }
+}
+
+@Composable
+fun LoadedFeed(
+    uiState: FeedUiState.Succes,
+    continueTask: (String, String) -> Unit,
+    onEmptyFeedHelp: () -> Unit,
+) {
+    if (uiState.feedEntries.isEmpty()) EmptyFeed(onEmptyFeedHelp)
+    else FeedWithElements(uiState = uiState, continueTask = continueTask)
+}
+
+@Composable
+fun LoadingFeed() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CircularProgressIndicator(color = MaterialTheme.colors.onBackground)
+    }
+}
+
+@Composable
+fun FeedWithElements(
+    uiState: FeedUiState.Succes,
+    continueTask: (String, String) -> Unit,
+) {
+    val feedEntries = uiState.feedEntries
+    LazyColumn {
+        items(feedEntries.toList()) { (date, feedEntries) ->
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .padding(10.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                CircularProgressIndicator(color = MaterialTheme.colors.onBackground)
+                val totalDayStudyTime: Int = feedEntries.sumOf { it.totalStudyTime }
+                DateText(date = date)
+                Text(
+                    text = "${HoursMinutesSeconds(totalDayStudyTime)}",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold
+                )
             }
-        }
-        is FeedUiState.Succes -> {
-            val feedEntries = uiState.feedEntries
-            LazyColumn {
-                items(feedEntries.toList()) { (date, feedEntries) ->
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        val totalDayStudyTime: Int = feedEntries.sumOf { it.totalStudyTime }
-                        DateText(date = date)
-                        Text(
-                            text = "${HoursMinutesSeconds(totalDayStudyTime)}",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    feedEntries.forEach { feedEntry ->
-                        FeedEntry(feedEntry = feedEntry) {
-                            continueTask(feedEntry.subjectId, feedEntry.taskId)
-                        }
-                    }
-                    Spacer(modifier = Modifier.height(20.dp))
+            feedEntries.forEach { feedEntry ->
+                FeedEntry(feedEntry = feedEntry) {
+                    continueTask(feedEntry.subjectId, feedEntry.taskId)
                 }
             }
+            Spacer(modifier = Modifier.height(20.dp))
+        }
+    }
+}
+
+@Composable
+fun EmptyFeed(onEmptyFeedHelp: () -> Unit) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Headline(text = stringResource(id = AppText.your_feed))
+
+            BasicTextButton(
+                AppText.empty_feed_help_text,
+                Modifier.textButton(),
+                action = onEmptyFeedHelp,
+            )
         }
     }
 }
@@ -70,7 +117,7 @@ fun Feed(
 fun FeedLoadingPreview() {
     Feed(
         uiState = FeedUiState.Loading,
-        continueTask = { _, _ -> run {} },
+        continueTask = { _, _ -> run {} }, {}
     )
 }
 
@@ -108,6 +155,6 @@ fun FeedPreview() {
                 )
             )
         ),
-        continueTask = { _, _ -> run {} },
+        continueTask = { _, _ -> run {} }, {}
     )
 }

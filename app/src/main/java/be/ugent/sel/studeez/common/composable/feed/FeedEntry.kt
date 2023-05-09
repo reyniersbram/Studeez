@@ -18,6 +18,7 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.StealthButton
 import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
+import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
 fun FeedEntry(
@@ -69,14 +70,19 @@ fun FeedEntry(
                     Text(text = HoursMinutesSeconds(feedEntry.totalStudyTime).toString())
                 }
             }
+            val buttonText: Int = if (feedEntry.isArchived) AppText.deleted else AppText.continue_task
             StealthButton(
-                text = R.string.continue_task,
+                text = buttonText,
+                enabled = !feedEntry.isArchived,
                 modifier = Modifier
                     .padding(start = 10.dp, end = 5.dp)
                     .weight(6f)
             ) {
-                continueWithTask()
+                if (!feedEntry.isArchived) {
+                    continueWithTask()
+                }
             }
+
         }
     }
 }
