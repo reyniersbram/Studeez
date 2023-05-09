@@ -36,4 +36,8 @@ class FeedViewModel @Inject constructor(
             open(StudeezDestinations.TIMER_SELECTION_SCREEN)
         }
     }
+
+    fun onEmptyFeedHelp(open: (String) -> Unit) {
+        open(StudeezDestinations.ADD_SUBJECT_FORM)
+    }
 }
