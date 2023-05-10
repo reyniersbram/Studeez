@@ -10,6 +10,7 @@ import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlin.random.Random
 
 abstract class SubjectFormViewModel(
     protected val subjectDAO: SubjectDAO,
@@ -42,9 +43,12 @@ class SubjectCreateFormViewModel @Inject constructor(
     override val uiState = mutableStateOf(SubjectFormUiState())
 
     fun onCreate(openAndPopUp: (String, String) -> Unit) {
+        val random = Random
+        val mask: Long = (0x000000FFL shl random.nextInt(0, 3)).inv()
+        val randomColor = random.nextLong(0xFF000000L, 0xFFFFFFFFL) and mask
         val newSubject = Subject(
             name = name,
-            argb_color = color,
+            argb_color = randomColor,
         )
         subjectDAO.saveSubject(
             newSubject
