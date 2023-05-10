@@ -75,11 +75,13 @@ class SubjectEditFormViewModel @Inject constructor(
     }
 
     fun onEdit(openAndPopUp: (String, String) -> Unit) {
-        val newSubject = selectedSubject().copy(
-            name = name,
-            argb_color = color,
+        selectedSubject.set(
+            selectedSubject().copy(
+                name = name,
+                argb_color = color,
+            )
         )
-        subjectDAO.updateSubject(newSubject)
+        subjectDAO.updateSubject(selectedSubject())
         openAndPopUp(StudeezDestinations.TASKS_SCREEN, StudeezDestinations.EDIT_SUBJECT_FORM)
     }
 }
