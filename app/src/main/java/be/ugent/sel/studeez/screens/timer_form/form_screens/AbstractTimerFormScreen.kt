@@ -23,7 +23,10 @@ import be.ugent.sel.studeez.R.string as AppText
 abstract class AbstractTimerFormScreen(private val timerInfo: TimerInfo) {
 
     @Composable
-    operator fun invoke(onSaveClick: (TimerInfo) -> Unit) {
+    operator fun invoke(
+        onSaveClick: (TimerInfo) -> Unit,
+        extraButton: @Composable () -> Unit
+    ) {
 
         var name by remember { mutableStateOf(timerInfo.name) }
         var description by remember { mutableStateOf(timerInfo.description) }
@@ -34,7 +37,9 @@ abstract class AbstractTimerFormScreen(private val timerInfo: TimerInfo) {
 
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxHeight().verticalScroll(rememberScrollState()),
+            modifier = Modifier
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState()),
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -45,7 +50,7 @@ abstract class AbstractTimerFormScreen(private val timerInfo: TimerInfo) {
                 LabelledInputField(
                     value = name,
                     onNewValue = { name = it },
-                    label = R.string.name
+                    label = R.string.name,
                 )
 
                 LabelledInputField(
@@ -58,8 +63,12 @@ abstract class AbstractTimerFormScreen(private val timerInfo: TimerInfo) {
                 ExtraFields()
 
             }
-            BasicButton(R.string.save, Modifier.basicButton()) {
-                onSaveClick(timerInfo)
+
+            Column {
+                BasicButton(R.string.save, Modifier.basicButton()) {
+                    onSaveClick(timerInfo)
+                }
+                extraButton()
             }
         }
     }
