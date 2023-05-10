@@ -13,13 +13,6 @@ fun Modifier.textButton(): Modifier {
     return this.fillMaxWidth().padding(16.dp, 8.dp, 16.dp, 0.dp)
 }
 
-fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
-    clickable(indication = null,
-        interactionSource = remember { MutableInteractionSource() }) {
-        onClick()
-    }
-}
-
 fun Modifier.basicButton(): Modifier {
     return this.fillMaxWidth().padding(16.dp, 8.dp)
 }
