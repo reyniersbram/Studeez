@@ -2,10 +2,10 @@ package be.ugent.sel.studeez.domain.implementation
 
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.SubjectDocument
+import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.SubjectDAO
 import be.ugent.sel.studeez.domain.TaskDAO
-import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import kotlin.collections.count
 
 class FireBaseSubjectDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
@@ -26,13 +27,6 @@ class FireBaseSubjectDAO @Inject constructor(
             .subjectNotArchived()
             .snapshots()
             .map { it.toObjects(Subject::class.java) }
-            .map { subjects ->
-                subjects.map { subject ->
-                    subject.taskCount = getTaskCount(subject)
-                    subject.taskCompletedCount = getCompletedTaskCount(subject)
-                    subject
-                }
-            }
     }
 
     override suspend fun getSubject(subjectId: String): Subject? {
@@ -51,23 +45,14 @@ class FireBaseSubjectDAO @Inject constructor(
         currentUserSubjectsCollection().document(newSubject.id).set(newSubject)
     }
 
-    override suspend fun getTaskCount(subject: Subject): Int {
-        return subjectTasksCollection(subject)
-            .taskNotArchived()
-            .count()
-            .get(AggregateSource.SERVER)
-            .await()
-            .count.toInt()
+    override fun getTaskCount(subject: Subject): Flow<Int> {
+        return taskDAO.getTasks(subject)
+            .map(List<Task>::count)
     }
 
-    override suspend fun getCompletedTaskCount(subject: Subject): Int {
-        return subjectTasksCollection(subject)
-            .taskNotArchived()
-            .taskNotCompleted()
-            .count()
-            .get(AggregateSource.SERVER)
-            .await()
-            .count.toInt()
+    override fun getCompletedTaskCount(subject: Subject): Flow<Int> {
+        return taskDAO.getTasks(subject)
+            .map { tasks -> tasks.count { it.completed && !it.archived } }
     }
 
     override fun getStudyTime(subject: Subject): Flow<Int> {
