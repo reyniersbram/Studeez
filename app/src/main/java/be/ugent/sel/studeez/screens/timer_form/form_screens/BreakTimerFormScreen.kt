@@ -50,6 +50,6 @@ fun BreakEditScreenPreview() {
         5
     )
     StudeezTheme {
-        BreakTimerFormScreen(pomodoroTimerInfo).invoke(onSaveClick = {})
+        BreakTimerFormScreen(pomodoroTimerInfo).invoke(onSaveClick = {}, {})
     }
 }

@@ -18,6 +18,6 @@ fun EndlessEditScreenPreview() {
         "My endless timer description",
     )
     StudeezTheme {
-        EndlessTimerFormScreen(endlessTimerInfo).invoke(onSaveClick = {})
+        EndlessTimerFormScreen(endlessTimerInfo).invoke(onSaveClick = {}, {})
     }
 }
