@@ -1,11 +1,6 @@
 package be.ugent.sel.studeez.screens.session_recap
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -42,8 +37,8 @@ fun getSessionRecapActions(
 ): SessionRecapActions {
     return SessionRecapActions(
         viewModel::getSessionReport,
-        {viewModel.saveSession(openAndPopUp)},
-        {viewModel.discardSession(openAndPopUp)}
+        { viewModel.saveSession(openAndPopUp) },
+        { viewModel.discardSession(openAndPopUp) }
     )
 }
 
@@ -82,7 +77,7 @@ fun SessionRecapScreen(modifier: Modifier, sessionRecapActions: SessionRecapActi
             fontWeight = FontWeight.Light,
             fontSize = 30.sp,
 
-        )
+            )
 
         Column(
             modifier = Modifier.fillMaxWidth()
