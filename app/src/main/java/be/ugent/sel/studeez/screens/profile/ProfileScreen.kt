@@ -1,17 +1,18 @@
 package be.ugent.sel.studeez.screens.profile
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import be.ugent.sel.studeez.R
+import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.common.composable.Headline
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
@@ -22,16 +23,18 @@ import be.ugent.sel.studeez.R.string as AppText
 
 data class ProfileActions(
     val getUsername: suspend CoroutineScope.() -> String?,
-    val onEditProfileClick: () -> Unit,
+    val getBiography: suspend CoroutineScope.() -> String?,
+    val onEditProfileClick: () -> Unit
 )
 
 fun getProfileActions(
     viewModel: ProfileViewModel,
-    open: (String) -> Unit,
+    open: (String) -> Unit
 ): ProfileActions {
     return ProfileActions(
         getUsername = { viewModel.getUsername() },
-        onEditProfileClick = { viewModel.onEditProfileClick(open) },
+        getBiography = { viewModel.getBiography() },
+        onEditProfileClick = { viewModel.onEditProfileClick(open) }
     )
 }
 
@@ -56,8 +59,10 @@ fun ProfileScreen(
     navigationBarActions: NavigationBarActions,
 ) {
     var username: String? by remember { mutableStateOf("") }
+    var biography: String? by remember { mutableStateOf("") }
     LaunchedEffect(key1 = Unit) {
         username = profileActions.getUsername(this)
+        biography = profileActions.getBiography(this)
     }
     PrimaryScreenTemplate(
         title = resources().getString(AppText.profile),
@@ -65,7 +70,20 @@ fun ProfileScreen(
         navigationBarActions = navigationBarActions,
         barAction = { EditAction(onClick = profileActions.onEditProfileClick) }
     ) {
-        Headline(text = (username ?: resources().getString(R.string.no_username)))
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(15.dp)
+        ) {
+            item {
+                Headline(text = username ?: resources().getString(AppText.no_username))
+            }
+            item {
+                Text(
+                    text = biography ?: "",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(48.dp, 0.dp)
+                )
+            }
+        }
     }
 }
 
@@ -86,7 +104,7 @@ fun EditAction(
 @Composable
 fun ProfileScreenPreview() {
     ProfileScreen(
-        profileActions = ProfileActions({ null }, {}),
+        profileActions = ProfileActions({ null }, { null }, {}),
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {})
     )

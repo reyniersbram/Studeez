@@ -54,6 +54,7 @@
     <string name="edit_profile">Edit profile</string>
     <string name="editing_profile">Editing profile</string>
     <string name="delete_profile">Delete profile</string>
+    <string name="biography">Bio</string>
 
     <!-- ========== Drawer ========== -->
 

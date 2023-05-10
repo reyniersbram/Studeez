@@ -2,6 +2,7 @@ package be.ugent.sel.studeez.domain.implementation
 
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
+import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.UserDAO
 import com.google.firebase.firestore.DocumentReference
@@ -14,12 +15,22 @@ class FirebaseUserDAO @Inject constructor(
     private val auth: AccountDAO
     ) : UserDAO {
 
-    override suspend fun getUsername(): String? {
-        return currentUserDocument().get().await().getString("username")
+    override suspend fun getUser(): User {
+        val userDocument = currentUserDocument().get().await()
+        return User(
+            username = userDocument.getString(USERNAME_FIELD) ?: "",
+            biography = userDocument.getString(BIOGRAPHY_FIELD) ?: ""
+        )
     }
 
-    override suspend fun save(newUsername: String) {
-        currentUserDocument().set(mapOf("username" to newUsername))
+    override suspend fun saveUser(
+        newUsername: String,
+        newBiography: String
+    ) {
+        currentUserDocument().set(mapOf(
+            USERNAME_FIELD to newUsername,
+            BIOGRAPHY_FIELD to newBiography
+        ))
     }
 
     private fun currentUserDocument(): DocumentReference =
@@ -27,6 +38,8 @@ class FirebaseUserDAO @Inject constructor(
 
     companion object {
         private const val USER_COLLECTION = "users"
+        private const val USERNAME_FIELD = "username"
+        private const val BIOGRAPHY_FIELD = "biography"
     }
 
     override suspend fun deleteUserReferences() {

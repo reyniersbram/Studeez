@@ -66,7 +66,7 @@ class SignUpViewModel @Inject constructor(
         launchCatching {
             accountDAO.signUpWithEmailAndPassword(email, password)
             accountDAO.signInWithEmailAndPassword(email, password)
-            userDAO.save(username)
+            userDAO.saveUser(username)
             openAndPopUp(HOME_SCREEN, SIGN_UP_SCREEN)
         }
     }

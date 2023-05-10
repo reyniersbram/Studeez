@@ -3,6 +3,7 @@ package be.ugent.sel.studeez.screens.profile
 import androidx.compose.runtime.mutableStateOf
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
+import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.UserDAO
@@ -23,7 +24,11 @@ class ProfileEditViewModel @Inject constructor(
 
     init {
         launchCatching {
-            uiState.value = uiState.value.copy(username = userDAO.getUsername()!!)
+            val user: User = userDAO.getUser()
+            uiState.value = uiState.value.copy(
+                username = user.username,
+                biography = user.biography
+            )
         }
     }
 
@@ -31,9 +36,16 @@ class ProfileEditViewModel @Inject constructor(
         uiState.value = uiState.value.copy(username = newValue)
     }
 
+    fun onBiographyChange(newValue: String) {
+        uiState.value = uiState.value.copy(biography = newValue)
+    }
+
     fun onSaveClick() {
         launchCatching {
-            userDAO.save(uiState.value.username)
+            userDAO.saveUser(
+                newUsername = uiState.value.username,
+                newBiography = uiState.value.biography
+            )
             SnackbarManager.showMessage(R.string.success)
         }
     }
