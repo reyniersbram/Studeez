@@ -9,5 +9,6 @@ data class FeedEntry(
     val taskId: String = "", // Name of task is not unique
     val subjectId: String = "",
     val totalStudyTime: Int = 0,
-    val endTime: Timestamp = Timestamp(0, 0)
+    val endTime: Timestamp = Timestamp(0, 0),
+    val isArchived: Boolean = false
 )

@@ -7,30 +7,32 @@ import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.domain.FeedDAO
 import be.ugent.sel.studeez.domain.SessionDAO
+import be.ugent.sel.studeez.domain.SubjectDAO
 import be.ugent.sel.studeez.domain.TaskDAO
 import com.google.firebase.Timestamp
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FirebaseFeedDAO @Inject constructor(
     private val sessionDAO: SessionDAO,
     private val taskDAO: TaskDAO,
-    private val subjectDAO: FireBaseSubjectDAO
+    private val subjectDAO: SubjectDAO
 ) : FeedDAO {
 
     /**
      *  Return a map as with key the day and value a list of feedentries for that day.
      */
     override fun getFeedEntries(): Flow<Map<String, List<FeedEntry>>> {
-        return sessionDAO.getSessions().map {sessionReports ->
+        return sessionDAO.getSessions().map { sessionReports ->
             sessionReports
-                .map { sessionReport ->  sessionToFeedEntry(sessionReport) }
+                .map { sessionReport -> sessionToFeedEntry(sessionReport) }
                 .sortedByDescending { it.endTime }
                 .groupBy { getFormattedTime(it) }
                 .mapValues { (_, entries) ->
                     entries
-                    .groupBy { it.taskId }
-                    .map { fuseFeedEntries(it.component2()) }
+                        .groupBy { it.taskId }
+                        .map { fuseFeedEntries(it.component2()) }
                 }
         }
     }
@@ -72,7 +74,8 @@ class FirebaseFeedDAO @Inject constructor(
             taskId = task.id,
             subjectId = subject.id,
             totalStudyTime = sessionReport.studyTime,
-            endTime = sessionReport.endTime
+            endTime = sessionReport.endTime,
+            isArchived = task.archived || subject.archived
         )
     }
 }
