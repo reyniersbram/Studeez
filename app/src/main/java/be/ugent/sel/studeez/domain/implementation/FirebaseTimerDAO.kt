@@ -48,8 +48,8 @@ class FirebaseTimerDAO @Inject constructor(
     }
 
     private fun currentUserTimersCollection(): CollectionReference =
-        firestore.collection(FireBaseCollections.USER_COLLECTION)
+        firestore.collection(FirebaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(FireBaseCollections.TIMER_COLLECTION)
+            .collection(FirebaseCollections.TIMER_COLLECTION)
 
 }

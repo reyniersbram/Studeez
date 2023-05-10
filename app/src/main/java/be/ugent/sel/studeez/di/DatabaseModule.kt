@@ -26,11 +26,11 @@ abstract class DatabaseModule {
     abstract fun provideConfigurationService(impl: FirebaseConfigurationService): ConfigurationService
 
     @Binds
-    abstract fun provideSessionDAO(impl: FireBaseSessionDAO): SessionDAO
+    abstract fun provideSessionDAO(impl: FirebaseSessionDAO): SessionDAO
 
     @Binds
-    abstract fun provideSubjectDAO(impl: FireBaseSubjectDAO): SubjectDAO
+    abstract fun provideSubjectDAO(impl: FirebaseSubjectDAO): SubjectDAO
 
     @Binds
-    abstract fun provideTaskDAO(impl: FireBaseTaskDAO): TaskDAO
+    abstract fun provideTaskDAO(impl: FirebaseTaskDAO): TaskDAO
 }

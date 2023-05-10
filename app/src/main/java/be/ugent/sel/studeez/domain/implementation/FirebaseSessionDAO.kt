@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class FireBaseSessionDAO @Inject constructor(
+class FirebaseSessionDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: AccountDAO
 ) : SessionDAO {
@@ -31,7 +31,7 @@ class FireBaseSessionDAO @Inject constructor(
     }
 
     private fun currentUserSessionsCollection(): CollectionReference =
-        firestore.collection(FireBaseCollections.USER_COLLECTION)
+        firestore.collection(FirebaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(FireBaseCollections.SESSION_COLLECTION)
+            .collection(FirebaseCollections.SESSION_COLLECTION)
 }

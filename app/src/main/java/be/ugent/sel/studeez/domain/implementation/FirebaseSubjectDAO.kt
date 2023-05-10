@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class FireBaseSubjectDAO @Inject constructor(
+class FirebaseSubjectDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: AccountDAO,
 ) : SubjectDAO {
@@ -33,7 +33,7 @@ class FireBaseSubjectDAO @Inject constructor(
     }
 
     private fun currentUserSubjectsCollection(): CollectionReference =
-        firestore.collection(FireBaseCollections.USER_COLLECTION)
+        firestore.collection(FirebaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(FireBaseCollections.SUBJECT_COLLECTION)
+            .collection(FirebaseCollections.SUBJECT_COLLECTION)
 }

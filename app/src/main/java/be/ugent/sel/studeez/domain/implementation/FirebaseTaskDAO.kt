@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class FireBaseTaskDAO @Inject constructor(
+class FirebaseTaskDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: AccountDAO,
 ) : TaskDAO {
@@ -41,9 +41,9 @@ class FireBaseTaskDAO @Inject constructor(
     }
 
     private fun selectedSubjectTasksCollection(subjectId: String): CollectionReference =
-        firestore.collection(FireBaseCollections.USER_COLLECTION)
+        firestore.collection(FirebaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(FireBaseCollections.SUBJECT_COLLECTION)
+            .collection(FirebaseCollections.SUBJECT_COLLECTION)
             .document(subjectId)
-            .collection(FireBaseCollections.TASK_COLLECTION)
+            .collection(FirebaseCollections.TASK_COLLECTION)
 }
