@@ -100,6 +100,8 @@ abstract class AbstractSessionScreen {
                 fontSize = 30.sp
             )
 
+            MidSection()
+
             Box(
                 contentAlignment = Alignment.Center, modifier = Modifier
                     .fillMaxWidth()
@@ -125,6 +127,11 @@ abstract class AbstractSessionScreen {
 
     @Composable
     abstract fun motivationString(): String
+
+    @Composable
+    open fun MidSection() {
+        // Default has no midsection, unless overwritten.
+    }
 
     abstract fun callMediaPlayer()
 
