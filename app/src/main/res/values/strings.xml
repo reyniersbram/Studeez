@@ -138,4 +138,11 @@
     <string name="breakTime">Break Time</string>
     <string name="repeats">Number of Repeats</string>
 
+    <!-- Session Recap -->
+    <string name="congrats">"Congratulations! You studied: "</string>
+    <string name="how_did_it_go">How did it go?</string>
+    <string name="good">Good</string>
+    <string name="bad">Bad</string>
+
+
 </resources>
