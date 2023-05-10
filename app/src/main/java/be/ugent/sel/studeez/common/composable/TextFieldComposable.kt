@@ -47,7 +47,7 @@ fun LabelledInputField(
     value: String,
     onNewValue: (String) -> Unit,
     @StringRes label: Int,
-    singleLine: Boolean = false
+    singleLine: Boolean = true
 ) {
     OutlinedTextField(
         value = value,
