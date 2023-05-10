@@ -3,6 +3,7 @@ package be.ugent.sel.studeez.screens.timer_form
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import be.ugent.sel.studeez.common.composable.DeleteButton
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.R.string as AppText
@@ -12,8 +13,16 @@ fun TimerAddRoute(
     popUp: () -> Unit,
     viewModel: TimerFormViewModel
 ) {
-    TimerFormScreen(popUp = popUp, getTimerInfo = viewModel::getTimerInfo, AppText.add_timer) {
-        viewModel.saveTimer(it, goBack = popUp)
+
+
+    TimerFormScreen(
+        popUp = popUp,
+        getTimerInfo = viewModel::getTimerInfo,
+        extraButton= { },
+        AppText.add_timer
+    ) {
+        viewModel.saveTimer(it, goBack = {popUp(); popUp()})
+
     }
 }
 
@@ -22,7 +31,20 @@ fun TimerEditRoute(
     popUp: () -> Unit,
     viewModel: TimerFormViewModel
 ) {
-    TimerFormScreen(popUp = popUp, getTimerInfo = viewModel::getTimerInfo, AppText.edit_timer) {
+
+    @Composable
+    fun deleteButton() {
+        DeleteButton(text = AppText.delete_subject) {
+            viewModel.deleteTimer(viewModel.getTimerInfo(), popUp)
+        }
+    }
+
+    TimerFormScreen(
+        popUp = popUp,
+        getTimerInfo = viewModel::getTimerInfo,
+        extraButton= { deleteButton() },
+        AppText.edit_timer
+    ) {
         viewModel.editTimer(it, goBack = popUp)
     }
 }
@@ -31,12 +53,13 @@ fun TimerEditRoute(
 fun TimerFormScreen(
     popUp: () -> Unit,
     getTimerInfo: () -> TimerInfo,
+    extraButton: @Composable () -> Unit,
     @StringRes label: Int,
     onConfirmClick: (TimerInfo) -> Unit
 ) {
     val timerFormScreen = getTimerInfo().accept(GetTimerFormScreen())
 
     SecondaryScreenTemplate(title = stringResource(id = label), popUp = popUp) {
-        timerFormScreen(onConfirmClick)
+        timerFormScreen(onConfirmClick, extraButton)
     }
 }
