@@ -72,52 +72,65 @@ fun SessionRecapScreen(modifier: Modifier, sessionRecapActions: SessionRecapActi
             .fillMaxHeight()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             text = stringResource(R.string.congrats) + hms,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Light,
-            fontSize = 30.sp
+            fontSize = 30.sp,
+
         )
 
-        Text(
-            text = stringResource(R.string.how_did_it_go),
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Light,
-            fontSize = 30.sp
-        )
-
-        Row {
-            ImageBackgroundButton(
-                paint = painterResource(id = R.drawable.mood_1),
-                str = stringResource(id = R.string.good),
-                background2 = background2,
-                setBackground1 = setBackground2,
-                setBackground2 = setBackground1
+        Column(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = stringResource(R.string.how_did_it_go),
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Light,
+                fontSize = 30.sp
             )
 
-            ImageBackgroundButton(
-                paint = painterResource(id = R.drawable.mood_2),
-                str = stringResource(id = R.string.bad),
-                background2 = background1,
-                setBackground1 = setBackground1,
-                setBackground2 = setBackground2
-            )
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                ImageBackgroundButton(
+                    paint = painterResource(id = R.drawable.mood_1),
+                    str = stringResource(id = R.string.good),
+                    background2 = background2,
+                    setBackground1 = setBackground2,
+                    setBackground2 = setBackground1
+                )
+
+                ImageBackgroundButton(
+                    paint = painterResource(id = R.drawable.mood_2),
+                    str = stringResource(id = R.string.bad),
+                    background2 = background1,
+                    setBackground1 = setBackground1,
+                    setBackground2 = setBackground2
+                )
+            }
         }
 
-        BasicButton(
-            R.string.save, Modifier.basicButton()
-        ) {
-            sessionRecapActions.saveSession()
-        }
-        BasicButton(
-            R.string.discard, Modifier.basicButton(),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
-        ) {
-            sessionRecapActions.discardSession()
+        Column {
+            BasicButton(
+                R.string.save, Modifier.basicButton()
+            ) {
+                sessionRecapActions.saveSession()
+            }
+            BasicButton(
+                R.string.discard, Modifier.basicButton(),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
+            ) {
+                sessionRecapActions.discardSession()
+            }
         }
     }
 }
