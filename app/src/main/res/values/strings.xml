@@ -69,8 +69,15 @@
 
     <!-- Timers -->
     <string name="timers">Timers</string>
+    <string name="delete_timer">Delete Timer</string>
     <string name="edit">Edit</string>
     <string name="add_timer">Add timer</string>
+
+    <string name="name_error">Name should not be blank</string>
+    <string name="description_error">Description should not be blank</string>
+    <string name="fill_out_error">Fill out all the fields correctly!</string>
+
+
     <string name="pick_time">Select time</string>
     <string name="state_focus">Focus!</string>
     <plurals name="state_focus_remaining">
