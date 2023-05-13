@@ -1,8 +1,10 @@
 package be.ugent.sel.studeez.domain.implementation
 
+import android.util.Log
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.SubjectDocument
 import be.ugent.sel.studeez.data.local.models.task.Task
+import be.ugent.sel.studeez.data.local.models.task.TaskDocument
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.SubjectDAO
 import be.ugent.sel.studeez.domain.TaskDAO
@@ -43,6 +45,18 @@ class FireBaseSubjectDAO @Inject constructor(
 
     override fun updateSubject(newSubject: Subject) {
         currentUserSubjectsCollection().document(newSubject.id).set(newSubject)
+    }
+
+    override suspend fun archiveSubject(subject: Subject) {
+        currentUserSubjectsCollection().document(subject.id).update(SubjectDocument.archived, true)
+        currentUserSubjectsCollection().document(subject.id)
+            .collection(FireBaseCollections.TASK_COLLECTION)
+            .taskNotArchived()
+            .get().await()
+            .documents
+            .forEach {
+                it.reference.update(TaskDocument.archived, true)
+            }
     }
 
     override fun getTaskCount(subject: Subject): Flow<Int> {

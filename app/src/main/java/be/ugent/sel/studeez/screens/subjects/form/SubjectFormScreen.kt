@@ -6,6 +6,7 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -16,6 +17,7 @@ import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.fieldModifier
 import be.ugent.sel.studeez.resources
+import kotlinx.coroutines.launch
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
@@ -42,6 +44,7 @@ fun SubjectEditRoute(
     viewModel: SubjectEditFormViewModel,
 ) {
     val uiState by viewModel.uiState
+    val coroutineScope = rememberCoroutineScope()
     SubjectForm(
         title = AppText.edit_subject,
         goBack = goBack,
@@ -51,7 +54,9 @@ fun SubjectEditRoute(
         onColorChange = {},
     ) {
         DeleteButton(text = AppText.delete_subject) {
-            viewModel.onDelete(openAndPopUp)
+            coroutineScope.launch {
+                viewModel.onDelete(openAndPopUp)
+            }
         }
     }
 }

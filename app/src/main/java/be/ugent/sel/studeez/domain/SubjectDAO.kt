@@ -13,6 +13,8 @@ interface SubjectDAO {
 
     fun updateSubject(newSubject: Subject)
 
+    suspend fun archiveSubject(subject: Subject)
+
     fun getTaskCount(subject: Subject): Flow<Int>
     fun getCompletedTaskCount(subject: Subject): Flow<Int>
     fun getStudyTime(subject: Subject): Flow<Int>

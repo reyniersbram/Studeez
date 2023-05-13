@@ -6,6 +6,7 @@ import be.ugent.sel.studeez.data.SelectedSubject
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.SubjectDAO
+import be.ugent.sel.studeez.domain.TaskDAO
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -59,6 +60,7 @@ class SubjectCreateFormViewModel @Inject constructor(
 @HiltViewModel
 class SubjectEditFormViewModel @Inject constructor(
     subjectDAO: SubjectDAO,
+    private val taskDAO: TaskDAO,
     selectedSubject: SelectedSubject,
     logService: LogService,
 ) : SubjectFormViewModel(subjectDAO, selectedSubject, logService) {
@@ -69,8 +71,8 @@ class SubjectEditFormViewModel @Inject constructor(
         )
     )
 
-    fun onDelete(openAndPopUp: (String, String) -> Unit) {
-        subjectDAO.updateSubject(selectedSubject().copy(archived = true))
+    suspend fun onDelete(openAndPopUp: (String, String) -> Unit) {
+        subjectDAO.archiveSubject(selectedSubject())
         openAndPopUp(StudeezDestinations.SUBJECT_SCREEN, StudeezDestinations.EDIT_SUBJECT_FORM)
     }
 
