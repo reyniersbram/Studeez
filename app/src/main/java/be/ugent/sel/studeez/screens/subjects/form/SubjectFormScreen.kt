@@ -101,15 +101,11 @@ fun ColorPicker(
 ) {
     Button(
         onClick = { onColorChange(Color.generateRandomArgb()) },
-        modifier = Modifier
-            .fieldModifier(),
+        modifier = Modifier.fieldModifier(),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color(uiState.color),
-//            contentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.4f),
         ),
         shape = RoundedCornerShape(4.dp),
-//        border = BorderStroke(1.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.4f)),
-        elevation = null,
     ) {
         Text(text = "Regenerate color")
     }
