@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.DeleteButton
-import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.FormComposable
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.fieldModifier
 import be.ugent.sel.studeez.resources
@@ -71,7 +71,7 @@ fun SubjectForm(
     onColorChange: (Color) -> Unit,
     extraButton: @Composable () -> Unit = {},
 ) {
-    SecondaryScreenTemplate(
+    FormComposable(
         title = resources().getString(title),
         popUp = goBack,
     ) {
