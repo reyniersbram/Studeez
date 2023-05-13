@@ -1,20 +1,26 @@
 package be.ugent.sel.studeez.screens.subjects.form
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.OutlinedTextField
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.DeleteButton
+import be.ugent.sel.studeez.common.composable.LabelledInputField
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.fieldModifier
+import be.ugent.sel.studeez.common.ext.generateRandomArgb
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.R.string as AppText
 
@@ -31,7 +37,7 @@ fun SubjectCreateRoute(
         uiState = uiState,
         onConfirm = { viewModel.onCreate(openAndPopUp) },
         onNameChange = viewModel::onNameChange,
-        onColorChange = {},
+        onColorChange = viewModel::onColorChange,
     )
 }
 
@@ -48,7 +54,7 @@ fun SubjectEditRoute(
         uiState = uiState,
         onConfirm = { viewModel.onEdit(openAndPopUp) },
         onNameChange = viewModel::onNameChange,
-        onColorChange = {},
+        onColorChange = viewModel::onColorChange,
     ) {
         DeleteButton(text = AppText.delete_subject) {
             viewModel.onDelete(openAndPopUp)
@@ -63,7 +69,7 @@ fun SubjectForm(
     uiState: SubjectFormUiState,
     onConfirm: () -> Unit,
     onNameChange: (String) -> Unit,
-    onColorChange: (Color) -> Unit,
+    onColorChange: (Long) -> Unit,
     extraButton: @Composable () -> Unit = {},
 ) {
     SecondaryScreenTemplate(
@@ -71,13 +77,13 @@ fun SubjectForm(
         popUp = goBack,
     ) {
         Column {
-            OutlinedTextField(
+            LabelledInputField(
                 singleLine = true,
                 value = uiState.name,
-                onValueChange = onNameChange,
-                placeholder = { Text(stringResource(id = AppText.name)) },
-                modifier = Modifier.fieldModifier(),
+                onNewValue = onNameChange,
+                label = AppText.name,
             )
+            ColorPicker(onColorChange, uiState)
             BasicButton(
                 text = AppText.confirm,
                 modifier = Modifier.basicButton(),
@@ -85,6 +91,27 @@ fun SubjectForm(
             )
             extraButton()
         }
+    }
+}
+
+@Composable
+fun ColorPicker(
+    onColorChange: (Long) -> Unit,
+    uiState: SubjectFormUiState,
+) {
+    Button(
+        onClick = { onColorChange(Color.generateRandomArgb()) },
+        modifier = Modifier
+            .fieldModifier(),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color(uiState.color),
+//            contentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.4f),
+        ),
+        shape = RoundedCornerShape(4.dp),
+//        border = BorderStroke(1.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.4f)),
+        elevation = null,
+    ) {
+        Text(text = "Regenerate color")
     }
 }
 

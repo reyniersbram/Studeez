@@ -46,7 +46,7 @@ class SubjectCreateFormViewModel @Inject constructor(
     fun onCreate(openAndPopUp: (String, String) -> Unit) {
         val newSubject = Subject(
             name = name,
-            argb_color = Color.generateRandomArgb(),
+            argb_color = color,
         )
         subjectDAO.saveSubject(
             newSubject
