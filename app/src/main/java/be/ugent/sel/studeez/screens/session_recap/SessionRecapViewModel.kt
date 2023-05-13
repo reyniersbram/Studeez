@@ -24,15 +24,15 @@ class SessionRecapViewModel @Inject constructor(
         return selectedSessionReport()
     }
 
-    fun saveSession(open: (String, String) -> Unit) {
+    fun saveSession(open: (String) -> Unit) {
         sessionDAO.saveSession(getSessionReport())
         val newTask =
             selectedTask().copy(time = selectedTask().time + selectedSessionReport().studyTime)
         taskDAO.updateTask(newTask)
-        open(StudeezDestinations.HOME_SCREEN, StudeezDestinations.SESSION_RECAP)
+        open(StudeezDestinations.HOME_SCREEN)
     }
 
-    fun discardSession(open: (String, String) -> Unit) {
-        open(StudeezDestinations.HOME_SCREEN, StudeezDestinations.SESSION_RECAP)
+    fun discardSession(open: (String) -> Unit) {
+        open(StudeezDestinations.HOME_SCREEN)
     }
 }
