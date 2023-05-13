@@ -117,7 +117,7 @@ fun LabeledErrorTextField(
     initialValue: String,
     @StringRes label: Int,
     singleLine: Boolean = false,
-    isValid: MutableState<Boolean>,
+    isValid: MutableState<Boolean> = remember { mutableStateOf(true) },
     isFirst: MutableState<Boolean> = remember { mutableStateOf(false) },
     @StringRes errorText: Int,
     keyboardType: KeyboardType,

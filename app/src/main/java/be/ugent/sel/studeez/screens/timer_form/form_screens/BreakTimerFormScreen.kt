@@ -30,6 +30,7 @@ class BreakTimerFormScreen(
             initialValue = breakTimerInfo.repeats.toString(),
             label = R.string.repeats,
             errorText = AppText.repeats_error,
+            isValid = mutableStateOf(false),
             keyboardType = KeyboardType.Decimal,
             predicate = { it.matches(Regex("[1-9]+\\d*")) }
         ) { correctlyTypedInt ->
