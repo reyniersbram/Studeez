@@ -37,11 +37,11 @@ class BreakSessionScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
         ) {
-            repeat(funPomoDoroTimer.repeats - funPomoDoroTimer.breaksRemaining) {
+            repeat(funPomoDoroTimer.repeats - funPomoDoroTimer.breaksRemaining - 1) {
                 Dot(color = Color.DarkGray)
             }
             if (!funPomoDoroTimer.isInBreak) Dot(Color.Green) else Dot(Color.DarkGray)
-            repeat(funPomoDoroTimer.breaksRemaining - 1) {
+            repeat(funPomoDoroTimer.breaksRemaining) {
                 Dot(color = Color.Gray)
             }
         }
