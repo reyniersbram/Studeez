@@ -34,7 +34,7 @@ fun TimerEditRoute(
 
     @Composable
     fun deleteButton() {
-        DeleteButton(text = AppText.delete_subject) {
+        DeleteButton(text = AppText.delete_timer) {
             viewModel.deleteTimer(viewModel.getTimerInfo(), popUp)
         }
     }
