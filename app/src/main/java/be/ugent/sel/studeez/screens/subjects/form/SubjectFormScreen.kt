@@ -1,17 +1,16 @@
 package be.ugent.sel.studeez.screens.subjects.form
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.common.composable.BasicButton
@@ -104,10 +103,11 @@ fun ColorPicker(
         modifier = Modifier.fieldModifier(),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color(uiState.color),
+            contentColor = Color.White,
         ),
         shape = RoundedCornerShape(4.dp),
     ) {
-        Text(text = "Regenerate color")
+        Text(text = stringResource(id = AppText.regenerate_color))
     }
 }
 
