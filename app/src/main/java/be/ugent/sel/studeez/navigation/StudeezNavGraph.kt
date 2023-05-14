@@ -220,6 +220,10 @@ fun StudeezNavGraph(
         }
 
         // Friends flow
+        composable(StudeezDestinations.FRIENDS_OVERVIEW_SCREEN) {
+            // TODO
+        }
+
         composable(StudeezDestinations.SEARCH_FRIENDS_SCREEN) {
             // TODO
         }

@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.domain.implementation
 
+import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.data.local.models.Friendship
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.FriendshipDAO
@@ -7,8 +8,14 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
+import be.ugent.sel.studeez.R.string as AppText
 
 class FirebaseFriendshipDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
@@ -27,7 +34,22 @@ class FirebaseFriendshipDAO @Inject constructor(
     }
 
     override fun getFriendshipCount(): Flow<Int> {
-        TODO("Not yet implemented")
+        return flow {
+            val friendshipCount = suspendCoroutine { continuation ->
+                currentUserDocument()
+                    .collection(FirebaseCollections.FRIENDS_COLLECTION)
+                    .get()
+                    .addOnSuccessListener { querySnapshot ->
+                        continuation.resume(querySnapshot.size())
+                    }
+                    .addOnFailureListener { exception ->
+                        continuation.resumeWithException(exception)
+                    }
+            }
+            emit(friendshipCount)
+        }.catch {
+            SnackbarManager.showMessage(AppText.generic_error)
+        }
     }
 
     override fun getFriendshipDetails(id: String): Friendship {

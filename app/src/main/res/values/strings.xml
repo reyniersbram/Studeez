@@ -20,7 +20,7 @@
     <!-- Messages -->
     <string name="success">Success!</string>
     <string name="try_again">Try again</string>
-    <string name="generic_error">Something wrong happened. Please try again.</string>
+    <string name="generic_error">Something went wrong. Please try again.</string>
     <string name="email_error">Please insert a valid email.</string>
 
     <!-- ========== NavBar ========== -->
@@ -107,6 +107,10 @@
 
     <string name="friends">Friends</string>
     <string name="friend">Friend</string>
+    <plurals name="friends_amount">
+        <item quantity="one">%d Friend</item>
+        <item quantity="other">%d Friends</item>
+    </plurals>
     <string name="add_friend_not_possible_yet">Adding friends still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
 
     <!-- ========== Create & edit screens ========== -->
