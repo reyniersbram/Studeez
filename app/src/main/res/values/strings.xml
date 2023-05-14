@@ -16,6 +16,7 @@
     <string name="go_back">Go back</string>
     <string name="next">Next</string>
     <string name="start">Start</string>
+    <string name="view_more">View more</string>
 
     <!-- Messages -->
     <string name="success">Success!</string>
@@ -112,6 +113,7 @@
         <item quantity="other">%d Friends</item>
     </plurals>
     <string name="add_friend_not_possible_yet">Adding friends still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
+    <string name="no_friends">You don\'t have any friends yet. Add one!</string>
 
     <!-- ========== Create & edit screens ========== -->
 
