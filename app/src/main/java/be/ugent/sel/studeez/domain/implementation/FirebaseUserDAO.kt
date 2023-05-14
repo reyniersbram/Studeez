@@ -9,6 +9,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -41,7 +42,15 @@ class FirebaseUserDAO @Inject constructor(
     }
 
     override fun getUserDetails(userId: String): Flow<User> {
-        TODO("Not yet implemented")
+        return flow {
+            val snapshot = firestore
+                .collection(FirebaseCollections.USER_COLLECTION)
+                .document(userId)
+                .get()
+                .await()
+            val user = snapshot.toObject(User::class.java)!!
+            emit(user)
+        }
     }
 
     override suspend fun getLoggedInUser(): User {
