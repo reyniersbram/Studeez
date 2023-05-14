@@ -7,7 +7,9 @@ import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.UserDAO
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.snapshots
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -28,7 +30,10 @@ class FirebaseUserDAO @Inject constructor(
             .document(auth.currentUserId)
 
     override fun getAllUsers(): Flow<List<User>> {
-        TODO("Not yet implemented")
+        return firestore
+            .collection(FirebaseCollections.USER_COLLECTION)
+            .snapshots()
+            .map { it.toObjects(User::class.java) }
     }
 
     override fun getUsersWithQuery(): Flow<List<User>> {
