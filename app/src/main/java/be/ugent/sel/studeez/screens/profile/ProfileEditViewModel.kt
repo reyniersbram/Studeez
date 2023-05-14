@@ -24,7 +24,7 @@ class ProfileEditViewModel @Inject constructor(
 
     init {
         launchCatching {
-            val user: User = userDAO.getUser()
+            val user: User = userDAO.getLoggedInUser()
             uiState.value = uiState.value.copy(
                 username = user.username,
                 biography = user.biography
@@ -42,7 +42,7 @@ class ProfileEditViewModel @Inject constructor(
 
     fun onSaveClick() {
         launchCatching {
-            userDAO.saveUser(
+            userDAO.saveLoggedInUser(
                 newUsername = uiState.value.username,
                 newBiography = uiState.value.biography
             )
@@ -52,7 +52,7 @@ class ProfileEditViewModel @Inject constructor(
 
     fun onDeleteClick(openAndPopUp: (String, String) -> Unit) {
         launchCatching {
-            userDAO.deleteUserReferences() // Delete references
+            userDAO.deleteLoggedInUserReferences() // Delete references
             accountDAO.deleteAccount() // Delete authentication
         }
         openAndPopUp(StudeezDestinations.SIGN_UP_SCREEN, StudeezDestinations.EDIT_PROFILE_SCREEN)

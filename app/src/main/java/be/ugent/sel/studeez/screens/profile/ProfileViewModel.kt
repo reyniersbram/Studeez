@@ -14,11 +14,11 @@ class ProfileViewModel @Inject constructor(
 ) : StudeezViewModel(logService) {
 
     suspend fun getUsername(): String {
-        return userDAO.getUser().username
+        return userDAO.getLoggedInUser().username
     }
 
     suspend fun getBiography(): String {
-        return userDAO.getUser().biography
+        return userDAO.getLoggedInUser().biography
     }
 
     fun onEditProfileClick(open: (String) -> Unit) {

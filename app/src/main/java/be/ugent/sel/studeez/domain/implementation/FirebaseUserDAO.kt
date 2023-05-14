@@ -7,6 +7,7 @@ import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.UserDAO
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -15,7 +16,30 @@ class FirebaseUserDAO @Inject constructor(
     private val auth: AccountDAO
     ) : UserDAO {
 
-    override suspend fun getUser(): User {
+    companion object {
+        private const val USER_COLLECTION = FirebaseCollections.USER_COLLECTION
+        private const val USERNAME_FIELD = "username"
+        private const val BIOGRAPHY_FIELD = "biography"
+    }
+
+    private fun currentUserDocument(): DocumentReference =
+        firestore
+            .collection(USER_COLLECTION)
+            .document(auth.currentUserId)
+
+    override fun getAllUsers(): Flow<List<User>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUsersWithQuery(): Flow<List<User>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUserDetails(userId: String): Flow<User> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getLoggedInUser(): User {
         val userDocument = currentUserDocument().get().await()
         return User(
             username = userDocument.getString(USERNAME_FIELD) ?: "",
@@ -23,7 +47,7 @@ class FirebaseUserDAO @Inject constructor(
         )
     }
 
-    override suspend fun saveUser(
+    override suspend fun saveLoggedInUser(
         newUsername: String,
         newBiography: String
     ) {
@@ -33,16 +57,7 @@ class FirebaseUserDAO @Inject constructor(
         ))
     }
 
-    private fun currentUserDocument(): DocumentReference =
-        firestore.collection(USER_COLLECTION).document(auth.currentUserId)
-
-    companion object {
-        private const val USER_COLLECTION = "users"
-        private const val USERNAME_FIELD = "username"
-        private const val BIOGRAPHY_FIELD = "biography"
-    }
-
-    override suspend fun deleteUserReferences() {
+    override suspend fun deleteLoggedInUserReferences() {
         currentUserDocument().delete()
             .addOnSuccessListener { SnackbarManager.showMessage(R.string.success) }
             .addOnFailureListener { SnackbarManager.showMessage(R.string.generic_error) }

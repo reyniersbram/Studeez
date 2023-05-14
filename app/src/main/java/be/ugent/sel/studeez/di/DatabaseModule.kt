@@ -17,6 +17,9 @@ abstract class DatabaseModule {
     abstract fun provideUserDAO(impl: FirebaseUserDAO): UserDAO
 
     @Binds
+    abstract fun provideFriendshipDAO(impl: FirebaseFriendshipDAO): FriendshipDAO
+
+    @Binds
     abstract fun provideTimerDAO(impl: FirebaseTimerDAO): TimerDAO
 
     @Binds
