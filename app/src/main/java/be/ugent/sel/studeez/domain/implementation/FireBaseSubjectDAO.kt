@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.domain.implementation
 
+import android.util.Log
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.SubjectDocument
 import be.ugent.sel.studeez.data.local.models.task.Task
@@ -18,7 +19,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import kotlin.collections.count
 
-class FireBaseSubjectDAO @Inject constructor(
+class FirebaseSubjectDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: AccountDAO,
     private val taskDAO: TaskDAO,
@@ -49,7 +50,7 @@ class FireBaseSubjectDAO @Inject constructor(
     override suspend fun archiveSubject(subject: Subject) {
         currentUserSubjectsCollection().document(subject.id).update(SubjectDocument.archived, true)
         currentUserSubjectsCollection().document(subject.id)
-            .collection(FireBaseCollections.TASK_COLLECTION)
+            .collection(FirebaseCollections.TASK_COLLECTION)
             .taskNotArchived()
             .get().await()
             .documents
@@ -74,16 +75,16 @@ class FireBaseSubjectDAO @Inject constructor(
     }
 
     private fun currentUserSubjectsCollection(): CollectionReference =
-        firestore.collection(FireBaseCollections.USER_COLLECTION)
+        firestore.collection(FirebaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(FireBaseCollections.SUBJECT_COLLECTION)
+            .collection(FirebaseCollections.SUBJECT_COLLECTION)
 
     private fun subjectTasksCollection(subject: Subject): CollectionReference =
-        firestore.collection(FireBaseCollections.USER_COLLECTION)
+        firestore.collection(FirebaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(FireBaseCollections.SUBJECT_COLLECTION)
+            .collection(FirebaseCollections.SUBJECT_COLLECTION)
             .document(subject.id)
-            .collection(FireBaseCollections.TASK_COLLECTION)
+            .collection(FirebaseCollections.TASK_COLLECTION)
 
     fun CollectionReference.subjectNotArchived(): Query =
         this.whereEqualTo(SubjectDocument.archived, false)
