@@ -30,10 +30,10 @@ import be.ugent.sel.studeez.R.string as AppText
 @Composable
 fun SubjectEntry(
     subject: Subject,
-    onViewSubject: () -> Unit,
     getTaskCount: () -> Flow<Int>,
     getCompletedTaskCount: () -> Flow<Int>,
     getStudyTime: () -> Flow<Int>,
+    selectButton: @Composable (RowScope) -> Unit,
 ) {
     val studytime by getStudyTime().collectAsState(initial = 0)
     val taskCount by getTaskCount().collectAsState(initial = 0)
@@ -89,14 +89,7 @@ fun SubjectEntry(
                     }
                 }
             }
-            StealthButton(
-                text = AppText.view_tasks,
-                modifier = Modifier
-                    .padding(start = 10.dp, end = 5.dp)
-                    .weight(1f)
-            ) {
-                onViewSubject()
-            }
+            selectButton(this)
         }
     }
 }
@@ -109,11 +102,16 @@ fun SubjectEntryPreview() {
             name = "Test Subject",
             argb_color = 0xFFFFD200,
         ),
-        onViewSubject = {},
         getTaskCount = { flowOf() },
         getCompletedTaskCount = { flowOf() },
         getStudyTime = { flowOf() },
-    )
+    ) {
+        StealthButton(
+            text = AppText.view_tasks,
+            modifier = Modifier
+                .padding(start = 10.dp, end = 5.dp)
+        ) {}
+    }
 }
 
 @Preview
@@ -124,9 +122,8 @@ fun OverflowSubjectEntryPreview() {
             name = "Testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
             argb_color = 0xFFFFD200,
         ),
-        onViewSubject = {},
         getTaskCount = { flowOf() },
         getCompletedTaskCount = { flowOf() },
         getStudyTime = { flowOf() },
-    )
+    ) {}
 }

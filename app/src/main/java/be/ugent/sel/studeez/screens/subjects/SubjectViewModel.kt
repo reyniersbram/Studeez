@@ -42,8 +42,8 @@ class SubjectViewModel @Inject constructor(
         return subjectDAO.getStudyTime(subject)
     }
 
-    fun onViewSubject(subject: Subject, open: (String) -> Unit) {
+    fun onSelectSubject(subject: Subject, open: () -> Unit) {
         selectedSubject.set(subject)
-        open(StudeezDestinations.TASKS_SCREEN)
+        open()
     }
 }

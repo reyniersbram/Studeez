@@ -27,6 +27,7 @@ object StudeezDestinations {
     const val EDIT_SUBJECT_FORM = "edit_subject"
     const val TASKS_SCREEN = "tasks"
     const val ADD_TASK_FORM = "add_task"
+    const val SELECT_SUBJECT = "select_subject"
     const val EDIT_TASK_FORM = "edit_task"
 
     // Friends flow

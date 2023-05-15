@@ -40,6 +40,7 @@
     <string name="tasks">Tasks</string>
     <string name="task">Task</string>
     <string name="my_subjects">My Subjects</string>
+    <string name="select_subject_title">Select Subject</string>
     <string name="new_subject">New Subject</string>
     <string name="new_task">New Task</string>
     <string name="edit_subject">Edit Subject</string>
@@ -47,6 +48,7 @@
     <string name="delete_subject">Delete Subject</string>
     <string name="delete_task">Delete Task</string>
     <string name="view_tasks">View</string>
+    <string name="select_subject">Select</string>
     <string name="regenerate_color">Regenerate Color</string>
 
     <!-- Sessions -->

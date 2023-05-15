@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.subjects
+package be.ugent.sel.studeez.screens.subjects.select
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,54 +13,47 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import be.ugent.sel.studeez.common.composable.NewTaskSubjectButton
-import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
+import be.ugent.sel.studeez.R
+import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.StealthButton
-import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
-import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.common.composable.tasks.SubjectEntry
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.navigation.StudeezDestinations
+import be.ugent.sel.studeez.screens.subjects.SubjectUiState
+import be.ugent.sel.studeez.screens.subjects.SubjectViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
-fun SubjectRoute(
+fun SubjectSelectionRoute(
     open: (String) -> Unit,
+    goBack: () -> Unit,
     viewModel: SubjectViewModel,
-    drawerActions: DrawerActions,
-    navigationBarActions: NavigationBarActions,
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    SubjectScreen(
-        drawerActions = drawerActions,
-        navigationBarActions = navigationBarActions,
-        onAddSubject = { viewModel.onAddSubject(open) },
-        onViewSubject = { viewModel.onSelectSubject(it) { open(StudeezDestinations.TASKS_SCREEN) } },
+    SubjectSelectionScreen(
+        onViewSubject = { viewModel.onSelectSubject(it) { open(StudeezDestinations.ADD_TASK_FORM) } },
         getTaskCount = viewModel::getTaskCount,
         getCompletedTaskCount = viewModel::getCompletedTaskCount,
         getStudyTime = viewModel::getStudyTime,
+        goBack = goBack,
         uiState = uiState,
     )
 }
 
 @Composable
-fun SubjectScreen(
-    drawerActions: DrawerActions,
-    navigationBarActions: NavigationBarActions,
-    onAddSubject: () -> Unit,
+fun SubjectSelectionScreen(
+    goBack: () -> Unit,
     onViewSubject: (Subject) -> Unit,
     getTaskCount: (Subject) -> Flow<Int>,
     getCompletedTaskCount: (Subject) -> Flow<Int>,
     getStudyTime: (Subject) -> Flow<Int>,
     uiState: SubjectUiState,
 ) {
-    PrimaryScreenTemplate(
-        title = stringResource(AppText.my_subjects),
-        drawerActions = drawerActions,
-        navigationBarActions = navigationBarActions,
+    SecondaryScreenTemplate(
+        title = stringResource(R.string.select_subject_title),
         barAction = {},
+        popUp = goBack,
     ) {
         when (uiState) {
             SubjectUiState.Loading -> Column(
@@ -76,7 +69,6 @@ fun SubjectScreen(
                 Column(
                     modifier = Modifier.padding(top = 5.dp)
                 ) {
-                    NewTaskSubjectButton(onClick = onAddSubject, AppText.new_subject)
                     LazyColumn {
                         items(uiState.subjects) { subject ->
                             SubjectEntry(
@@ -86,9 +78,9 @@ fun SubjectScreen(
                                 getStudyTime = { getStudyTime(subject) },
                             ) {
                                 StealthButton(
-                                    text = AppText.view_tasks,
+                                    text = R.string.select_subject,
                                     modifier = Modifier
-                                        .padding(start = 10.dp, end = 5.dp)
+                                        .padding(start = 4.dp, end = 4.dp)
                                         .weight(1f)
                                 ) {
                                     onViewSubject(subject)
@@ -105,10 +97,8 @@ fun SubjectScreen(
 @Preview
 @Composable
 fun SubjectScreenPreview() {
-    SubjectScreen(
-        drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
-        onAddSubject = {},
+    SubjectSelectionScreen(
+        goBack = {},
         onViewSubject = {},
         getTaskCount = { flowOf() },
         getCompletedTaskCount = { flowOf() },
@@ -127,10 +117,8 @@ fun SubjectScreenPreview() {
 @Preview
 @Composable
 fun SubjectScreenLoadingPreview() {
-    SubjectScreen(
-        drawerActions = DrawerActions({}, {}, {}, {}, {}),
-        navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
-        onAddSubject = {},
+    SubjectSelectionScreen(
+        goBack = {},
         onViewSubject = {},
         getTaskCount = { flowOf() },
         getCompletedTaskCount = { flowOf() },
