@@ -1,5 +1,8 @@
 package be.ugent.sel.studeez.screens.session
 
+import android.media.MediaPlayer
+import android.media.RingtoneManager
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
@@ -28,8 +31,11 @@ fun SessionRoute(
     openAndPopUp: (String, String) -> Unit,
     viewModel: SessionViewModel,
 ) {
+    val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+    val mediaPlayer = MediaPlayer.create(LocalContext.current, uri)
+    mediaPlayer.isLooping = false
 
-    InvisibleSessionManager.setParameters(viewModel = viewModel, context = LocalContext.current)
+    InvisibleSessionManager.setParameters(viewModel = viewModel, mediaPlayer = mediaPlayer)
 
     val soundPlayer = SoundPlayer(LocalContext.current)
     val sessionActions = getSessionActions(viewModel, openAndPopUp)

@@ -18,7 +18,6 @@ import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.DeleteButton
 import be.ugent.sel.studeez.common.composable.FormComposable
 import be.ugent.sel.studeez.common.composable.LabelledInputField
-import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.fieldModifier
 import be.ugent.sel.studeez.common.ext.generateRandomArgb
