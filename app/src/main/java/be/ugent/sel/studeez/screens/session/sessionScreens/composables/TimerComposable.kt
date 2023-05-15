@@ -23,6 +23,7 @@ import kotlin.time.Duration.Companion.seconds
 @Composable
 fun Timer(
     sessionActions: SessionActions,
+    callMediaPlayer: () -> Unit,
     motivationString: @Composable () -> String,
     MidSection: @Composable () -> Int
 ) {
@@ -30,7 +31,7 @@ fun Timer(
     LaunchedEffect(tikker) {
         delay(1.seconds)
         sessionActions.getTimer().tick()
-        // callMediaPlayer() TODO
+        callMediaPlayer()
         tikker = !tikker
     }
 
