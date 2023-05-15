@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserDAO {
 
+    fun getCurrentUserId(): String
+
     /**
      * @return all users
      */
@@ -13,8 +15,10 @@ interface UserDAO {
     /**
      * @return all users based on a query, a trimmed down version of getAllUsers()
      */
-    fun getUsersWithQuery(): Flow<List<User>>
-    // TODO Add query parameter
+    fun getUsersWithQuery(
+        fieldName: String,
+        value: String
+    ): Flow<List<User>>
 
     /**
      * Request information about a user

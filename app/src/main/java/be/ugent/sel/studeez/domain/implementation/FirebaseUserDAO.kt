@@ -3,8 +3,11 @@ package be.ugent.sel.studeez.domain.implementation
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.data.local.models.User
+import be.ugent.sel.studeez.data.remote.FirebaseUser.BIOGRAPHY
+import be.ugent.sel.studeez.data.remote.FirebaseUser.USERNAME
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.UserDAO
+import be.ugent.sel.studeez.domain.implementation.FirebaseCollections.USER_COLLECTION
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
@@ -17,12 +20,10 @@ import javax.inject.Inject
 class FirebaseUserDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: AccountDAO
-    ) : UserDAO {
+) : UserDAO {
 
-    companion object {
-        private const val USER_COLLECTION = FirebaseCollections.USER_COLLECTION
-        private const val USERNAME_FIELD = "username"
-        private const val BIOGRAPHY_FIELD = "biography"
+    override fun getCurrentUserId(): String {
+        return auth.currentUserId
     }
 
     private fun currentUserDocument(): DocumentReference =
@@ -32,19 +33,26 @@ class FirebaseUserDAO @Inject constructor(
 
     override fun getAllUsers(): Flow<List<User>> {
         return firestore
-            .collection(FirebaseCollections.USER_COLLECTION)
+            .collection(USER_COLLECTION)
             .snapshots()
             .map { it.toObjects(User::class.java) }
     }
 
-    override fun getUsersWithQuery(): Flow<List<User>> {
-        TODO("Not yet implemented")
+    override fun getUsersWithQuery(
+        fieldName: String,
+        value: String
+    ): Flow<List<User>> {
+        return firestore
+            .collection(USER_COLLECTION)
+            .whereEqualTo(fieldName, value)
+            .snapshots()
+            .map { it.toObjects(User::class.java) }
     }
 
     override fun getUserDetails(userId: String): Flow<User> {
         return flow {
             val snapshot = firestore
-                .collection(FirebaseCollections.USER_COLLECTION)
+                .collection(USER_COLLECTION)
                 .document(userId)
                 .get()
                 .await()
@@ -56,8 +64,8 @@ class FirebaseUserDAO @Inject constructor(
     override suspend fun getLoggedInUser(): User {
         val userDocument = currentUserDocument().get().await()
         return User(
-            username = userDocument.getString(USERNAME_FIELD) ?: "",
-            biography = userDocument.getString(BIOGRAPHY_FIELD) ?: ""
+            username = userDocument.getString(USERNAME) ?: "",
+            biography = userDocument.getString(BIOGRAPHY) ?: ""
         )
     }
 
@@ -66,8 +74,8 @@ class FirebaseUserDAO @Inject constructor(
         newBiography: String
     ) {
         currentUserDocument().set(mapOf(
-            USERNAME_FIELD to newUsername,
-            BIOGRAPHY_FIELD to newBiography
+            USERNAME to newUsername,
+            BIOGRAPHY to newBiography
         ))
     }
 
