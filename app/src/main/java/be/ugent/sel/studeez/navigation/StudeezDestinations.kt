@@ -32,6 +32,7 @@ object StudeezDestinations {
     // Friends flow
     const val FRIENDS_OVERVIEW_SCREEN = "friends_overview"
     const val SEARCH_FRIENDS_SCREEN = "search_friends"
+    const val PUBLIC_PROFILE_SCREEN = "public_profile"
 
     // Create & edit screens
     const val CREATE_TASK_SCREEN = "create_task"
