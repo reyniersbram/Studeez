@@ -23,12 +23,18 @@ import be.ugent.sel.studeez.screens.session.SessionActions
 fun SessionScreen(
     open: (String) -> Unit,
     sessionActions: SessionActions,
-    motivationString: @Composable () -> String
+    midSection: @Composable () -> Unit = {},
+    motivationString: @Composable () -> String,
+
 ) {
     Column(
         modifier = Modifier.padding(10.dp)
     ) {
-        Timer(sessionActions = sessionActions, motivationString = motivationString)
+        Timer(
+            sessionActions = sessionActions,
+            motivationString = motivationString,
+            midSection = midSection
+        )
         Box(
             contentAlignment = Alignment.Center, modifier = Modifier
                 .fillMaxWidth()

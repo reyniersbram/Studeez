@@ -23,7 +23,8 @@ import kotlin.time.Duration.Companion.seconds
 @Composable
 fun Timer(
     sessionActions: SessionActions,
-    motivationString: @Composable () -> String
+    motivationString: @Composable () -> String,
+    midSection: @Composable () -> Unit
 ) {
     var tikker by remember { mutableStateOf(false) }
     LaunchedEffect(tikker) {
@@ -38,6 +39,7 @@ fun Timer(
 
         TimerClock(hms)
         MotivationText(text = motivationString())
+
 
         Box(
             contentAlignment = Alignment.Center, modifier = Modifier
