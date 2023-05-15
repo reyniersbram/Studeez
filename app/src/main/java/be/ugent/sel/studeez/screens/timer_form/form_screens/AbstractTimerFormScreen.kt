@@ -34,7 +34,7 @@ abstract class AbstractTimerFormScreen(private val timerInfo: TimerInfo) {
     @Composable
     operator fun invoke(
         onSaveClick: (TimerInfo) -> Unit,
-        extraButton: @Composable () -> Unit
+        extraButton: @Composable () -> Unit = {},
     ) {
 
         Column(
