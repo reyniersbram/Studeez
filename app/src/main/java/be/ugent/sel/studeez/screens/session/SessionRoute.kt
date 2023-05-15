@@ -1,8 +1,5 @@
 package be.ugent.sel.studeez.screens.session
 
-import android.media.MediaPlayer
-import android.media.RingtoneManager
-import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
