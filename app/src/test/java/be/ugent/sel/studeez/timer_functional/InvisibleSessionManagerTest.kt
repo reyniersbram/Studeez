@@ -6,7 +6,6 @@ import be.ugent.sel.studeez.data.SelectedTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalCustomTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalEndlessTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
-import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.implementation.LogServiceImpl
 import be.ugent.sel.studeez.screens.session.InvisibleSessionManager
 import be.ugent.sel.studeez.screens.session.SessionViewModel
