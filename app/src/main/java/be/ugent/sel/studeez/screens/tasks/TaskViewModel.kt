@@ -5,7 +5,6 @@ import be.ugent.sel.studeez.data.SelectedTask
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.domain.LogService
-import be.ugent.sel.studeez.domain.SubjectDAO
 import be.ugent.sel.studeez.domain.TaskDAO
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel
@@ -16,7 +15,6 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskViewModel @Inject constructor(
     private val taskDAO: TaskDAO,
-    private val subjectDAO: SubjectDAO,
     private val selectedSubject: SelectedSubject,
     private val selectedTask: SelectedTask,
     logService: LogService,
@@ -29,11 +27,6 @@ class TaskViewModel @Inject constructor(
         return taskDAO.getTasks(selectedSubject())
     }
 
-    fun deleteSubject(open: (String) -> Unit) {
-        subjectDAO.deleteSubject(selectedSubject())
-        open(StudeezDestinations.SUBJECT_SCREEN)
-    }
-
     fun getSelectedSubject(): Subject {
         return selectedSubject()
     }
@@ -42,8 +35,12 @@ class TaskViewModel @Inject constructor(
         taskDAO.deleteTask(task)
     }
 
+    fun archiveTask(task: Task) {
+        taskDAO.updateTask(task.copy(archived = true))
+    }
+
     fun toggleTaskCompleted(task: Task, completed: Boolean) {
-        taskDAO.toggleTaskCompleted(task, completed)
+        taskDAO.updateTask(task.copy(completed = completed))
     }
 
     fun editSubject(open: (String) -> Unit) {

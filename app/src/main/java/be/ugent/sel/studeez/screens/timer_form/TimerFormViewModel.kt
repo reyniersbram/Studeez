@@ -1,6 +1,6 @@
 package be.ugent.sel.studeez.screens.timer_form
 
-import be.ugent.sel.studeez.data.EditTimerState
+import be.ugent.sel.studeez.data.SelectedTimerInfo
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.TimerDAO
@@ -10,15 +10,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TimerFormViewModel @Inject constructor(
-    private val editTimerState: EditTimerState,
+    private val selectedTimerInfo: SelectedTimerInfo,
     private val timerDAO: TimerDAO,
     logService: LogService
 ) : StudeezViewModel(logService) {
-
-    private val timerInfo: TimerInfo = editTimerState.timerInfo
-
     fun getTimerInfo(): TimerInfo {
-        return timerInfo
+        return selectedTimerInfo()
     }
 
     fun editTimer(timerInfo: TimerInfo, goBack: () -> Unit) {
