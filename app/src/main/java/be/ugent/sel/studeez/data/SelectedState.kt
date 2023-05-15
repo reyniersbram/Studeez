@@ -5,6 +5,7 @@ import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
+import be.ugent.sel.studeez.domain.UserDAO
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -42,4 +43,11 @@ class SelectedSubject @Inject constructor() : SelectedState<Subject>() {
 @Singleton
 class SelectedTimerInfo @Inject constructor() : SelectedState<TimerInfo>() {
     override lateinit var value: TimerInfo
+}
+
+@Singleton
+class SelectedUserId @Inject constructor(
+    userDAO: UserDAO
+): SelectedState<String>() {
+    override var value: String = userDAO.getCurrentUserId()
 }

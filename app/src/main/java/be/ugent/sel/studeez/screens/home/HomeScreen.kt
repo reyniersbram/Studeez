@@ -21,14 +21,15 @@ import be.ugent.sel.studeez.resources
 @Composable
 fun HomeRoute(
     open: (String) -> Unit,
+    viewModel: HomeViewModel,
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions,
     feedViewModel: FeedViewModel,
 ) {
     val feedUiState by feedViewModel.uiState.collectAsState()
     HomeScreen(
+        onViewFriendsClick = { viewModel.onViewFriendsClick(open) },
         drawerActions = drawerActions,
-        open = open,
         navigationBarActions = navigationBarActions,
         feedUiState = feedUiState,
         continueTask = { subjectId, taskId -> feedViewModel.continueTask(open, subjectId, taskId) },
@@ -38,7 +39,7 @@ fun HomeRoute(
 
 @Composable
 fun HomeScreen(
-    open: (String) -> Unit,
+    onViewFriendsClick: () -> Unit,
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions,
     feedUiState: FeedUiState,
@@ -49,15 +50,17 @@ fun HomeScreen(
         title = resources().getString(R.string.home),
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
-        // TODO barAction = { FriendsAction() }
+        barAction = { FriendsAction(onViewFriendsClick) }
     ) {
         Feed(feedUiState, continueTask, onEmptyFeedHelp)
     }
 }
 
 @Composable
-fun FriendsAction() {
-    IconButton(onClick = { /*TODO*/ }) {
+fun FriendsAction(
+    onClick: () -> Unit
+) {
+    IconButton(onClick = onClick) {
         Icon(
             imageVector = Icons.Default.Person,
             contentDescription = resources().getString(R.string.friends)
@@ -69,9 +72,9 @@ fun FriendsAction() {
 @Composable
 fun HomeScreenPreview() {
     HomeScreen(
+        onViewFriendsClick = {},
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
-        open = {},
         feedUiState = FeedUiState.Succes(
             mapOf(
                 "08 May 2023" to listOf(

@@ -1,6 +1,7 @@
 package be.ugent.sel.studeez.common.composable
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -9,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -21,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.common.ext.fieldModifier
 import be.ugent.sel.studeez.resources
+import com.google.android.material.color.MaterialColors
+import kotlin.math.sin
 import be.ugent.sel.studeez.R.drawable as AppIcon
 import be.ugent.sel.studeez.R.string as AppText
 
@@ -214,5 +218,35 @@ private fun PasswordField(
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         visualTransformation = visualTransformation
+    )
+}
+
+@Composable
+fun SearchField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    onSubmit: () -> Unit,
+    @StringRes label: Int,
+    modifier: Modifier = Modifier
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        label = { Text(text = stringResource(id = label)) },
+        trailingIcon = {
+            IconButton(onClick = onSubmit) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = stringResource(label),
+                    tint = MaterialTheme.colors.primary
+                )
+            }
+        },
+        singleLine = true,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            textColor = MaterialTheme.colors.onBackground,
+            backgroundColor = MaterialTheme.colors.background
+        )
     )
 }
