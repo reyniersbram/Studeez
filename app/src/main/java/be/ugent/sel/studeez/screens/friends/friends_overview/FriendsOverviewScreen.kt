@@ -1,20 +1,21 @@
-package be.ugent.sel.studeez.screens.friend
+package be.ugent.sel.studeez.screens.friends.friends_overview
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,7 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
-import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.SearchField
+import be.ugent.sel.studeez.common.composable.drawer.DrawerEntry
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.Friendship
 import be.ugent.sel.studeez.data.local.models.User
@@ -35,7 +37,11 @@ import be.ugent.sel.studeez.R.string as AppText
 
 data class FriendsOverviewActions(
     val getFriendsFlow: () -> Flow<List<Pair<User, Friendship>>>,
-    val searchFriends: () -> Unit
+    val searchFriends: () -> Unit,
+    val onQueryStringChange: (String) -> Unit,
+    val onSubmit: () -> Unit,
+    val viewProfile: (String) -> Unit,
+    val removeFriend: (Friendship) -> Unit
 )
 
 fun getFriendsOverviewActions(
@@ -44,7 +50,13 @@ fun getFriendsOverviewActions(
 ): FriendsOverviewActions {
     return FriendsOverviewActions(
         getFriendsFlow = viewModel::getAllFriends,
-        searchFriends = { viewModel.searchFriends(open) }
+        searchFriends = { viewModel.searchFriends(open) },
+        onQueryStringChange = viewModel::onQueryStringChange,
+        onSubmit = { viewModel.onSubmit(open) },
+        viewProfile = { userId ->
+            viewModel.viewProfile(userId, open)
+        },
+        removeFriend = viewModel::removeFriend
     )
 }
 
@@ -54,27 +66,52 @@ fun FriendsOveriewRoute(
     popUp: () -> Unit,
     viewModel: FriendsOverviewViewModel
 ) {
+    val uiState by viewModel.uiState
     FriendsOverviewScreen(
+        popUp = popUp,
+        uiState = uiState,
         friendsOverviewActions = getFriendsOverviewActions(
             viewModel = viewModel,
             open = open
-        ),
-        popUp = popUp
+        )
     )
 }
 
 @Composable
 fun FriendsOverviewScreen(
-    friendsOverviewActions: FriendsOverviewActions,
-    popUp: () -> Unit
+    popUp: () -> Unit,
+    uiState: FriendsOverviewUiState,
+    friendsOverviewActions: FriendsOverviewActions
 ) {
     val friends = friendsOverviewActions.getFriendsFlow().collectAsState(initial = emptyList())
-    
-    SecondaryScreenTemplate(
-        title = "TODO there needs to be a search field here", // TODO
-        popUp = popUp
-    ) {
-        LazyColumn {
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    // TODO Link to each other
+                    SearchField(
+                        value = uiState.queryString,
+                        onValueChange = friendsOverviewActions.onQueryStringChange,
+                        onSubmit = friendsOverviewActions.onSubmit,
+                        label = AppText.search_friends
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = popUp) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = resources().getString(R.string.go_back)
+                        )
+                    }
+                }
+                // TODO Add inbox action
+            )
+        }
+    ) { paddingValues ->
+        LazyColumn (
+            modifier = Modifier.padding(paddingValues)
+        ) {
             if (friends.value.isEmpty()) {
                 // Show a quick button to search friends when the user does not have any friends yet.
                 item {
@@ -90,7 +127,9 @@ fun FriendsOverviewScreen(
             items(friends.value) { friend ->
                 FriendsEntry(
                     user = friend.first,
-                    friendship = friend.second
+                    friendship = friend.second,
+                    viewProfile = { userId -> friendsOverviewActions.viewProfile(userId) },
+                    removeFriend = friendsOverviewActions.removeFriend
                 )
             }
         }
@@ -102,11 +141,16 @@ fun FriendsOverviewScreen(
 fun FriendsOverviewPreview() {
     StudeezTheme {
         FriendsOverviewScreen(
+            popUp = {},
+            uiState = FriendsOverviewUiState(""),
             friendsOverviewActions = FriendsOverviewActions(
                 getFriendsFlow = { emptyFlow() },
-                searchFriends = {}
-            ),
-            popUp = {}
+                searchFriends = {},
+                onQueryStringChange = {},
+                onSubmit = {},
+                viewProfile = {},
+                removeFriend = {}
+            )
         )
     }
 }
@@ -114,7 +158,9 @@ fun FriendsOverviewPreview() {
 @Composable
 fun FriendsEntry(
     user: User,
-    friendship: Friendship
+    friendship: Friendship,
+    viewProfile: (String) -> Unit,
+    removeFriend: (Friendship) -> Unit
 ) {
     // TODO Styling
     Row (
@@ -162,7 +208,11 @@ fun FriendsEntry(
         Box(
             modifier = Modifier.fillMaxWidth(0.15f)
         ) {
-            ThreeDots(friendship = friendship)
+            FriendsOverviewDropDown(
+                friendship = friendship,
+                viewProfile = viewProfile,
+                removeFriend = removeFriend
+            )
         }
     }
 }
@@ -182,17 +232,23 @@ fun FriendsEntryPreview() {
                 friendId = "someId",
                 friendsSince = Timestamp.now(),
                 accepted = true
-            )
+            ),
+            viewProfile = {},
+            removeFriend = {}
         )
     }
 }
 
 @Composable
-fun ThreeDots(
-    friendship: Friendship
+fun FriendsOverviewDropDown(
+    friendship: Friendship,
+    viewProfile: (String) -> Unit,
+    removeFriend: (Friendship) -> Unit
 ) {
+    var expanded by remember { mutableStateOf(false) }
+
     IconButton(
-        onClick = { /* TODO Open dropdown */ }
+        onClick = { expanded = true }
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_more_horizontal),
@@ -200,19 +256,40 @@ fun ThreeDots(
             modifier = Modifier.fillMaxSize()
         )
     }
+
+    DropdownMenu(
+        expanded = expanded,
+        onDismissRequest = { expanded = false }
+    ) {
+        DrawerEntry(
+            icon = Icons.Default.Person,
+            text = stringResource(id = AppText.show_profile)
+        ) {
+            viewProfile(friendship.friendId)
+        }
+        DrawerEntry(
+            icon = Icons.Default.Delete,
+            text = stringResource(id = AppText.remove_friend)
+        ) {
+            removeFriend(friendship)
+            expanded = false
+        }
+    }
 }
 
 @Preview
 @Composable
-fun ThreeDotsPreview() {
+fun FriendsOverviewDropDownPreview() {
     StudeezTheme {
-        ThreeDots(
+        FriendsOverviewDropDown(
             friendship = Friendship(
                 id = "",
                 friendId = "someId",
                 friendsSince = Timestamp.now(),
                 accepted = true
-            )
+            ),
+            viewProfile = {},
+            removeFriend = { }
         )
     }
 }
