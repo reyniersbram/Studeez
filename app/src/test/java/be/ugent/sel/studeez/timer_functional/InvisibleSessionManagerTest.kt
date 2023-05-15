@@ -22,6 +22,7 @@ class InvisibleSessionManagerTest {
     private var selectedTimer: SelectedTimer = SelectedTimer()
     private lateinit var viewModel: SessionViewModel
 
+
     @Test
     fun InvisibleEndlessTimerTest() = runTest {
         selectedTimer.set(FunctionalEndlessTimer())
@@ -45,7 +46,7 @@ class InvisibleSessionManagerTest {
     fun InvisiblePomodoroTimerTest() = runTest {
         val studyTime = 10
         val breakTime = 5
-        val repeats = 1
+        val repeats = 2
         selectedTimer.set(FunctionalPomodoroTimer(studyTime, breakTime, repeats))
         viewModel = SessionViewModel(selectedTimer, SelectedSessionReport(), SelectedTask(), LogServiceImpl())
         InvisibleSessionManager.setParameters(viewModel, mock())
