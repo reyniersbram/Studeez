@@ -3,7 +3,6 @@ package be.ugent.sel.studeez.screens.session.sessionScreens.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,17 +13,20 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.session.SessionActions
+import be.ugent.sel.studeez.screens.session.sessionScreens.SoundPlayer
 
 @Composable
 fun BreakSessionScreenComposable(
     open: (String) -> Unit,
     sessionActions: SessionActions,
     pomodoroTimer: FunctionalPomodoroTimer,
+    soundPlayer: SoundPlayer,
 ) {
     SessionScreen(
         open = open,
         sessionActions = sessionActions,
         midSection = { Dots(pomodoroTimer = pomodoroTimer) },
+        callMediaPlayer = { soundPlayer.playOn(pomodoroTimer.hasCurrentCountdownEnded()) },
         motivationString = { motivationString (pomodoroTimer = pomodoroTimer) }
     )
 }
@@ -68,9 +70,4 @@ private fun motivationString(pomodoroTimer: FunctionalPomodoroTimer): String {
     }
 
     return resources().getString(R.string.state_focus)
-}
-
-@Composable
-private fun test(pomodoroTimer: FunctionalPomodoroTimer): String {
-    return pomodoroTimer.breaksRemaining.toString()
 }
