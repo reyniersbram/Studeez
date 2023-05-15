@@ -16,7 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.ImageBackgroundButton
@@ -70,7 +69,7 @@ fun SessionRecapScreen(modifier: Modifier, sessionRecapActions: SessionRecapActi
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = stringResource(R.string.congrats) + hms,
+            text = stringResource(R.string.congrats, hms),
             modifier = Modifier
                 .fillMaxWidth(),
             textAlign = TextAlign.Center,
@@ -135,6 +134,12 @@ fun SessionRecapScreen(modifier: Modifier, sessionRecapActions: SessionRecapActi
 fun SessionRecapScreenPreview() {
     SessionRecapScreen(
         modifier = Modifier,
-        sessionRecapActions = SessionRecapActions(hiltViewModel(), {}, {})
+        sessionRecapActions = SessionRecapActions(
+            { SessionReport(
+                studyTime = 100,
+            ) },
+            {},
+            {},
+        )
     )
 }
