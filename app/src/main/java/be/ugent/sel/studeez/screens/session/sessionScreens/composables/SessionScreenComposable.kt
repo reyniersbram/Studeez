@@ -16,13 +16,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.screens.session.SessionActions
 
 @Composable
 fun SessionScreen(
     open: (String) -> Unit,
     sessionActions: SessionActions,
+    callMediaPlayer: () -> Unit = {},
     midSection: @Composable () -> Int = {0},
     motivationString: @Composable () -> String,
 
@@ -32,6 +32,7 @@ fun SessionScreen(
     ) {
         Timer(
             sessionActions = sessionActions,
+            callMediaPlayer = callMediaPlayer,
             motivationString = motivationString,
             MidSection = midSection
         )
@@ -49,7 +50,6 @@ fun SessionScreen(
 fun EndSessionButton(sessionActions: SessionActions) {
     TextButton(
         onClick = {
-            sessionActions.releaseMediaPlayer
             sessionActions.endSession()
         },
         modifier = Modifier
