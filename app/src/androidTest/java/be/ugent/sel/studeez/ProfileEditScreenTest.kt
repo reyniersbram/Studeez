@@ -1,12 +1,13 @@
 package be.ugent.sel.studeez
 
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import be.ugent.sel.studeez.screens.profile.EditProfileActions
-import be.ugent.sel.studeez.screens.profile.EditProfileScreen
-import be.ugent.sel.studeez.screens.profile.ProfileEditUiState
+import be.ugent.sel.studeez.screens.profile.edit_profile.EditProfileActions
+import be.ugent.sel.studeez.screens.profile.edit_profile.EditProfileScreen
+import be.ugent.sel.studeez.screens.profile.edit_profile.ProfileEditUiState
 import org.junit.Rule
 import org.junit.Test
 
@@ -17,18 +18,19 @@ class ProfileEditScreenTest {
     @Test
     fun profileEditScreenTest() {
         var edit_save = false
-        var edit_cancel = false
         var goback = false
+        var delete_click = false
 
         composeTestRule.setContent {
             EditProfileScreen(
                 goBack = {goback = true},
                 uiState = ProfileEditUiState(),
                 editProfileActions = EditProfileActions(
-                    {},
-                    {edit_save = true},
-                    {edit_cancel = true}
-                )
+                    onUserNameChange = {},
+                    onBiographyChange = {},
+                    onSaveClick = {edit_save = true},
+                    onDeleteClick = { delete_click = true },
+                ),
             )
         }
 
@@ -61,8 +63,8 @@ class ProfileEditScreenTest {
             .assertExists()
             .performClick()
 
-        assert(edit_cancel)
         assert(edit_save)
         assert(goback)
+        assert(delete_click)
     }
 }

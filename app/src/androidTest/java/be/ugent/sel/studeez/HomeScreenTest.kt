@@ -25,7 +25,6 @@ class HomeScreenTest {
 
         composeTestRule.setContent {
             HomeScreen(
-                open = {},
                 drawerActions = DrawerActions({}, {}, {}, {}, {}),
                 navigationBarActions = NavigationBarActions({false}, {}, {}, {}, {}, {}, {}, {}),
                 feedUiState = FeedUiState.Succes(mapOf(
@@ -39,7 +38,8 @@ class HomeScreenTest {
                     )
                 )),
                 continueTask = {_, _ -> continueTask = true },
-                onEmptyFeedHelp = {}
+                onEmptyFeedHelp = {},
+                onViewFriendsClick = {},
             )
         }
 
@@ -67,7 +67,6 @@ class HomeScreenTest {
 
         composeTestRule.setContent {
             HomeScreen(
-                open = {},
                 drawerActions = DrawerActions(
                     {homebuttontest = true},
                     {timersbuttontest = true},
@@ -78,7 +77,8 @@ class HomeScreenTest {
                 navigationBarActions = NavigationBarActions({false}, {}, {}, {}, {}, {}, {}, {}),
                 feedUiState = FeedUiState.Succes(mapOf()),
                 continueTask = {_, _ -> },
-                onEmptyFeedHelp = {}
+                onEmptyFeedHelp = {},
+                onViewFriendsClick = {},
             )
         }
 
@@ -145,7 +145,6 @@ class HomeScreenTest {
 
         composeTestRule.setContent {
             HomeScreen(
-                open = {},
                 drawerActions = DrawerActions({}, {}, {}, {}, {}),
                 navigationBarActions = NavigationBarActions(
                     {false},
@@ -157,7 +156,8 @@ class HomeScreenTest {
                 ),
                 feedUiState = FeedUiState.Succes(mapOf()),
                 continueTask = {_, _ -> },
-                onEmptyFeedHelp = {}
+                onEmptyFeedHelp = {},
+                onViewFriendsClick = {},
             )
         }
 
