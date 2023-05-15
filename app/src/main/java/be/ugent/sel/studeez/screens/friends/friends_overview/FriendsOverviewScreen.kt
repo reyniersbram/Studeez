@@ -10,10 +10,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -89,13 +91,32 @@ fun FriendsOverviewScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    // TODO Link to each other
-                    SearchField(
-                        value = uiState.queryString,
-                        onValueChange = friendsOverviewActions.onQueryStringChange,
-                        onSubmit = friendsOverviewActions.onSubmit,
-                        label = AppText.search_friends
-                    )
+                    // TODO Make search field
+//                    SearchField(
+//                        value = uiState.queryString,
+//                        onValueChange = friendsOverviewActions.onQueryStringChange,
+//                        onSubmit = friendsOverviewActions.onSubmit,
+//                        label = AppText.search_friends,
+//                        enabled = false
+//                    )
+                        IconButton(
+                            onClick = friendsOverviewActions.onSubmit,
+//                            modifier = Modifier.background(
+//                                color = MaterialTheme.colors.background
+//                            ),
+                        ) {
+                            Row {
+                                Text(
+                                    text = stringResource(id = AppText.click_search_friends),
+                                    color = MaterialTheme.colors.onPrimary
+                                )
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = stringResource(AppText.search_friends),
+                                    tint = MaterialTheme.colors.onPrimary
+                                )
+                            }
+                        }
                 },
                 navigationIcon = {
                     IconButton(onClick = popUp) {

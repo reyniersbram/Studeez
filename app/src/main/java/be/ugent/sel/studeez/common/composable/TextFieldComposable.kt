@@ -227,12 +227,14 @@ fun SearchField(
     onValueChange: (String) -> Unit,
     onSubmit: () -> Unit,
     @StringRes label: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         modifier = modifier,
+        enabled = enabled,
         label = { Text(text = stringResource(id = label)) },
         trailingIcon = {
             IconButton(onClick = onSubmit) {
