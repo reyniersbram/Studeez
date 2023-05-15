@@ -8,6 +8,10 @@ plugins {
 
     // Protobuf
     id 'com.google.protobuf' version '0.8.17'
+
+    // Firebase
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -62,6 +66,7 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.compose.material:material:1.2.0'
 
+
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
     // ViewModel
@@ -93,6 +98,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 
+    // Coroutine testing
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+
     // Mocking
     testImplementation 'org.mockito.kotlin:mockito-kotlin:3.2.0'
 
@@ -108,14 +116,13 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     //Firebase
-//    implementation platform('com.google.firebase:firebase-bom:30.4.1')
-//    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-//    implementation 'com.google.firebase:firebase-analytics-ktx'
-//    implementation 'com.google.firebase:firebase-auth-ktx'
-//    implementation 'com.google.firebase:firebase-firestore-ktx'
-//    implementation 'com.google.firebase:firebase-perf-ktx'
-//    implementation 'com.google.firebase:firebase-config-ktx'
-
+    implementation platform('com.google.firebase:firebase-bom:31.3.0')
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-perf-ktx'
+    implementation 'com.google.firebase:firebase-config-ktx'
 }
 
 // Allow references to generate code

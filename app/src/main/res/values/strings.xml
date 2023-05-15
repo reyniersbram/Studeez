@@ -1,3 +1,162 @@
 <resources>
+    <!-- ========== Common ========== -->
+
     <string name="app_name">Studeez</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="menu">Menu</string>
+
+    <!-- Actions -->
+    <string name="confirm">Confirm</string>
+    <string name="save">Save</string>
+    <string name="discard">Discard</string>
+    <string name="cancel">Cancel</string>
+    <string name="go_back">Go back</string>
+    <string name="next">Next</string>
+    <string name="start">Start</string>
+
+    <!-- Messages -->
+    <string name="success">Success!</string>
+    <string name="try_again">Try again</string>
+    <string name="generic_error">Something wrong happened. Please try again.</string>
+    <string name="email_error">Please insert a valid email.</string>
+
+    <!-- ========== NavBar ========== -->
+
+    <!-- HomeScreen -->
+    <string name="home">Home</string>
+    <string name="start_session">Start session</string>
+
+    <!-- Feed-->
+    <string name="continue_task">Continue</string>
+    <string name="deleted">Deleted</string>
+    <string name="your_feed">This is your feed</string>
+    <string name="empty_feed_help_text">Click here to create you first subject and tasks to get started</string>
+
+    <!-- Tasks -->
+    <string name="tasks">Tasks</string>
+    <string name="task">Task</string>
+    <string name="my_subjects">My Subjects</string>
+    <string name="select_subject_title">Select Subject</string>
+    <string name="new_subject">New Subject</string>
+    <string name="new_task">New Task</string>
+    <string name="edit_subject">Edit Subject</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="delete_subject">Delete Subject</string>
+    <string name="delete_task">Delete Task</string>
+    <string name="view_tasks">View</string>
+    <string name="select_subject">Select</string>
+    <string name="regenerate_color">Regenerate Color</string>
+
+    <!-- Sessions -->
+    <string name="sessions_temp_description">Looks like you found the sessions screen! In here, your upcoming studying sessions with friends will be listed. You can accept invites or edit your own.</string> <!-- TODO Remove this description line once implemented. -->
+    <string name="sessions">Sessions</string>
+    <string name="session">Session</string>
+    <string name="end_session">End session</string>
+    <string name="upcoming_sessions">Upcoming sessions</string>
+
+    <!-- Profile -->
+    <string name="profile">Profile</string>
+    <string name="no_username">Unknown username</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="editing_profile">Editing profile</string>
+    <string name="delete_profile">Delete profile</string>
+
+    <!-- ========== Drawer ========== -->
+
+    <string name="log_out">Log out</string>
+    <string name="profile_picture_description">Profile Picture</string>
+    <string name="user_description">Normal user</string>
+
+    <!-- Timers -->
+    <string name="timers">Timers</string>
+    <string name="edit">Edit</string>
+    <string name="add_timer">Add timer</string>
+    <string name="pick_time">Select time</string>
+    <string name="state_focus">Focus!</string>
+    <plurals name="state_focus_remaining">
+        <item quantity="zero">Focus one more time!</item>
+        <item quantity="one">Focus! (%d break remaining)</item>
+        <item quantity="other">Focus! (%d breaks remaining)</item>
+    </plurals>
+    <string name="state_done">Done!</string>
+    <string name="state_take_a_break">Take a break!</string>
+    <string name="custom_name">Custom</string>
+    <string name="custom_description">Select how long you want to study</string>
+
+    <!-- Settings -->
+    <string name="settings_temp_description">Looks like you found the settings screen! In the future, this will enable you to edit your preferenes such as light/dark mode, end sessions automatically when we detect you are gone etc.</string> <!-- TODO Remove this description line once implemented. -->
+    <string name="settings">Settings</string>
+
+    <!-- About -->
+    <string name="about">About Studeez</string>
+
+    <!-- ========== Login flow ========== -->
+
+    <!-- SignUpScreen -->
+    <string name="create_account">Create account</string>
+    <string name="password_error">Your password should have at least six characters and include one digit, one lower case letter and one upper case letter.</string>
+    <string name="password_match_error">Passwords do not match.</string>
+    <string name="already_user">Already have an account? Log in.</string>
+
+    <!-- LoginScreen -->
+    <string name="not_already_user">Don\'t have an account yet? Sign up.</string>
+    <string name="sign_in">Sign in</string>
+    <string name="login_details">Enter your login details</string>
+    <string name="forgot_password">Forgot password? Click to get recovery email.</string>
+    <string name="recovery_email_sent">Check your inbox for the recovery email.</string>
+    <string name="empty_password_error">Password cannot be empty.</string>
+
+    <!-- ========== Studying flow ========== -->
+
+    <!-- ========== Friends flow ========== -->
+
+    <string name="friends">Friends</string>
+    <string name="friend">Friend</string>
+    <string name="add_friend_not_possible_yet">Adding friends still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
+
+    <!-- ========== Create & edit screens ========== -->
+
+    <!-- Task -->
+    <string name="create_task_not_possible_yet">Creating tasks still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
+
+    <!-- Session -->
+    <string name="create_session_not_possible_yet">Creating sessions still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
+
+    <!-- Add Timer -->
+    <string name="addTimer_description_error">Timer description cannot be empty!</string>
+    <string name="addTimer_description">Timer description</string>
+    <string name="addTimer_name_error">Timer name cannot be empty!</string>
+    <string name="addTimer_name">Timer name</string>
+    <string name="addTimer_timepicker">Open Time Picker</string>
+    <string name="breakTime_1">" hours and "</string>
+    <string name="breakTime_2">" minutes of breaktime"</string>
+    <string name="addTimer_break_1">" break"</string>
+    <string name="addTimer_break_s">" breaks"</string>
+    <string name="addTimer_break_question">With breaks?</string>
+    <string name="addTimer_studytime_1">" hours and "</string>
+    <string name="addTimer_studytime_2">" minutes of studytime"</string>
+    <string name="addTimer_question">How long do you want to study?</string>
+
+    <!-- Timer Type Select -->
+    <string name="timer_type_select">Select Timer Type</string>
+
+    <!-- Edit Timer-->
+    <string name="name">Name</string>
+    <string name="edit_timer">Edit Timer</string>
+    <string name="repeats_error">Repeats must be a positive non-zero number</string>
+    <string name="description">Description</string>
+    <string name="studyTime">Study Time</string>
+    <string name="breakTime">Break Time</string>
+    <string name="repeats">Number of Repeats</string>
+
+    <!-- Session Recap -->
+    <string name="congrats">"Congratulations! You studied: %s"</string>
+    <string name="how_did_it_go">How did it go?</string>
+    <string name="good">Good</string>
+    <string name="bad">Bad</string>
+
+
 </resources>
