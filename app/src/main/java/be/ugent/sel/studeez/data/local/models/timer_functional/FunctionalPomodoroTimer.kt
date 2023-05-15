@@ -13,7 +13,6 @@ class FunctionalPomodoroTimer(
         if (hasEnded()) {
             return
         }
-
         if (hasCurrentCountdownEnded()) {
             if (isInBreak) {
                 breaksRemaining--

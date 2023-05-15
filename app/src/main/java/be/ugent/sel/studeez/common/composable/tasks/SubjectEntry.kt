@@ -31,9 +31,13 @@ import be.ugent.sel.studeez.R.string as AppText
 fun SubjectEntry(
     subject: Subject,
     onViewSubject: () -> Unit,
+    getTaskCount: () -> Flow<Int>,
+    getCompletedTaskCount: () -> Flow<Int>,
     getStudyTime: () -> Flow<Int>,
 ) {
     val studytime by getStudyTime().collectAsState(initial = 0)
+    val taskCount by getTaskCount().collectAsState(initial = 0)
+    val completedTaskCount by getCompletedTaskCount().collectAsState(initial = 0)
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,7 +84,7 @@ fun SubjectEntry(
                                 imageVector = Icons.Default.List,
                                 contentDescription = stringResource(id = AppText.tasks)
                             )
-                            Text(text = "${subject.taskCompletedCount}/${subject.taskCount}")
+                            Text(text = "${completedTaskCount}/${taskCount}")
                         }
                     }
                 }
@@ -104,11 +108,11 @@ fun SubjectEntryPreview() {
         subject = Subject(
             name = "Test Subject",
             argb_color = 0xFFFFD200,
-            taskCount = 5,
-            taskCompletedCount = 2,
         ),
         onViewSubject = {},
-        getStudyTime = { flowOf() }
+        getTaskCount = { flowOf() },
+        getCompletedTaskCount = { flowOf() },
+        getStudyTime = { flowOf() },
     )
 }
 
@@ -121,6 +125,8 @@ fun OverflowSubjectEntryPreview() {
             argb_color = 0xFFFFD200,
         ),
         onViewSubject = {},
-        getStudyTime = { flowOf() }
+        getTaskCount = { flowOf() },
+        getCompletedTaskCount = { flowOf() },
+        getStudyTime = { flowOf() },
     )
 }

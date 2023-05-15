@@ -25,9 +25,9 @@ import be.ugent.sel.studeez.screens.settings.SettingsRoute
 import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
 import be.ugent.sel.studeez.screens.subjects.SubjectRoute
-import be.ugent.sel.studeez.screens.tasks.TaskRoute
 import be.ugent.sel.studeez.screens.subjects.form.SubjectCreateRoute
 import be.ugent.sel.studeez.screens.subjects.form.SubjectEditRoute
+import be.ugent.sel.studeez.screens.tasks.TaskRoute
 import be.ugent.sel.studeez.screens.tasks.form.TaskCreateRoute
 import be.ugent.sel.studeez.screens.tasks.form.TaskEditRoute
 import be.ugent.sel.studeez.screens.timer_form.TimerAddRoute
@@ -51,6 +51,7 @@ fun StudeezNavGraph(
     val open: (String) -> Unit = { appState.navigate(it) }
     val openAndPopUp: (String, String) -> Unit =
         { route, popUp -> appState.navigateAndPopUp(route, popUp) }
+    val clearAndNavigate: (route: String) -> Unit = { route -> appState.clearAndNavigate(route) }
 
     val drawerActions: DrawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp)
     val navigationBarActions: NavigationBarActions =
@@ -200,7 +201,7 @@ fun StudeezNavGraph(
 
         composable(StudeezDestinations.SESSION_RECAP) {
             SessionRecapRoute(
-                openAndPopUp = openAndPopUp,
+                clearAndNavigate = clearAndNavigate,
                 viewModel = hiltViewModel()
             )
         }
