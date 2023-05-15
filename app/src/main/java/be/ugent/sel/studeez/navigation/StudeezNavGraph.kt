@@ -27,6 +27,7 @@ import be.ugent.sel.studeez.screens.splash.SplashRoute
 import be.ugent.sel.studeez.screens.subjects.SubjectRoute
 import be.ugent.sel.studeez.screens.subjects.form.SubjectCreateRoute
 import be.ugent.sel.studeez.screens.subjects.form.SubjectEditRoute
+import be.ugent.sel.studeez.screens.subjects.select.SubjectSelectionRoute
 import be.ugent.sel.studeez.screens.tasks.TaskRoute
 import be.ugent.sel.studeez.screens.tasks.form.TaskCreateRoute
 import be.ugent.sel.studeez.screens.tasks.form.TaskEditRoute
@@ -65,7 +66,7 @@ fun StudeezNavGraph(
         // NavBar
         composable(StudeezDestinations.HOME_SCREEN) {
             HomeRoute(
-                open,
+                open = open,
                 drawerActions = drawerActions,
                 navigationBarActions = navigationBarActions,
                 feedViewModel = hiltViewModel(),
@@ -78,6 +79,14 @@ fun StudeezNavGraph(
                 viewModel = hiltViewModel(),
                 drawerActions = drawerActions,
                 navigationBarActions = navigationBarActions,
+            )
+        }
+
+        composable(StudeezDestinations.SELECT_SUBJECT) {
+            SubjectSelectionRoute(
+                open = { openAndPopUp(it, StudeezDestinations.SELECT_SUBJECT) },
+                goBack = goBack,
+                viewModel = hiltViewModel(),
             )
         }
 
@@ -99,7 +108,7 @@ fun StudeezNavGraph(
 
         composable(StudeezDestinations.TASKS_SCREEN) {
             TaskRoute(
-                goBack = goBack,
+                goBack = { openAndPopUp(StudeezDestinations.SUBJECT_SCREEN, StudeezDestinations.TASKS_SCREEN) },
                 open = open,
                 viewModel = hiltViewModel(),
             )
