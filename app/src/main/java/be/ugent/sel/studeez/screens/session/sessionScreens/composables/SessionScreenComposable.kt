@@ -23,7 +23,7 @@ import be.ugent.sel.studeez.screens.session.SessionActions
 fun SessionScreen(
     open: (String) -> Unit,
     sessionActions: SessionActions,
-    midSection: @Composable () -> Unit = {},
+    midSection: @Composable () -> Int = {0},
     motivationString: @Composable () -> String,
 
 ) {
@@ -33,7 +33,7 @@ fun SessionScreen(
         Timer(
             sessionActions = sessionActions,
             motivationString = motivationString,
-            midSection = midSection
+            MidSection = midSection
         )
         Box(
             contentAlignment = Alignment.Center, modifier = Modifier

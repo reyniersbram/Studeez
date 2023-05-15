@@ -3,6 +3,7 @@ package be.ugent.sel.studeez.screens.session.sessionScreens.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,18 +19,18 @@ import be.ugent.sel.studeez.screens.session.SessionActions
 fun BreakSessionScreenComposable(
     open: (String) -> Unit,
     sessionActions: SessionActions,
-    pomodoroTimer: FunctionalPomodoroTimer
+    pomodoroTimer: FunctionalPomodoroTimer,
 ) {
     SessionScreen(
         open = open,
         sessionActions = sessionActions,
-        midSection = { Dots(pomodoroTimer) },
-        motivationString = { motivationString(pomodoroTimer = pomodoroTimer) }
+        midSection = { Dots(pomodoroTimer = pomodoroTimer) },
+        motivationString = { motivationString (pomodoroTimer = pomodoroTimer) }
     )
 }
 
 @Composable
-private fun Dots(pomodoroTimer: FunctionalPomodoroTimer) {
+private fun Dots(pomodoroTimer: FunctionalPomodoroTimer): Int {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -43,6 +44,7 @@ private fun Dots(pomodoroTimer: FunctionalPomodoroTimer) {
             Dot(color = Color.Gray)
         }
     }
+    return pomodoroTimer.breaksRemaining
 }
 
 @Composable
@@ -65,9 +67,10 @@ private fun motivationString(pomodoroTimer: FunctionalPomodoroTimer): String {
         return resources().getString(R.string.state_done)
     }
 
-    return resources().getQuantityString(
-        R.plurals.state_focus_remaining,
-        pomodoroTimer.breaksRemaining,
-        pomodoroTimer.breaksRemaining
-    )
+    return resources().getString(R.string.state_focus)
+}
+
+@Composable
+private fun test(pomodoroTimer: FunctionalPomodoroTimer): String {
+    return pomodoroTimer.breaksRemaining.toString()
 }
