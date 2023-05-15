@@ -29,6 +29,6 @@ class CustomTimerFormScreen(
 fun CustomEditScreenPreview() {
     val customTimerInfo = CustomTimerInfo("custom", "my description", 25)
     StudeezTheme {
-        CustomTimerFormScreen(customTimerInfo).invoke(onSaveClick = {}, extraButton = {})
+        CustomTimerFormScreen(customTimerInfo).invoke(onSaveClick = {})
     }
 }
