@@ -14,10 +14,13 @@ import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
 import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
+import be.ugent.sel.studeez.screens.friends.friends_overview.FriendsOveriewRoute
+import be.ugent.sel.studeez.screens.friends.friends_search.SearchFriendsRoute
 import be.ugent.sel.studeez.screens.home.HomeRoute
 import be.ugent.sel.studeez.screens.log_in.LoginRoute
-import be.ugent.sel.studeez.screens.profile.EditProfileRoute
+import be.ugent.sel.studeez.screens.profile.edit_profile.EditProfileRoute
 import be.ugent.sel.studeez.screens.profile.ProfileRoute
+import be.ugent.sel.studeez.screens.profile.public_profile.PublicProfileRoute
 import be.ugent.sel.studeez.screens.session.SessionRoute
 import be.ugent.sel.studeez.screens.session_recap.SessionRecapRoute
 import be.ugent.sel.studeez.screens.sessions.SessionsRoute
@@ -69,6 +72,7 @@ fun StudeezNavGraph(
                 drawerActions = drawerActions,
                 navigationBarActions = navigationBarActions,
                 feedViewModel = hiltViewModel(),
+                viewModel = hiltViewModel()
             )
         }
 
@@ -221,8 +225,28 @@ fun StudeezNavGraph(
         }
 
         // Friends flow
+        composable(StudeezDestinations.FRIENDS_OVERVIEW_SCREEN) {
+            FriendsOveriewRoute(
+                open = open,
+                popUp = goBack,
+                viewModel = hiltViewModel()
+            )
+        }
+
         composable(StudeezDestinations.SEARCH_FRIENDS_SCREEN) {
-            // TODO
+            SearchFriendsRoute(
+                popUp = goBack,
+                open = open,
+                viewModel = hiltViewModel()
+            )
+        }
+
+        composable(StudeezDestinations.PUBLIC_PROFILE_SCREEN) {
+            PublicProfileRoute(
+                popUp = goBack,
+                open = open,
+                viewModel = hiltViewModel()
+            )
         }
 
         // Create & edit screens

@@ -1,20 +1,21 @@
-package be.ugent.sel.studeez.screens.profile
+package be.ugent.sel.studeez.screens.profile.edit_profile
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicTextButton
 import be.ugent.sel.studeez.common.composable.LabelledInputField
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.ext.textButton
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
+import be.ugent.sel.studeez.R.string as AppText
 
 data class EditProfileActions(
     val onUserNameChange: (String) -> Unit,
+    val onBiographyChange: (String) -> Unit,
     val onSaveClick: () -> Unit,
     val onDeleteClick: () -> Unit
 )
@@ -25,6 +26,7 @@ fun getEditProfileActions(
 ): EditProfileActions {
     return EditProfileActions(
         onUserNameChange = { viewModel.onUsernameChange(it) },
+        onBiographyChange = { viewModel.onBiographyChange(it) },
         onSaveClick = { viewModel.onSaveClick() },
         onDeleteClick = { viewModel.onDeleteClick(openAndPopUp) },
     )
@@ -51,28 +53,41 @@ fun EditProfileScreen(
     editProfileActions: EditProfileActions,
 ) {
     SecondaryScreenTemplate(
-        title = resources().getString(R.string.editing_profile),
+        title = resources().getString(AppText.editing_profile),
         popUp = goBack
     ) {
-        Column {
-            LabelledInputField(
-                value = uiState.username,
-                onNewValue = editProfileActions.onUserNameChange,
-                label = R.string.username
-            )
-            BasicTextButton(
-                text = R.string.save,
-                Modifier.textButton(),
-                action = {
-                    editProfileActions.onSaveClick()
-                    goBack()
-                }
-            )
-            BasicTextButton(
-                text = R.string.delete_profile,
-                Modifier.textButton(),
-                action = editProfileActions.onDeleteClick
-            )
+        LazyColumn {
+            item {
+                LabelledInputField(
+                    value = uiState.username,
+                    onNewValue = editProfileActions.onUserNameChange,
+                    label = AppText.username
+                )
+            }
+            item {
+                LabelledInputField(
+                    value = uiState.biography,
+                    onNewValue = editProfileActions.onBiographyChange,
+                    label = AppText.biography
+                )
+            }
+            item {
+                BasicTextButton(
+                    text = AppText.save,
+                    Modifier.textButton(),
+                    action = {
+                        editProfileActions.onSaveClick()
+                        goBack()
+                    }
+                )
+            }
+            item {
+                 BasicTextButton(
+                    text = AppText.delete_profile,
+                    Modifier.textButton(),
+                    action = editProfileActions.onDeleteClick
+                )
+            }
         }
     }
 }
@@ -81,6 +96,6 @@ fun EditProfileScreen(
 @Composable
 fun EditProfileScreenComposable() {
     StudeezTheme {
-        EditProfileScreen({}, ProfileEditUiState(), EditProfileActions({}, {}, {}))
+        EditProfileScreen({}, ProfileEditUiState(), EditProfileActions({}, {}, {}, {}))
     }
 }
