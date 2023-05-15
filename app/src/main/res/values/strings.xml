@@ -134,6 +134,8 @@
     <string name="send_friend_request">Send friend request</string>
     <string name="remove_friend">Remove as friend</string>
     <string name="show_profile">Show profile</string>
+    <string name="click_search_friends">Click to search friends</string>
+    <string name="searching_friends">Searching friends</string>
 
     <!-- ========== Create & edit screens ========== -->
 
