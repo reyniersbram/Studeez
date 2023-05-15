@@ -32,24 +32,24 @@ data class SessionRecapActions(
 
 fun getSessionRecapActions(
     viewModel: SessionRecapViewModel,
-    openAndPopUp: (String, String) -> Unit,
+    clearAndNavigate: (String) -> Unit,
 ): SessionRecapActions {
     return SessionRecapActions(
         viewModel::getSessionReport,
-        { viewModel.saveSession(openAndPopUp) },
-        { viewModel.discardSession(openAndPopUp) }
+        { viewModel.saveSession(clearAndNavigate) },
+        { viewModel.discardSession(clearAndNavigate) }
     )
 }
 
 @Composable
 fun SessionRecapRoute(
-    openAndPopUp: (String, String) -> Unit,
+    clearAndNavigate: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SessionRecapViewModel,
 ) {
     SessionRecapScreen(
         modifier = modifier,
-        getSessionRecapActions(viewModel, openAndPopUp)
+        getSessionRecapActions(viewModel, clearAndNavigate)
     )
 }
 

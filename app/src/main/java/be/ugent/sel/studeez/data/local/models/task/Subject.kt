@@ -8,10 +8,6 @@ data class Subject(
     val name: String = "",
     val argb_color: Long = 0,
     var archived: Boolean = false,
-    @get:Exclude @set:Exclude
-    var taskCount: Int = 0,
-    @get:Exclude @set:Exclude
-    var taskCompletedCount: Int = 0,
 )
 
 object SubjectDocument {
