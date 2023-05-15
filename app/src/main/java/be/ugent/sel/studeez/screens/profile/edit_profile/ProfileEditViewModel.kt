@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.profile
+package be.ugent.sel.studeez.screens.profile.edit_profile
 
 import androidx.compose.runtime.mutableStateOf
 import be.ugent.sel.studeez.R
