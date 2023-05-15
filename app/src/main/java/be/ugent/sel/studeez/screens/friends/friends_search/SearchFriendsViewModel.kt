@@ -10,6 +10,7 @@ import be.ugent.sel.studeez.screens.StudeezViewModel
 import be.ugent.sel.studeez.screens.profile.public_profile.SelectedProfileState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,8 +44,16 @@ class SearchFriendsViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Get all users, except for the current user.
+     */
     fun getAllUsers(): Flow<List<User>> {
         return userDAO.getAllUsers()
+            .filter { users ->
+                users.any { user ->
+                    user.id != userDAO.getCurrentUserId()
+                }
+            }
     }
 
     fun goToProfile(

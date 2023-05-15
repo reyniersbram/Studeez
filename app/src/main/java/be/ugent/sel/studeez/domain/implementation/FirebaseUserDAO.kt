@@ -61,6 +61,13 @@ class FirebaseUserDAO @Inject constructor(
         }
     }
 
+    override suspend fun getUsername(userId: String): String {
+        val user = firestore.collection(USER_COLLECTION)
+            .document(userId)
+            .get().await()
+        return user.getString(USERNAME)!!
+    }
+
     override suspend fun getLoggedInUser(): User {
         val userDocument = currentUserDocument().get().await()
         return User(

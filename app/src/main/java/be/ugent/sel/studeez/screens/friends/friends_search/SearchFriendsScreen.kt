@@ -13,7 +13,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -21,12 +20,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import be.ugent.sel.studeez.R
+import be.ugent.sel.studeez.common.composable.ProfilePicture
 import be.ugent.sel.studeez.common.composable.SearchField
 import be.ugent.sel.studeez.common.composable.drawer.DrawerEntry
 import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.ui.theme.StudeezTheme
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import be.ugent.sel.studeez.R.string as AppText
 
 data class SearchFriendsActions(
@@ -153,25 +154,19 @@ fun UserEntry(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 15.dp, vertical = 7.dp),
+        horizontalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth(0.15f)
-                .background(MaterialTheme.colors.primary, CircleShape)
+                .padding(vertical = 4.dp)
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_visibility_on),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .align(Alignment.Center),
-                tint = MaterialTheme.colors.onPrimary
-            )
+            ProfilePicture()
         }
 
         Box (
             modifier = Modifier
-                .fillMaxWidth(0.65f)
+                .fillMaxWidth()
         ) {
             Column (
                 modifier = Modifier
@@ -190,15 +185,16 @@ fun UserEntry(
                     overflow = TextOverflow.Ellipsis
                 )
             }
-        }
 
-        Box(
-            modifier = Modifier.fillMaxWidth(0.15f)
-        ) {
-            SearchFriendsDropDown(
-                user = user,
-                goToProfile = goToProfile
-            )
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                SearchFriendsDropDown(
+                    user = user,
+                    goToProfile = goToProfile
+                )
+            }
         }
     }
 }

@@ -27,6 +27,10 @@ interface UserDAO {
         userId: String
     ): Flow<User>
 
+    suspend fun getUsername(
+        userId: String
+    ): String
+
     /**
      * @return information on the currently logged in user.
      */

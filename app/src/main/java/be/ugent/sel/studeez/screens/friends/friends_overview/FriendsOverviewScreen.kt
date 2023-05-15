@@ -14,7 +14,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -23,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
+import be.ugent.sel.studeez.common.composable.ProfilePicture
 import be.ugent.sel.studeez.common.composable.SearchField
 import be.ugent.sel.studeez.common.composable.drawer.DrawerEntry
 import be.ugent.sel.studeez.common.ext.basicButton
@@ -162,29 +162,21 @@ fun FriendsEntry(
     viewProfile: (String) -> Unit,
     removeFriend: (Friendship) -> Unit
 ) {
-    // TODO Styling
     Row (
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 15.dp, vertical = 7.dp),
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth(0.15f)
-                .background(MaterialTheme.colors.primary, CircleShape)
+                .padding(vertical = 4.dp)
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_visibility_on),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .align(Alignment.Center),
-                tint = MaterialTheme.colors.onPrimary
-            )
+            ProfilePicture()
         }
 
         Box (
             modifier = Modifier
-                .fillMaxWidth(0.65f)
+                .fillMaxWidth()
         ) {
             Column (
                 modifier = Modifier
@@ -203,16 +195,17 @@ fun FriendsEntry(
                     overflow = TextOverflow.Ellipsis
                 )
             }
-        }
 
-        Box(
-            modifier = Modifier.fillMaxWidth(0.15f)
-        ) {
-            FriendsOverviewDropDown(
-                friendship = friendship,
-                viewProfile = viewProfile,
-                removeFriend = removeFriend
-            )
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                FriendsOverviewDropDown(
+                    friendship = friendship,
+                    viewProfile = viewProfile,
+                    removeFriend = removeFriend
+                )
+            }
         }
     }
 }
