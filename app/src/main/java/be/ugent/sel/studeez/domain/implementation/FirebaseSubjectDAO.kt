@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.domain.implementation
 
+import android.util.Log
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.SubjectDocument
 import be.ugent.sel.studeez.data.local.models.task.Task
