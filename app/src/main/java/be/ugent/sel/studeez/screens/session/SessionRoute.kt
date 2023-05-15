@@ -31,15 +31,8 @@ fun SessionRoute(
     openAndPopUp: (String, String) -> Unit,
     viewModel: SessionViewModel,
 ) {
-    val context = LocalContext.current
-    val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-    val mediaplayer = MediaPlayer.create(context, uri)
-    mediaplayer.isLooping = false
 
-    InvisibleSessionManager.setParameters(
-        viewModel = viewModel,
-        mediaplayer = mediaplayer
-    )
+    InvisibleSessionManager.setParameters(viewModel = viewModel, context = LocalContext.current)
 
     val soundPlayer = SoundPlayer(LocalContext.current)
     val sessionActions = getSessionActions(viewModel, openAndPopUp)
