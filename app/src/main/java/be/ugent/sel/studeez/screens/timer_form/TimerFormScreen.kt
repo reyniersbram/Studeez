@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import be.ugent.sel.studeez.common.composable.DeleteButton
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.FormComposable
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import be.ugent.sel.studeez.R.string as AppText
 
@@ -59,7 +60,10 @@ fun TimerFormScreen(
 ) {
     val timerFormScreen = getTimerInfo().accept(GetTimerFormScreen())
 
-    SecondaryScreenTemplate(title = stringResource(id = label), popUp = popUp) {
+    FormComposable(
+        title = stringResource(id = label),
+        popUp = popUp
+    ) {
         timerFormScreen(onConfirmClick, extraButton)
     }
 }
