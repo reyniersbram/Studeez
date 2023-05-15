@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.tasks.forms
+package be.ugent.sel.studeez.screens.tasks.form
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
@@ -11,17 +11,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.DeleteButton
-import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.FormComposable
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.fieldModifier
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
-fun TaskAddRoute(
+fun TaskCreateRoute(
     goBack: () -> Unit,
     openAndPopUp: (String, String) -> Unit,
-    viewModel: TaskFormViewModel,
+    viewModel: TaskCreateFormViewModel,
 ) {
     val uiState by viewModel.uiState
     TaskForm(
@@ -37,7 +37,7 @@ fun TaskAddRoute(
 fun TaskEditRoute(
     goBack: () -> Unit,
     openAndPopUp: (String, String) -> Unit,
-    viewModel: TaskFormViewModel,
+    viewModel: TaskEditFormViewModel,
 ) {
     val uiState by viewModel.uiState
     TaskForm(
@@ -62,7 +62,7 @@ fun TaskForm(
     onNameChange: (String) -> Unit,
     extraButton: @Composable () -> Unit = {}
 ) {
-    SecondaryScreenTemplate(
+    FormComposable(
         title = resources().getString(title),
         popUp = goBack,
     ) {

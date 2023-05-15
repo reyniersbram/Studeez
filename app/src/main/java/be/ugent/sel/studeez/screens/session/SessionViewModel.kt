@@ -1,7 +1,8 @@
 package be.ugent.sel.studeez.screens.session
 
-import be.ugent.sel.studeez.data.SelectedTimerState
-import be.ugent.sel.studeez.data.SessionReportState
+import be.ugent.sel.studeez.data.SelectedSessionReport
+import be.ugent.sel.studeez.data.SelectedTask
+import be.ugent.sel.studeez.data.SelectedTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.navigation.StudeezDestinations
@@ -11,23 +12,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SessionViewModel @Inject constructor(
-    private val selectedTimerState: SelectedTimerState,
-    private val sessionReportState: SessionReportState,
+    private val selectedTimer: SelectedTimer,
+    private val sessionReport: SelectedSessionReport,
+    private val selectedTask: SelectedTask,
     logService: LogService
 ) : StudeezViewModel(logService) {
-
-    private val task : String = "No task selected" // placeholder for tasks implementation
-
-    fun getTimer() : FunctionalTimer {
-        return selectedTimerState.selectedTimer!!
+    fun getTimer(): FunctionalTimer {
+        return selectedTimer()
     }
 
     fun getTask(): String {
-        return task
+        return selectedTask().name
     }
 
     fun endSession(openAndPopUp: (String, String) -> Unit) {
-        sessionReportState.sessionReport = getTimer().getSessionReport()
+        sessionReport.set(getTimer().getSessionReport(selectedTask().subjectId, selectedTask().id))
         openAndPopUp(StudeezDestinations.SESSION_RECAP, StudeezDestinations.SESSION_SCREEN)
     }
 }

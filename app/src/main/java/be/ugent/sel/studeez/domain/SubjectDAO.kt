@@ -12,4 +12,12 @@ interface SubjectDAO {
     fun deleteSubject(oldSubject: Subject)
 
     fun updateSubject(newSubject: Subject)
+
+    suspend fun archiveSubject(subject: Subject)
+
+    fun getTaskCount(subject: Subject): Flow<Int>
+    fun getCompletedTaskCount(subject: Subject): Flow<Int>
+    fun getStudyTime(subject: Subject): Flow<Int>
+
+    suspend fun getSubject(subjectId: String): Subject?
 }

@@ -4,7 +4,6 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -50,7 +49,7 @@ fun LabelledInputField(
     value: String,
     onNewValue: (String) -> Unit,
     @StringRes label: Int,
-    singleLine: Boolean = false
+    singleLine: Boolean = true
 ) {
     OutlinedTextField(
         value = value,
@@ -122,7 +121,9 @@ fun LabeledErrorTextField(
     initialValue: String,
     @StringRes label: Int,
     singleLine: Boolean = false,
-    errorText: Int,
+    isValid: MutableState<Boolean> = remember { mutableStateOf(true) },
+    isFirst: MutableState<Boolean> = remember { mutableStateOf(false) },
+    @StringRes errorText: Int,
     keyboardType: KeyboardType,
     predicate: (String) -> Boolean,
     onNewCorrectValue: (String) -> Unit
@@ -131,31 +132,28 @@ fun LabeledErrorTextField(
         mutableStateOf(initialValue)
     }
 
-    var isValid by remember {
-        mutableStateOf(predicate(value))
-    }
-
     Column {
         OutlinedTextField(
             modifier = modifier.fieldModifier(),
             value = value,
             onValueChange = { newText ->
+                isFirst.value = false
                 value = newText
-                isValid = predicate(value)
-                if (isValid) {
+                isValid.value = predicate(value)
+                if (isValid.value) {
                     onNewCorrectValue(newText)
                 }
             },
             singleLine = singleLine,
             label = { Text(text = stringResource(id = label)) },
-            isError = !isValid,
+            isError = !isValid.value && !isFirst.value,
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType,
                 imeAction = ImeAction.Done
             )
         )
 
-        if (!isValid) {
+        if (!isValid.value && !isFirst.value) {
             Text(
                 modifier = Modifier.padding(start = 16.dp),
                 text = stringResource(id = errorText),
