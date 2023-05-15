@@ -1,7 +1,6 @@
 package be.ugent.sel.studeez.data.local.models.task
 
 import com.google.firebase.firestore.DocumentId
-import com.google.firebase.firestore.Exclude
 
 data class Subject(
     @DocumentId val id: String = "",

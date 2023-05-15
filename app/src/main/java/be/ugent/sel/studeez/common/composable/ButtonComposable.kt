@@ -33,7 +33,11 @@ import be.ugent.sel.studeez.common.ext.defaultButtonShape
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
-fun BasicTextButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit) {
+fun BasicTextButton(
+    @StringRes text: Int,
+    modifier: Modifier,
+    action: () -> Unit
+) {
     TextButton(
         onClick = action,
         modifier = modifier

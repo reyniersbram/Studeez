@@ -2,8 +2,6 @@ package be.ugent.sel.studeez.screens.subjects.form
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Color
-import be.ugent.sel.studeez.common.ext.generateRandomArgb
 import be.ugent.sel.studeez.data.SelectedSubject
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.domain.LogService

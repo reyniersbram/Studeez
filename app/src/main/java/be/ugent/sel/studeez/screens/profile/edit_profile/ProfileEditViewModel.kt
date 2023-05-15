@@ -1,8 +1,9 @@
-package be.ugent.sel.studeez.screens.profile
+package be.ugent.sel.studeez.screens.profile.edit_profile
 
 import androidx.compose.runtime.mutableStateOf
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
+import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.UserDAO
@@ -23,7 +24,11 @@ class ProfileEditViewModel @Inject constructor(
 
     init {
         launchCatching {
-            uiState.value = uiState.value.copy(username = userDAO.getUsername()!!)
+            val user: User = userDAO.getLoggedInUser()
+            uiState.value = uiState.value.copy(
+                username = user.username,
+                biography = user.biography
+            )
         }
     }
 
@@ -31,16 +36,23 @@ class ProfileEditViewModel @Inject constructor(
         uiState.value = uiState.value.copy(username = newValue)
     }
 
+    fun onBiographyChange(newValue: String) {
+        uiState.value = uiState.value.copy(biography = newValue)
+    }
+
     fun onSaveClick() {
         launchCatching {
-            userDAO.save(uiState.value.username)
+            userDAO.saveLoggedInUser(
+                newUsername = uiState.value.username,
+                newBiography = uiState.value.biography
+            )
             SnackbarManager.showMessage(R.string.success)
         }
     }
 
     fun onDeleteClick(openAndPopUp: (String, String) -> Unit) {
         launchCatching {
-            userDAO.deleteUserReferences() // Delete references
+            userDAO.deleteLoggedInUserReferences() // Delete references
             accountDAO.deleteAccount() // Delete authentication
         }
         openAndPopUp(StudeezDestinations.SIGN_UP_SCREEN, StudeezDestinations.EDIT_PROFILE_SCREEN)

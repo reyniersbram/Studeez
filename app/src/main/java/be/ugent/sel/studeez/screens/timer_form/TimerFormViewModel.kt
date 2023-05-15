@@ -23,6 +23,11 @@ class TimerFormViewModel @Inject constructor(
         goBack()
     }
 
+    fun deleteTimer(timerInfo: TimerInfo, goBack: () -> Unit) {
+        timerDAO.deleteTimer(timerInfo)
+        goBack()
+    }
+
     fun saveTimer(timerInfo: TimerInfo, goBack: () -> Unit) {
         timerDAO.saveTimer(timerInfo)
         goBack()

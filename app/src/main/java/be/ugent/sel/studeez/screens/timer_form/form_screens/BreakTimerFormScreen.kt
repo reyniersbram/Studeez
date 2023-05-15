@@ -15,6 +15,8 @@ class BreakTimerFormScreen(
     private val breakTimerInfo: PomodoroTimerInfo
 ): AbstractTimerFormScreen(breakTimerInfo) {
 
+
+
     @Composable
     override fun ExtraFields() {
         // If the user presses the OK button on the timepicker, the time in the button should change
@@ -26,17 +28,26 @@ class BreakTimerFormScreen(
             breakTimerInfo.breakTime = newTime
         }
 
+        valids["repeats"] = remember {mutableStateOf(true)}
+        firsts["repeats"] = remember { mutableStateOf(true) }
+
         LabeledErrorTextField(
             initialValue = breakTimerInfo.repeats.toString(),
             label = R.string.repeats,
             errorText = AppText.repeats_error,
+            isValid = valids.getValue("repeats"),
+            isFirst = firsts.getValue("repeats"),
             keyboardType = KeyboardType.Decimal,
-            predicate = { it.matches(Regex("[1-9]+\\d*")) }
+            predicate = { isNumber(it) }
         ) { correctlyTypedInt ->
             breakTimerInfo.repeats = correctlyTypedInt.toInt()
         }
 
     }
+}
+
+fun isNumber(text: String): Boolean {
+    return text.matches(Regex("[1-9]+\\d*"))
 }
 
 @Preview
