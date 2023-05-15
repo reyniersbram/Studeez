@@ -18,7 +18,7 @@ class SessionScreenTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun SessionRecapTest() {
+    fun sessionRecapTest() {
         var saveCalled = false
         var discardCalled = false
 
@@ -67,4 +67,6 @@ class SessionScreenTest {
         Assert.assertTrue(saveCalled)
         Assert.assertTrue(discardCalled)
     }
+
+
 }
