@@ -1,6 +1,5 @@
 package be.ugent.sel.studeez.timer_functional
 
-import android.media.MediaPlayer
 import be.ugent.sel.studeez.data.SelectedSessionReport
 import be.ugent.sel.studeez.data.SelectedTask
 import be.ugent.sel.studeez.data.SelectedTimer
@@ -22,13 +21,12 @@ import org.mockito.kotlin.mock
 class InvisibleSessionManagerTest {
     private var selectedTimer: SelectedTimer = SelectedTimer()
     private lateinit var viewModel: SessionViewModel
-    private var mediaPlayer: MediaPlayer = mock()
 
     @Test
     fun InvisibleEndlessTimerTest() = runTest {
         selectedTimer.set(FunctionalEndlessTimer())
         viewModel = SessionViewModel(selectedTimer, SelectedSessionReport(), SelectedTask(), LogServiceImpl())
-        InvisibleSessionManager.setParameters(viewModel, mediaPlayer)
+        InvisibleSessionManager.setParameters(viewModel, mock())
 
         val test = launch {
             InvisibleSessionManager.updateTimer()
@@ -50,7 +48,7 @@ class InvisibleSessionManagerTest {
         val repeats = 1
         selectedTimer.set(FunctionalPomodoroTimer(studyTime, breakTime, repeats))
         viewModel = SessionViewModel(selectedTimer, SelectedSessionReport(), SelectedTask(), LogServiceImpl())
-        InvisibleSessionManager.setParameters(viewModel, mediaPlayer)
+        InvisibleSessionManager.setParameters(viewModel, mock())
 
         val test = launch {
             InvisibleSessionManager.updateTimer()
@@ -83,7 +81,7 @@ class InvisibleSessionManagerTest {
     fun InvisibleCustomTimerTest() = runTest {
         selectedTimer.set(FunctionalCustomTimer(5))
         viewModel = SessionViewModel(selectedTimer, SelectedSessionReport(), SelectedTask(), LogServiceImpl())
-        InvisibleSessionManager.setParameters(viewModel, mediaPlayer)
+        InvisibleSessionManager.setParameters(viewModel, mock())
 
         val test = launch {
             InvisibleSessionManager.updateTimer()

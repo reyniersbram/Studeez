@@ -46,6 +46,7 @@
     <string name="delete_subject">Delete Subject</string>
     <string name="delete_task">Delete Task</string>
     <string name="view_tasks">View</string>
+    <string name="regenerate_color">Regenerate Color</string>
 
     <!-- Sessions -->
     <string name="sessions_temp_description">Looks like you found the sessions screen! In here, your upcoming studying sessions with friends will be listed. You can accept invites or edit your own.</string> <!-- TODO Remove this description line once implemented. -->
@@ -69,8 +70,15 @@
 
     <!-- Timers -->
     <string name="timers">Timers</string>
+    <string name="delete_timer">Delete Timer</string>
     <string name="edit">Edit</string>
     <string name="add_timer">Add timer</string>
+
+    <string name="name_error">Name should not be blank</string>
+    <string name="description_error">Description should not be blank</string>
+    <string name="fill_out_error">Fill out all the fields correctly!</string>
+
+
     <string name="pick_time">Select time</string>
     <string name="state_focus">Focus!</string>
     <plurals name="state_focus_remaining">
@@ -148,5 +156,12 @@
     <string name="studyTime">Study Time</string>
     <string name="breakTime">Break Time</string>
     <string name="repeats">Number of Repeats</string>
+
+    <!-- Session Recap -->
+    <string name="congrats">"Congratulations! You studied: %s"</string>
+    <string name="how_did_it_go">How did it go?</string>
+    <string name="good">Good</string>
+    <string name="bad">Bad</string>
+
 
 </resources>

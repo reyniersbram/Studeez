@@ -117,12 +117,15 @@ class SubjectScreenTest {
                 onAddSubject = { add = true },
                 onViewSubject = { view = true },
                 getStudyTime = { flowOf() },
+                getCompletedTaskCount = { flowOf() },
+                getTaskCount = { flowOf() },
                 uiState = SubjectUiState.Succes(
                     listOf(
                         Subject(
+                            id = "",
                             name = "Test Subject",
                             argb_color = 0xFFFFD200,
-                            taskCount = 5, taskCompletedCount = 2,
+                            archived = false
                         )
                     )
                 )

@@ -1,7 +1,6 @@
 package be.ugent.sel.studeez.screens.timer_form.timer_type_select
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -9,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.data.local.models.timer_info.*
@@ -38,7 +38,10 @@ fun TimerTypeSelectScreen(
         ) {
             TimerType.values().forEach { timerType ->
                 val default: TimerInfo = defaultTimerInfo.getValue(timerType)
-                Button(onClick = { viewModel.onTimerTypeChosen(default, open) }) {
+                Button(
+                    onClick = { viewModel.onTimerTypeChosen(default, open) },
+                    modifier = Modifier.fillMaxWidth().padding(5.dp)
+                ) {
                     Text(text = timerType.name)
                 }
             }

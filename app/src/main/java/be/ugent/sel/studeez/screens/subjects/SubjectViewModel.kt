@@ -30,6 +30,14 @@ class SubjectViewModel @Inject constructor(
         open(StudeezDestinations.ADD_SUBJECT_FORM)
     }
 
+    fun getTaskCount(subject: Subject): Flow<Int> {
+        return subjectDAO.getTaskCount(subject)
+    }
+
+    fun getCompletedTaskCount(subject: Subject): Flow<Int> {
+        return subjectDAO.getCompletedTaskCount(subject)
+    }
+
     fun getStudyTime(subject: Subject): Flow<Int> {
         return subjectDAO.getStudyTime(subject)
     }
