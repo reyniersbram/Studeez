@@ -6,14 +6,13 @@ class FunctionalPomodoroTimer(
     val repeats: Int
 ) : FunctionalTimer(studyTime) {
 
-    var breaksRemaining = repeats
+    var breaksRemaining = repeats - 1
     var isInBreak = false
 
     override fun tick() {
         if (hasEnded()) {
             return
         }
-
         if (hasCurrentCountdownEnded()) {
             if (isInBreak) {
                 breaksRemaining--

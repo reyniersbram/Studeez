@@ -8,6 +8,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -15,12 +16,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.DeleteButton
+import be.ugent.sel.studeez.common.composable.FormComposable
 import be.ugent.sel.studeez.common.composable.LabelledInputField
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.common.ext.fieldModifier
 import be.ugent.sel.studeez.common.ext.generateRandomArgb
 import be.ugent.sel.studeez.resources
+import kotlinx.coroutines.launch
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
@@ -47,6 +50,7 @@ fun SubjectEditRoute(
     viewModel: SubjectEditFormViewModel,
 ) {
     val uiState by viewModel.uiState
+    val coroutineScope = rememberCoroutineScope()
     SubjectForm(
         title = AppText.edit_subject,
         goBack = goBack,
@@ -56,7 +60,9 @@ fun SubjectEditRoute(
         onColorChange = viewModel::onColorChange,
     ) {
         DeleteButton(text = AppText.delete_subject) {
-            viewModel.onDelete(openAndPopUp)
+            coroutineScope.launch {
+                viewModel.onDelete(openAndPopUp)
+            }
         }
     }
 }
@@ -71,7 +77,7 @@ fun SubjectForm(
     onColorChange: (Long) -> Unit,
     extraButton: @Composable () -> Unit = {},
 ) {
-    SecondaryScreenTemplate(
+    FormComposable(
         title = resources().getString(title),
         popUp = goBack,
     ) {

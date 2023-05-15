@@ -36,6 +36,8 @@ fun SubjectRoute(
         navigationBarActions = navigationBarActions,
         onAddSubject = { viewModel.onAddSubject(open) },
         onViewSubject = { viewModel.onViewSubject(it, open) },
+        getTaskCount = viewModel::getTaskCount,
+        getCompletedTaskCount = viewModel::getCompletedTaskCount,
         getStudyTime = viewModel::getStudyTime,
         uiState,
     )
@@ -47,6 +49,8 @@ fun SubjectScreen(
     navigationBarActions: NavigationBarActions,
     onAddSubject: () -> Unit,
     onViewSubject: (Subject) -> Unit,
+    getTaskCount: (Subject) -> Flow<Int>,
+    getCompletedTaskCount: (Subject) -> Flow<Int>,
     getStudyTime: (Subject) -> Flow<Int>,
     uiState: SubjectUiState,
 ) {
@@ -76,6 +80,8 @@ fun SubjectScreen(
                             SubjectEntry(
                                 subject = it,
                                 onViewSubject = { onViewSubject(it) },
+                                getTaskCount = { getTaskCount(it) },
+                                getCompletedTaskCount = { getCompletedTaskCount(it) },
                                 getStudyTime = { getStudyTime(it) },
                             )
                         }
@@ -94,13 +100,14 @@ fun SubjectScreenPreview() {
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
         onAddSubject = {},
         onViewSubject = {},
+        getTaskCount = { flowOf() },
+        getCompletedTaskCount = { flowOf() },
         getStudyTime = { flowOf() },
         uiState = SubjectUiState.Succes(
             listOf(
                 Subject(
                     name = "Test Subject",
                     argb_color = 0xFFFFD200,
-                    taskCount = 5, taskCompletedCount = 2,
                 )
             )
         )
@@ -115,7 +122,9 @@ fun SubjectScreenLoadingPreview() {
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {}),
         onAddSubject = {},
         onViewSubject = {},
+        getTaskCount = { flowOf() },
+        getCompletedTaskCount = { flowOf() },
         getStudyTime = { flowOf() },
-        uiState = SubjectUiState.Loading
+        uiState = SubjectUiState.Loading,
     )
 }
