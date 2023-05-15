@@ -5,9 +5,12 @@ import android.media.RingtoneManager
 import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalPomodoroTimer
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
 import be.ugent.sel.studeez.screens.session.sessionScreens.AbstractSessionScreen
 import be.ugent.sel.studeez.screens.session.sessionScreens.GetSessionScreen
+import be.ugent.sel.studeez.screens.session.sessionScreens.composables.BreakSessionScreenComposable
+import be.ugent.sel.studeez.screens.session.sessionScreens.composables.GetSessionScreenComposable
 
 data class SessionActions(
     val getTimer: () -> FunctionalTimer,
@@ -47,10 +50,8 @@ fun SessionRoute(
         mediaplayer = mediaplayer
     )
 
-    val sessionScreen: AbstractSessionScreen = viewModel.getTimer().accept(GetSessionScreen(mediaplayer))
+    val sessionActions = getSessionActions(viewModel, openAndPopUp, mediaplayer)
+    val sessionScreen = viewModel.getTimer().accept(GetSessionScreenComposable(mediaplayer, open, sessionActions))
 
-    sessionScreen(
-        open = open,
-        sessionActions = getSessionActions(viewModel, openAndPopUp, mediaplayer)
-    )
+    sessionScreen()
 }
