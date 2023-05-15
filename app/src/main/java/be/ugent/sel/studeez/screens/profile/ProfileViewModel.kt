@@ -5,6 +5,7 @@ import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.UserDAO
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -25,7 +26,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun getAmountOfFriends(): Flow<Int> {
-        return friendshipDAO.getFriendshipCount()
+        return friendshipDAO.getFriendshipCount(userDAO.getCurrentUserId())
     }
 
     fun onEditProfileClick(open: (String) -> Unit) {

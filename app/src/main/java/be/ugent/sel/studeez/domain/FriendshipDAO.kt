@@ -9,15 +9,19 @@ import kotlinx.coroutines.flow.Flow
 interface FriendshipDAO {
 
     /**
-     * @return all friendships of the user that is currently logged in.
+     * @return all friendships of a chosen user.
      */
-    fun getAllFriendships(): Flow<List<Friendship>>
+    fun getAllFriendships(
+        userId: String
+    ): Flow<List<Friendship>>
 
     /**
-     * @return the amount of friends of the currently logged in user.
+     * @return the amount of friends of a chosen user.
      * This method should be faster than just counting the length of getAllFriends()
      */
-    fun getFriendshipCount(): Flow<Int>
+    fun getFriendshipCount(
+        userId: String
+    ): Flow<Int>
 
     /**
      * @param id the id of the friendship that you want details of
@@ -41,8 +45,10 @@ interface FriendshipDAO {
 
     /**
      * Remove a friend or decline a friendrequest.
-     * @param id of the friendship that you want to update
+     * @param friendship the one you want to remove
      * @return: Success/faillure of transaction
      */
-    fun removeFriendship(id: String): Boolean
+    fun removeFriendship(
+        friendship: Friendship
+    ): Boolean
 }
