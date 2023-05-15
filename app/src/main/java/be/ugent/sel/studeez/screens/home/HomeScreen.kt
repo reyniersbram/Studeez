@@ -24,6 +24,7 @@ fun HomeRoute(
 ) {
     HomeScreen(
         onStartSessionClick = { viewModel.onStartSessionClick(open) },
+        onViewFriendsClick = { viewModel.onViewFriendsClick(open) },
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
     )
@@ -32,6 +33,7 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     onStartSessionClick: () -> Unit,
+    onViewFriendsClick: () -> Unit,
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions
 ) {
@@ -39,7 +41,7 @@ fun HomeScreen(
         title = resources().getString(R.string.home),
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
-        // TODO barAction = { FriendsAction() }
+        barAction = { FriendsAction(onViewFriendsClick) }
     ) {
         BasicButton(R.string.start_session, Modifier.basicButton()) {
             onStartSessionClick()
@@ -48,8 +50,10 @@ fun HomeScreen(
 }
 
 @Composable
-fun FriendsAction() {
-    IconButton(onClick = { /*TODO*/ }) {
+fun FriendsAction(
+    onClick: () -> Unit
+) {
+    IconButton(onClick = onClick) {
         Icon(
             imageVector = Icons.Default.Person,
             contentDescription = resources().getString(R.string.friends)
@@ -62,6 +66,7 @@ fun FriendsAction() {
 fun HomeScreenPreview() {
     HomeScreen(
         onStartSessionClick = {},
+        onViewFriendsClick = {},
         drawerActions = DrawerActions({}, {}, {}, {}, {}),
         navigationBarActions = NavigationBarActions({ false }, {}, {}, {}, {}, {}, {}, {})
     )

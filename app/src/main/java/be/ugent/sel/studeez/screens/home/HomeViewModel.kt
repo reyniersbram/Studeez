@@ -16,4 +16,8 @@ class HomeViewModel @Inject constructor(
     fun onStartSessionClick(open: (String) -> Unit) {
         open(StudeezDestinations.TIMER_SELECTION_SCREEN)
     }
+
+    fun onViewFriendsClick(open: (String) -> Unit) {
+        open(StudeezDestinations.FRIENDS_OVERVIEW_SCREEN)
+    }
 }
