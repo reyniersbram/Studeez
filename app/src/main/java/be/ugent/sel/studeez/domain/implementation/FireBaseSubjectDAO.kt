@@ -19,7 +19,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import kotlin.collections.count
 
-class FirebaseSubjectDAO @Inject constructor(
+class FireBaseSubjectDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: AccountDAO,
     private val taskDAO: TaskDAO,
@@ -50,7 +50,7 @@ class FirebaseSubjectDAO @Inject constructor(
     override suspend fun archiveSubject(subject: Subject) {
         currentUserSubjectsCollection().document(subject.id).update(SubjectDocument.archived, true)
         currentUserSubjectsCollection().document(subject.id)
-            .collection(FirebaseCollections.TASK_COLLECTION)
+            .collection(FireBaseCollections.TASK_COLLECTION)
             .taskNotArchived()
             .get().await()
             .documents
@@ -75,16 +75,16 @@ class FirebaseSubjectDAO @Inject constructor(
     }
 
     private fun currentUserSubjectsCollection(): CollectionReference =
-        firestore.collection(FirebaseCollections.USER_COLLECTION)
+        firestore.collection(FireBaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(FirebaseCollections.SUBJECT_COLLECTION)
+            .collection(FireBaseCollections.SUBJECT_COLLECTION)
 
     private fun subjectTasksCollection(subject: Subject): CollectionReference =
-        firestore.collection(FirebaseCollections.USER_COLLECTION)
+        firestore.collection(FireBaseCollections.USER_COLLECTION)
             .document(auth.currentUserId)
-            .collection(FirebaseCollections.SUBJECT_COLLECTION)
+            .collection(FireBaseCollections.SUBJECT_COLLECTION)
             .document(subject.id)
-            .collection(FirebaseCollections.TASK_COLLECTION)
+            .collection(FireBaseCollections.TASK_COLLECTION)
 
     fun CollectionReference.subjectNotArchived(): Query =
         this.whereEqualTo(SubjectDocument.archived, false)
