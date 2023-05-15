@@ -6,7 +6,7 @@ import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalTimer
-import be.ugent.sel.studeez.screens.session.sessionScreens.composables.GetSessionScreenComposable
+import be.ugent.sel.studeez.screens.session.sessionScreens.GetSessionScreenComposable
 
 data class SessionActions(
     val getTimer: () -> FunctionalTimer,

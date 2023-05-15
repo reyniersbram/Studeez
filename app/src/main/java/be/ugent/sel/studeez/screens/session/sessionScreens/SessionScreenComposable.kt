@@ -1,4 +1,4 @@
-package be.ugent.sel.studeez.screens.session.sessionScreens.composables
+package be.ugent.sel.studeez.screens.session.sessionScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
