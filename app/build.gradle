@@ -7,7 +7,7 @@ plugins {
     id 'com.google.dagger.hilt.android'
 
     // Protobuf
-    id 'com.google.protobuf' version '0.8.17'
+    id 'com.google.protobuf' version '0.9.0'
 
     // Firebase
     id 'com.google.gms.google-services'
