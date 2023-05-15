@@ -38,12 +38,18 @@ private fun Dots(pomodoroTimer: FunctionalPomodoroTimer): Int {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        repeat(pomodoroTimer.repeats - pomodoroTimer.breaksRemaining) {
-            Dot(color = Color.DarkGray)
-        }
-        if (!pomodoroTimer.isInBreak) Dot(Color.Green) else Dot(Color.DarkGray)
-        repeat(pomodoroTimer.breaksRemaining - 1) {
-            Dot(color = Color.Gray)
+        if (pomodoroTimer.hasEnded()) {
+            repeat(pomodoroTimer.repeats) {
+                Dot(Color.Green)
+            }
+        } else {
+            repeat(pomodoroTimer.repeats - pomodoroTimer.breaksRemaining - 1) {
+                Dot(color = Color.DarkGray)
+            }
+            if (!pomodoroTimer.isInBreak) Dot(Color.Green) else Dot(Color.DarkGray)
+            repeat(pomodoroTimer.breaksRemaining) {
+                Dot(color = Color.Gray)
+            }
         }
     }
     return pomodoroTimer.breaksRemaining
