@@ -5,7 +5,7 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.data.local.models.timer_functional.FunctionalCustomTimer
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.session.SessionActions
-import be.ugent.sel.studeez.screens.session.sessionScreens.SoundPlayer
+import be.ugent.sel.studeez.screens.session.SoundPlayer
 
 @Composable
 fun CustomTimerSessionScreenComposable(
