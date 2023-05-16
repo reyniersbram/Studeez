@@ -9,6 +9,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.common.composable.DateText
 import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
+import be.ugent.sel.studeez.common.composable.feed.LoadingFeed
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
@@ -31,10 +33,11 @@ fun FriendsFeedRoute(
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions
 ) {
+    val uiState by viewModel.uiState.collectAsState()
     FriendsFeedScreen(
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions,
-        viewModel = viewModel
+        uiState = uiState,
     )
 }
 
@@ -42,38 +45,37 @@ fun FriendsFeedRoute(
 fun FriendsFeedScreen(
     drawerActions: DrawerActions,
     navigationBarActions: NavigationBarActions,
-    viewModel: FriendsFeedViewModel
+    uiState: FriendsFeedUiState,
 ) {
     PrimaryScreenTemplate(
         title = resources().getString(AppText.friends_feed),
         drawerActions = drawerActions,
         navigationBarActions = navigationBarActions
     ) {
+        when (uiState) {
+            FriendsFeedUiState.Loading -> LoadingFeed()
+            is FriendsFeedUiState.Succes -> {
+                val friendsSessions = uiState.friendSessions
 
-        val friendsSessions = viewModel.getFriendsSessions().collectAsState(initial = emptyList())
-            
-
-
-
-        LazyColumn() {
-            // Default Timers, cannot be edited
-            items(friendsSessions.value) {
-                val (day, feedEntries) = it
-                DateText(date = day)
-                feedEntries.forEach { (name, feedEntry) ->
-                    FriendsFeedEntry(name = name, feedEntry = feedEntry)
+                LazyColumn {
+                    // Default Timers, cannot be edited
+                    items(friendsSessions) {
+                        val (day, feedEntries) = it
+                        DateText(date = day)
+                        feedEntries.forEach { (name, feedEntry) ->
+                            FriendsFeedEntry(name = name, feedEntry = feedEntry)
+                        }
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
                 }
-                Spacer(modifier = Modifier.height(10.dp))
             }
         }
-
     }
 }
 
 @Composable
 fun FriendsFeedEntry(
-    name: String,
-    feedEntry: FeedEntry
+    name: String, feedEntry: FeedEntry
 ) {
     Card(
         modifier = Modifier
@@ -120,11 +122,12 @@ fun FriendsFeedEntry(
                     }
                     Text(
                         text = HoursMinutesSeconds(feedEntry.totalStudyTime).toString(),
-                        modifier = Modifier.weight(3f).padding(start = 5.dp),
+                        modifier = Modifier
+                            .weight(3f)
+                            .padding(start = 5.dp),
                     )
                 }
             }
-
         }
     }
 }
