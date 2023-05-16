@@ -2,6 +2,7 @@ package be.ugent.sel.studeez.domain
 
 import be.ugent.sel.studeez.data.local.models.SessionReport
 import be.ugent.sel.studeez.data.local.models.User
+import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import kotlinx.coroutines.flow.Flow
 
@@ -13,7 +14,7 @@ interface SessionDAO {
     /**
      * Return a list of pairs, containing the username and all the studysessions of that user.
      */
-    fun getFriendsSessions(): Flow<List<Pair<String,List<SessionReport>>>>
+    fun getFriendsSessions(): Flow<List<Pair<String, List<Task>>>>
 
     fun saveSession(newSessionReport: SessionReport)
 

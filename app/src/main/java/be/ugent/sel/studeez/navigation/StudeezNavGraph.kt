@@ -16,6 +16,8 @@ import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
 import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
 import be.ugent.sel.studeez.screens.friends.friends_overview.FriendsOveriewRoute
 import be.ugent.sel.studeez.screens.friends.friends_search.SearchFriendsRoute
+import be.ugent.sel.studeez.screens.friends_feed.FriendsFeedRoute
+import be.ugent.sel.studeez.screens.friends_feed.FriendsFeedScreen
 import be.ugent.sel.studeez.screens.home.HomeRoute
 import be.ugent.sel.studeez.screens.log_in.LoginRoute
 import be.ugent.sel.studeez.screens.profile.edit_profile.EditProfileRoute
@@ -23,7 +25,6 @@ import be.ugent.sel.studeez.screens.profile.ProfileRoute
 import be.ugent.sel.studeez.screens.profile.public_profile.PublicProfileRoute
 import be.ugent.sel.studeez.screens.session.SessionRoute
 import be.ugent.sel.studeez.screens.session_recap.SessionRecapRoute
-import be.ugent.sel.studeez.screens.sessions.SessionsRoute
 import be.ugent.sel.studeez.screens.settings.SettingsRoute
 import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
@@ -127,9 +128,10 @@ fun StudeezNavGraph(
 
 
         composable(StudeezDestinations.SESSIONS_SCREEN) {
-            SessionsRoute(
+            FriendsFeedRoute(
                 drawerActions = drawerActions,
-                navigationBarActions = navigationBarActions
+                navigationBarActions = navigationBarActions,
+                viewModel = hiltViewModel()
             )
         }
 

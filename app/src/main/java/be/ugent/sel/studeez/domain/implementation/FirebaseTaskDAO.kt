@@ -30,6 +30,13 @@ class FirebaseTaskDAO @Inject constructor(
         return selectedSubjectTasksCollection(subjectId).document(taskId).get().await().toObject()!!
     }
 
+    override suspend fun getTaskFromUser(subjectId: String, taskId: String, userId: String): Task {
+        return selectedSubjectTasksCollection(subjectId, userId)
+            .document(taskId)
+            .get()
+            .await().toObject(Task::class.java)!!
+    }
+
     override fun saveTask(newTask: Task) {
         selectedSubjectTasksCollection(newTask.subjectId).add(newTask)
     }
@@ -44,9 +51,9 @@ class FirebaseTaskDAO @Inject constructor(
         selectedSubjectTasksCollection(oldTask.subjectId).document(oldTask.id).delete()
     }
 
-    private fun selectedSubjectTasksCollection(subjectId: String): CollectionReference =
+    private fun selectedSubjectTasksCollection(subjectId: String, id: String = auth.currentUserId): CollectionReference =
         firestore.collection(FirebaseCollections.USER_COLLECTION)
-            .document(auth.currentUserId)
+            .document(id)
             .collection(FirebaseCollections.SUBJECT_COLLECTION)
             .document(subjectId)
             .collection(FirebaseCollections.TASK_COLLECTION)
