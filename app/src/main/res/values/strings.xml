@@ -43,6 +43,7 @@
     <string name="tasks">Tasks</string>
     <string name="task">Task</string>
     <string name="my_subjects">My Subjects</string>
+    <string name="select_subject_title">Select Subject</string>
     <string name="new_subject">New Subject</string>
     <string name="new_task">New Task</string>
     <string name="edit_subject">Edit Subject</string>
@@ -50,6 +51,7 @@
     <string name="delete_subject">Delete Subject</string>
     <string name="delete_task">Delete Task</string>
     <string name="view_tasks">View</string>
+    <string name="select_subject">Select</string>
     <string name="regenerate_color">Regenerate Color</string>
 
     <!-- Sessions -->
@@ -135,6 +137,9 @@
     <string name="send_friend_request">Send friend request</string>
     <string name="remove_friend">Remove as friend</string>
     <string name="show_profile">Show profile</string>
+    <string name="click_search_friends">Click to search friends</string>
+    <string name="searching_friends">Searching friends</string>
+    <string name="already_friend">You are already befriended with that person.</string>
 
     <!-- ========== Create & edit screens ========== -->
 

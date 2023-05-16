@@ -1,6 +1,7 @@
 package be.ugent.sel.studeez.screens.friends.friends_overview
 
 import androidx.compose.runtime.mutableStateOf
+import be.ugent.sel.studeez.data.SelectedUserId
 import be.ugent.sel.studeez.data.local.models.Friendship
 import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.domain.FriendshipDAO
@@ -8,7 +9,6 @@ import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.domain.UserDAO
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel
-import be.ugent.sel.studeez.screens.profile.public_profile.SelectedProfileState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -19,12 +19,12 @@ import javax.inject.Inject
 class FriendsOverviewViewModel @Inject constructor(
     private val userDAO: UserDAO,
     private val friendshipDAO: FriendshipDAO,
-    private val selectedProfileState: SelectedProfileState,
+    private val selectedUserIdState: SelectedUserId,
     logService: LogService
 ) : StudeezViewModel(logService) {
 
     var uiState = mutableStateOf(FriendsOverviewUiState(
-        userId = selectedProfileState.selectedUserId
+        userId = selectedUserIdState.value
     ))
         private set
 
@@ -63,7 +63,7 @@ class FriendsOverviewViewModel @Inject constructor(
         userId: String,
         open: (String) -> Unit
     ) {
-        selectedProfileState.selectedUserId = userId
+        selectedUserIdState.value = userId
         open(StudeezDestinations.PUBLIC_PROFILE_SCREEN)
     }
 

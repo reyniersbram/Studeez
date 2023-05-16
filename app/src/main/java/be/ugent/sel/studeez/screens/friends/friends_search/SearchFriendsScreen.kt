@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -82,14 +83,16 @@ fun SearchFriendsScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    SearchField(
-                        value = query,
-                        onValueChange = { newValue ->
-                            searchFriendsActions.onQueryStringChange(newValue)
-                            query = newValue
-                        },
-                        onSubmit = { },
-                        label = AppText.search_friends
+                    // TODO Make search field
+//                    SearchField(
+//                        value = uiState.queryString,
+//                        onValueChange = friendsOverviewActions.onQueryStringChange,
+//                        onSubmit = friendsOverviewActions.onSubmit,
+//                        label = AppText.search_friends,
+//                        enabled = false
+//                    )
+                    Text(
+                        text = stringResource(id = AppText.searching_friends)
                     )
                 },
                 navigationIcon = {

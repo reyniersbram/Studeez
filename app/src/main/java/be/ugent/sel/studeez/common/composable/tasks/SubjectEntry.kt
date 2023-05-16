@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
@@ -30,10 +31,10 @@ import be.ugent.sel.studeez.R.string as AppText
 @Composable
 fun SubjectEntry(
     subject: Subject,
-    onViewSubject: () -> Unit,
     getTaskCount: () -> Flow<Int>,
     getCompletedTaskCount: () -> Flow<Int>,
     getStudyTime: () -> Flow<Int>,
+    selectButton: @Composable (RowScope) -> Unit,
 ) {
     val studytime by getStudyTime().collectAsState(initial = 0)
     val taskCount by getTaskCount().collectAsState(initial = 0)
@@ -65,16 +66,17 @@ fun SubjectEntry(
                 ) {
                     Text(
                         text = subject.name,
-                        fontWeight = FontWeight.Bold,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
+                        fontWeight = FontWeight.Medium
                     )
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        verticalAlignment = Alignment.CenterVertically,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
                             text = HoursMinutesSeconds(studytime).toString(),
+                            color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
                         )
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -82,21 +84,18 @@ fun SubjectEntry(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.List,
-                                contentDescription = stringResource(id = AppText.tasks)
+                                contentDescription = stringResource(id = AppText.tasks),
+                                tint = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
                             )
-                            Text(text = "${completedTaskCount}/${taskCount}")
+                            Text(
+                                text = "${completedTaskCount}/${taskCount}",
+                                color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+                            )
                         }
                     }
                 }
             }
-            StealthButton(
-                text = AppText.view_tasks,
-                modifier = Modifier
-                    .padding(start = 10.dp, end = 5.dp)
-                    .weight(1f)
-            ) {
-                onViewSubject()
-            }
+            selectButton(this)
         }
     }
 }
@@ -109,11 +108,16 @@ fun SubjectEntryPreview() {
             name = "Test Subject",
             argb_color = 0xFFFFD200,
         ),
-        onViewSubject = {},
         getTaskCount = { flowOf() },
         getCompletedTaskCount = { flowOf() },
         getStudyTime = { flowOf() },
-    )
+    ) {
+        StealthButton(
+            text = AppText.view_tasks,
+            modifier = Modifier
+                .padding(start = 10.dp, end = 5.dp)
+        ) {}
+    }
 }
 
 @Preview
@@ -124,9 +128,8 @@ fun OverflowSubjectEntryPreview() {
             name = "Testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
             argb_color = 0xFFFFD200,
         ),
-        onViewSubject = {},
         getTaskCount = { flowOf() },
         getCompletedTaskCount = { flowOf() },
         getStudyTime = { flowOf() },
-    )
+    ) {}
 }

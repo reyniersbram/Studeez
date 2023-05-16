@@ -1,15 +1,14 @@
 package be.ugent.sel.studeez.screens.friends.friends_overview
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.BasicButton
 import be.ugent.sel.studeez.common.composable.ProfilePicture
-import be.ugent.sel.studeez.common.composable.SearchField
 import be.ugent.sel.studeez.common.composable.drawer.DrawerEntry
 import be.ugent.sel.studeez.common.ext.basicButton
 import be.ugent.sel.studeez.data.local.models.Friendship
@@ -89,13 +87,32 @@ fun FriendsOverviewScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    // TODO Link to each other
-                    SearchField(
-                        value = uiState.queryString,
-                        onValueChange = friendsOverviewActions.onQueryStringChange,
-                        onSubmit = friendsOverviewActions.onSubmit,
-                        label = AppText.search_friends
-                    )
+                    // TODO Make search field
+//                    SearchField(
+//                        value = uiState.queryString,
+//                        onValueChange = friendsOverviewActions.onQueryStringChange,
+//                        onSubmit = friendsOverviewActions.onSubmit,
+//                        label = AppText.search_friends,
+//                        enabled = false
+//                    )
+                        IconButton(
+                            onClick = friendsOverviewActions.onSubmit,
+//                            modifier = Modifier.background(
+//                                color = MaterialTheme.colors.background
+//                            ),
+                        ) {
+                            Row {
+                                Text(
+                                    text = stringResource(id = AppText.click_search_friends),
+                                    color = MaterialTheme.colors.onPrimary
+                                )
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = stringResource(AppText.search_friends),
+                                    tint = MaterialTheme.colors.onPrimary
+                                )
+                            }
+                        }
                 },
                 navigationIcon = {
                     IconButton(onClick = popUp) {
@@ -162,49 +179,52 @@ fun FriendsEntry(
     viewProfile: (String) -> Unit,
     removeFriend: (Friendship) -> Unit
 ) {
-    Row (
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 15.dp, vertical = 7.dp),
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(vertical = 4.dp)
-        ) {
-            ProfilePicture()
-        }
-
-        Box (
+    Card {
+        Row (
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 15.dp, vertical = 7.dp),
+            horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            Column (
+            Box(
                 modifier = Modifier
                     .padding(vertical = 4.dp)
             ) {
-                Text(
-                    text = user.username,
-                    fontSize = 16.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = "${resources().getString(AppText.app_name)} ${resources().getString(AppText.friend)}",
-                    fontSize = 14.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                ProfilePicture()
             }
 
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.CenterEnd
+            Box (
+                modifier = Modifier
+                    .fillMaxWidth()
             ) {
-                FriendsOverviewDropDown(
-                    friendship = friendship,
-                    viewProfile = viewProfile,
-                    removeFriend = removeFriend
-                )
+                Column (
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                ) {
+                    Text(
+                        text = user.username,
+                        fontSize = 16.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = "${resources().getString(AppText.app_name)} ${resources().getString(AppText.friend)}",
+                        fontSize = 14.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.CenterEnd
+                ) {
+                    FriendsOverviewDropDown(
+                        friendship = friendship,
+                        viewProfile = viewProfile,
+                        removeFriend = removeFriend
+                    )
+                }
             }
         }
     }
