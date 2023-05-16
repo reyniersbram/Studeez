@@ -1,5 +1,6 @@
 package be.ugent.sel.studeez.domain
 
+import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.SessionReport
 import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.data.local.models.task.Task
@@ -10,11 +11,6 @@ interface SessionDAO {
 
     fun getSessions(): Flow<List<SessionReport>>
     suspend fun getSessionsOfUser(userId: String): List<SessionReport>
-
-    /**
-     * Return a list of pairs, containing the username and all the studysessions of that user.
-     */
-    fun getFriendsSessions(): Flow<List<Pair<String, List<Task>>>>
 
     fun saveSession(newSessionReport: SessionReport)
 
