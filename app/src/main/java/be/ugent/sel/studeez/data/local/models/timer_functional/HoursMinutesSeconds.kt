@@ -2,7 +2,7 @@ package be.ugent.sel.studeez.data.local.models.timer_functional
 
 data class HoursMinutesSeconds(val hours: Int, val minutes: Int, val seconds: Int) {
 
-    constructor(sec: Int): this(
+    constructor(sec: Int) : this(
         hours = sec / (60 * 60),
         minutes = (sec / (60)) % 60,
         seconds = sec % 60,

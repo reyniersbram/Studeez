@@ -1,6 +1,8 @@
 package be.ugent.sel.studeez.screens.timer_form.timer_type_select
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -12,10 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.data.local.models.timer_info.*
+import be.ugent.sel.studeez.data.local.models.timer_info.TimerType.*
 import be.ugent.sel.studeez.R.string as AppText
-import be.ugent.sel.studeez.data.local.models.timer_info.TimerType.CUSTOM
-import be.ugent.sel.studeez.data.local.models.timer_info.TimerType.BREAK
-import be.ugent.sel.studeez.data.local.models.timer_info.TimerType.ENDLESS
 
 val defaultTimerInfo: Map<TimerType, TimerInfo> = mapOf(
     CUSTOM to CustomTimerInfo("", "", 0),
@@ -40,7 +40,9 @@ fun TimerTypeSelectScreen(
                 val default: TimerInfo = defaultTimerInfo.getValue(timerType)
                 Button(
                     onClick = { viewModel.onTimerTypeChosen(default, open) },
-                    modifier = Modifier.fillMaxWidth().padding(5.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(5.dp)
                 ) {
                     Text(text = timerType.name)
                 }

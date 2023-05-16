@@ -1,7 +1,6 @@
 package be.ugent.sel.studeez.common.composable
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -23,8 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.ugent.sel.studeez.common.ext.fieldModifier
 import be.ugent.sel.studeez.resources
-import com.google.android.material.color.MaterialColors
-import kotlin.math.sin
 import be.ugent.sel.studeez.R.drawable as AppIcon
 import be.ugent.sel.studeez.R.string as AppText
 
@@ -105,7 +102,7 @@ fun LabeledNumberInputField(
         singleLine = singleLine,
         label = { Text(resources().getString(label)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        onValueChange = {typedInt ->
+        onValueChange = { typedInt ->
             val isNumber = typedInt.matches(Regex("[1-9]+\\d*]"))
             if (isNumber) {
                 number = typedInt.toInt()
@@ -164,12 +161,11 @@ fun LabeledErrorTextField(
 }
 
 
-
- @Preview(showBackground = true)
- @Composable
- fun IntInputPreview() {
-     LabeledNumberInputField(value = 1, onNewValue = {}, label = AppText.email)
- }
+@Preview(showBackground = true)
+@Composable
+fun IntInputPreview() {
+    LabeledNumberInputField(value = 1, onNewValue = {}, label = AppText.email)
+}
 
 @Composable
 fun PasswordField(
@@ -227,12 +223,14 @@ fun SearchField(
     onValueChange: (String) -> Unit,
     onSubmit: () -> Unit,
     @StringRes label: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         modifier = modifier,
+        enabled = enabled,
         label = { Text(text = stringResource(id = label)) },
         trailingIcon = {
             IconButton(onClick = onSubmit) {

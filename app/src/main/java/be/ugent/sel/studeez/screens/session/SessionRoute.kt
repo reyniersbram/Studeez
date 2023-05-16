@@ -39,7 +39,8 @@ fun SessionRoute(
 
     val soundPlayer = SoundPlayer(LocalContext.current)
     val sessionActions = getSessionActions(viewModel, openAndPopUp)
-    val sessionScreen = viewModel.getTimer().accept(GetSessionScreenComposable(soundPlayer, open, sessionActions))
+    val sessionScreen =
+        viewModel.getTimer().accept(GetSessionScreenComposable(soundPlayer, open, sessionActions))
 
     sessionScreen()
 }

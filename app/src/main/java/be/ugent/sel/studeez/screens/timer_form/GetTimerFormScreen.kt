@@ -9,7 +9,7 @@ import be.ugent.sel.studeez.screens.timer_form.form_screens.BreakTimerFormScreen
 import be.ugent.sel.studeez.screens.timer_form.form_screens.CustomTimerFormScreen
 import be.ugent.sel.studeez.screens.timer_form.form_screens.EndlessTimerFormScreen
 
-class GetTimerFormScreen: TimerInfoVisitor<AbstractTimerFormScreen> {
+class GetTimerFormScreen : TimerInfoVisitor<AbstractTimerFormScreen> {
 
     override fun visitCustomTimerInfo(customTimerInfo: CustomTimerInfo): AbstractTimerFormScreen {
         return CustomTimerFormScreen(customTimerInfo)

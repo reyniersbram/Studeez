@@ -82,7 +82,11 @@ fun TimePickerButton(
     }
 }
 
-private fun pickDuration(context: Context, onTimeChosen: (Int) -> Unit, timeState: MutableState<Int>) {
+private fun pickDuration(
+    context: Context,
+    onTimeChosen: (Int) -> Unit,
+    timeState: MutableState<Int>
+) {
     val listener = OnTimeSetListener { _, hour, minute ->
         timeState.value = HoursMinutesSeconds(hour, minute, 0).getTotalSeconds()
         onTimeChosen(timeState.value)

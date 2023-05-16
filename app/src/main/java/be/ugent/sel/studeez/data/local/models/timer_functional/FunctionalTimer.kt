@@ -2,7 +2,6 @@ package be.ugent.sel.studeez.data.local.models.timer_functional
 
 import be.ugent.sel.studeez.data.local.models.SessionReport
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentReference
 
 abstract class FunctionalTimer(initialValue: Int) {
     var time: Time = Time(initialValue)

@@ -1,7 +1,8 @@
 package be.ugent.sel.studeez.screens.timer_form.form_screens
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import be.ugent.sel.studeez.R

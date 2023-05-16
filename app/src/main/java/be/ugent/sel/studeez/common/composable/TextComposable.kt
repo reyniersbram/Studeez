@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 fun Headline(
     text: String
 ) {
-    Row (
+    Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
@@ -32,7 +32,7 @@ fun Headline(
 fun DateText(date: String) {
     Text(
         text = date,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
         modifier = Modifier.padding(horizontal = 10.dp)
     )

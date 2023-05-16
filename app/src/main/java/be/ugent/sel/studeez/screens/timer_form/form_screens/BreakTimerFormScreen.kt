@@ -1,6 +1,8 @@
 package be.ugent.sel.studeez.screens.timer_form.form_screens
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
@@ -13,8 +15,7 @@ import be.ugent.sel.studeez.R.string as AppText
 
 class BreakTimerFormScreen(
     private val breakTimerInfo: PomodoroTimerInfo
-): AbstractTimerFormScreen(breakTimerInfo) {
-
+) : AbstractTimerFormScreen(breakTimerInfo) {
 
 
     @Composable
@@ -28,7 +29,7 @@ class BreakTimerFormScreen(
             breakTimerInfo.breakTime = newTime
         }
 
-        valids["repeats"] = remember {mutableStateOf(true)}
+        valids["repeats"] = remember { mutableStateOf(true) }
         firsts["repeats"] = remember { mutableStateOf(true) }
 
         LabeledErrorTextField(

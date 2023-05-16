@@ -1,4 +1,5 @@
 package be.ugent.sel.studeez.screens.home
+
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel

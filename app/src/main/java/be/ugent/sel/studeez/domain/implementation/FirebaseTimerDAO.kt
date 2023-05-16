@@ -1,6 +1,7 @@
 package be.ugent.sel.studeez.domain.implementation
 
-import be.ugent.sel.studeez.data.local.models.timer_info.*
+import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
+import be.ugent.sel.studeez.data.local.models.timer_info.TimerJson
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.TimerDAO
 import com.google.firebase.firestore.CollectionReference
@@ -29,7 +30,7 @@ class FirebaseTimerDAO @Inject constructor(
         // Wrap default timers in een flow en combineer met de userTimer flow.
         val defaultTimers: List<TimerInfo> = configurationService.getDefaultTimers()
         val defaultTimersFlow: Flow<List<TimerInfo>> = flowOf(defaultTimers)
-        val userTimersFlow: Flow<List<TimerInfo>> =  getUserTimers()
+        val userTimersFlow: Flow<List<TimerInfo>> = getUserTimers()
         return defaultTimersFlow.combine(userTimersFlow) { defaultTimersList, userTimersList ->
             defaultTimersList + userTimersList
         }

@@ -1,11 +1,10 @@
 package be.ugent.sel.studeez.domain.implementation
 
-import androidx.compose.runtime.collectAsState
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.data.local.models.Friendship
 import be.ugent.sel.studeez.data.remote.FirebaseFriendship.ACCEPTED
-import be.ugent.sel.studeez.data.remote.FirebaseFriendship.FRIENDSSINCE
 import be.ugent.sel.studeez.data.remote.FirebaseFriendship.FRIENDID
+import be.ugent.sel.studeez.data.remote.FirebaseFriendship.FRIENDSSINCE
 import be.ugent.sel.studeez.domain.AccountDAO
 import be.ugent.sel.studeez.domain.FriendshipDAO
 import be.ugent.sel.studeez.domain.implementation.FirebaseCollections.FRIENDS_COLLECTION
@@ -27,7 +26,7 @@ import be.ugent.sel.studeez.R.string as AppText
 class FirebaseFriendshipDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: AccountDAO
-): FriendshipDAO {
+) : FriendshipDAO {
 
     private fun currentUserDocument(): DocumentReference = firestore
         .collection(USER_COLLECTION)
@@ -75,24 +74,44 @@ class FirebaseFriendshipDAO @Inject constructor(
         val currentUserId: String = auth.currentUserId
         val otherUserId: String = id
 
-        // Add entry to current user
-        currentUserDocument()
-            .collection(FRIENDS_COLLECTION)
-            .add(mapOf(
-                FRIENDID to otherUserId,
-                ACCEPTED to true, // TODO Make it not automatically accepted.
-                FRIENDSSINCE to Timestamp.now()
-            ))
-
-        // Add entry to other user
+        // Check if the friendship already exists for the logged in user
+        var allowed = false
         firestore.collection(USER_COLLECTION)
-            .document(otherUserId)
+            .document(currentUserId)
             .collection(FRIENDS_COLLECTION)
-            .add(mapOf(
-                FRIENDID to currentUserId,
-                ACCEPTED to true, // TODO Make it not automatically accepted.
-                FRIENDSSINCE to Timestamp.now()
-            ))
+            .whereEqualTo(FRIENDID, otherUserId)
+            .get()
+            .addOnSuccessListener {
+                allowed = it.documents.isEmpty()
+
+                if (allowed) {
+                    // Add entry to current user
+                    currentUserDocument()
+                        .collection(FRIENDS_COLLECTION)
+                        .add(
+                            mapOf(
+                                FRIENDID to otherUserId,
+                                ACCEPTED to true, // TODO Make it not automatically accepted.
+                                FRIENDSSINCE to Timestamp.now()
+                            )
+                        )
+
+                    // Add entry to other user
+                    firestore.collection(USER_COLLECTION)
+                        .document(otherUserId)
+                        .collection(FRIENDS_COLLECTION)
+                        .add(
+                            mapOf(
+                                FRIENDID to currentUserId,
+                                ACCEPTED to true, // TODO Make it not automatically accepted.
+                                FRIENDSSINCE to Timestamp.now()
+                            )
+                        )
+                }
+            }.addOnSuccessListener {
+                val message = if (allowed) AppText.success else AppText.already_friend
+                SnackbarManager.showMessage(message)
+            }
 
         return true
     }

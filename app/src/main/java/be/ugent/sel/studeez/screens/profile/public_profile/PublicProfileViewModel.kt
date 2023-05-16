@@ -18,7 +18,7 @@ class PublicProfileViewModel @Inject constructor(
     private val friendshipDAO: FriendshipDAO,
     selectedUserIdState: SelectedUserId,
     logService: LogService
-): StudeezViewModel(logService) {
+) : StudeezViewModel(logService) {
 
     val uiState = mutableStateOf(
         PublicProfileUiState(
@@ -53,8 +53,8 @@ class PublicProfileViewModel @Inject constructor(
 
     fun sendFriendRequest(
         userId: String
-    ): Boolean {
-        return friendshipDAO.sendFriendshipRequest(userId)
+    ) {
+        friendshipDAO.sendFriendshipRequest(userId)
     }
 
 }

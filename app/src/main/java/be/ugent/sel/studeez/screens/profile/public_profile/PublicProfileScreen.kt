@@ -30,7 +30,7 @@ data class PublicProfileActions(
     val getUserDetails: () -> Flow<User>,
     val getAmountOfFriends: () -> Flow<Int>,
     val onViewFriendsClick: () -> Unit,
-    val sendFriendRequest: () -> Boolean
+    val sendFriendRequest: () -> Unit
 )
 
 fun getPublicProfileActions(
@@ -39,13 +39,17 @@ fun getPublicProfileActions(
 ): PublicProfileActions {
     return PublicProfileActions(
         getUserDetails = { viewModel.getUserDetails(viewModel.uiState.value.userId) },
-        getAmountOfFriends = { viewModel.getAmountOfFriends(
-            userId = viewModel.uiState.value.userId
-        ) },
+        getAmountOfFriends = {
+            viewModel.getAmountOfFriends(
+                userId = viewModel.uiState.value.userId
+            )
+        },
         onViewFriendsClick = { viewModel.onViewFriendsClick(open) },
-        sendFriendRequest = { viewModel.sendFriendRequest(
-            userId = viewModel.uiState.value.userId
-        ) }
+        sendFriendRequest = {
+            viewModel.sendFriendRequest(
+                userId = viewModel.uiState.value.userId
+            )
+        }
     )
 }
 
@@ -121,15 +125,17 @@ fun PublicProfilePreview() {
         PublicProfileScreen(
             publicProfileActions = PublicProfileActions(
                 getUserDetails = {
-                    flowOf(User(
-                        id = "someid",
-                        username = "Maxime De Poorter",
-                        biography = "I am a different student and this is my public profile"
-                    ))
+                    flowOf(
+                        User(
+                            id = "someid",
+                            username = "Maxime De Poorter",
+                            biography = "I am a different student and this is my public profile"
+                        )
+                    )
                 },
                 getAmountOfFriends = { flowOf(113) },
                 onViewFriendsClick = {},
-                sendFriendRequest = { true }
+                sendFriendRequest = {}
             ),
             popUp = {}
         )
@@ -138,7 +144,7 @@ fun PublicProfilePreview() {
 
 @Composable
 fun PublicProfileEllipsis(
-    sendFriendRequest: () -> Boolean
+    sendFriendRequest: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -147,8 +153,7 @@ fun PublicProfileEllipsis(
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_more_horizontal),
-            contentDescription = resources().getString(AppText.view_more),
-            modifier = Modifier.fillMaxSize()
+            contentDescription = resources().getString(AppText.view_more)
         )
     }
 
@@ -172,7 +177,7 @@ fun PublicProfileEllipsis(
 fun PublicProfileEllipsisPreview() {
     StudeezTheme {
         PublicProfileEllipsis(
-            sendFriendRequest = { true }
+            sendFriendRequest = {}
         )
     }
 }

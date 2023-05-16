@@ -12,11 +12,12 @@ class GetSessionScreenComposable(
     private val soundPlayer: SoundPlayer,
     private val open: (String) -> Unit,
     private val sessionActions: SessionActions
-    ) :
+) :
     FunctionalTimerVisitor<@Composable () -> Unit> {
 
     override fun visitFunctionalCustomTimer(functionalCustomTimer: FunctionalCustomTimer): @Composable () -> Unit {
-        return { CustomTimerSessionScreenComposable(
+        return {
+            CustomTimerSessionScreenComposable(
                 open = open,
                 sessionActions = sessionActions,
                 soundPlayer = soundPlayer,

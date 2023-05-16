@@ -82,7 +82,7 @@ fun EditProfileScreen(
                 )
             }
             item {
-                 BasicTextButton(
+                BasicTextButton(
                     text = AppText.delete_profile,
                     Modifier.textButton(),
                     action = editProfileActions.onDeleteClick

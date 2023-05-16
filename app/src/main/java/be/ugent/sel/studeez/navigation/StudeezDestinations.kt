@@ -4,7 +4,7 @@ object StudeezDestinations {
     // NavBar
     const val HOME_SCREEN = "home"
     const val SUBJECT_SCREEN = "subjects"
-    const val SESSIONS_SCREEN = "sessions"
+    const val FRIENDS_FEED = "friends_feed"
     const val PROFILE_SCREEN = "profile"
 
     // Drawer

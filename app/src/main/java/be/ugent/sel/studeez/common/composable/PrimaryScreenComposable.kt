@@ -57,11 +57,15 @@ fun PrimaryScreenTemplate(
         bottomBar = { NavigationBar(navigationBarActions) },
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
-        floatingActionButton = { AddButton(AddButtonActions(
-            onTaskClick = navigationBarActions.onAddTaskClick,
-            onFriendClick = navigationBarActions.onAddFriendClick,
-            onSessionClick = navigationBarActions.onAddSessionClick
-        )) }
+        floatingActionButton = {
+            AddButton(
+                AddButtonActions(
+                    onTaskClick = navigationBarActions.onAddTaskClick,
+                    onFriendClick = navigationBarActions.onAddFriendClick,
+                    onSessionClick = navigationBarActions.onAddSessionClick
+                )
+            )
+        }
     ) {
         content(it)
     }

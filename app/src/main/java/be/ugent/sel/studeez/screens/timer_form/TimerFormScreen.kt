@@ -18,10 +18,10 @@ fun TimerAddRoute(
     TimerFormScreen(
         popUp = popUp,
         getTimerInfo = viewModel::getTimerInfo,
-        extraButton= { },
+        extraButton = { },
         AppText.add_timer
     ) {
-        viewModel.saveTimer(it, goBack = {popUp(); popUp()})
+        viewModel.saveTimer(it, goBack = { popUp(); popUp() })
 
     }
 }
@@ -42,7 +42,7 @@ fun TimerEditRoute(
     TimerFormScreen(
         popUp = popUp,
         getTimerInfo = viewModel::getTimerInfo,
-        extraButton= { deleteButton() },
+        extraButton = { deleteButton() },
         AppText.edit_timer
     ) {
         viewModel.editTimer(it, goBack = popUp)

@@ -2,26 +2,14 @@ package be.ugent.sel.studeez.common.composable
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -87,7 +75,7 @@ fun StealthButton(
 ) {
     //val clickablemodifier = if (disabled) Modifier.clickable(indication = null) else modifier
     val borderColor = if (enabled) MaterialTheme.colors.primary
-                      else MaterialTheme.colors.onSurface.copy(alpha = 0.3f)
+    else MaterialTheme.colors.onSurface.copy(alpha = 0.3f)
     BasicButton(
         text = text,
         onClick = onClick,

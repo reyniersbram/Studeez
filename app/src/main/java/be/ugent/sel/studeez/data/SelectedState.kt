@@ -48,6 +48,6 @@ class SelectedTimerInfo @Inject constructor() : SelectedState<TimerInfo>() {
 @Singleton
 class SelectedUserId @Inject constructor(
     userDAO: UserDAO
-): SelectedState<String>() {
+) : SelectedState<String>() {
     override var value: String = userDAO.getCurrentUserId()
 }

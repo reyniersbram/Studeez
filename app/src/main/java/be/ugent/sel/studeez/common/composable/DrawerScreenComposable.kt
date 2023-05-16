@@ -29,20 +29,22 @@ fun DrawerScreenTemplate(
     Scaffold(
         scaffoldState = scaffoldState,
 
-        topBar = { TopAppBar(
-            title = { Text(text = title) },
-            navigationIcon = {
-                IconButton(onClick = {
-                    coroutineScope.launch { scaffoldState.drawerState.open() }
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.Menu,
-                        contentDescription = resources().getString(AppText.menu)
-                    )
-                }
-            },
-            actions = barAction
-        )},
+        topBar = {
+            TopAppBar(
+                title = { Text(text = title) },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        coroutineScope.launch { scaffoldState.drawerState.open() }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = resources().getString(AppText.menu)
+                        )
+                    }
+                },
+                actions = barAction
+            )
+        },
 
         drawerContent = {
             Drawer(drawerActions)
@@ -55,10 +57,12 @@ fun DrawerScreenTemplate(
 @Preview
 @Composable
 fun DrawerScreenPreview() {
-    StudeezTheme { DrawerScreenTemplate(
-        title = "Drawer screen preview",
-        drawerActions =DrawerActions({}, {}, {}, {}, {})
-    ) {
-        Text(text = "Preview content")
-    } }
+    StudeezTheme {
+        DrawerScreenTemplate(
+            title = "Drawer screen preview",
+            drawerActions = DrawerActions({}, {}, {}, {}, {})
+        ) {
+            Text(text = "Preview content")
+        }
+    }
 }

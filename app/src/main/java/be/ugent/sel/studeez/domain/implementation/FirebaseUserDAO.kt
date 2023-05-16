@@ -80,10 +80,12 @@ class FirebaseUserDAO @Inject constructor(
         newUsername: String,
         newBiography: String
     ) {
-        currentUserDocument().set(mapOf(
-            USERNAME to newUsername,
-            BIOGRAPHY to newBiography
-        ))
+        currentUserDocument().set(
+            mapOf(
+                USERNAME to newUsername,
+                BIOGRAPHY to newBiography
+            )
+        )
     }
 
     override suspend fun deleteLoggedInUserReferences() {

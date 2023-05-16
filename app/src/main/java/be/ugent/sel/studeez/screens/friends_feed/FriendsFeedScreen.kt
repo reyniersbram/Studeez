@@ -1,28 +1,81 @@
-package be.ugent.sel.studeez.common.composable.feed
+package be.ugent.sel.studeez.screens.friends_feed
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import be.ugent.sel.studeez.common.composable.StealthButton
+import be.ugent.sel.studeez.common.composable.DateText
+import be.ugent.sel.studeez.common.composable.PrimaryScreenTemplate
+import be.ugent.sel.studeez.common.composable.drawer.DrawerActions
+import be.ugent.sel.studeez.common.composable.feed.LoadingFeed
+import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.timer_functional.HoursMinutesSeconds
+import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
-fun FeedEntry(
-    feedEntry: FeedEntry,
-    continueWithTask: () -> Unit,
+fun FriendsFeedRoute(
+    viewModel: FriendsFeedViewModel,
+    drawerActions: DrawerActions,
+    navigationBarActions: NavigationBarActions
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    FriendsFeedScreen(
+        drawerActions = drawerActions,
+        navigationBarActions = navigationBarActions,
+        uiState = uiState,
+    )
+}
+
+@Composable
+fun FriendsFeedScreen(
+    drawerActions: DrawerActions,
+    navigationBarActions: NavigationBarActions,
+    uiState: FriendsFeedUiState,
+) {
+    PrimaryScreenTemplate(
+        title = resources().getString(AppText.friends_feed),
+        drawerActions = drawerActions,
+        navigationBarActions = navigationBarActions
+    ) {
+        when (uiState) {
+            FriendsFeedUiState.Loading -> LoadingFeed()
+            is FriendsFeedUiState.Succes -> {
+                val friendsSessions = uiState.friendSessions
+
+                LazyColumn {
+                    // Default Timers, cannot be edited
+                    items(friendsSessions) {
+                        val (day, feedEntries) = it
+                        DateText(date = day)
+                        feedEntries.forEach { (name, feedEntry) ->
+                            FriendsFeedEntry(name = name, feedEntry = feedEntry)
+                        }
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun FriendsFeedEntry(
+    name: String, feedEntry: FeedEntry
 ) {
     Card(
         modifier = Modifier
@@ -53,10 +106,10 @@ fun FeedEntry(
                 ) {
                     Column(
                         verticalArrangement = Arrangement.spacedBy(0.dp),
-                        modifier = Modifier.weight(13f)
+                        modifier = Modifier.weight(10f),
                     ) {
                         Text(
-                            text = feedEntry.subJectName,
+                            text = "$name studied for ${feedEntry.subJectName}",
                             fontWeight = FontWeight.Medium,
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1,
@@ -69,52 +122,12 @@ fun FeedEntry(
                     }
                     Text(
                         text = HoursMinutesSeconds(feedEntry.totalStudyTime).toString(),
-                        modifier = Modifier.weight(6f),
+                        modifier = Modifier
+                            .weight(3f)
+                            .padding(start = 5.dp),
                     )
                 }
             }
-            val buttonText: Int =
-                if (feedEntry.isArchived) AppText.deleted else AppText.continue_task
-            StealthButton(
-                text = buttonText,
-                enabled = !feedEntry.isArchived,
-                modifier = Modifier
-                    .padding(start = 10.dp, end = 5.dp)
-                    .weight(6f)
-            ) {
-                if (!feedEntry.isArchived) {
-                    continueWithTask()
-                }
-            }
-
         }
     }
-}
-
-@Preview
-@Composable
-fun FeedEntryPreview() {
-    FeedEntry(
-        continueWithTask = {},
-        feedEntry = FeedEntry(
-            argb_color = 0xFFFFD200,
-            subJectName = "Test Subject",
-            taskName = "Test Task",
-            totalStudyTime = 20,
-        )
-    )
-}
-
-@Preview
-@Composable
-fun FeedEntryOverflowPreview() {
-    FeedEntry(
-        continueWithTask = {},
-        feedEntry = FeedEntry(
-            argb_color = 0xFFFFD200,
-            subJectName = "Test Subject",
-            taskName = "Test Taskkkkkkkkkkkkkkkkkkkkkkkkk",
-            totalStudyTime = 20,
-        )
-    )
 }

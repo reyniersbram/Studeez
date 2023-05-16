@@ -1,10 +1,8 @@
 package be.ugent.sel.studeez.screens.friends.friends_search
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -21,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.ProfilePicture
-import be.ugent.sel.studeez.common.composable.SearchField
 import be.ugent.sel.studeez.common.composable.drawer.DrawerEntry
 import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.resources
@@ -82,14 +79,16 @@ fun SearchFriendsScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    SearchField(
-                        value = query,
-                        onValueChange = { newValue ->
-                            searchFriendsActions.onQueryStringChange(newValue)
-                            query = newValue
-                        },
-                        onSubmit = { },
-                        label = AppText.search_friends
+                    // TODO Make search field
+//                    SearchField(
+//                        value = uiState.queryString,
+//                        onValueChange = friendsOverviewActions.onQueryStringChange,
+//                        onSubmit = friendsOverviewActions.onSubmit,
+//                        label = AppText.search_friends,
+//                        enabled = false
+//                    )
+                    Text(
+                        text = stringResource(id = AppText.searching_friends)
                     )
                 },
                 navigationIcon = {
@@ -106,7 +105,7 @@ fun SearchFriendsScreen(
         LazyColumn(
             modifier = Modifier.padding(paddingValues)
         ) {
-            items (searchResults.value) { user ->
+            items(searchResults.value) { user ->
                 UserEntry(
                     user = user,
                     goToProfile = searchFriendsActions.goToProfile
@@ -124,21 +123,29 @@ fun SearchFriendsPreview() {
             popUp = {},
             uiState = SearchFriendUiState(
                 queryString = "dit is een test",
-                searchResults = flowOf(listOf(User(
-                    id = "someid",
-                    username = "Eerste user",
-                    biography = "blah blah blah"
-                )))
+                searchResults = flowOf(
+                    listOf(
+                        User(
+                            id = "someid",
+                            username = "Eerste user",
+                            biography = "blah blah blah"
+                        )
+                    )
+                )
             ),
             searchFriendsActions = SearchFriendsActions(
                 onQueryStringChange = {},
                 getUsersWithUsername = {},
                 getAllUsers = {
-                    flowOf(listOf(User(
-                        id = "someid",
-                        username = "Eerste user",
-                        biography = "blah blah blah"
-                    )))
+                    flowOf(
+                        listOf(
+                            User(
+                                id = "someid",
+                                username = "Eerste user",
+                                biography = "blah blah blah"
+                            )
+                        )
+                    )
                 },
                 goToProfile = { }
             )
@@ -164,11 +171,11 @@ fun UserEntry(
             ProfilePicture()
         }
 
-        Box (
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Column (
+            Column(
                 modifier = Modifier
                     .padding(vertical = 4.dp)
             ) {
@@ -179,7 +186,11 @@ fun UserEntry(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = "${resources().getString(AppText.app_name)} ${resources().getString(AppText.friend)}",
+                    text = "${resources().getString(AppText.app_name)} ${
+                        resources().getString(
+                            AppText.friend
+                        )
+                    }",
                     fontSize = 14.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis

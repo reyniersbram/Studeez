@@ -9,7 +9,7 @@ import be.ugent.sel.studeez.R.string as AppText
 
 class CustomTimerFormScreen(
     private val customTimerInfo: CustomTimerInfo
-    ): AbstractTimerFormScreen(customTimerInfo) {
+) : AbstractTimerFormScreen(customTimerInfo) {
 
     @Composable
     override fun ExtraFields() {

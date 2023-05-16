@@ -11,6 +11,6 @@ fun SimpleScreenTemplate(
     title: String,
     content: @Composable (PaddingValues) -> Unit
 ) {
-    Scaffold( topBar = { TopAppBar ( title = { Text(text = title) } ) }
+    Scaffold(topBar = { TopAppBar(title = { Text(text = title) }) }
     ) { paddingValues -> content(paddingValues) }
 }
