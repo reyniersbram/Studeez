@@ -4,6 +4,7 @@ import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.domain.LogService
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.SEARCH_FRIENDS_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SELECT_SUBJECT
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SESSIONS_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SUBJECT_SCREEN
@@ -38,8 +39,7 @@ class NavigationBarViewModel @Inject constructor(
     }
 
     fun onAddFriendClick(open: (String) -> Unit) {
-        // TODO open(SEARCH_FRIENDS_SCREEN)
-        SnackbarManager.showMessage(AppText.add_friend_not_possible_yet) // TODO Remove
+        open(SEARCH_FRIENDS_SCREEN)
     }
 
     fun onAddSessionClick(open: (String) -> Unit) {

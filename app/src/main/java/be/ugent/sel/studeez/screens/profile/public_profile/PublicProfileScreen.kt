@@ -18,6 +18,7 @@ import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.Headline
 import be.ugent.sel.studeez.common.composable.SecondaryScreenTemplate
 import be.ugent.sel.studeez.common.composable.drawer.DrawerEntry
+import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.data.local.models.User
 import be.ugent.sel.studeez.resources
 import be.ugent.sel.studeez.screens.profile.AmountOfFriendsButton
@@ -30,7 +31,7 @@ data class PublicProfileActions(
     val getUserDetails: () -> Flow<User>,
     val getAmountOfFriends: () -> Flow<Int>,
     val onViewFriendsClick: () -> Unit,
-    val sendFriendRequest: () -> Boolean
+    val sendFriendRequest: () -> Unit
 )
 
 fun getPublicProfileActions(
@@ -43,9 +44,11 @@ fun getPublicProfileActions(
             userId = viewModel.uiState.value.userId
         ) },
         onViewFriendsClick = { viewModel.onViewFriendsClick(open) },
-        sendFriendRequest = { viewModel.sendFriendRequest(
-            userId = viewModel.uiState.value.userId
-        ) }
+        sendFriendRequest = {
+            viewModel.sendFriendRequest(
+                userId = viewModel.uiState.value.userId
+            )
+        }
     )
 }
 
@@ -129,7 +132,7 @@ fun PublicProfilePreview() {
                 },
                 getAmountOfFriends = { flowOf(113) },
                 onViewFriendsClick = {},
-                sendFriendRequest = { true }
+                sendFriendRequest = {}
             ),
             popUp = {}
         )
@@ -138,7 +141,7 @@ fun PublicProfilePreview() {
 
 @Composable
 fun PublicProfileEllipsis(
-    sendFriendRequest: () -> Boolean
+    sendFriendRequest: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -147,8 +150,7 @@ fun PublicProfileEllipsis(
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_more_horizontal),
-            contentDescription = resources().getString(AppText.view_more),
-            modifier = Modifier.fillMaxSize()
+            contentDescription = resources().getString(AppText.view_more)
         )
     }
 
@@ -172,7 +174,7 @@ fun PublicProfileEllipsis(
 fun PublicProfileEllipsisPreview() {
     StudeezTheme {
         PublicProfileEllipsis(
-            sendFriendRequest = { true }
+            sendFriendRequest = {}
         )
     }
 }

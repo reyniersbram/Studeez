@@ -56,7 +56,7 @@ fun FeedEntry(
                     ) {
                         Text(
                             text = feedEntry.subJectName,
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.Medium,
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1,
                         )

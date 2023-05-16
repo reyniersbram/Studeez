@@ -136,6 +136,7 @@
     <string name="show_profile">Show profile</string>
     <string name="click_search_friends">Click to search friends</string>
     <string name="searching_friends">Searching friends</string>
+    <string name="already_friend">You are already befriended with that person.</string>
 
     <!-- ========== Create & edit screens ========== -->
 

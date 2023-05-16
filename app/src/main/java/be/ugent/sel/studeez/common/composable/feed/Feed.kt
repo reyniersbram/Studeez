@@ -81,7 +81,7 @@ fun FeedWithElements(
                 Text(
                     text = "${HoursMinutesSeconds(totalDayStudyTime)}",
                     fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Medium
                 )
             }
             feedEntries.forEach { feedEntry ->
