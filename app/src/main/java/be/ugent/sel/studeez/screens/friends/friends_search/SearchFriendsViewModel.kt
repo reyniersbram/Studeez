@@ -10,7 +10,7 @@ import be.ugent.sel.studeez.navigation.StudeezDestinations
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,8 +49,8 @@ class SearchFriendsViewModel @Inject constructor(
      */
     fun getAllUsers(): Flow<List<User>> {
         return userDAO.getAllUsers()
-            .filter { users ->
-                users.any { user ->
+            .map { users ->
+                users.filter { user ->
                     user.id != userDAO.getCurrentUserId()
                 }
             }
