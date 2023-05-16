@@ -15,4 +15,6 @@ interface TaskDAO {
     fun deleteTask(oldTask: Task)
 
     suspend fun getTask(subjectId: String, taskId: String): Task
+
+    suspend fun getTaskFromUser(subjectId: String, taskId: String, userId: String): Task
 }

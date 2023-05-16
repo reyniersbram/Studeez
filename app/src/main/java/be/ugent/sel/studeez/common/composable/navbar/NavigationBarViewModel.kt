@@ -2,6 +2,7 @@ package be.ugent.sel.studeez.common.composable.navbar
 
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.domain.LogService
+import be.ugent.sel.studeez.navigation.StudeezDestinations.FRIENDS_FEED
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SEARCH_FRIENDS_SCREEN
@@ -27,7 +28,7 @@ class NavigationBarViewModel @Inject constructor(
     }
 
     fun onSessionsClick(open: (String) -> Unit) {
-        open(SESSIONS_SCREEN)
+        open(FRIENDS_FEED)
     }
 
     fun onProfileClick(open: (String) -> Unit) {

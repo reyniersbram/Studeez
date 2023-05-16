@@ -1,6 +1,5 @@
 package be.ugent.sel.studeez.domain.implementation
 
-import android.util.Log
 import be.ugent.sel.studeez.data.local.models.task.Subject
 import be.ugent.sel.studeez.data.local.models.task.SubjectDocument
 import be.ugent.sel.studeez.data.local.models.task.Task
@@ -33,6 +32,10 @@ class FirebaseSubjectDAO @Inject constructor(
 
     override suspend fun getSubject(subjectId: String): Subject? {
         return currentUserSubjectsCollection().document(subjectId).get().await().toObject()
+    }
+
+    override suspend fun getSubjectOfUSer(subjectId: String, userId: String): Subject {
+        return currentUserSubjectsCollection(userId).document(subjectId).get().await().toObject()!!
     }
 
     override fun saveSubject(newSubject: Subject) {
@@ -74,14 +77,14 @@ class FirebaseSubjectDAO @Inject constructor(
             .map { tasks -> tasks.sumOf { it.time } }
     }
 
-    private fun currentUserSubjectsCollection(): CollectionReference =
+    private fun currentUserSubjectsCollection(id: String = auth.currentUserId): CollectionReference =
         firestore.collection(FirebaseCollections.USER_COLLECTION)
-            .document(auth.currentUserId)
+            .document(id)
             .collection(FirebaseCollections.SUBJECT_COLLECTION)
 
-    private fun subjectTasksCollection(subject: Subject): CollectionReference =
+    private fun subjectTasksCollection(subject: Subject, id: String = auth.currentUserId): CollectionReference =
         firestore.collection(FirebaseCollections.USER_COLLECTION)
-            .document(auth.currentUserId)
+            .document(id)
             .collection(FirebaseCollections.SUBJECT_COLLECTION)
             .document(subject.id)
             .collection(FirebaseCollections.TASK_COLLECTION)

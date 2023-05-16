@@ -20,4 +20,5 @@ interface SubjectDAO {
     fun getStudyTime(subject: Subject): Flow<Int>
 
     suspend fun getSubject(subjectId: String): Subject?
+    suspend fun getSubjectOfUSer(subjectId: String, userId: String): Subject
 }
