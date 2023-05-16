@@ -106,7 +106,7 @@ fun FriendsFeedEntry(
                 ) {
                     Column(
                         verticalArrangement = Arrangement.spacedBy(0.dp),
-                        modifier = Modifier.weight(10f),
+                        modifier = Modifier.weight(8f),
                     ) {
                         Text(
                             text = "$name studied for ${feedEntry.subJectName}",

@@ -1,13 +1,16 @@
 package be.ugent.sel.studeez.common.composable
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import be.ugent.sel.studeez.R
 import be.ugent.sel.studeez.common.composable.drawer.Drawer
@@ -67,7 +70,12 @@ fun PrimaryScreenTemplate(
             )
         }
     ) {
-        content(it)
+        Box(
+            modifier = Modifier.padding(bottom = it.calculateBottomPadding())
+        ) {
+
+            content(it)
+        }
     }
 }
 

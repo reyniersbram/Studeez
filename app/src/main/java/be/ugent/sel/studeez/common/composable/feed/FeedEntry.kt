@@ -69,7 +69,7 @@ fun FeedEntry(
                     }
                     Text(
                         text = HoursMinutesSeconds(feedEntry.totalStudyTime).toString(),
-                        modifier = Modifier.weight(6f),
+                        modifier = Modifier.weight(8f),
                     )
                 }
             }
