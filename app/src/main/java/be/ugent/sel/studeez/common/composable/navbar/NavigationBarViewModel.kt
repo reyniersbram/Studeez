@@ -7,7 +7,6 @@ import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SEARCH_FRIENDS_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SELECT_SUBJECT
-import be.ugent.sel.studeez.navigation.StudeezDestinations.SESSIONS_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SUBJECT_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
