@@ -127,7 +127,7 @@ fun StudeezNavGraph(
         }
 
 
-        composable(StudeezDestinations.SESSIONS_SCREEN) {
+        composable(StudeezDestinations.FRIENDS_FEED) {
             FriendsFeedRoute(
                 drawerActions = drawerActions,
                 navigationBarActions = navigationBarActions,
