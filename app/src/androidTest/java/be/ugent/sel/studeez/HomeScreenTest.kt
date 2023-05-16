@@ -140,7 +140,7 @@ class HomeScreenTest {
     fun navigationbarTest() {
         var hometest = false
         var tasktest = false
-        var sessiontest = false
+        var friendstest = false
         var profiletest = false
 
         composeTestRule.setContent {
@@ -150,7 +150,7 @@ class HomeScreenTest {
                     {false},
                     {hometest = true},
                     {tasktest = true},
-                    {sessiontest = true},
+                    {friendstest = true},
                     {profiletest = true},
                     {}, {}, {}
                 ),
@@ -183,7 +183,7 @@ class HomeScreenTest {
 
         composeTestRule
             .onNodeWithContentDescription(
-                "session",
+                "feed",
                 substring = true,
                 ignoreCase = true
             )
@@ -201,7 +201,7 @@ class HomeScreenTest {
 
         Assert.assertTrue(hometest)
         Assert.assertTrue(tasktest)
-        Assert.assertTrue(sessiontest)
+        Assert.assertTrue(friendstest)
         Assert.assertTrue(profiletest)
     }
 }
