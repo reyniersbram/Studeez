@@ -36,6 +36,9 @@
     <string name="your_feed">This is your feed</string>
     <string name="empty_feed_help_text">Click here to create you first subject and tasks to get started</string>
 
+    <!-- Friends Feed -->
+    <string name="friends_feed">Feed</string>
+
     <!-- Tasks -->
     <string name="tasks">Tasks</string>
     <string name="task">Task</string>
