@@ -150,8 +150,7 @@ fun PublicProfileEllipsis(
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_more_horizontal),
-            contentDescription = resources().getString(AppText.view_more),
-            modifier = Modifier.fillMaxSize()
+            contentDescription = resources().getString(AppText.view_more)
         )
     }
 
