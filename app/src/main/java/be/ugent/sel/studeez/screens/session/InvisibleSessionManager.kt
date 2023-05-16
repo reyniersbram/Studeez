@@ -10,9 +10,9 @@ object InvisibleSessionManager {
     private var viewModel: SessionViewModel? = null
     private lateinit var mediaPlayer: MediaPlayer
 
-    fun setParameters(viewModel: SessionViewModel, mediaplayer: MediaPlayer) {
+    fun setParameters(viewModel: SessionViewModel, mediaPlayer: MediaPlayer) {
+        this.mediaPlayer = mediaPlayer
         this.viewModel = viewModel
-        this.mediaPlayer = mediaplayer
     }
 
     suspend fun updateTimer() {

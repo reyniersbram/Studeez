@@ -2,19 +2,9 @@ package be.ugent.sel.studeez.common.composable
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
@@ -31,7 +21,11 @@ import be.ugent.sel.studeez.common.ext.defaultButtonShape
 import be.ugent.sel.studeez.R.string as AppText
 
 @Composable
-fun BasicTextButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit) {
+fun BasicTextButton(
+    @StringRes text: Int,
+    modifier: Modifier,
+    action: () -> Unit
+) {
     TextButton(
         onClick = action,
         modifier = modifier
@@ -48,6 +42,7 @@ fun BasicButton(
     modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
     border: BorderStroke? = null,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     Button(
@@ -56,6 +51,7 @@ fun BasicButton(
         shape = defaultButtonShape(),
         colors = colors,
         border = border,
+        enabled = enabled,
     ) {
         Text(
             text = stringResource(text),
@@ -74,17 +70,22 @@ fun BasicButtonPreview() {
 fun StealthButton(
     @StringRes text: Int,
     modifier: Modifier = Modifier.card(),
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
+    //val clickablemodifier = if (disabled) Modifier.clickable(indication = null) else modifier
+    val borderColor = if (enabled) MaterialTheme.colors.primary
+                      else MaterialTheme.colors.onSurface.copy(alpha = 0.3f)
     BasicButton(
         text = text,
         onClick = onClick,
         modifier = modifier,
+        enabled = enabled,
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.surface,
-            contentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.4f)
+            contentColor = borderColor
         ),
-        border = BorderStroke(3.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.4f))
+        border = BorderStroke(2.dp, borderColor)
     )
 }
 

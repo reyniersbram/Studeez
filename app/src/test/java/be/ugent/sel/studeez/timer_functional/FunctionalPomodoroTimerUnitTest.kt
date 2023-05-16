@@ -7,13 +7,14 @@ import org.junit.Test
 class FunctionalPomodoroTimerUnitTest : FunctionalTimerUnitTest() {
     private val breakTime = 10
     private val breaks = 2
+    private val repeats = 3 // = breaks + 1
     override val hours = 0
     override val minutes = 0
     override val seconds = 10
     private lateinit var pomodoroTimer: FunctionalPomodoroTimer
 
     override fun setTimer() {
-        pomodoroTimer = FunctionalPomodoroTimer(time, breakTime, breaks)
+        pomodoroTimer = FunctionalPomodoroTimer(time, breakTime, repeats)
     }
 
     @Test

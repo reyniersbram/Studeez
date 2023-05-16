@@ -16,11 +16,12 @@
     <string name="go_back">Go back</string>
     <string name="next">Next</string>
     <string name="start">Start</string>
+    <string name="view_more">View more</string>
 
     <!-- Messages -->
     <string name="success">Success!</string>
     <string name="try_again">Try again</string>
-    <string name="generic_error">Something wrong happened. Please try again.</string>
+    <string name="generic_error">Something went wrong. Please try again.</string>
     <string name="email_error">Please insert a valid email.</string>
 
     <!-- ========== NavBar ========== -->
@@ -29,10 +30,20 @@
     <string name="home">Home</string>
     <string name="start_session">Start session</string>
 
+    <!-- Feed-->
+    <string name="continue_task">Continue</string>
+    <string name="deleted">Deleted</string>
+    <string name="your_feed">This is your feed</string>
+    <string name="empty_feed_help_text">Click here to create you first subject and tasks to get started</string>
+
+    <!-- Friends Feed -->
+    <string name="friends_feed">Feed</string>
+
     <!-- Tasks -->
     <string name="tasks">Tasks</string>
     <string name="task">Task</string>
     <string name="my_subjects">My Subjects</string>
+    <string name="select_subject_title">Select Subject</string>
     <string name="new_subject">New Subject</string>
     <string name="new_task">New Task</string>
     <string name="edit_subject">Edit Subject</string>
@@ -40,6 +51,8 @@
     <string name="delete_subject">Delete Subject</string>
     <string name="delete_task">Delete Task</string>
     <string name="view_tasks">View</string>
+    <string name="select_subject">Select</string>
+    <string name="regenerate_color">Regenerate Color</string>
 
     <!-- Sessions -->
     <string name="sessions_temp_description">Looks like you found the sessions screen! In here, your upcoming studying sessions with friends will be listed. You can accept invites or edit your own.</string> <!-- TODO Remove this description line once implemented. -->
@@ -54,6 +67,7 @@
     <string name="edit_profile">Edit profile</string>
     <string name="editing_profile">Editing profile</string>
     <string name="delete_profile">Delete profile</string>
+    <string name="biography">Bio</string>
 
     <!-- ========== Drawer ========== -->
 
@@ -63,8 +77,15 @@
 
     <!-- Timers -->
     <string name="timers">Timers</string>
+    <string name="delete_timer">Delete Timer</string>
     <string name="edit">Edit</string>
     <string name="add_timer">Add timer</string>
+
+    <string name="name_error">Name should not be blank</string>
+    <string name="description_error">Description should not be blank</string>
+    <string name="fill_out_error">Fill out all the fields correctly!</string>
+
+
     <string name="pick_time">Select time</string>
     <string name="state_focus">Focus!</string>
     <plurals name="state_focus_remaining">
@@ -106,7 +127,19 @@
 
     <string name="friends">Friends</string>
     <string name="friend">Friend</string>
+    <plurals name="friends_amount">
+        <item quantity="one">%d Friend</item>
+        <item quantity="other">%d Friends</item>
+    </plurals>
     <string name="add_friend_not_possible_yet">Adding friends still needs to be implemented. Hang on tight!</string> <!-- TODO Remove this description line once implemented. -->
+    <string name="no_friends">You don\'t have any friends yet. Add one!</string>
+    <string name="search_friends">Search friends</string>
+    <string name="send_friend_request">Send friend request</string>
+    <string name="remove_friend">Remove as friend</string>
+    <string name="show_profile">Show profile</string>
+    <string name="click_search_friends">Click to search friends</string>
+    <string name="searching_friends">Searching friends</string>
+    <string name="already_friend">You are already befriended with that person.</string>
 
     <!-- ========== Create & edit screens ========== -->
 
@@ -142,5 +175,12 @@
     <string name="studyTime">Study Time</string>
     <string name="breakTime">Break Time</string>
     <string name="repeats">Number of Repeats</string>
+
+    <!-- Session Recap -->
+    <string name="congrats">"Congratulations! You studied: %s"</string>
+    <string name="how_did_it_go">How did it go?</string>
+    <string name="good">Good</string>
+    <string name="bad">Bad</string>
+
 
 </resources>

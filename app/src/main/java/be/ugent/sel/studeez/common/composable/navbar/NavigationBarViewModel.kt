@@ -2,9 +2,11 @@ package be.ugent.sel.studeez.common.composable.navbar
 
 import be.ugent.sel.studeez.common.snackbar.SnackbarManager
 import be.ugent.sel.studeez.domain.LogService
+import be.ugent.sel.studeez.navigation.StudeezDestinations.FRIENDS_FEED
 import be.ugent.sel.studeez.navigation.StudeezDestinations.HOME_SCREEN
 import be.ugent.sel.studeez.navigation.StudeezDestinations.PROFILE_SCREEN
-import be.ugent.sel.studeez.navigation.StudeezDestinations.SESSIONS_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.SEARCH_FRIENDS_SCREEN
+import be.ugent.sel.studeez.navigation.StudeezDestinations.SELECT_SUBJECT
 import be.ugent.sel.studeez.navigation.StudeezDestinations.SUBJECT_SCREEN
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +27,7 @@ class NavigationBarViewModel @Inject constructor(
     }
 
     fun onSessionsClick(open: (String) -> Unit) {
-        open(SESSIONS_SCREEN)
+        open(FRIENDS_FEED)
     }
 
     fun onProfileClick(open: (String) -> Unit) {
@@ -33,13 +35,11 @@ class NavigationBarViewModel @Inject constructor(
     }
 
     fun onAddTaskClick(open: (String) -> Unit) {
-        // TODO open(CREATE_TASK_SCREEN)
-        SnackbarManager.showMessage(AppText.create_task_not_possible_yet) // TODO Remove
+        open(SELECT_SUBJECT)
     }
 
     fun onAddFriendClick(open: (String) -> Unit) {
-        // TODO open(SEARCH_FRIENDS_SCREEN)
-        SnackbarManager.showMessage(AppText.add_friend_not_possible_yet) // TODO Remove
+        open(SEARCH_FRIENDS_SCREEN)
     }
 
     fun onAddSessionClick(open: (String) -> Unit) {

@@ -17,10 +17,12 @@ abstract class FunctionalTimer(initialValue: Int) {
 
     abstract fun hasCurrentCountdownEnded(): Boolean
 
-    fun getSessionReport(): SessionReport {
+    fun getSessionReport(subjectId: String, taskId: String): SessionReport {
         return SessionReport(
             studyTime = totalStudyTime,
-            endTime = Timestamp.now()
+            endTime = Timestamp.now(),
+            taskId = taskId,
+            subjectId = subjectId
         )
     }
 

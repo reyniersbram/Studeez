@@ -14,22 +14,26 @@ import be.ugent.sel.studeez.common.composable.drawer.getDrawerActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarActions
 import be.ugent.sel.studeez.common.composable.navbar.NavigationBarViewModel
 import be.ugent.sel.studeez.common.composable.navbar.getNavigationBarActions
+import be.ugent.sel.studeez.screens.friends.friends_overview.FriendsOveriewRoute
+import be.ugent.sel.studeez.screens.friends.friends_search.SearchFriendsRoute
+import be.ugent.sel.studeez.screens.friends_feed.FriendsFeedRoute
 import be.ugent.sel.studeez.screens.home.HomeRoute
 import be.ugent.sel.studeez.screens.log_in.LoginRoute
-import be.ugent.sel.studeez.screens.profile.EditProfileRoute
 import be.ugent.sel.studeez.screens.profile.ProfileRoute
+import be.ugent.sel.studeez.screens.profile.edit_profile.EditProfileRoute
+import be.ugent.sel.studeez.screens.profile.public_profile.PublicProfileRoute
 import be.ugent.sel.studeez.screens.session.SessionRoute
 import be.ugent.sel.studeez.screens.session_recap.SessionRecapRoute
-import be.ugent.sel.studeez.screens.sessions.SessionsRoute
 import be.ugent.sel.studeez.screens.settings.SettingsRoute
 import be.ugent.sel.studeez.screens.sign_up.SignUpRoute
 import be.ugent.sel.studeez.screens.splash.SplashRoute
-import be.ugent.sel.studeez.screens.tasks.SubjectRoute
+import be.ugent.sel.studeez.screens.subjects.SubjectRoute
+import be.ugent.sel.studeez.screens.subjects.form.SubjectCreateRoute
+import be.ugent.sel.studeez.screens.subjects.form.SubjectEditRoute
+import be.ugent.sel.studeez.screens.subjects.select.SubjectSelectionRoute
 import be.ugent.sel.studeez.screens.tasks.TaskRoute
-import be.ugent.sel.studeez.screens.tasks.forms.SubjectAddRoute
-import be.ugent.sel.studeez.screens.tasks.forms.SubjectEditRoute
-import be.ugent.sel.studeez.screens.tasks.forms.TaskAddRoute
-import be.ugent.sel.studeez.screens.tasks.forms.TaskEditRoute
+import be.ugent.sel.studeez.screens.tasks.form.TaskCreateRoute
+import be.ugent.sel.studeez.screens.tasks.form.TaskEditRoute
 import be.ugent.sel.studeez.screens.timer_form.TimerAddRoute
 import be.ugent.sel.studeez.screens.timer_form.TimerEditRoute
 import be.ugent.sel.studeez.screens.timer_form.timer_type_select.TimerTypeSelectScreen
@@ -51,6 +55,7 @@ fun StudeezNavGraph(
     val open: (String) -> Unit = { appState.navigate(it) }
     val openAndPopUp: (String, String) -> Unit =
         { route, popUp -> appState.navigateAndPopUp(route, popUp) }
+    val clearAndNavigate: (route: String) -> Unit = { route -> appState.clearAndNavigate(route) }
 
     val drawerActions: DrawerActions = getDrawerActions(drawerViewModel, open, openAndPopUp)
     val navigationBarActions: NavigationBarActions =
@@ -64,10 +69,11 @@ fun StudeezNavGraph(
         // NavBar
         composable(StudeezDestinations.HOME_SCREEN) {
             HomeRoute(
-                open,
-                viewModel = hiltViewModel(),
+                open = open,
                 drawerActions = drawerActions,
-                navigationBarActions = navigationBarActions
+                navigationBarActions = navigationBarActions,
+                feedViewModel = hiltViewModel(),
+                viewModel = hiltViewModel()
             )
         }
 
@@ -80,8 +86,16 @@ fun StudeezNavGraph(
             )
         }
 
+        composable(StudeezDestinations.SELECT_SUBJECT) {
+            SubjectSelectionRoute(
+                open = { openAndPopUp(it, StudeezDestinations.SELECT_SUBJECT) },
+                goBack = goBack,
+                viewModel = hiltViewModel(),
+            )
+        }
+
         composable(StudeezDestinations.ADD_SUBJECT_FORM) {
-            SubjectAddRoute(
+            SubjectCreateRoute(
                 goBack = goBack,
                 openAndPopUp = openAndPopUp,
                 viewModel = hiltViewModel(),
@@ -98,14 +112,14 @@ fun StudeezNavGraph(
 
         composable(StudeezDestinations.TASKS_SCREEN) {
             TaskRoute(
-                goBack = goBack,
+                goBack = { openAndPopUp(StudeezDestinations.SUBJECT_SCREEN, StudeezDestinations.TASKS_SCREEN) },
                 open = open,
                 viewModel = hiltViewModel(),
             )
         }
 
         composable(StudeezDestinations.ADD_TASK_FORM) {
-            TaskAddRoute(
+            TaskCreateRoute(
                 goBack = goBack,
                 openAndPopUp = openAndPopUp,
                 viewModel = hiltViewModel(),
@@ -121,10 +135,11 @@ fun StudeezNavGraph(
         }
 
 
-        composable(StudeezDestinations.SESSIONS_SCREEN) {
-            SessionsRoute(
+        composable(StudeezDestinations.FRIENDS_FEED) {
+            FriendsFeedRoute(
                 drawerActions = drawerActions,
-                navigationBarActions = navigationBarActions
+                navigationBarActions = navigationBarActions,
+                viewModel = hiltViewModel()
             )
         }
 
@@ -200,7 +215,7 @@ fun StudeezNavGraph(
 
         composable(StudeezDestinations.SESSION_RECAP) {
             SessionRecapRoute(
-                openAndPopUp = openAndPopUp,
+                clearAndNavigate = clearAndNavigate,
                 viewModel = hiltViewModel()
             )
         }
@@ -220,8 +235,28 @@ fun StudeezNavGraph(
         }
 
         // Friends flow
+        composable(StudeezDestinations.FRIENDS_OVERVIEW_SCREEN) {
+            FriendsOveriewRoute(
+                open = open,
+                popUp = goBack,
+                viewModel = hiltViewModel()
+            )
+        }
+
         composable(StudeezDestinations.SEARCH_FRIENDS_SCREEN) {
-            // TODO
+            SearchFriendsRoute(
+                popUp = goBack,
+                open = open,
+                viewModel = hiltViewModel()
+            )
+        }
+
+        composable(StudeezDestinations.PUBLIC_PROFILE_SCREEN) {
+            PublicProfileRoute(
+                popUp = goBack,
+                open = open,
+                viewModel = hiltViewModel()
+            )
         }
 
         // Create & edit screens

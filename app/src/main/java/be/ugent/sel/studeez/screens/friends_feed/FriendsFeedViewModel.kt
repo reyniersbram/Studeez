@@ -1,14 +1,15 @@
 package be.ugent.sel.studeez.screens.friends_feed
 
-import androidx.lifecycle.viewModelScope
+import be.ugent.sel.studeez.data.local.models.FeedEntry
+import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.domain.FeedDAO
 import be.ugent.sel.studeez.domain.LogService
+import be.ugent.sel.studeez.domain.SessionDAO
 import be.ugent.sel.studeez.screens.StudeezViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.toList
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,13 +18,10 @@ class FriendsFeedViewModel @Inject constructor(
     logService: LogService
 ) : StudeezViewModel(logService) {
 
-    val uiState: StateFlow<FriendsFeedUiState> = feedDAO.getFriendsSessions()
-        .map { it.toList() }
-        .map { FriendsFeedUiState.Succes(it) }
-        .stateIn(
-            scope = viewModelScope,
-            initialValue = FriendsFeedUiState.Loading,
-            started = SharingStarted.Eagerly,
-        )
+    fun getFriendsSessions(): Flow<List<Pair<String, List<Pair<String, FeedEntry>>>>> {
+        return feedDAO.getFriendsSessions().map { it.toList() }
+    }
+
+
 }
 

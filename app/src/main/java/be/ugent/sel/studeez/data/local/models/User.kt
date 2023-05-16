@@ -1,3 +1,9 @@
 package be.ugent.sel.studeez.data.local.models
 
-data class User(val id: String = "")
+import com.google.firebase.firestore.DocumentId
+
+data class User(
+    @DocumentId val id: String = "",
+    val username: String = "",
+    val biography: String = ""
+)

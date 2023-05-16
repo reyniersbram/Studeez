@@ -123,9 +123,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-perf-ktx'
     implementation 'com.google.firebase:firebase-config-ktx'
-
-    // Colorpicker
-    implementation 'com.github.skydoves:colorpicker-compose:1.0.2'
 }
 
 // Allow references to generate code

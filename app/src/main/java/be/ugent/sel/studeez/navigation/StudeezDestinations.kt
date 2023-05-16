@@ -4,7 +4,7 @@ object StudeezDestinations {
     // NavBar
     const val HOME_SCREEN = "home"
     const val SUBJECT_SCREEN = "subjects"
-    const val SESSIONS_SCREEN = "sessions"
+    const val FRIENDS_FEED = "friends_feed"
     const val PROFILE_SCREEN = "profile"
 
     // Drawer
@@ -27,10 +27,13 @@ object StudeezDestinations {
     const val EDIT_SUBJECT_FORM = "edit_subject"
     const val TASKS_SCREEN = "tasks"
     const val ADD_TASK_FORM = "add_task"
+    const val SELECT_SUBJECT = "select_subject"
     const val EDIT_TASK_FORM = "edit_task"
 
     // Friends flow
+    const val FRIENDS_OVERVIEW_SCREEN = "friends_overview"
     const val SEARCH_FRIENDS_SCREEN = "search_friends"
+    const val PUBLIC_PROFILE_SCREEN = "public_profile"
 
     // Create & edit screens
     const val CREATE_TASK_SCREEN = "create_task"

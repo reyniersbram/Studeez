@@ -1,12 +1,16 @@
 package be.ugent.sel.studeez.domain
 
+import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.SessionReport
+import be.ugent.sel.studeez.data.local.models.User
+import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
 import kotlinx.coroutines.flow.Flow
 
 interface SessionDAO {
 
     fun getSessions(): Flow<List<SessionReport>>
+    suspend fun getSessionsOfUser(userId: String): List<SessionReport>
 
     fun saveSession(newSessionReport: SessionReport)
 

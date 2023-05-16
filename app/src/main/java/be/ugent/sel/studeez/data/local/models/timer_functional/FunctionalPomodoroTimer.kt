@@ -2,17 +2,17 @@ package be.ugent.sel.studeez.data.local.models.timer_functional
 
 class FunctionalPomodoroTimer(
     private var studyTime: Int,
-    private var breakTime: Int, repeats: Int
+    private var breakTime: Int,
+    val repeats: Int
 ) : FunctionalTimer(studyTime) {
 
-    var breaksRemaining = repeats
+    var breaksRemaining = repeats - 1
     var isInBreak = false
 
     override fun tick() {
         if (hasEnded()) {
             return
         }
-
         if (hasCurrentCountdownEnded()) {
             if (isInBreak) {
                 breaksRemaining--
