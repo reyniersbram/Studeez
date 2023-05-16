@@ -52,7 +52,8 @@ fun FeedEntry(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Column(
-                        verticalArrangement = Arrangement.spacedBy(0.dp)
+                        verticalArrangement = Arrangement.spacedBy(0.dp),
+                        modifier = Modifier.weight(13f)
                     ) {
                         Text(
                             text = feedEntry.subJectName,
@@ -66,7 +67,10 @@ fun FeedEntry(
                             maxLines = 1,
                         )
                     }
-                    Text(text = HoursMinutesSeconds(feedEntry.totalStudyTime).toString())
+                    Text(
+                        text = HoursMinutesSeconds(feedEntry.totalStudyTime).toString(),
+                        modifier = Modifier.weight(6f),
+                    )
                 }
             }
             val buttonText: Int =
