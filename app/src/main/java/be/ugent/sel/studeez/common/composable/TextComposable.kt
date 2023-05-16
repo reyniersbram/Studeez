@@ -32,7 +32,7 @@ fun Headline(
 fun DateText(date: String) {
     Text(
         text = date,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
         modifier = Modifier.padding(horizontal = 10.dp)
     )
