@@ -23,10 +23,10 @@ fun SessionScreen(
     open: (String) -> Unit,
     sessionActions: SessionActions,
     callMediaPlayer: () -> Unit = {},
-    midSection: @Composable () -> Int = {0},
+    midSection: @Composable () -> Int = { 0 },
     motivationString: @Composable () -> String,
 
-) {
+    ) {
     Column(
         modifier = Modifier.padding(10.dp)
     ) {

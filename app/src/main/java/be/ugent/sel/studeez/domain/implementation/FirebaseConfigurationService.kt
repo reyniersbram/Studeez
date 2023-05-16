@@ -1,12 +1,12 @@
 package be.ugent.sel.studeez.domain.implementation
 
-import be.ugent.sel.studeez.data.local.models.timer_info.*
+import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
+import be.ugent.sel.studeez.data.local.models.timer_info.TimerJson
 import be.ugent.sel.studeez.domain.ConfigurationService
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.get
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.google.gson.Gson
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

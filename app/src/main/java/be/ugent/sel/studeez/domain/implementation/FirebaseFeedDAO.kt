@@ -42,14 +42,14 @@ class FirebaseFeedDAO @Inject constructor(
      */
     override suspend fun getFeedEntriesFromUser(id: String): Map<String, List<FeedEntry>> {
         return sessionDAO.getSessionsOfUser(id)
-                .map { sessionReport -> sessionToFeedEntryFromUser(sessionReport, id) }
-                .sortedByDescending { it.endTime }
-                .groupBy { getFormattedTime(it) }
-                .mapValues { (_, entries) ->
-                    entries
-                        .groupBy { it.taskId }
-                        .map { fuseFeedEntries(it.component2()) }
-                }
+            .map { sessionReport -> sessionToFeedEntryFromUser(sessionReport, id) }
+            .sortedByDescending { it.endTime }
+            .groupBy { getFormattedTime(it) }
+            .mapValues { (_, entries) ->
+                entries
+                    .groupBy { it.taskId }
+                    .map { fuseFeedEntries(it.component2()) }
+            }
     }
 
     override fun getFriendsSessions(): Flow<Map<String, List<Pair<String, FeedEntry>>>> {
@@ -70,7 +70,7 @@ class FirebaseFeedDAO @Inject constructor(
         val new: MutableMap<String, List<Pair<String, FeedEntry>>> = mutableMapOf()
         for ((name, map) in l) {
             for ((day, feedEntries: List<FeedEntry>) in map) {
-                new[day] = new.getOrDefault(day, listOf()) +  feedEntries.map { Pair(name, it) }
+                new[day] = new.getOrDefault(day, listOf()) + feedEntries.map { Pair(name, it) }
             }
         }
         return new
@@ -109,7 +109,11 @@ class FirebaseFeedDAO @Inject constructor(
         return makeFeedEntry(sessionReport, subject, task)
     }
 
-    private fun makeFeedEntry(sessionReport: SessionReport, subject: Subject, task: Task): FeedEntry {
+    private fun makeFeedEntry(
+        sessionReport: SessionReport,
+        subject: Subject,
+        task: Task
+    ): FeedEntry {
         return FeedEntry(
             argb_color = subject.argb_color,
             subJectName = subject.name,
@@ -125,7 +129,10 @@ class FirebaseFeedDAO @Inject constructor(
     /**
      * Convert a sessionReport to a feedEntry. Fetch Task and Subject to get names
      */
-    private suspend fun sessionToFeedEntryFromUser(sessionReport: SessionReport, id: String): FeedEntry {
+    private suspend fun sessionToFeedEntryFromUser(
+        sessionReport: SessionReport,
+        id: String
+    ): FeedEntry {
         val subjectId: String = sessionReport.subjectId
         val taskId: String = sessionReport.taskId
 

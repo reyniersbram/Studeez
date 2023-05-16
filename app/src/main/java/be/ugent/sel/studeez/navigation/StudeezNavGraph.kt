@@ -112,7 +112,12 @@ fun StudeezNavGraph(
 
         composable(StudeezDestinations.TASKS_SCREEN) {
             TaskRoute(
-                goBack = { openAndPopUp(StudeezDestinations.SUBJECT_SCREEN, StudeezDestinations.TASKS_SCREEN) },
+                goBack = {
+                    openAndPopUp(
+                        StudeezDestinations.SUBJECT_SCREEN,
+                        StudeezDestinations.TASKS_SCREEN
+                    )
+                },
                 open = open,
                 viewModel = hiltViewModel(),
             )

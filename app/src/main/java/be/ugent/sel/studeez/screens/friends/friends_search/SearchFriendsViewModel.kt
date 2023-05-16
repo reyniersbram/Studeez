@@ -18,7 +18,7 @@ class SearchFriendsViewModel @Inject constructor(
     private val userDAO: UserDAO,
     private val selectedProfileState: SelectedUserId,
     logService: LogService
-): StudeezViewModel(logService) {
+) : StudeezViewModel(logService) {
 
     var uiState = mutableStateOf(SearchFriendUiState())
         private set

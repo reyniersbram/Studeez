@@ -7,7 +7,7 @@ import be.ugent.sel.studeez.ui.theme.StudeezTheme
 
 class EndlessTimerFormScreen(
     endlessTimerInfo: EndlessTimerInfo
-): AbstractTimerFormScreen(endlessTimerInfo) {
+) : AbstractTimerFormScreen(endlessTimerInfo) {
 }
 
 @Preview

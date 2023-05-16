@@ -40,7 +40,9 @@ fun TimerTypeSelectScreen(
                 val default: TimerInfo = defaultTimerInfo.getValue(timerType)
                 Button(
                     onClick = { viewModel.onTimerTypeChosen(default, open) },
-                    modifier = Modifier.fillMaxWidth().padding(5.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(5.dp)
                 ) {
                     Text(text = timerType.name)
                 }

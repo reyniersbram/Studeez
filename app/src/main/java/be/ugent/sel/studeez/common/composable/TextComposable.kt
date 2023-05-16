@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 fun Headline(
     text: String
 ) {
-    Row (
+    Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center

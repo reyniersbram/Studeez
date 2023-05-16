@@ -75,7 +75,7 @@ fun StealthButton(
 ) {
     //val clickablemodifier = if (disabled) Modifier.clickable(indication = null) else modifier
     val borderColor = if (enabled) MaterialTheme.colors.primary
-                      else MaterialTheme.colors.onSurface.copy(alpha = 0.3f)
+    else MaterialTheme.colors.onSurface.copy(alpha = 0.3f)
     BasicButton(
         text = text,
         onClick = onClick,

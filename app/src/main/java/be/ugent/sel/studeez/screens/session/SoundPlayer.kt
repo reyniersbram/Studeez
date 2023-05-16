@@ -21,7 +21,7 @@ class SoundPlayer(private val context: Context) {
 
 
     private fun initPlayer(): MediaPlayer {
-        return  MediaPlayer.create(
+        return MediaPlayer.create(
             context,
             RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         )

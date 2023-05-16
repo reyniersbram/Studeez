@@ -21,18 +21,20 @@ fun SecondaryScreenTemplate(
 ) {
     Scaffold(
         // Everything at the top of the screen
-        topBar = { TopAppBar(
-            title = { Text(text = title) },
-            navigationIcon = {
-                IconButton(onClick = { popUp() }) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = resources().getString(R.string.go_back)
-                    )
-                }
-            },
-            actions = barAction
-        ) },
+        topBar = {
+            TopAppBar(
+                title = { Text(text = title) },
+                navigationIcon = {
+                    IconButton(onClick = { popUp() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = resources().getString(R.string.go_back)
+                        )
+                    }
+                },
+                actions = barAction
+            )
+        },
     ) { paddingValues ->
         content(paddingValues)
     }
@@ -41,8 +43,10 @@ fun SecondaryScreenTemplate(
 @Preview
 @Composable
 fun SecondaryScreenToolbarPreview() {
-    StudeezTheme { SecondaryScreenTemplate(
-        "Preview screen",
-        {}
-    ) {} }
+    StudeezTheme {
+        SecondaryScreenTemplate(
+            "Preview screen",
+            {}
+        ) {}
+    }
 }

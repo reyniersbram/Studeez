@@ -135,9 +135,11 @@ fun SessionRecapScreenPreview() {
     SessionRecapScreen(
         modifier = Modifier,
         sessionRecapActions = SessionRecapActions(
-            { SessionReport(
-                studyTime = 100,
-            ) },
+            {
+                SessionReport(
+                    studyTime = 100,
+                )
+            },
             {},
             {},
         )

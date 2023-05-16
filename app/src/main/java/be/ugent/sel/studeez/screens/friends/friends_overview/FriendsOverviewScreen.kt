@@ -95,24 +95,24 @@ fun FriendsOverviewScreen(
 //                        label = AppText.search_friends,
 //                        enabled = false
 //                    )
-                        IconButton(
-                            onClick = friendsOverviewActions.onSubmit,
+                    IconButton(
+                        onClick = friendsOverviewActions.onSubmit,
 //                            modifier = Modifier.background(
 //                                color = MaterialTheme.colors.background
 //                            ),
-                        ) {
-                            Row {
-                                Text(
-                                    text = stringResource(id = AppText.click_search_friends),
-                                    color = MaterialTheme.colors.onPrimary
-                                )
-                                Icon(
-                                    imageVector = Icons.Default.Search,
-                                    contentDescription = stringResource(AppText.search_friends),
-                                    tint = MaterialTheme.colors.onPrimary
-                                )
-                            }
+                    ) {
+                        Row {
+                            Text(
+                                text = stringResource(id = AppText.click_search_friends),
+                                color = MaterialTheme.colors.onPrimary
+                            )
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = stringResource(AppText.search_friends),
+                                tint = MaterialTheme.colors.onPrimary
+                            )
                         }
+                    }
                 },
                 navigationIcon = {
                     IconButton(onClick = popUp) {
@@ -126,7 +126,7 @@ fun FriendsOverviewScreen(
             )
         }
     ) { paddingValues ->
-        LazyColumn (
+        LazyColumn(
             modifier = Modifier.padding(paddingValues)
         ) {
             if (friends.value.isEmpty()) {
@@ -180,7 +180,7 @@ fun FriendsEntry(
     removeFriend: (Friendship) -> Unit
 ) {
     Card {
-        Row (
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 15.dp, vertical = 7.dp),
@@ -193,11 +193,11 @@ fun FriendsEntry(
                 ProfilePicture()
             }
 
-            Box (
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Column (
+                Column(
                     modifier = Modifier
                         .padding(vertical = 4.dp)
                 ) {
@@ -208,7 +208,11 @@ fun FriendsEntry(
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        text = "${resources().getString(AppText.app_name)} ${resources().getString(AppText.friend)}",
+                        text = "${resources().getString(AppText.app_name)} ${
+                            resources().getString(
+                                AppText.friend
+                            )
+                        }",
                         fontSize = 14.sp,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis

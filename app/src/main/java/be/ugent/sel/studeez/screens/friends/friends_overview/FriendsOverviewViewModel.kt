@@ -23,15 +23,17 @@ class FriendsOverviewViewModel @Inject constructor(
     logService: LogService
 ) : StudeezViewModel(logService) {
 
-    var uiState = mutableStateOf(FriendsOverviewUiState(
-        userId = selectedUserIdState.value
-    ))
+    var uiState = mutableStateOf(
+        FriendsOverviewUiState(
+            userId = selectedUserIdState.value
+        )
+    )
         private set
 
     fun getAllFriends(): Flow<List<Pair<User, Friendship>>> {
         return friendshipDAO.getAllFriendships(
-                userId = uiState.value.userId
-            )
+            userId = uiState.value.userId
+        )
             .flatMapConcat { friendships ->
                 val userFlows = friendships.map { friendship ->
                     userDAO.getUserDetails(friendship.friendId)

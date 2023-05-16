@@ -92,7 +92,8 @@ fun ProfileScreen(
             item {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(5.dp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .wrapContentWidth(align = Alignment.CenterHorizontally)
                 ) {
                     AmountOfFriendsButton(
@@ -140,7 +141,7 @@ fun ProfileScreenPreview() {
 fun AmountOfFriendsButton(
     amountOfFriends: Int,
     onClick: () -> Unit
-){
+) {
     Button(
         onClick = onClick,
         shape = defaultButtonShape()

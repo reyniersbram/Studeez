@@ -102,7 +102,7 @@ fun LabeledNumberInputField(
         singleLine = singleLine,
         label = { Text(resources().getString(label)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        onValueChange = {typedInt ->
+        onValueChange = { typedInt ->
             val isNumber = typedInt.matches(Regex("[1-9]+\\d*]"))
             if (isNumber) {
                 number = typedInt.toInt()
@@ -161,12 +161,11 @@ fun LabeledErrorTextField(
 }
 
 
-
- @Preview(showBackground = true)
- @Composable
- fun IntInputPreview() {
-     LabeledNumberInputField(value = 1, onNewValue = {}, label = AppText.email)
- }
+@Preview(showBackground = true)
+@Composable
+fun IntInputPreview() {
+    LabeledNumberInputField(value = 1, onNewValue = {}, label = AppText.email)
+}
 
 @Composable
 fun PasswordField(

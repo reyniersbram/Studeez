@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -27,7 +26,7 @@ import be.ugent.sel.studeez.R.string as AppText
 class FirebaseFriendshipDAO @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: AccountDAO
-): FriendshipDAO {
+) : FriendshipDAO {
 
     private fun currentUserDocument(): DocumentReference = firestore
         .collection(USER_COLLECTION)
@@ -89,21 +88,25 @@ class FirebaseFriendshipDAO @Inject constructor(
                     // Add entry to current user
                     currentUserDocument()
                         .collection(FRIENDS_COLLECTION)
-                        .add(mapOf(
-                            FRIENDID to otherUserId,
-                            ACCEPTED to true, // TODO Make it not automatically accepted.
-                            FRIENDSSINCE to Timestamp.now()
-                        ))
+                        .add(
+                            mapOf(
+                                FRIENDID to otherUserId,
+                                ACCEPTED to true, // TODO Make it not automatically accepted.
+                                FRIENDSSINCE to Timestamp.now()
+                            )
+                        )
 
                     // Add entry to other user
                     firestore.collection(USER_COLLECTION)
                         .document(otherUserId)
                         .collection(FRIENDS_COLLECTION)
-                        .add(mapOf(
-                            FRIENDID to currentUserId,
-                            ACCEPTED to true, // TODO Make it not automatically accepted.
-                            FRIENDSSINCE to Timestamp.now()
-                        ))
+                        .add(
+                            mapOf(
+                                FRIENDID to currentUserId,
+                                ACCEPTED to true, // TODO Make it not automatically accepted.
+                                FRIENDSSINCE to Timestamp.now()
+                            )
+                        )
                 }
             }.addOnSuccessListener {
                 val message = if (allowed) AppText.success else AppText.already_friend

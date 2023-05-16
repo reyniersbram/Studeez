@@ -21,7 +21,7 @@ class SignUpViewModel @Inject constructor(
     private val accountDAO: AccountDAO,
     private val userDAO: UserDAO,
     logService: LogService
-    ) : StudeezViewModel(logService) {
+) : StudeezViewModel(logService) {
     var uiState = mutableStateOf(SignUpUiState())
         private set
 
@@ -35,6 +35,7 @@ class SignUpViewModel @Inject constructor(
     fun onUsernameChange(newValue: String) {
         uiState.value = uiState.value.copy(username = newValue)
     }
+
     fun onEmailChange(newValue: String) {
         uiState.value = uiState.value.copy(email = newValue)
     }

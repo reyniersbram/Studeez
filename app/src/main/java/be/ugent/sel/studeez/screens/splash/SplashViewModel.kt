@@ -26,7 +26,7 @@ class SplashViewModel @Inject constructor(
         showError.value = false
         if (accountDAO.hasUser) {
             openAndPopUp(StudeezDestinations.HOME_SCREEN, StudeezDestinations.SPLASH_SCREEN)
-        } else{
+        } else {
             openAndPopUp(StudeezDestinations.SIGN_UP_SCREEN, StudeezDestinations.SPLASH_SCREEN)
         }
     }

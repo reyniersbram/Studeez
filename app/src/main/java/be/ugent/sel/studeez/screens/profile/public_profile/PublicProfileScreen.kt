@@ -39,9 +39,11 @@ fun getPublicProfileActions(
 ): PublicProfileActions {
     return PublicProfileActions(
         getUserDetails = { viewModel.getUserDetails(viewModel.uiState.value.userId) },
-        getAmountOfFriends = { viewModel.getAmountOfFriends(
-            userId = viewModel.uiState.value.userId
-        ) },
+        getAmountOfFriends = {
+            viewModel.getAmountOfFriends(
+                userId = viewModel.uiState.value.userId
+            )
+        },
         onViewFriendsClick = { viewModel.onViewFriendsClick(open) },
         sendFriendRequest = {
             viewModel.sendFriendRequest(
@@ -123,11 +125,13 @@ fun PublicProfilePreview() {
         PublicProfileScreen(
             publicProfileActions = PublicProfileActions(
                 getUserDetails = {
-                    flowOf(User(
-                        id = "someid",
-                        username = "Maxime De Poorter",
-                        biography = "I am a different student and this is my public profile"
-                    ))
+                    flowOf(
+                        User(
+                            id = "someid",
+                            username = "Maxime De Poorter",
+                            biography = "I am a different student and this is my public profile"
+                        )
+                    )
                 },
                 getAmountOfFriends = { flowOf(113) },
                 onViewFriendsClick = {},

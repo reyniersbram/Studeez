@@ -51,7 +51,10 @@ class FirebaseTaskDAO @Inject constructor(
         selectedSubjectTasksCollection(oldTask.subjectId).document(oldTask.id).delete()
     }
 
-    private fun selectedSubjectTasksCollection(subjectId: String, id: String = auth.currentUserId): CollectionReference =
+    private fun selectedSubjectTasksCollection(
+        subjectId: String,
+        id: String = auth.currentUserId
+    ): CollectionReference =
         firestore.collection(FirebaseCollections.USER_COLLECTION)
             .document(id)
             .collection(FirebaseCollections.SUBJECT_COLLECTION)

@@ -1,24 +1,15 @@
 package be.ugent.sel.studeez.domain.implementation
 
-import be.ugent.sel.studeez.data.local.models.FeedEntry
 import be.ugent.sel.studeez.data.local.models.SessionReport
-import be.ugent.sel.studeez.data.local.models.User
-import be.ugent.sel.studeez.data.local.models.task.Task
 import be.ugent.sel.studeez.data.local.models.timer_info.TimerInfo
-import be.ugent.sel.studeez.data.remote.FirebaseSessionReport
-import be.ugent.sel.studeez.data.remote.FirebaseSessionReport.ENDTIME
-import be.ugent.sel.studeez.data.remote.FirebaseSessionReport.STUDYTIME
-import be.ugent.sel.studeez.domain.*
+import be.ugent.sel.studeez.domain.AccountDAO
+import be.ugent.sel.studeez.domain.SessionDAO
 import be.ugent.sel.studeez.domain.implementation.FirebaseCollections.SESSION_COLLECTION
 import be.ugent.sel.studeez.domain.implementation.FirebaseCollections.USER_COLLECTION
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.firestore.ktx.snapshots
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject

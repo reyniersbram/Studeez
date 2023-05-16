@@ -131,15 +131,19 @@ fun ExpandedEntry(
 @Preview
 @Composable
 fun AddButtonPreview() {
-    StudeezTheme { AddButton(
-        addButtonActions = AddButtonActions({}, {}, {})
-    )}
+    StudeezTheme {
+        AddButton(
+            addButtonActions = AddButtonActions({}, {}, {})
+        )
+    }
 }
 
 @Preview
 @Composable
 fun ExpandedAddButtonPreview() {
-    StudeezTheme { ExpandedAddButton (
-        addButtonActions = AddButtonActions({}, {}, {})
-    ) }
+    StudeezTheme {
+        ExpandedAddButton(
+            addButtonActions = AddButtonActions({}, {}, {})
+        )
+    }
 }

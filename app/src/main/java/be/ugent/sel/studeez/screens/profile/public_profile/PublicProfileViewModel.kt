@@ -18,7 +18,7 @@ class PublicProfileViewModel @Inject constructor(
     private val friendshipDAO: FriendshipDAO,
     selectedUserIdState: SelectedUserId,
     logService: LogService
-): StudeezViewModel(logService) {
+) : StudeezViewModel(logService) {
 
     val uiState = mutableStateOf(
         PublicProfileUiState(

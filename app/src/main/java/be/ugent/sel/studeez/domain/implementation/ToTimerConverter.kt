@@ -1,6 +1,7 @@
 package be.ugent.sel.studeez.domain.implementation
 
 import be.ugent.sel.studeez.data.local.models.timer_info.*
+import be.ugent.sel.studeez.domain.implementation.ToTimerConverter.TimerFactory
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -15,32 +16,38 @@ import com.google.gson.reflect.TypeToken
 class ToTimerConverter {
 
     fun interface TimerFactory {
-        fun makeTimer(map: TimerJson) : TimerInfo
+        fun makeTimer(map: TimerJson): TimerInfo
     }
 
     private val timerInfoMap: Map<TimerType, TimerFactory> = mapOf(
-        TimerType.ENDLESS to TimerFactory { EndlessTimerInfo(
-            it.name,
-            it.description,
-            it.id
-        ) },
-        TimerType.CUSTOM to TimerFactory { CustomTimerInfo(
-            it.name,
-            it.description,
-            it.studyTime,
-            it.id
-        ) },
-        TimerType.BREAK to TimerFactory { PomodoroTimerInfo(
-            it.name,
-            it.description,
-            it.studyTime,
-            it.breakTime,
-            it.repeats,
-            it.id
-        ) }
+        TimerType.ENDLESS to TimerFactory {
+            EndlessTimerInfo(
+                it.name,
+                it.description,
+                it.id
+            )
+        },
+        TimerType.CUSTOM to TimerFactory {
+            CustomTimerInfo(
+                it.name,
+                it.description,
+                it.studyTime,
+                it.id
+            )
+        },
+        TimerType.BREAK to TimerFactory {
+            PomodoroTimerInfo(
+                it.name,
+                it.description,
+                it.studyTime,
+                it.breakTime,
+                it.repeats,
+                it.id
+            )
+        }
     )
 
-    private fun getTimer(timerJson: TimerJson): TimerInfo{
+    private fun getTimer(timerJson: TimerJson): TimerInfo {
         val type: TimerType = TimerType.valueOf(timerJson.type.uppercase())
         return timerInfoMap.getValue(type).makeTimer(timerJson)
     }

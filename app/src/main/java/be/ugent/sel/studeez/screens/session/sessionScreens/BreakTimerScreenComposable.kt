@@ -27,7 +27,7 @@ fun BreakSessionScreenComposable(
         sessionActions = sessionActions,
         midSection = { Dots(pomodoroTimer = pomodoroTimer) },
         callMediaPlayer = { soundPlayer.playOn(pomodoroTimer.hasCurrentCountdownEnded()) },
-        motivationString = { motivationString (pomodoroTimer = pomodoroTimer) }
+        motivationString = { motivationString(pomodoroTimer = pomodoroTimer) }
     )
 }
 
@@ -57,11 +57,13 @@ private fun Dots(pomodoroTimer: FunctionalPomodoroTimer): Int {
 
 @Composable
 private fun Dot(color: Color) {
-    Box(modifier = Modifier
-        .padding(5.dp)
-        .size(10.dp)
-        .clip(CircleShape)
-        .background(color))
+    Box(
+        modifier = Modifier
+            .padding(5.dp)
+            .size(10.dp)
+            .clip(CircleShape)
+            .background(color)
+    )
 }
 
 

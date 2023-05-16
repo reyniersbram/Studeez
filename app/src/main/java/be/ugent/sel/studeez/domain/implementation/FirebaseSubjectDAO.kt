@@ -82,7 +82,10 @@ class FirebaseSubjectDAO @Inject constructor(
             .document(id)
             .collection(FirebaseCollections.SUBJECT_COLLECTION)
 
-    private fun subjectTasksCollection(subject: Subject, id: String = auth.currentUserId): CollectionReference =
+    private fun subjectTasksCollection(
+        subject: Subject,
+        id: String = auth.currentUserId
+    ): CollectionReference =
         firestore.collection(FirebaseCollections.USER_COLLECTION)
             .document(id)
             .collection(FirebaseCollections.SUBJECT_COLLECTION)
